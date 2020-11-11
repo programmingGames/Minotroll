@@ -1,4 +1,4 @@
 class Name:
     def printer():
-        print ("funcional")
+        print ("funcioffewfewt")
 
