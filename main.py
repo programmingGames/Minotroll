@@ -6,9 +6,8 @@ from pygame.locals import *
 pygame.init()
 screen = pygame.display.set_mode((640, 480), 0, 32)
 
-
-#fr,ep,
-
+a = "Minotrrol"
+pygame.display.set_caption(a)
 
 while True:
     for event in pygame.event.get():
