@@ -3,7 +3,7 @@ import pygame
 from sys import exit
 from pygame.locals import *
 
-pygame.init()
+
 screen = pygame.display.set_mode((740, 500), 0, 32)
 
 a = "Minotroll"
