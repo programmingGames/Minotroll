@@ -6,6 +6,7 @@ from data.backgrounds import Backgound as Back
 #  Class for controling all the menu on the game
 class MainMenu(object):
     def __init__(self, screen, backgroundImage):
+        self.esc = 0
         self.screen = screen
         self.background = Back(backgroundImage)
         self.painel = pygame.image.load("resources/image/menu/initial_menu/painel.png").convert_alpha()
@@ -17,12 +18,11 @@ class MainMenu(object):
         self.settings1 = pygame.image.load("resources/image/menu/initial_menu/SettingsGame1.png").convert_alpha()
         self.quit = pygame.image.load("resources/image/menu/initial_menu/QuitGame.png").convert_alpha()
         self.quit1 = pygame.image.load("resources/image/menu/initial_menu/QuitGame1.png").convert_alpha()
-        pass
+
     # Method for rendering items on the screen
     def startingMenu(self, screen):
         self.background.settingBackground(self.screen)
         screen.blit(self.painel, (100, 60))
-        pass
 
     # Method to choose option in main menu
     def mainMenuEsc(self, screen, menuControl):
@@ -66,6 +66,16 @@ class MainMenu(object):
                 menuControl -= 50
         elif pressed_keys[K_ESCAPE]:
             exit()
+
+        if((pressed_keys[K_KP_ENTER])and(menuControl==150)):
+            self.esc = 1
+        elif ((pressed_keys[K_KP_ENTER])and(menuControl==200)):
+            self.esc = 2
+        elif ((pressed_keys[K_KP_ENTER])and(menuControl==250)):
+            self.esc = 3
+        elif ((pressed_keys[K_KP_ENTER])and(menuControl==300)):
+            self.esc = 4
+
         self.mainMenuEsc(screen, menuControl)       
-        return menuControl
+        return menuControl, self.esc
     pass
