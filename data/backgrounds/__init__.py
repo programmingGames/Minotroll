@@ -10,5 +10,4 @@ class Backgound(object):
         pass
     def movingComponnets(self):
         pass
-    pass
-        
+    pass 

@@ -35,5 +35,5 @@ class Textinput:
             self.color = self.color_passive
         pygame.draw.rect(screen, self.color, self.input_rect, 2)
         text_surface = self.base_font.render(self.text, True, (255, 255, 255))
-        screen.blit(text_surface, (input_rect.x + 5, input_rect.y + 5))
-        input_rect.w = max(100, text_surface.get_width() + 10)
+        screen.blit(text_surface, (self.input_rect.x + 5, self.input_rect.y + 5))
+        self.input_rect.w = max(100, text_surface.get_width() + 10)
