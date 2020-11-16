@@ -1,4 +1,8 @@
-class Name:
-    def printer():
-        print ("funcioffewfewt")
+import pygame 
+from pygame.locals import * 
+
+class Initiation:
+    def __init__(self, name):
+        self.name = name
+
 
