@@ -68,5 +68,4 @@ class MainMenu(object):
             exit()
         self.mainMenuEsc(screen, menuControl)       
         return menuControl
-        pass
     pass

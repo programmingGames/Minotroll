@@ -7,10 +7,12 @@ from pygame.locals import *
 
 
 screen = pygame.display.set_mode((700, 480), 0, 32)
+pygame.display.set_caption("Minotroll")
+
+# variable to control the main menu
 MainmenuControl = 150
-a = "Minotroll"
 menu = mainMenu(screen, 2)
-pygame.display.set_caption(a)
+
 
 while True:
     # pygame.event.wait()
