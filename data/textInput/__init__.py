@@ -3,10 +3,11 @@ from pygame.locals import *
 
 class Textinput:
     def __init__(self):
-        self.base_font = pygame.font.Font(None, 32)
+        pygame.init()
+        self.base_font = pygame.font.SysFont(None, 32)
         self.text = ''
         self.input_rect = pygame.Rect(200, 200, 140, 32)
-        self.color_active = pygame.Color('lightkyblue')
+        self.color_active = pygame.Color('lightskyblue3')
         self.color_passive = pygame.Color('gray15')
         self.color = self.color_passive
         self.active = False
@@ -21,7 +22,7 @@ class Textinput:
 
         # Pega todos os eventos de escrita do teclado
         if (event.type == pygame.KEYDOWN):
-
+            pygame.time.delay(100)
             # So escreve na caixa do teclado se a active estiver ativo
             if(self.active == True):
                 if (event.key == pygame.K_BACKSPACE):
@@ -29,7 +30,7 @@ class Textinput:
                 else:
                     self.text += event.unicode
 
-        if active:
+        if self.active:
             self.color = self.color_active
         else:
             self.color = self.color_passive
