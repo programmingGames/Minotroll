@@ -32,4 +32,5 @@ while True:
     else:
         menu.startingMenu(screen)
         MainmenuControl, menuEsc = menu.movingInMainMenu(screen, pressed_keys, MainmenuControl)
+        
     pygame.display.update()
