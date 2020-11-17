@@ -1,13 +1,17 @@
 import pygame 
 from pygame.locals import * 
+from data.backgrounds import Backgound as Back
 
 class Initiation:
     def __init__(self, screen, nrImage):
         self.screen = screen
-        self.background = pygame.Surface(screen.get_size())
-        self.background = self.background.convert()
+        self.background = Back(nrImage)
+        self.esc = 0
+
+    # Method to blit the start game font on the screen
     def settingStart(self, pressed_keys):
-        self.background.fill((0, 0, 0))
-        self.screen.blit(self.background, (0, 0))
+        self.background.settingBackground(self.screen)
         if(pressed_keys[K_KP_ENTER]):
-            return 1
+            pygame.time.delay(100)
+            self.esc = 1
+        return self.esc
