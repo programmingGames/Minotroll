@@ -39,8 +39,10 @@ while True:
     elif(menuEsc==1):
         menu.startingMenu(screen)
         MainmenuControl, menuEsc = menu.movingInMainMenu(screen, pressed_keys, MainmenuControl, menuEsc)
-    else:
+    elif(menuEsc==2):
         createUserMenuControl, menuEsc = user.settingUserMenu(pygameEvent, pressed_keys, menuEsc, createUserMenuControl)
+    else:
+        menu.startingMenu(screen)
+        MainmenuControl, menuEsc = menu.movingInMainMenu(screen, pressed_keys, MainmenuControl, menuEsc)
+        
     pygame.display.update()
-
-    
