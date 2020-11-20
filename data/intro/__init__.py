@@ -14,6 +14,8 @@ class Intro(object):
         # self.parts =
         
 
+        
+
     def introDisplay(self):
         self.background.settingBackground(self.screen)
         self.screen.blit(self.painel, (105, 70))
