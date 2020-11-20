@@ -1,6 +1,8 @@
 from data.start import Initiation as start
 from data.mainMenu import MainMenu as mainMenu
 from data.createUser import CreateUser as createUser
+from data.intro import Intro
+from data.plataforma import Plataform
 import pygame 
 from sys import exit
 from pygame.locals import *
@@ -20,6 +22,9 @@ menuEsc = 0
 initition = start(screen, 1)
 menu = mainMenu(screen, 2)
 user = createUser(screen, 2)
+intro = Intro(screen, 2)
+plataforma = Plataform(screen)
+
 
 clock = pygame.time.Clock()
 
@@ -34,6 +39,10 @@ while True:
             exit()
 
     pressed_keys = pygame.key.get_pressed()
+
+    if(pressed_keys[K_ESCAPE]):
+        exit()
+
     if(menuEsc==0):
         menuEsc = initition.settingStart(pressed_keys)
     elif(menuEsc==1):
@@ -41,8 +50,10 @@ while True:
         MainmenuControl, menuEsc = menu.movingInMainMenu(screen, pressed_keys, MainmenuControl, menuEsc)
     elif(menuEsc==2):
         createUserMenuControl, menuEsc = user.settingUserMenu(pygameEvent, pressed_keys, menuEsc, createUserMenuControl)
-    else:
-        menu.startingMenu(screen)
-        MainmenuControl, menuEsc = menu.movingInMainMenu(screen, pressed_keys, MainmenuControl, menuEsc)
+    elif(menuEsc==3):
+        menuEsc = intro.introDisplay()
+    elif(menuEsc == 4):
+        plataforma.settingPlataform()
         
+
     pygame.display.update()

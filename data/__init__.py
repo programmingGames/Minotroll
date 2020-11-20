@@ -1,7 +1,7 @@
 # data base pre-defenida padrao para armazenar dados ppor enquanto
 class Hysto:
     # Aqui a iniciação da instancia
-    def __inti__(self):
+    def __init__(self):
         # Tens de ir a historia do jogo e copiar paragrafos de texto e colocar em uma posição no vector
         self.text = [["Noutros tempos, nas profundezas de uma densa floresta, existia uma aldeia de trolls e golems que se  encontrava constantemente em guerra por território com os minotauros, mas o que eles não esperavam era que haveria um terceiro inimigo, que mais tarde atacou as duas aldeias, fazendo uma dizimação por completo."],
                         # exemplo ["era uma vez tata tata tata ...."]
@@ -14,17 +14,15 @@ class Hysto:
         # expmplo 5 vetores sera igual a 5 def de partes 
         # cada def parts returnara o vector contido nessa parte
     def part1(self):
-        return self.text[1]
-        pass
+        p = self.text[1]
+        return p[0]
+
     def part2(self):
         return self.text[2]
-        pass
+
     def part3(self):
         return self.text[3]
-        pass
+
     def part4(self):
         return self.text[4]
-        pass
 
-hist = Hysto()
-print(hist.part1())
