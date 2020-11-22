@@ -18,7 +18,14 @@ class Vector2:
         magnitude = self.get_magnitude()
         self.x /= magnitude
         self.y /= magnitude
-
+    def moveXpositive(self, move):
+        self.x += move
+    def moveXnegative(self, move):
+        self.x -= move
+    def moveYpositive(self, move):
+        self.y += move
+    def moveYnegative(self, move):
+        self.y -= move
     # rhs stands for Right Hand Side
     def __add__(self, rhs):
         return Vector2(self.x + rhs.x, self.y + rhs.y)

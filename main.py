@@ -3,6 +3,7 @@ from data.mainMenu import MainMenu as mainMenu
 from data.createUser import CreateUser as createUser
 from data.intro import Intro
 from data.plataforma import Plataform
+from data.player import Player
 import pygame 
 from sys import exit
 from pygame.locals import *
@@ -10,6 +11,8 @@ from pygame.locals import *
 screen = pygame.display.set_mode((700, 480), 0, 32)
 pygame.display.set_caption("Minotroll")
 
+
+collision_types = {'top':False, 'bottom':False, 'right':False, 'left':False}
 # variable to control the main menu
 MainmenuControl = 150
 # variable to control the create User menu
@@ -25,6 +28,7 @@ initition = start(screen, 1, menuEsc, nivel)
 menu = mainMenu(screen, 2, menuEsc, nivel)
 user = createUser(screen, 2, menuEsc, nivel)
 intro = Intro(screen, 2, menuEsc, nivel)
+player = Player(screen)
 plataforma = 0
 
 
@@ -33,7 +37,6 @@ clock = pygame.time.Clock()
 while True:
 
     # pygame.event.wait()
-    clock.tick(30)
     for event in pygame.event.get():
         pygameEvent = event
         if event.type == QUIT:
@@ -57,6 +60,9 @@ while True:
     elif(menuEsc == 4):
         plataforma = Plataform(screen, 1, menuEsc, nivel)
         tile_rects = plataforma.settingPlataform()
+        player.settingPlayer(pressed_keys, tile_rects, collision_types)
         
 
     pygame.display.update()
+    clock.tick(30)
+
