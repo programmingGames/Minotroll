@@ -11,8 +11,6 @@ from pygame.locals import *
 screen = pygame.display.set_mode((700, 480), 0, 32)
 pygame.display.set_caption("Minotroll")
 
-
-collision_types = {'top':False, 'bottom':False, 'right':False, 'left':False}
 # variable to control the main menu
 MainmenuControl = 150
 # variable to control the create User menu
@@ -60,9 +58,9 @@ while True:
     elif(menuEsc == 4):
         plataforma = Plataform(screen, 1, menuEsc, nivel)
         tile_rects = plataforma.settingPlataform()
-        player.settingPlayer(pressed_keys, tile_rects, collision_types)
-        
-
+        player.settingPlayer(pygameEvent, tile_rects)
+    
     pygame.display.update()
-    clock.tick(30)
+
+    clock.tick(60)
 

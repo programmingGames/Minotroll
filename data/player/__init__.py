@@ -8,80 +8,76 @@ class Player:
         self.air_timer = 0
         self.vertical_momentum = 0
         self.player_move = [0, 0]
-        self.player = pygame.image.load("resources/image/Golem/Walking/0_Goblin_Walking_000.png").convert_alpha()
+        self.player_img = pygame.image.load("resources/image/Golem/Walking/0_Goblin_Walking_000.png").convert_alpha()
         self.player_rect=pygame.Rect(50, 200, 5, 13)
+        self.moving_right = False
+        self.moving_left = False
+        self.vertical_momentum = 0
+        self.air_timer = 0
         # self.player_rect=pygame.Rect(50, 325, 5, 13)
-    def collision_test(self, tiles):
+    def collision_test(self, rect, tiles):
         hit_list = []
         for tile in tiles:
-            if (self.player_rect.colliderect(tile)):
+            if (rect.colliderect(tile)):
                 hit_list.append(tile)
         return hit_list
-    def playerCollision(self, tile_rects, collision, rect):
-        collision_types = collision
-        
-        # Testando as colissões
-        rect.x += self.player_move[0]
-        hit_list = self.collision_test(tile_rects)
+    def playerMove(self,rect,movement,tiles):
+        collision_types = {'top':False,'bottom':False,'right':False,'left':False}
+        rect.x += movement[0]
+        hit_list = self.collision_test(rect,tiles)
         for tile in hit_list:
-            if (self.player_move[0] > 0):
-                self.player_rect.right = tile.left
+            if movement[0] > 0:
+                rect.right = tile.left
                 collision_types['right'] = True
-            elif (self.player_move[0] < 0):
-                self.player_rect.left = tile.right
+            elif movement[0] < 0:
+                rect.left = tile.right
                 collision_types['left'] = True
-
-        rect.y += self.player_move[1]
-        print(rect)
-        hit_list = self.collision_test(tile_rects)
+        rect.y += movement[1]
+        hit_list = self.collision_test(rect,tiles)
         for tile in hit_list:
-            if (self.player_move[1] > 0):
-                self.player_rect.bottom = tile.top
+            if movement[1] > 0:
+                rect.bottom = tile.top
                 collision_types['bottom'] = True
-            elif (self.player_move[1] < 0):
-                self.player_rect.top = tile.bottom
+            elif movement[1] < 0:
+                rect.top = tile.bottom
                 collision_types['top'] = True
+        return rect, collision_types
         
-        return collision_types, rect
-        
-    def settingPlayer(self, press_keys, tile_rects, collision):    
-        self.player_move[1] += self.vertical_momentum
-        self.initialY = self.player_move[1]
-        self.vertical_momentum += 0.2
+    def settingPlayer(self, event, tile_rects):
+        player_movement = [0,0]
+        if self.moving_right == True:
+            player_movement[0] += 2
+        if self.moving_left == True:
+            player_movement[0] -= 2
+        player_movement[1] += self.vertical_momentum
+        self.vertical_momentum += 0.3
         if self.vertical_momentum > 3:
-            self.vertical_momentum = 0.2
+            self.vertical_momentum = 3
 
-        collisions, self.player_rect = self.playerCollision(tile_rects, collision, self.player_rect)
+        self.player_rect,collisions = self.playerMove(self.player_rect,player_movement,tile_rects)
 
-        if (collisions['bottom'] == True):
+        if collisions['bottom'] == True:
             self.air_timer = 0
             self.vertical_momentum = 0
         else:
             self.air_timer += 1
-        
-        if(self.player_rect.y >= 320):
-            self.player_rect.y = 300
-            self.screen.blit(self.player, (self.player_rect.x, self.player_rect.y))
-        else:
-            self.screen.blit(self.player, (self.player_rect.x, self.player_rect.y))
-        
 
-        if (press_keys[K_RIGHT]):
-            self.player_move[0] += 1
-            # self.player_move.moveXpositive(1)
-        if (press_keys[K_LEFT]):
-            self.player_move[0] -= 2
-             # self.player_move.moveXnegative(1)
-        if (press_keys[K_UP]):
-            if self.air_timer < 6:
-                self.vertical_momentum = -5
-            # pygame.time.delay(100)
-            # if event.type == KEYUP:
-            #     if event.key == K_RIGHT:
-            #         pass
-            #         # self.player_move.moveXpositive(2)
-            #     if event.key == K_LEFT:
-            #         # self.player_move[0] -= 2
-            #         pass
-            #         # self.player_move.moveXnegative(2)
-                    
+        self.screen.blit(self.player_img,(self.player_rect.x,self.player_rect.y))
+
+        for event in pygame.event.get(): # event loop
+            if event.type == QUIT:
+                pygame.quit()
+            if event.type == KEYDOWN:
+                if event.key == K_RIGHT:
+                    self.moving_right = True
+                if event.key == K_LEFT:
+                    self.moving_left = True
+                if event.key == K_UP:
+                    if self.air_timer < 9:
+                        self.vertical_momentum = -8
+            if event.type == KEYUP:
+                if event.key == K_RIGHT:
+                    self.moving_right = False
+                if event.key == K_LEFT:
+                    self.moving_left = False
+                        
