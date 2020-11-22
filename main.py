@@ -54,6 +54,5 @@ while True:
         menuEsc = intro.introDisplay()
     elif(menuEsc == 4):
         plataforma.settingPlataform()
-        
 
     pygame.display.update()
