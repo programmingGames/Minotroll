@@ -5,9 +5,11 @@ from data.backgrounds import Backgound as Back
 
 #  Class for controling all the menu on the game
 class MainMenu(object):
-    def __init__(self, screen, backgroundImage):
+    def __init__(self, screen, backgroundImage, menuEsc, nivel):
         self.screen = screen
-        self.background = Back(backgroundImage)
+        self.menuEsc = menuEsc
+        self.nivel = nivel
+        self.background = Back(backgroundImage, menuEsc, nivel)
         self.painel = pygame.image.load("resources/image/menu/initial_menu/painel.png").convert_alpha()
         self.title = pygame.image.load("resources/image/title/MinoTrolls1.png").convert_alpha()
         self.newGame = pygame.image.load("resources/image/menu/initial_menu/newGame.png").convert_alpha()
@@ -66,8 +68,6 @@ class MainMenu(object):
                 menuControl = 150
             else:
                 menuControl -= 50
-        elif pressed_keys[K_ESCAPE]:
-            exit()
 
         if((pressed_keys[K_KP_ENTER])and(menuControl==150)):
             self.esc = 2

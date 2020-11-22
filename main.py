@@ -18,12 +18,14 @@ createUserMenuControl = 250
 pygameEvent = 0
 # Variable to control the screen page of the game
 menuEsc = 0
+# Variable to control the nivel
+nivel = 1
 
-initition = start(screen, 1)
-menu = mainMenu(screen, 2)
-user = createUser(screen, 2)
-intro = Intro(screen, 2)
-plataforma = Plataform(screen)
+initition = start(screen, 1, menuEsc, nivel)
+menu = mainMenu(screen, 2, menuEsc, nivel)
+user = createUser(screen, 2, menuEsc, nivel)
+intro = Intro(screen, 2, menuEsc, nivel)
+plataforma = 0
 
 
 clock = pygame.time.Clock()
@@ -41,7 +43,7 @@ while True:
     pressed_keys = pygame.key.get_pressed()
 
     if(pressed_keys[K_ESCAPE]):
-        exit()
+        menuEsc = 1
 
     if(menuEsc==0):
         menuEsc = initition.settingStart(pressed_keys)
@@ -53,7 +55,8 @@ while True:
     elif(menuEsc==3):
         menuEsc = intro.introDisplay()
     elif(menuEsc == 4):
-        plataforma.settingPlataform()
+        plataforma = Plataform(screen, 1, menuEsc, nivel)
+        tile_rects = plataforma.settingPlataform()
         
 
     pygame.display.update()

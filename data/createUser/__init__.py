@@ -4,9 +4,11 @@ from data.backgrounds import Backgound as Back
 from data.textInput import Textinput as textInput
 
 class CreateUser:
-    def __init__(self, screen, nrImage):
+    def __init__(self, screen, nrImage, menuEsc, nivel):
         self.screen = screen
-        self.background = Back(nrImage)
+        self.menuEsc = menuEsc
+        self.nivel = nivel
+        self.background = Back(nrImage, menuEsc, nivel)
         self.painel = pygame.image.load("resources/image/menu/initial_menu/painel.png").convert_alpha()
         self.title = pygame.image.load("resources/image/title/MinoTrolls1.png").convert_alpha()
         self.createText = pygame.image.load("resources/image/menu/createUser/create.png").convert_alpha()

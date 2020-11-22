@@ -3,10 +3,10 @@ from data import intro
 from data.backgrounds import Backgound as Back
 
 class Intro(object):
-    def __init__(self, screen, nrImage):
+    def __init__(self, screen, nrImage, menuEsc, nivel):
         self.screen = screen
         self.time = 0
-        self.background = Back(nrImage)
+        self.background = Back(nrImage, menuEsc, nivel)
         self.painel = pygame.image.load("resources/image/menu/initial_menu/painel.png").convert_alpha()
         self.title = pygame.image.load("resources/image/title/MinoTrolls1.png").convert_alpha()
         self.font = pygame.font.SysFont(None, 32)

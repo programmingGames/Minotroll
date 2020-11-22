@@ -3,9 +3,9 @@ from pygame.locals import *
 from data.backgrounds import Backgound as Back
 
 class Initiation:
-    def __init__(self, screen, nrImage):
+    def __init__(self, screen, nrImage, menuEsc, nivel):
         self.screen = screen
-        self.background = Back(nrImage)
+        self.background = Back(nrImage, menuEsc, nivel)
         self.esc = 0
 
     # Method to blit the start game font on the screen
