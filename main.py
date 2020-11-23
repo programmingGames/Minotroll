@@ -22,6 +22,9 @@ menuEsc = 0
 # Variable to control the nivel
 nivel = 1
 
+# Variable to control the scroll of the screen
+scroll = [0, 0]
+
 initition = start(screen, 1, menuEsc, nivel)
 menu = mainMenu(screen, 2, menuEsc, nivel)
 user = createUser(screen, 2, menuEsc, nivel)
@@ -57,8 +60,8 @@ while True:
         menuEsc = intro.introDisplay()
     elif(menuEsc == 4):
         plataforma = Plataform(screen, 1, menuEsc, nivel)
-        tile_rects = plataforma.settingPlataform()
-        player.settingPlayer(pygameEvent, tile_rects)
+        tile_rects = plataforma.settingPlataform(scroll)
+        scroll  = player.settingPlayer(pygameEvent, tile_rects, scroll)
     
     pygame.display.update()
 
