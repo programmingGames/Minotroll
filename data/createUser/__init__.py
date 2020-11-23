@@ -51,8 +51,10 @@ class CreateUser:
                 menuControl -= 50
 
         if((pressed_keys[K_KP_ENTER])and(menuControl==250)):
+            pygame.time.wait(100)
             self.esc = 3
         elif((pressed_keys[K_KP_ENTER])and(menuControl==300)):
+            pygame.time.wait(100)
             self.esc = 1
             
         self.settingUserName(event, menuControl)

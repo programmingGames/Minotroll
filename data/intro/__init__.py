@@ -11,24 +11,49 @@ class Intro(object):
         self.title = pygame.image.load("resources/image/title/MinoTrolls1.png").convert_alpha()
         self.font = pygame.font.SysFont("Arial", 12,1)
         self.timeout = 0
+        self.next_t = True
 
+    def iterationCount(self):
+        l_control = 0
+        soma = 0
+        for paragrafo in self.history.historyData():
+            # self.background.settingBackground(self.screen)
+            # self.screen.blit(self.painel, (105, 70))
+            # self.screen.blit(self.title, (210, 10))
+            for line in paragrafo:
+                l_control = len(paragrafo)
+                soma += l_control 
+                # line = self.font.render(line, True, (0, 0,0))
+                # self.screen.blit(line, (tx, ty))
+                # ty += 15
+        soma += len(self.history.historyData())
+        return soma
 
     def introDisplay(self):
+        tx, ty = 165, 140
+        p_control = len(self.history.historyData())
+        p_t = 0
+        if((self.timeout == 200)):
+            self.next_t=False
+            self.timeout = 0
+        else:
+            self.next_t=True
 
-        tx, ty = 165, 120
-        for paragrafo in self.history.historyData():
-            self.background.settingBackground(self.screen)
-            self.screen.blit(self.painel, (105, 70))
-            self.screen.blit(self.title, (210, 10))
-            if(self.timeout >= 50):
-                    self.screen.fill((0, 0, 0))
-                    self.timeout = 0
-            for line in paragrafo:
-                line = self.font.render(line, True, (0, 0,0))
-                self.screen.blit(line, (tx, ty))
-                ty += 15
-            #parControl += 1
-            ty=165
+        soma = self.iterationCount()
+        
+        # for i in range soma:
+
+        #     for paragrafo in self.history.historyData():
+        #         # self.background.settingBackground(self.screen)
+        #         # self.screen.blit(self.painel, (105, 70))
+        #         # self.screen.blit(self.title, (210, 10))
+        #         for line in paragrafo:
+        #             # line = self.font.render(line, True, (0, 0,0))
+        #             # self.screen.blit(line, (tx, ty))
+        #             # ty += 15
+        
+            
+        ty=165
+        # print(self.timeout)
         self.timeout += 1
-        print(self.timeout)
         return 4
