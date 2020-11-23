@@ -3,8 +3,8 @@ from data import intro
 from data.backgrounds import Backgound as Back
 from data import Hysto 
 class Intro(object):
-    def __init__(self, screen, nrImage):
-        self.background = Back(nrImage)
+    def __init__(self, screen, nrImage, menuEsc, nivel):
+        self.background = Back(nrImage, menuEsc, nivel)
         self.screen = screen
         self.history = Hysto()
         self.painel = pygame.image.load("resources/image/menu/initial_menu/painel.png").convert_alpha()
@@ -31,4 +31,4 @@ class Intro(object):
             ty=165
         self.timeout += 1
         print(self.timeout)
-        return 3
+        return 4
