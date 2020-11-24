@@ -89,4 +89,3 @@ class Player:
         correct_scroll[0] = int(correct_scroll[0])
         correct_scroll[1] = int(correct_scroll[1])
         return scroll
-                        

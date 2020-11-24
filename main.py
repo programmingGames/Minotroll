@@ -64,6 +64,3 @@ while True:
         scroll  = player.settingPlayer(pygameEvent, tile_rects, scroll)
     
     pygame.display.update()
-
-    clock.tick(60)
-
