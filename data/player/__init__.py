@@ -89,4 +89,22 @@ class Player:
         correct_scroll[0] = int(correct_scroll[0])
         correct_scroll[1] = int(correct_scroll[1])
         return scroll
+    def walk(self):
+        pass
+    def jump(self):
+        pass
+    def hurt(self):
+        pass
+    def die(self):
+        pass
+    def kiking(self):
+        pass
+    def slashing(self):
+        pass
+    def sliding(self):
+        pass
+    def throwing(self):
+        pass
+    def idle(self):
+        pass
                         
