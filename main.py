@@ -13,8 +13,6 @@ pygame.display.set_caption("Minotroll")
 
 # variable to control the main menu
 MainmenuControl = 150
-# variable to control the create User menu
-createUserMenuControl = 250
 # Variable to store all the pygameEvent
 pygameEvent = 0
 # Variable to control the screen page of the game
@@ -41,7 +39,6 @@ while True:
     for event in pygame.event.get():
         pygameEvent = event
         if event.type == QUIT:
-            pygame.quit()
             exit()
 
     pressed_keys = pygame.key.get_pressed()
@@ -55,7 +52,7 @@ while True:
         menu.startingMenu(screen)
         MainmenuControl, menuEsc = menu.movingInMainMenu(screen, pressed_keys, MainmenuControl, menuEsc)
     elif(menuEsc==2):
-        createUserMenuControl, menuEsc = user.settingUserMenu(pygameEvent, pressed_keys, menuEsc, createUserMenuControl)
+        menuEsc = user.settingUserMenu(pygameEvent, pressed_keys, menuEsc)
     elif(menuEsc==3):
         menuEsc = intro.introDisplay()
     elif(menuEsc == 4):

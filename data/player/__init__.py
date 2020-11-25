@@ -12,13 +12,12 @@ class Player:
         self.state = 'Idle'
         self.move_frame = 0
         self.player_img = pygame.image.load("resources/image/Golem/"+self.state+"/"+self.move_direction+"/0_Goblin_"+self.state+"_0.png").convert_alpha()
-        self.player_rect=pygame.Rect(50, 200, 5, 13)
+        self.player_rect=pygame.Rect(40, 39, 40, 39)
         self.moving_right = False
         self.moving_left = False
         self.vertical_momentum = 0
         self.air_timer = 0
-        
-
+    
     def collision_test(self, rect, tiles):
         hit_list = []
         for tile in tiles:
@@ -50,24 +49,25 @@ class Player:
         
     def settingPlayer(self, event, tile_rects, scroll):
         player_movement = [0,0]
-        if self.moving_right == True:
+        if self.moving_right:
             self.walk()
             player_movement[0] += 3
         else:
             self.idle()
-        if self.moving_left == True:
+        if self.moving_left:
             self.walk()
             player_movement[0] -= 3
+
         else:
             self.idle()
         player_movement[1] += self.vertical_momentum
         self.vertical_momentum += 0.2
-        if self.vertical_momentum > 4:
-            self.vertical_momentum = 4
+        if self.vertical_momentum > 6:
+            self.vertical_momentum = 6
 
         self.player_rect,collisions = self.playerMove(self.player_rect,player_movement,tile_rects)
 
-        if collisions['bottom'] == True:
+        if collisions['bottom']:
             self.air_timer = 0
             self.vertical_momentum = 0
         else:
@@ -89,11 +89,14 @@ class Player:
                     if self.air_timer < 8:
                         self.vertical_momentum = -7
                 self.state = 'Walking'
+            else:
+                self.moving_right = False
             if event.type == KEYUP:
                 if event.key == K_RIGHT:
                     self.moving_right = False
                 if event.key == K_LEFT:
                     self.moving_left = False
+            
             self.state = 'Idle'
         scroll[0] += (self.player_rect.x-scroll[0]-365)/20
         scroll[1] += (self.player_rect.y-scroll[1]-260)/20
@@ -101,10 +104,10 @@ class Player:
         correct_scroll = scroll.copy()
         correct_scroll[0] = int(correct_scroll[0])
         correct_scroll[1] = int(correct_scroll[1])
-        return scroll
+        return correct_scroll
+
     def walk(self):
-        if(self.state == 'Idle'):
-            self.state = 'Walking'
+        self.state = 'Walking'
         if(((self.moving_right)or(self.moving_left))and(self.move_frame <= 23)):
             self.player_img = pygame.image.load("resources/image/Golem/"+self.state+"/"+self.move_direction+"/0_Goblin_"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
             self.move_frame += 1
@@ -115,6 +118,7 @@ class Player:
             self.player_img = pygame.image.load("resources/image/Golem/"+self.state+"/"+self.move_direction+"/0_Goblin_"+self.state+"_0.png").convert_alpha()
 
     def idle(self):
+        self.state = 'Idle'
         if(((not self.moving_right)or(not self.moving_left ))and(self.move_frame <= 17)):
             self.player_img = pygame.image.load("resources/image/Golem/"+self.state+"/"+self.move_direction+"/0_Goblin_"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
             self.move_frame += 1

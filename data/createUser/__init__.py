@@ -17,9 +17,11 @@ class CreateUser:
         self.buttoncreate = pygame.image.load("resources/image/menu/createUser/createuser.png").convert_alpha()
         self.buttoncreate1 = pygame.image.load("resources/image/menu/createUser/createuser1.png").convert_alpha()
         self.text = textInput()
+        self.menuControl = 250
+        self.press = False
 
     # Method to render all the components in the screen
-    def settingUserName(self, event, pos_y):
+    def settingUserName(self, event):
         self.background.settingBackground(self.screen)
         self.screen.blit(self.painel, (105, 70))
         self.screen.blit(self.title, (210, 10))
@@ -27,7 +29,7 @@ class CreateUser:
         self.text.settingInputText(self.screen, event)
 
         # Controling menu buttons efects
-        if (pos_y == 250):
+        if (self.menuControl == 250):
             self.screen.blit(self.buttoncreate1, (255, 250))
             self.screen.blit(self.buttonBack, (260, 300))
         else:
@@ -35,27 +37,30 @@ class CreateUser:
             self.screen.blit(self.buttonBack1, (255, 300))
 
     # Method to move in this menu and return the choose
-    def settingUserMenu(self, event, pressed_keys, esc, menuControl):
+    def settingUserMenu(self, event, pressed_keys, esc):
         self.esc = esc
         if(pressed_keys[K_DOWN]):
             pygame.time.delay(100)
-            if(menuControl == 300):
-                menuControl = 250
+            if(self.menuControl == 300):
+                self.menuControl = 250
             else:
-                menuControl += 50
+                self.menuControl += 50
         elif(pressed_keys[K_UP]):
             pygame.time.delay(100)
-            if(menuControl == 250):
-                menuControl = 250
+            if(self.menuControl == 250):
+                self.menuControl = 250
             else:
-                menuControl -= 50
+                self.menuControl -= 50
 
-        if((pressed_keys[K_KP_ENTER])and(menuControl==250)):
-            pygame.time.wait(100)
+        if((self.press)and(self.menuControl==250)):
             self.esc = 3
-        elif((pressed_keys[K_KP_ENTER])and(menuControl==300)):
-            pygame.time.wait(100)
+        elif((self.press)and(self.menuControl==300)):
             self.esc = 1
-            
-        self.settingUserName(event, menuControl)
-        return menuControl, self.esc
+        
+        pressed_keys = pygame.key.get_pressed()
+        if(pressed_keys[K_KP_ENTER]):
+            self.press = True
+        else:
+            self.press = False
+        self.settingUserName(event)
+        return self.esc

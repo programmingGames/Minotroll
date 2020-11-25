@@ -33,8 +33,8 @@ class Plataform:
                     self.screen.blit(self.plat_black, (x*40-scroll[0], y*40-scroll[1]))
                 elif(tile == '2'):
                     self.screen.blit(self.plat_green, (x*40-scroll[0], y*40-scroll[1]))
-                if tile != '0':
-                    tile_rects.append(pygame.Rect(x*38.6,y*36.9,40,59))
+                if (tile != '0'):
+                    tile_rects.append(pygame.Rect(x*40,y*40,40,40))
                 x += 1
             y += 1
             # control += 1
