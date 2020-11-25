@@ -9,8 +9,9 @@ class Player:
         self.vertical_momentum = 0
         self.player_move = [0, 0]
         self.move_direction = 'right'
+        self.state = 'Idle'
         self.move_frame = 0
-        self.player_img = pygame.image.load("resources/image/Golem/Walking/"+self.move_direction+"/0_Goblin_Walking_0.png").convert_alpha()
+        self.player_img = pygame.image.load("resources/image/Golem/"+self.state+"/"+self.move_direction+"/0_Goblin_"+self.state+"_0.png").convert_alpha()
         self.player_rect=pygame.Rect(50, 200, 5, 13)
         self.moving_right = False
         self.moving_left = False
@@ -52,9 +53,13 @@ class Player:
         if self.moving_right == True:
             self.walk()
             player_movement[0] += 3
+        else:
+            self.idle()
         if self.moving_left == True:
             self.walk()
             player_movement[0] -= 3
+        else:
+            self.idle()
         player_movement[1] += self.vertical_momentum
         self.vertical_momentum += 0.2
         if self.vertical_momentum > 4:
@@ -83,11 +88,13 @@ class Player:
                 if event.key == K_UP:
                     if self.air_timer < 8:
                         self.vertical_momentum = -7
+                self.state = 'Walking'
             if event.type == KEYUP:
                 if event.key == K_RIGHT:
                     self.moving_right = False
                 if event.key == K_LEFT:
                     self.moving_left = False
+            self.state = 'Idle'
         scroll[0] += (self.player_rect.x-scroll[0]-365)/20
         scroll[1] += (self.player_rect.y-scroll[1]-260)/20
 
@@ -96,28 +103,37 @@ class Player:
         correct_scroll[1] = int(correct_scroll[1])
         return scroll
     def walk(self):
-        if(((self.moving_right == True)or(self.moving_left == True))and(self.move_frame <= 23)):
-            self.player_img = pygame.image.load("resources/image/Golem/Walking/"+self.move_direction+"/0_Goblin_Walking_"+str(self.move_frame)+".png").convert_alpha()
+        if(self.state == 'Idle'):
+            self.state = 'Walking'
+        if(((self.moving_right)or(self.moving_left))and(self.move_frame <= 23)):
+            self.player_img = pygame.image.load("resources/image/Golem/"+self.state+"/"+self.move_direction+"/0_Goblin_"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
             self.move_frame += 1
-        elif(((self.moving_right == True)or(self.moving_left == True))and(self.move_frame > 23)):
+        elif(((self.moving_right)or(self.moving_left))and(self.move_frame > 23)):
             self.move_frame = 0
-            self.player_img = pygame.image.load("resources/image/Golem/Walking/"+self.move_direction+"/0_Goblin_Walking_"+str(self.move_frame)+".png").convert_alpha()        
+            self.player_img = pygame.image.load("resources/image/Golem/"+self.state+"/"+self.move_direction+"/0_Goblin_"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()        
         else:
-            self.player_img = pygame.image.load("resources/image/Golem/Walking/"+self.move_direction+"/0_Goblin_Walking_0.png").convert_alpha()
+            self.player_img = pygame.image.load("resources/image/Golem/"+self.state+"/"+self.move_direction+"/0_Goblin_"+self.state+"_0.png").convert_alpha()
 
+    def idle(self):
+        if(((not self.moving_right)or(not self.moving_left ))and(self.move_frame <= 17)):
+            self.player_img = pygame.image.load("resources/image/Golem/"+self.state+"/"+self.move_direction+"/0_Goblin_"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
+            self.move_frame += 1
+        elif(((not self.moving_right)or(not self.moving_left))and(self.move_frame > 17)):
+            self.move_frame = 0
+        else:
+            self.player_img = pygame.image.load("resources/image/Golem/"+self.state+"/"+self.move_direction+"/0_Goblin_"+self.state+"_0.png").convert_alpha()
+            
     def jump(self):
         pass
     def hurt(self):
         pass
     def die(self):
         pass
-    def kiking(self):
+    def kicking(self):
         pass
     def slashing(self):
         pass
     def sliding(self):
         pass
     def throwing(self):
-        pass
-    def idle(self):
         pass

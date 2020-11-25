@@ -80,4 +80,3 @@ class MainMenu(object):
 
         self.mainMenuEsc(screen, menuControl)       
         return menuControl, self.esc
-    pass

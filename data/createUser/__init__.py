@@ -59,4 +59,3 @@ class CreateUser:
             
         self.settingUserName(event, menuControl)
         return menuControl, self.esc
-        

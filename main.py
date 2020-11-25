@@ -25,7 +25,7 @@ nivel = 1
 # Variable to control the scroll of the screen
 scroll = [0, 0]
 
-initition = start(screen, 1, menuEsc, nivel)
+initiation = start(screen, 1, menuEsc, nivel)
 menu = mainMenu(screen, 2, menuEsc, nivel)
 user = createUser(screen, 2, menuEsc, nivel)
 intro = Intro(screen, 2, menuEsc, nivel)
@@ -50,7 +50,7 @@ while True:
         menuEsc = 1
 
     if(menuEsc==0):
-        menuEsc = initition.settingStart(pressed_keys)
+        menuEsc = initiation.settingStart(pressed_keys)
     elif(menuEsc==1):
         menu.startingMenu(screen)
         MainmenuControl, menuEsc = menu.movingInMainMenu(screen, pressed_keys, MainmenuControl, menuEsc)
