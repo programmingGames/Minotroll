@@ -8,7 +8,9 @@ class Player:
         self.air_timer = 0
         self.vertical_momentum = 0
         self.player_move = [0, 0]
-        self.player_img = pygame.image.load("resources/image/Golem/Walking/0_Goblin_Walking_000.png").convert_alpha()
+        self.move_direction = 'right'
+        self.move_frame = 0
+        self.player_img = pygame.image.load("resources/image/Golem/Walking/"+self.move_direction+"/0_Goblin_Walking_0.png").convert_alpha()
         self.player_rect=pygame.Rect(50, 200, 5, 13)
         self.moving_right = False
         self.moving_left = False
@@ -48,8 +50,10 @@ class Player:
     def settingPlayer(self, event, tile_rects, scroll):
         player_movement = [0,0]
         if self.moving_right == True:
+            self.walk()
             player_movement[0] += 3
         if self.moving_left == True:
+            self.walk()
             player_movement[0] -= 3
         player_movement[1] += self.vertical_momentum
         self.vertical_momentum += 0.2
@@ -71,8 +75,10 @@ class Player:
                 pygame.quit()
             if event.type == KEYDOWN:
                 if event.key == K_RIGHT:
+                    self.move_direction = 'right'
                     self.moving_right = True
                 if event.key == K_LEFT:
+                    self.move_direction = 'left'
                     self.moving_left = True
                 if event.key == K_UP:
                     if self.air_timer < 8:
@@ -89,10 +95,16 @@ class Player:
         correct_scroll[0] = int(correct_scroll[0])
         correct_scroll[1] = int(correct_scroll[1])
         return scroll
-<<<<<<< HEAD
-=======
     def walk(self):
-        pass
+        if(((self.moving_right == True)or(self.moving_left == True))and(self.move_frame <= 23)):
+            self.player_img = pygame.image.load("resources/image/Golem/Walking/"+self.move_direction+"/0_Goblin_Walking_"+str(self.move_frame)+".png").convert_alpha()
+            self.move_frame += 1
+        elif(((self.moving_right == True)or(self.moving_left == True))and(self.move_frame > 23)):
+            self.move_frame = 0
+            self.player_img = pygame.image.load("resources/image/Golem/Walking/"+self.move_direction+"/0_Goblin_Walking_"+str(self.move_frame)+".png").convert_alpha()        
+        else:
+            self.player_img = pygame.image.load("resources/image/Golem/Walking/"+self.move_direction+"/0_Goblin_Walking_0.png").convert_alpha()
+
     def jump(self):
         pass
     def hurt(self):
@@ -109,5 +121,3 @@ class Player:
         pass
     def idle(self):
         pass
-                        
->>>>>>> 22d9d58d7120c6d28dc9f0c5c8fd6bfd01d4bf8f
