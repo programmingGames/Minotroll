@@ -59,5 +59,5 @@ while True:
         plataforma = Plataform(screen, 1, menuEsc, nivel)
         tile_rects = plataforma.settingPlataform(scroll)
         scroll  = player.settingPlayer(pygameEvent, tile_rects, scroll)
-    
+    pressed_keys = pygame.key.get_pressed()
     pygame.display.update()

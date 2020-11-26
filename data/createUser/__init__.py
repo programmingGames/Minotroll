@@ -39,6 +39,8 @@ class CreateUser:
     # Method to move in this menu and return the choose
     def settingUserMenu(self, event, pressed_keys, esc):
         self.esc = esc
+
+        
         if(pressed_keys[K_DOWN]):
             pygame.time.delay(100)
             if(self.menuControl == 300):
@@ -53,12 +55,18 @@ class CreateUser:
                 self.menuControl -= 50
 
         if((self.press)and(self.menuControl==250)):
-            self.esc = 4
+            self.esc = 3
         elif((self.press)and(self.menuControl==300)):
             self.esc = 1
         
-        pressed_keys = pygame.key.get_pressed()
-        if(pressed_keys[K_KP_ENTER]):
+        # for evente in pygame.event.get():
+        #     if evente.type == KEYDOWN:
+        #         if evente.key == K_KP_ENTER:
+        #             self.press = True
+        #         else:
+        #             self.press = False
+        # print(pressed_keys)
+        if(pressed_keys[K_x]):
             self.press = True
         else:
             self.press = False
