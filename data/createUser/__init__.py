@@ -53,7 +53,7 @@ class CreateUser:
                 self.menuControl -= 50
 
         if((self.press)and(self.menuControl==250)):
-            self.esc = 3
+            self.esc = 4
         elif((self.press)and(self.menuControl==300)):
             self.esc = 1
         
