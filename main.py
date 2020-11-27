@@ -11,12 +11,14 @@ from pygame.locals import *
 screen = pygame.display.set_mode((700, 480), 0, 32)
 pygame.display.set_caption("Minotroll")
 
+# Variable to control the player rect
+player_rect = 0
 # variable to control the main menu
 MainmenuControl = 150
 # Variable to store all the pygameEvent
 pygameEvent = 0
 # Variable to control the screen page of the game
-menuEsc = 0
+menuEsc = 4
 # Variable to control the nivel
 nivel = 1
 
@@ -58,6 +60,6 @@ while True:
     elif(menuEsc == 4):
         plataforma = Plataform(screen, 1, menuEsc, nivel)
         tile_rects = plataforma.settingPlataform(scroll)
-        scroll  = player.settingPlayer(pygameEvent, tile_rects, scroll)
+        scroll, player_rect  = player.settingPlayer(pygameEvent, tile_rects, scroll)
     pressed_keys = pygame.key.get_pressed()
     pygame.display.update()

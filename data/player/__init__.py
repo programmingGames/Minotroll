@@ -13,6 +13,7 @@ class Player:
         self.move_frame = 0
         self.player_img = pygame.image.load("resources/image/Golem/"+self.state+"/"+self.move_direction+"/0_Goblin_"+self.state+"_0.png").convert_alpha()
         self.player_rect=pygame.Rect(40, 39, 40, 39)
+        self.player_rect.x = 600
         self.moving_right = False
         self.moving_left = False
         self.vertical_momentum = 0
@@ -96,15 +97,18 @@ class Player:
                     self.moving_right = False
                 if event.key == K_LEFT:
                     self.moving_left = False
-            
-            
-        scroll[0] += (self.player_rect.x-scroll[0]-365)/20
-        scroll[1] += (self.player_rect.y-scroll[1]-260)/20
+
+        ## Validando bordas do screen
+        if(self.player_rect.x == 303):
+            self.moving_left = False
+
+        scroll[0] += (self.player_rect.x-scroll[0]-300)/20
+        scroll[1] += (self.player_rect.y-scroll[1]-350)/20
 
         correct_scroll = scroll.copy()
         correct_scroll[0] = int(correct_scroll[0])
         correct_scroll[1] = int(correct_scroll[1])
-        return correct_scroll
+        return correct_scroll, self.player_rect
 
     def walk(self):
         self.state = 'Walking'
