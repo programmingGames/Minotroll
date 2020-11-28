@@ -12,12 +12,13 @@ class Player:
         self.state = 'Idle'
         self.move_frame = 0
         self.player_img = pygame.image.load("resources/image/Golem/"+self.state+"/"+self.move_direction+"/0_Goblin_"+self.state+"_0.png").convert_alpha()
-        self.player_rect=pygame.Rect(40, 39, 40, 39)
-        self.player_rect.x = 600
+        self.player_rect=pygame.Rect(40, 40, 30, 40)
+        self.player_rect.x = 500
         self.moving_right = False
         self.moving_left = False
         self.vertical_momentum = 0
         self.air_timer = 0
+        self.player_screen_limit = 280
     
     def collision_test(self, rect, tiles):
         hit_list = []
@@ -26,7 +27,7 @@ class Player:
                 hit_list.append(tile)
         return hit_list
 
-    def playerMove(self,rect,movement,tiles):
+    def colision(self,rect,movement,tiles):
         collision_types = {'top':False,'bottom':False,'right':False,'left':False}
         rect.x += movement[0]
         hit_list = self.collision_test(rect,tiles)
@@ -52,10 +53,10 @@ class Player:
         player_movement = [0,0]
         if self.moving_right:
             self.walk()
-            player_movement[0] += 3
+            player_movement[0] += 4
         if self.moving_left:
             self.walk()
-            player_movement[0] -= 3
+            player_movement[0] -= 4
 
         if((not self.moving_left)and(not self.moving_right)):
             self.idle()
@@ -64,7 +65,7 @@ class Player:
         if self.vertical_momentum > 6:
             self.vertical_momentum = 6
 
-        self.player_rect,collisions = self.playerMove(self.player_rect,player_movement,tile_rects)
+        self.player_rect,collisions = self.colision(self.player_rect,player_movement,tile_rects)
 
         if collisions['bottom']:
             self.air_timer = 0
@@ -99,15 +100,22 @@ class Player:
                     self.moving_left = False
 
         ## Validando bordas do screen
-        if(self.player_rect.x == 303):
+        if(self.player_rect.x == self.player_screen_limit):
             self.moving_left = False
 
+        ## Reduzindo o espaço a que o jogador pode voltar para traz
+        if((self.player_rect.x-self.player_screen_limit)>800):
+            self.player_screen_limit += 40
+
+        ## Calculando o scroll do ecrã
         scroll[0] += (self.player_rect.x-scroll[0]-300)/20
         scroll[1] += (self.player_rect.y-scroll[1]-350)/20
 
+        # Transformando a scroll em um valor inteiro 
         correct_scroll = scroll.copy()
         correct_scroll[0] = int(correct_scroll[0])
         correct_scroll[1] = int(correct_scroll[1])
+
         return correct_scroll, self.player_rect
 
     def walk(self):
