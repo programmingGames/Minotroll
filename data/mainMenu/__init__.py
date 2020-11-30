@@ -25,7 +25,7 @@ class MainMenu(object):
     def startingMenu(self, screen):
         self.background.settingBackground(self.screen)
         screen.blit(self.painel, (105, 70))
-        screen.blit(self.title, (210, 10))
+        screen.blit(self.title, (275, 90))
 
     # Method to choose option in main menu
     def mainMenuEsc(self, screen, menuControl):

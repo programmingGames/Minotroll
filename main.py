@@ -4,7 +4,7 @@ from data.createUser import CreateUser as createUser
 from data.intro import Intro
 from data.plataforma import Plataform
 from data.player import Player
-from data.enimy.wizard import Wizard
+from data.enimy.wizard import WizardSimpleAI
 import pygame 
 from sys import exit
 from pygame.locals import *
@@ -19,7 +19,7 @@ MainmenuControl = 150
 # Variable to store all the pygameEvent
 pygameEvent = 0
 # Variable to control the screen page of the game
-menuEsc = 4
+menuEsc = 0
 # Variable to control the nivel
 nivel = 1
 
@@ -30,12 +30,11 @@ initiation = start(screen, 1, menuEsc, nivel)
 menu = mainMenu(screen, 2, menuEsc, nivel)
 user = createUser(screen, 2, menuEsc, nivel)
 player = Player(screen)
-wizard = Wizard(screen)
+wizard = WizardSimpleAI(screen)
 intro = Intro(screen, 2, menuEsc, nivel)
 plataforma = 0
 
-## teste 
-wizard = Wizard(screen)
+
 
 
 clock = pygame.time.Clock()
@@ -65,7 +64,9 @@ while True:
     elif(menuEsc == 4):
         plataforma = Plataform(screen, 1, menuEsc, nivel)
         tile_rects = plataforma.settingPlataform(scroll)
-        #scroll, player_rect = player.settingPlayer(pygameEvent, tile_rects, scroll)
-        wizard.move(pygameEvent, tile_rects)
+        scroll, player_rect = player.settingPlayer(pygameEvent, tile_rects, scroll)
+        wizard.activation(player_rect, pygameEvent, tile_rects, scroll)
+
     pressed_keys = pygame.key.get_pressed()
     pygame.display.update()
+    clock.tick(60)

@@ -24,7 +24,7 @@ class CreateUser:
     def settingUserName(self, event):
         self.background.settingBackground(self.screen)
         self.screen.blit(self.painel, (105, 70))
-        self.screen.blit(self.title, (210, 10))
+        self.screen.blit(self.title, (275, 90))
         self.screen.blit(self.createText, (267, 150))
         self.text.settingInputText(self.screen, event)
 

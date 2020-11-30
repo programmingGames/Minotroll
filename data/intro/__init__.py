@@ -25,7 +25,7 @@ class Intro(object):
         for paragrafo in self.history.historyData():
             self.background.settingBackground(self.screen)
             self.screen.blit(self.painel, (105, 70))
-            self.screen.blit(self.title, (210, 10))
+            self.screen.blit(self.title, (275, 90))
             for line in paragrafo:
                 line = self.font.render(line, True, (0, 0,0))
                 self.screen.blit(line, (tx, ty))
