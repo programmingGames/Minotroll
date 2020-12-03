@@ -12,7 +12,7 @@ class Player:
         self.state = 'Idle'
         self.move_frame = 0
         self.player_img = pygame.image.load("resources/image/Golem/"+self.state+"/"+self.move_direction+"/0_Goblin_"+self.state+"_0.png").convert_alpha()
-        self.player_rect=pygame.Rect(40, 40, 30, 40)
+        self.player_rect=self.player_img.get_rect()
         self.player_rect.x = 500
         self.moving_right = False
         self.moving_left = False

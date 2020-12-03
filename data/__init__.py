@@ -45,5 +45,6 @@ class Hysto:
                        "E no dia em que ele decidisse voltar ele estaria mais forte", 
                        "e com poderes suficientes para conseguir libertar Graveler " ]
                     ]
+                    
     def historyData(self):
         return self.history
