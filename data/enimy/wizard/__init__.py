@@ -15,7 +15,7 @@ class Wizard:
         self.air_timer = 0
         self.vertical_momentum = 0
         self.img = pygame.image.load("resources/image/enimy/wizard/"+self.state+"/"+self.move_direction+"/Chara-0.png")
-        self.rect.x = 600
+        self.rect.x = 1000
         self.move_frame = 0
         self.attacking = False
 
@@ -26,35 +26,6 @@ class Wizard:
             if (self.rect.colliderect(tile)):
                 hit_list.append(tile)
         return hit_list
-
-    # def playerTestCollision(self, tiles):
-    #     hit_list = []
-    #     if (self.rect.colliderect(tiles)):
-    #         hit_list.append(tiles)
-    #     return hit_list
-
-    # def playerCollision(self,move, tiles):
-    #     collision_types = {'top':False,'bottom':False,'right':False,'left':False}
-    #     self.rect.x += move[0]
-    #     hit_list = self.playerTestCollision(tiles)
-    #     for tile in hit_list:
-    #         if(move[0]>0):
-    #             self.rect.right = tile.left
-    #             collision_types['right'] = True
-    #         elif(move[0]<0):
-    #             self.rect.left = tile.right
-    #             collision_types['left'] = True
-        
-    #     self.rect.y += move[1]
-    #     hit_list = self.playerTestCollision(tiles)
-    #     for tile in hit_list:
-    #         if move[1]>0:
-    #             self.rect.bottom = tile.top
-    #             collision_types['bottom'] = True
-    #         if move[1]<0:
-    #             self.rect.top = tile.bottom
-    #             collision_types['top'] = True
-    #     return collision_types
 
     def platformCollision(self,move, tiles):
         collision_types = {'top':False,'bottom':False,'right':False,'left':False}
@@ -116,7 +87,6 @@ class Wizard:
 
     def move(self, event, platform_rects, scroll, move_right, move_left, attacking, direction):
         # self.moveChoise(event)
-        
         self.move_right = move_right
         self.move_left = move_left
         self.attacking = attacking

@@ -1,6 +1,6 @@
 from data.start import Initiation as start
 from data.mainMenu import MainMenu as mainMenu
-from data.createUser import CreateUser as createUser
+from data.mainMenu.createUser import CreateUser as createUser
 from data.intro import Intro
 from data.plataforma import Plataform
 from data.player import Player
@@ -17,7 +17,7 @@ MainmenuControl = 150
 # Variable to store all the pygameEvent
 pygameEvent = 0
 # Variable to control the screen page of the game
-menuEsc = 0
+menuEsc = 4
 # Variable to control the nivel
 nivel = 1
 # To control the player rects
@@ -63,10 +63,10 @@ while True:
         menuEsc = intro.introDisplay()
     elif(menuEsc == 4):
         plataforma = Plataform(screen, 1, menuEsc, nivel)
-        tile_rects = plataforma.settingPlataform(scroll)
-        wizard_rect = wizard.activation(pygameEvent, tile_rects, scroll, player_rect)
-        tile_rects.append(wizard_rect)
-        scroll, player_rect = player.settingPlayer(pygameEvent, tile_rects, scroll)
+        tile_rects, cactus_mask = plataforma.settingPlataform(scroll)
+        # wizard_rect = wizard.activation(pygameEvent, tile_rects, scroll, player_rect)
+        # tile_rects.append(wizard_rect)
+        scroll, player_rect = player.settingPlayer(pygameEvent, tile_rects, scroll, cactus_mask)
         tile_rects.append(player_rect)
         
 
