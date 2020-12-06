@@ -63,10 +63,10 @@ while True:
         menuEsc = intro.introDisplay()
     elif(menuEsc == 4):
         plataforma = Plataform(screen, 1, menuEsc, nivel)
-        tile_rects, cactus_mask = plataforma.settingPlataform(scroll)
+        tile_rects, tile_item = plataforma.settingPlataform(scroll)
         # wizard_rect = wizard.activation(pygameEvent, tile_rects, scroll, player_rect)
         # tile_rects.append(wizard_rect)
-        scroll, player_rect = player.settingPlayer(pygameEvent, tile_rects, scroll, cactus_mask)
+        scroll, player_rect = player.settingPlayer(pygameEvent, tile_rects,tile_item, scroll)
         tile_rects.append(player_rect)
         
 

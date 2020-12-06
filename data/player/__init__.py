@@ -15,7 +15,6 @@ class Player:
         self.move_frame = 0
         self.player_img = pygame.image.load("resources/image/Golem/"+self.state+"/"+self.move_direction+"/0_Goblin_"+self.state+"_0.png").convert_alpha()
         self.player_rect=self.player_img.get_rect()
-        self.player_mask = pygame.mask.from_surface(self.player_img)
         self.player_rect.x = 500
         self.moving_right = False
         self.moving_left = False
@@ -30,25 +29,32 @@ class Player:
                 hit_list.append(tile)
         return hit_list
 
-    def colision(self,movement,tiles):
+    def allPlatformColision(self,movement,tiles, tile_item):
         collision_types = {'top':False,'bottom':False,'right':False,'left':False}
         self.player_rect.x += movement[0]
         hit_list = self.collision_test(self.player_rect,tiles)
-        for tile in hit_list:
+        for tile in zip(hit_list, tile_item):
+            print(tile)
             if movement[0] > 0:
-                self.player_rect.right = tile.left
+                self.player_rect.right = tile[0].left
                 collision_types['right'] = True
+                if(tile[1]==3):
+                    self.life.damageLife(1)
             elif movement[0] < 0:
-                self.player_rect.left = tile.right
+                self.player_rect.left = tile[0].right
                 collision_types['left'] = True
+                if(tile[1]==3):
+                    self.life.damageLife(10)
+
+
         self.player_rect.y += movement[1]
         hit_list = self.collision_test(self.player_rect,tiles)
-        for tile in hit_list:
+        for tile in zip(hit_list, tile_item):
             if movement[1] > 0:
-                self.player_rect.bottom = tile.top
+                self.player_rect.bottom = tile[0].top
                 collision_types['bottom'] = True
             elif movement[1] < 0:
-                self.player_rect.top = tile.bottom
+                self.player_rect.top = tile[0].bottom
                 collision_types['top'] = True
         return collision_types
 
@@ -67,6 +73,7 @@ class Player:
                     if self.air_timer < 8:
                         self.vertical_momentum = -7
                 self.state = 'Walking'
+                
             else:
                 self.moving_right = False
                 self.moving_left = False
@@ -76,6 +83,7 @@ class Player:
                     self.moving_right = False
                 if event.key == K_LEFT:
                     self.moving_left = False
+        
 
     def controlPlayerScreenMove(self):
         ## Validando bordas do screen
@@ -86,8 +94,7 @@ class Player:
         if((self.player_rect.x-self.player_screen_limit)>800):
             self.player_screen_limit += 40
     
-    def playerMove(self, tile_rects):
-        player_movement = [0,0]
+    def playerMove(self, tile_rects,tile_item, player_movement):
         if self.moving_right:
             self.walk()
             player_movement[0] += 4
@@ -101,22 +108,24 @@ class Player:
         self.vertical_momentum += 0.2
         if self.vertical_momentum > 6:
             self.vertical_momentum = 6
-
-        collisions = self.colision(player_movement,tile_rects)
-        if collisions['bottom']:
+        
+        platformCollisions = self.allPlatformColision(player_movement,tile_rects, tile_item)
+        
+        if (platformCollisions['bottom']):
             self.air_timer = 0
             self.vertical_momentum = 0
         else:
             self.air_timer += 1
 
 
-    def settingPlayer(self, event, tile_rects, scroll, cactus_mask):
-        self.playerMove(tile_rects)
+    def settingPlayer(self, event, tile_rects, tile_item, scroll):
+        player_movement = [0,0]
         self.screen.blit(self.player_img,(self.player_rect.x-scroll[0],self.player_rect.y-scroll[1]))
-        self.player_mask = pygame.mask.from_surface(self.player_img)
         self.determinateMove()
-        self.cactusCollision(cactus_mask)
+        self.controlPlayerScreenMove()
+        self.playerMove(tile_rects,tile_item, player_movement)
 
+        
         ## Calculando o scroll do ecrã
         scroll[0] += (self.player_rect.x-scroll[0]-300)/20
         scroll[1] += (self.player_rect.y-scroll[1]-350)/10
@@ -126,14 +135,7 @@ class Player:
         correct_scroll[1] = int(correct_scroll[1])
         self.lifeControl()
         return correct_scroll, self.player_rect
-    
-    def cactusCollision(self, cactus_mask):
-        for mask in cactus_mask:
-            if (mask.overlap(self.player_mask, (int(self.player_rect.x - 350), int(self.player_rect.y - 240)))):
-                print(1)
-
-        
-        
+            
     def lifeControl(self):
         self.life.draw()
 
