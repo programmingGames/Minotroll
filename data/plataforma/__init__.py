@@ -43,7 +43,7 @@ class Plataform:
                     tile_rects.append(pygame.Rect(x*40,y*40,40,40))
                     tile_item.append(3)
                 if ((tile != '0')and (tile != '3')):
-                    tile_item.append(12)
+                    tile_item.append(None)
                 x += 1
             y += 1
             # control += 1

@@ -3,15 +3,18 @@ from pygame.locals import *
 from data.backgrounds import Backgound as Back
 
 class Initiation:
-    def __init__(self, screen, nrImage, menuEsc, nivel):
+    def __init__(self, screen, nrImage,screenState, nivel):
         self.screen = screen
-        self.background = Back(nrImage, menuEsc, nivel)
-        self.esc = 0
+        self.screenState = screenState
+        self.background = Back(nrImage, screenState, nivel)
+        self.frame = 1
 
     # Method to blit the start game font on the screen
-    def settingStart(self, pressed_keys):
+    def settingStart(self):
+        pressed_keys = pygame.key.get_pressed()
         self.background.settingBackground(self.screen)
-        if(pressed_keys[K_KP_ENTER]):
-            pygame.time.delay(100)
-            self.esc = 1
-        return self.esc
+        if(self.frame == 50):
+            return 1
+        else:
+            self.frame += 1
+        return self.screenState
