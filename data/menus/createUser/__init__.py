@@ -10,7 +10,7 @@ class CreateUserMenu:
         self.nivel = nivel
         self.painelState = painelState
         self.background = Back(nrImage, painelState, nivel)
-        self.painel = pygame.image.load("resources/image/menu/initial_menu/painel.png").convert_alpha()
+        self.painel = pygame.image.load("resources/image/menu/painel.png").convert_alpha()
         self.title = pygame.image.load("resources/image/title/MinoTrolls1.png").convert_alpha()
         self.createText = "Enter a user name"
         self.buttonBack = pygame.image.load("resources/image/menu/createUser/back.png").convert_alpha()
