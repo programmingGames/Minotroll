@@ -20,20 +20,31 @@ class MainMenu(object):
         self.quit = pygame.image.load("resources/image/menu/initial_menu/QuitGame.png").convert_alpha()
         self.quit1 = pygame.image.load("resources/image/menu/initial_menu/QuitGame1.png").convert_alpha()
         self.timeOut = 0
-        self.img = pygame.image.load("resources/image/menu/initial_menu/animation/0_Goblin_Idle Blinking_"+str(self.timeOut)+".png")
+        self.img = pygame.image.load("resources/image/menu/initial_menu/animation/0_Goblin_Walking_"+str(self.timeOut)+".png")
         self.menuControl = 150
+        self.timeEfect = 0
         
 
     # Method to choose option in main menu
+    def newGameDisplay(self):
+        if (self.timeEfect == 50):
+            self.screen.blit(self.newGame, (145, 150))
+            self.screen.blit(self.loadGame, (150, 200))
+            self.screen.blit(self.settings, (150, 250))
+            self.screen.blit(self.quit, (150, 300))
+            self.timeEfect = 0
+        else:
+            self.screen.blit(self.newGame1, (145, 150))
+            self.screen.blit(self.loadGame, (150, 200))
+            self.screen.blit(self.settings, (150, 250))
+            self.screen.blit(self.quit, (150, 300))
+            self.timeEfect += 1
     def mainMenuEsc(self):
         self.background.settingBackground(self.screen)
         self.screen.blit(self.painel, (105, 70))
         self.screen.blit(self.title, (275, 90))
         if (self.menuControl==150):
-            self.screen.blit(self.newGame1, (145, 150))
-            self.screen.blit(self.loadGame, (150, 200))
-            self.screen.blit(self.settings, (150, 250))
-            self.screen.blit(self.quit, (150, 300))
+            self.newGameDisplay()
 
         elif (self.menuControl==200):
             self.screen.blit(self.newGame, (150, 150))
@@ -75,19 +86,19 @@ class MainMenu(object):
             return 3
         elif ((pressed_keys[K_x])and(self.menuControl==250)):
             return 4
-
         elif ((pressed_keys[K_x])and(self.menuControl==300)):
             return 5
         
         self.mainMenuEsc()  
         self.golemAnimation()
         return 1
+
     def golemAnimation(self):
-        if(self.timeOut==850):
-            self.img = pygame.image.load("resources/image/menu/initial_menu/animation/0_Goblin_Idle Blinking_"+str(int(self.timeOut/50))+".png")
+        if(self.timeOut==230):
+            self.img = pygame.image.load("resources/image/menu/initial_menu/animation/0_Goblin_Walking_"+str(int(self.timeOut/10))+".png")
             self.timeOut = 0
         else:
-            if ((self.timeOut % 50)==0):
-                self.img = pygame.image.load("resources/image/menu/initial_menu/animation/0_Goblin_Idle Blinking_"+str(int(self.timeOut/50))+".png")
+            if ((self.timeOut % 10)==0):
+                self.img = pygame.image.load("resources/image/menu/initial_menu/animation/0_Goblin_Walking_"+str(int(self.timeOut/10))+".png")
             self.timeOut += 1
         self.screen.blit(self.img, (420, 160))
