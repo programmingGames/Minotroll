@@ -47,9 +47,9 @@ while True:
 
     if(screenState==0):
         screenState = initiation.settingStart()
-    elif((screenState>=1)and(screenState<=3)):
+    elif((screenState>=1)and(screenState<=4)):
         screenState = menu.interMenuMoving(screenState, pygameEvent)
-    elif(screenState == 4):
+    elif(screenState == 5):
         plataforma = Plataform(screen, 1, screenState, nivel)
         tile_rects, tile_item = plataforma.settingPlataform(scroll)
         # wizard_rect = wizard.activation(pygameEvent, tile_rects, scroll, player_rect)

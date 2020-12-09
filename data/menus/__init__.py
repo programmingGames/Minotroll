@@ -5,6 +5,7 @@ from data.backgrounds import Backgound as Back
 from data.menus.createUser import CreateUserMenu
 from data.menus.exitMenu import ExitMenu 
 from data.menus.mainMenu import MainMenu
+from data.menus.userMenu import UserMenu
 from data.menus.intro import Intro
 
 #  Class for controling all the menu on the game
@@ -16,9 +17,9 @@ class Menus(object):
         self.exitMenu = ExitMenu(screen)
         self.mainMenu = MainMenu(screen, backgroundImage, painelState, nivel)
         self.intro = Intro(screen, backgroundImage, painelState, nivel)
+        self.userMenu = UserMenu(screen, backgroundImage, painelState, nivel)
 
     # Method to move in the main menu
-    # screenState == painelState
     def interMenuMoving(self, screenState, event):
         self.painelState = screenState
         # print(self.painelState)
@@ -26,7 +27,10 @@ class Menus(object):
             self.painelState = self.mainMenu.movingInMainMenu()
         elif(self.painelState == 2):
             self.painelState = self.createUser.drawUserMenu(event)
+            print(self.painelState)
         elif(self.painelState == 3):
-            self.painelState = self.intro.introDisplay()
+            self.painelState = self.userMenu.movingInUserMenu()
+        # elif(self.painelState == 4):
+        #     self.painelState = self.userMenu.movingInUserMenu()
                  
         return self.painelState
