@@ -75,7 +75,7 @@ class UserMenu(object):
         self.count += 1
         if((pressed_keys[K_x])and(self.menuControl==150)and(self.count >= 5)):
             self.count = 0
-            return 2
+            return 7
         elif ((pressed_keys[K_x])and(self.menuControl==200)and(self.count >= 5)):
             self.count = 0
             return 3
@@ -87,7 +87,7 @@ class UserMenu(object):
             return 5
         elif ((pressed_keys[K_x])and(self.menuControl==350)and(self.count >= 5)):
             self.count = 0
-            return 5
+            return 1
                 
         self.mainMenuEsc()  
         self.golemAnimation()
