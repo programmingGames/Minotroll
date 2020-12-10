@@ -7,6 +7,7 @@ from data.menus.exitMenu import ExitMenu
 from data.menus.mainMenu import MainMenu
 from data.menus.userMenu import UserMenu
 from data.menus.intro import Intro
+from data.menus.loadMenu import LoadUser
 
 #  Class for controling all the menu on the game
 class Menus(object):
@@ -18,6 +19,7 @@ class Menus(object):
         self.mainMenu = MainMenu(screen, backgroundImage, painelState, nivel)
         self.intro = Intro(screen, backgroundImage, painelState, nivel)
         self.userMenu = UserMenu(screen, backgroundImage, painelState, nivel)
+        self.loadUser = LoadUser(screen, backgroundImage, painelState, nivel)
 
     # Method to move in the main menu
     def interMenuMoving(self, screenState, event):
@@ -33,5 +35,7 @@ class Menus(object):
             self.painelState = self.intro.introDisplay()
         elif(self.painelState == 5):
             self.painelState = self.exitMenu.movingInExitMenu()
+        elif(self.painelState == 4):
+            self.painelState = self.loadUser.movingInLoadMenu()
                  
         return self.painelState

@@ -77,7 +77,7 @@ class MainMenu(object):
             return 2
         elif ((pressed_keys[K_x])and(self.menuControl==200)and(self.count >= 5)):
             self.count = 0
-            return 3
+            return 4
         elif ((pressed_keys[K_x])and(self.menuControl==250)and(self.count >= 5)):
             self.count = 0
             return 4

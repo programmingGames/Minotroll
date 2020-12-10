@@ -56,9 +56,6 @@ class CreateUserMenu:
 
         self.displayButtoms()
         [self.screen.blit(img, pos) for img, pos in zip(self.allButtom, self.allPosition)]
-        
-
-
 
     # Method to move in this menu and return the choose
     def drawUserMenu(self, event):
@@ -77,7 +74,7 @@ class CreateUserMenu:
                 self.menuControl -= 50
 
         self.count += 1
-        if((pressed_keys[K_x])and(self.menuControl==250)and(self.count >= 5)):
+        if((pressed_keys[K_x])and(self.menuControl==250)and(self.count >= 5)and(len(self.user) != 0)):
             self.count = 0
             self.createUserData()
             return 3
@@ -86,8 +83,26 @@ class CreateUserMenu:
             return 1
         self.settingUserName(event)
         return 2
+
     def createUserData(self):
         os.chdir('users')
         os.mkdir(self.user)
+        x = 210
+        y = 30
+        for i in range(3):
+            if(i!=0):
+                y = 40
+            font = pygame.font.SysFont("arial", 24)
+            font.set_bold(True)
+            surf = pygame.Surface((x, y))
+            os.chdir('..')
+            img = pygame.image.load("resources/image/menu/botao"+str(i)+".png")
+            name_surf = font.render(self.user, True, (0, 0, 0), img)
+            r = name_surf.get_rect()
+            surf.fill((66, 33, 11))
+            surf.blit(img, (0, 0))
+            surf.blit(name_surf, (int((x/2)-(r.width/2)),int((y/2)-(r.height/2))))
+            os.chdir('users/'+self.user)
+            pygame.image.save(surf, self.user+""+str(i)+".png")
+            os.chdir('..')
         os.chdir('..')
-        pass
