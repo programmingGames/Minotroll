@@ -1,5 +1,6 @@
 import pygame
 from pygame.locals import *
+import os
 from data.backgrounds import Backgound as Back
 from data.textInput import Textinput as textInput
 
@@ -45,7 +46,7 @@ class CreateUserMenu:
         self.font.set_bold(True)
         line = self.font.render(self.createText, True, (0, 0,0))
         self.screen.blit(line, (265, 150))
-        self.text.settingInputText(self.screen, event)
+        self.user = self.text.settingInputText(self.screen, event)
 
         # Controling menu buttons efects
         if (self.menuControl == 250):
@@ -78,9 +79,15 @@ class CreateUserMenu:
         self.count += 1
         if((pressed_keys[K_x])and(self.menuControl==250)and(self.count >= 5)):
             self.count = 0
+            self.createUserData()
             return 3
         elif((pressed_keys[K_x])and(self.menuControl==300)and(self.count >= 5)):
             self.count = 0
             return 1
         self.settingUserName(event)
         return 2
+    def createUserData(self):
+        os.chdir('users')
+        os.mkdir(self.user)
+        os.chdir('..')
+        pass

@@ -41,3 +41,4 @@ class Textinput:
         text_surface = self.base_font.render(self.text, True, (255, 255, 255))
         screen.blit(text_surface, (self.input_rect.x + 5, self.input_rect.y + 5))
         self.input_rect.w = max(300, text_surface.get_width() + 10)
+        return self.text
