@@ -11,25 +11,26 @@ from data.menus.loadMenu import LoadUser
 
 #  Class for controling all the menu on the game
 class Menus(object):
-    def __init__(self, screen, backgroundImage, painelState, nivel):
+    def __init__(self, screen, painelState):
         self.screen = screen
         self.painelState = painelState
-        self.createUser = CreateUserMenu(screen, backgroundImage,painelState, nivel)
-        self.exitMenu = ExitMenu(screen, backgroundImage, painelState, nivel)
-        self.mainMenu = MainMenu(screen, backgroundImage, painelState, nivel)
-        self.intro = Intro(screen, backgroundImage, painelState, nivel)
-        self.userMenu = UserMenu(screen, backgroundImage, painelState, nivel)
-        self.loadUser = LoadUser(screen, backgroundImage, painelState, nivel)
+        self.createUser = CreateUserMenu(screen)
+        self.exitMenu = ExitMenu(screen)
+        self.mainMenu = MainMenu(screen)
+        self.intro = Intro(screen)
+        self.userMenu = UserMenu(screen)
+        self.loadUser = LoadUser(screen)
         self.user = ''
 
     # Method to move in the main menu
     def interMenuMoving(self, screenState, event):
+        self.event = event
         self.painelState = screenState
         # print(self.painelState)
         if(self.painelState == 1):
             self.painelState = self.mainMenu.movingInMainMenu()
         elif(self.painelState == 2):
-            self.painelState = self.createUser.drawUserMenu(event)
+            self.painelState = self.createUser.drawUserMenu(self.event)
         elif(self.painelState == 3):
             self.painelState = self.userMenu.movingInUserMenu()
         elif(self.painelState == 6):

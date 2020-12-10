@@ -26,7 +26,6 @@ class Textinput:
         # Pega todos os eventos de escrita do teclado
         if (event.type == pygame.KEYDOWN):
             pygame.time.delay(100)
-            
             # So escreve na caixa do teclado se a active estiver ativo
             if(self.active == True):
                 if (event.key == pygame.K_BACKSPACE):
@@ -34,7 +33,6 @@ class Textinput:
                 else:
                     if(len(self.text)<=self.limit):
                         self.text += event.unicode
-                        print(ord(event.unicode))
 
         if self.active:
             self.color = self.color_active

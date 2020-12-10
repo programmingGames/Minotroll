@@ -5,11 +5,10 @@ from data.backgrounds import Backgound as Back
 from data.textInput import Textinput as textInput
 
 class CreateUserMenu:
-    def __init__(self, screen, nrImage, painelState, nivel):
+    def __init__(self, screen):
         pygame.init()
         self.screen = screen
-        self.painelState = painelState
-        self.background = Back(nrImage, painelState, nivel)
+        self.background = Back(screen)
         self.painel = pygame.image.load("resources/image/menu/painel.png").convert_alpha()
         self.title = pygame.image.load("resources/image/title/MinoTrolls1.png").convert_alpha()
         self.createText = "Enter a user name"
@@ -40,7 +39,7 @@ class CreateUserMenu:
             self.allButtom.append(img)
 
     def settingUserName(self, event):
-        self.background.settingBackground(self.screen)
+        self.background.settingBackgroundMenu(2)
         self.screen.blit(self.painel, (105, 70))
         self.screen.blit(self.title, (275, 90))
         self.font.set_bold(True)
@@ -76,20 +75,20 @@ class CreateUserMenu:
                 self.menuControl -= 50
 
         self.count += 1
-        if(((pressed_keys[K_KP_ENTER])or(pressed_keys.index(1)==40))and(self.menuControl==250)and(self.count >= 5)and(len(self.user) != 0)):
+        if(((pressed_keys[K_RETURN])or(pressed_keys.index(1)==40))and(self.menuControl==250)and(self.count >= 5)and(len(self.user) != 0)):
             self.count = 0
             if(self.viewUserLimit()):
-                self.createUserData()
+                self.createUserDirAndButtom()
                 return 3
             else:
                 return 2
-        elif(((pressed_keys[K_KP_ENTER])or(pressed_keys.index(1)==36))and(self.menuControl==300)and(self.count >= 5)):
+        elif(((pressed_keys[K_RETURN])or(pressed_keys.index(1)==36))and(self.menuControl==300)and(self.count >= 5)):
             self.count = 0
             return 1
         self.settingUserName(event)
         return 2
 
-    def createUserData(self):
+    def createUserDirAndButtom(self):
         os.chdir('users')
         os.mkdir(self.user)
         x = 210
@@ -111,6 +110,8 @@ class CreateUserMenu:
             pygame.image.save(surf, self.user+""+str(i)+".png")
             os.chdir('..')
         os.chdir('..')
+    def createUserEvolutionDate(self):
+        pass
 
     def viewUserLimit(self):
         if(len(os.listdir('users')) > 3):

@@ -1,22 +1,17 @@
 import pygame
 
 class Backgound(object):
-    def __init__(self, Nrimage, menuEsc, nivel):
-        self.Nrimage = Nrimage
-        self.esc = menuEsc
-        self.nivel = nivel
+    def __init__(self,screen):
+        self.screen = screen
 
     # Method to blit the background on the screen
-    def settingBackground(self, screen):
-        if(self.esc<4):
-            self.image = pygame.image.load("resources/image/background/"+str(self.Nrimage)+".png").convert()
-        elif(self.esc>=4):
-            self.image = pygame.image.load("resources/image/background/nivel_"+str(self.nivel)+"/"+str(self.nivel)+".png").convert()
+    def settingBackgroundMenu(self,nrImage):
+        image = pygame.image.load("resources/image/background/"+str(nrImage)+".png").convert()
+        self.screen.blit(image, (0,0))
 
-        screen.blit(self.image, (0,0))
-
-    def movingBackgournd(self):
-        pass
+    def movingBackgourndGamePlay(self, nivel):
+        image = pygame.image.load("resources/image/background/nivel_"+str(nivel)+"/"+str(nivel)+".png").convert()
+        self.screen.blit(image, (0,0))
     
     def movingComponnets(self):
         pass

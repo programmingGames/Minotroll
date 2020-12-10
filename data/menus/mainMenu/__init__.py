@@ -5,10 +5,9 @@ from data.backgrounds import Backgound as Back
 
 #  Class for controling all the menu on the game
 class MainMenu(object):
-    def __init__(self, screen, backgroundImage, painelState, nivel):
+    def __init__(self, screen):
         self.screen = screen
-        self.nivel = nivel
-        self.background = Back(backgroundImage, painelState, nivel)
+        self.background = Back(screen)
         self.painel = pygame.image.load("resources/image/menu/painel.png").convert_alpha()
         self.title = pygame.image.load("resources/image/title/MinoTrolls1.png").convert_alpha()
         self.timeOut = 0
@@ -39,7 +38,7 @@ class MainMenu(object):
             self.allButtom.append(img)
 
     def mainMenuEsc(self):
-        self.background.settingBackground(self.screen)
+        self.background.settingBackgroundMenu(2)
         self.screen.blit(self.painel, (105, 70))
         self.screen.blit(self.title, (275, 90))
 
@@ -72,16 +71,16 @@ class MainMenu(object):
                 self.menuControl -= 50
 
         self.count += 1
-        if((pressed_keys[pygame.K_KP_ENTER] or pressed_keys.index(1)==36)and(self.menuControl==150)and(self.count >= 5)):
+        if((pressed_keys[K_RETURN])and(self.menuControl==150)and(self.count >= 5)):
             self.count = 0
             return 2
-        elif ((pressed_keys[K_x])and(self.menuControl==200)and(self.count >= 5)):
+        elif ((pressed_keys[K_RETURN])and(self.menuControl==200)and(self.count >= 5)):
             self.count = 0
             return 4
-        elif ((pressed_keys[K_x])and(self.menuControl==250)and(self.count >= 5)):
+        elif ((pressed_keys[K_RETURN])and(self.menuControl==250)and(self.count >= 5)):
             self.count = 0
             return 4
-        elif ((pressed_keys[K_x])and(self.menuControl==300)and(self.count >= 5)):
+        elif ((pressed_keys[K_RETURN])and(self.menuControl==300)and(self.count >= 5)):
             self.count = 0
             return 5
         

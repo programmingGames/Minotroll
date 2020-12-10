@@ -5,10 +5,10 @@ from sys import exit
 
 
 class ExitMenu:
-    def __init__(self, screen, backgroundImage, painelState, nivel):
+    def __init__(self, screen):
         pygame.init()
         self.screen = screen
-        self.background = Back(backgroundImage, painelState, nivel)
+        self.background = Back(screen)
         self.painel = pygame.image.load("resources/image/menu/painel.png").convert_alpha()
         self.title = pygame.image.load("resources/image/title/MinoTrolls1.png").convert_alpha()
         self.createText = "Do you realy wanna exit game?"
@@ -53,10 +53,10 @@ class ExitMenu:
 
 
         self.count += 1
-        if((pressed_keys[K_x])and(self.menuControl==230)and(self.count >= 5)):
+        if((pressed_keys[K_RETURN])and(self.menuControl==230)and(self.count >= 5)):
             self.count = 0
             exit()
-        elif ((pressed_keys[K_x])and(self.menuControl==380)and(self.count >= 5)):
+        elif ((pressed_keys[K_RETURN])and(self.menuControl==380)and(self.count >= 5)):
             self.count = 0
             return 1
         
@@ -64,7 +64,7 @@ class ExitMenu:
         self.exitMenuEsc()  
         return 5
     def exitMenuEsc(self):
-        self.background.settingBackground(self.screen)
+        self.background.settingBackgroundMenu(2)
         self.screen.blit(self.painel, (105, 70))
         self.screen.blit(self.title, (275, 90))
         self.font.set_bold(True)

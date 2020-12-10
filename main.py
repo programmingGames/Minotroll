@@ -23,8 +23,8 @@ scroll = [0, 0]
 
 pygameEvent = 0
 
-initiation = start(screen, 1, screenState, nivel)
-menu = Menus(screen, 2, screenState, nivel)
+initiation = start(screen)
+menu = Menus(screen,screenState)
 player = Player(screen)
 wizard = WizardSimpleAI(screen)
 plataforma = 0
@@ -50,7 +50,7 @@ while True:
     elif((screenState>=1)and(screenState<=6)):
         screenState = menu.interMenuMoving(screenState, pygameEvent)
     elif(screenState == 7):
-        plataforma = Plataform(screen, 1, screenState, nivel)
+        plataforma = Plataform(screen)
         tile_rects, tile_item = plataforma.settingPlataform(scroll)
         # wizard_rect = wizard.activation(pygameEvent, tile_rects, scroll, player_rect)
         # tile_rects.append(wizard_rect)

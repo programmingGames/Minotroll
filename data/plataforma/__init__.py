@@ -3,12 +3,11 @@ from data.backgrounds import Backgound as Back
 from data.enimy.cactus import Cactus
 
 class Plataform:
-    def __init__(self, screen, nrImage,menuEsc, nivel):
+    def __init__(self, screen):
         self.screen = screen
         # self.display = pygame.Surface((300,200))
         self.game_map = self.load_map('map')
-        self.nivel = nivel
-        self.background = Back(nrImage, menuEsc, nivel)
+        self.background = Back(screen)
         self.plat_green = pygame.image.load("resources/image/platform/florest/p4.png").convert_alpha()
         self.plat_black = pygame.image.load("resources/image/platform/florest/p4_dark.png").convert_alpha()
         self.cactu = pygame.image.load("resources/image/platform/florest/Cactus-2.png").convert_alpha()
@@ -24,7 +23,7 @@ class Plataform:
         return game_map
 
     def settingPlataform(self, scroll):
-        self.background.settingBackground(self.screen)
+        self.background.movingBackgourndGamePlay(1)
         tile_rects = []
         tile_item = []
         y = 0

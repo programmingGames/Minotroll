@@ -5,9 +5,9 @@ from data.backgrounds import Backgound as Back
 
 
 class LoadUser(object):
-    def __init__(self, screen, backgroundImage, painelState, nivel):
+    def __init__(self, screen):
         self.screen = screen
-        self.background = Back(backgroundImage, painelState, nivel)
+        self.background = Back(screen)
         self.painel = pygame.image.load("resources/image/menu/painel.png").convert_alpha()
         self.title = pygame.image.load("resources/image/title/MinoTrolls1.png").convert_alpha()
         self.createText = "Chose your user name"
@@ -39,7 +39,7 @@ class LoadUser(object):
             self.allButtom.append(img)
 
     def loadMenuEsc(self):
-        self.background.settingBackground(self.screen)
+        self.background.settingBackgroundMenu(2)
         self.screen.blit(self.painel, (105, 70))
         self.screen.blit(self.title, (275, 90))
         self.font.set_bold(True)
@@ -70,27 +70,12 @@ class LoadUser(object):
             else:
                 self.menuControl -= 50
 
-        
-        # if((pressed_keys[K_x])and(self.menuControl==200)and(self.count >= 5)):
-        #     self.count = 0
-        #     return 3
-        # elif ((pressed_keys[K_x])and(self.menuControl==250)and(self.count >= 5)):
-        #     self.count = 0
-        #     return 3
-        # elif ((pressed_keys[K_x])and(self.menuControl==300)and(self.count >= 5)):
-        #     self.count = 0
-        #     return 3
-        # elif ((pressed_keys[K_x])and(self.menuControl==350)and(self.count >= 5)):
-        #     self.count = 0
-        #     return 3
         self.count += 1
         for i in range(len(self.users)):
-            if((pressed_keys[K_x])and(self.count >= 5)and(self.menuControl == ((i*50)+200))):
+            if((pressed_keys[K_RETURN])and(self.count >= 10)and(self.menuControl == ((i*50)+200))):
                 self.count = 0
                 return 3, self.users[i]
                 
-        
-
         self.loadMenuEsc()
         return 4, ''
     

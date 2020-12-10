@@ -4,8 +4,8 @@ from data.backgrounds import Backgound as Back
 from data import Hysto 
 
 class Intro(object):
-    def __init__(self, screen, nrImage, menuEsc, nivel):
-        self.background = Back(nrImage, menuEsc, nivel)
+    def __init__(self, screen):
+        self.background = Back(screen)
         self.screen = screen
         self.history = Hysto()
         self.painel = pygame.image.load("resources/image/menu/painel.png").convert_alpha()
@@ -23,7 +23,7 @@ class Intro(object):
             self.change += 1
 
         for paragrafo in self.history.historyData():
-            self.background.settingBackground(self.screen)
+            self.background.settingBackgroundMenu(2)
             self.screen.blit(self.painel, (105, 70))
             self.screen.blit(self.title, (275, 90))
             for line in paragrafo:

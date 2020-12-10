@@ -3,10 +3,10 @@ from pygame import *
 from data.backgrounds import Backgound as Back
 
 class UserMenu(object):
-    def __init__(self, screen, backgroundImage, painelState, nivel):
+    def __init__(self, screen):
         pygame.init()
         self.screen = screen
-        self.background = Back(backgroundImage, painelState, nivel)
+        self.background = Back(screen)
         self.painel = pygame.image.load("resources/image/menu/user_menu/painel.png").convert_alpha()
         self.title = pygame.image.load("resources/image/title/MinoTrolls1.png").convert_alpha()
         self.timeOut = 0
@@ -37,7 +37,7 @@ class UserMenu(object):
             self.allButtom.append(img)
 
     def mainMenuEsc(self):
-        self.background.settingBackground(self.screen)
+        self.background.settingBackgroundMenu(2)
         self.screen.blit(self.painel, (52, 50))
         self.screen.blit(self.title, (270, 60))
 
@@ -73,19 +73,19 @@ class UserMenu(object):
 
 
         self.count += 1
-        if((pressed_keys[K_x])and(self.menuControl==150)and(self.count >= 5)):
+        if((pressed_keys[K_RETURN])and(self.menuControl==150)and(self.count >= 5)):
             self.count = 0
             return 7
-        elif ((pressed_keys[K_x])and(self.menuControl==200)and(self.count >= 5)):
+        elif ((pressed_keys[K_RETURN])and(self.menuControl==200)and(self.count >= 5)):
             self.count = 0
             return 3
-        elif ((pressed_keys[K_x])and(self.menuControl==250)and(self.count >= 5)):
+        elif ((pressed_keys[K_RETURN])and(self.menuControl==250)and(self.count >= 5)):
             self.count = 0
             return 4
-        elif ((pressed_keys[K_x])and(self.menuControl==300)and(self.count >= 5)):
+        elif ((pressed_keys[K_RETURN])and(self.menuControl==300)and(self.count >= 5)):
             self.count = 0
             return 6
-        elif ((pressed_keys[K_x])and(self.menuControl==350)and(self.count >= 5)):
+        elif ((pressed_keys[K_RETURN])and(self.menuControl==350)and(self.count >= 5)):
             self.count = 0
             return 1
                 
