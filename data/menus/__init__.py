@@ -14,7 +14,7 @@ class Menus(object):
         self.screen = screen
         self.painelState = painelState
         self.createUser = CreateUserMenu(screen, backgroundImage,painelState, nivel)
-        self.exitMenu = ExitMenu(screen)
+        self.exitMenu = ExitMenu(screen, backgroundImage, painelState, nivel)
         self.mainMenu = MainMenu(screen, backgroundImage, painelState, nivel)
         self.intro = Intro(screen, backgroundImage, painelState, nivel)
         self.userMenu = UserMenu(screen, backgroundImage, painelState, nivel)
@@ -31,7 +31,7 @@ class Menus(object):
             self.painelState = self.userMenu.movingInUserMenu()
         elif(self.painelState == 6):
             self.painelState = self.intro.introDisplay()
-        # elif(self.painelState == 4):
-        #     self.painelState = self.userMenu.movingInUserMenu()
+        elif(self.painelState == 5):
+            self.painelState = self.exitMenu.movingInExitMenu()
                  
         return self.painelState

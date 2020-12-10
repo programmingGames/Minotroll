@@ -5,6 +5,7 @@ from data.textInput import Textinput as textInput
 
 class CreateUserMenu:
     def __init__(self, screen, nrImage, painelState, nivel):
+        pygame.init()
         self.screen = screen
         self.painelState = painelState
         self.background = Back(nrImage, painelState, nivel)
@@ -41,6 +42,7 @@ class CreateUserMenu:
         self.background.settingBackground(self.screen)
         self.screen.blit(self.painel, (105, 70))
         self.screen.blit(self.title, (275, 90))
+        self.font.set_bold(True)
         line = self.font.render(self.createText, True, (0, 0,0))
         self.screen.blit(line, (265, 150))
         self.text.settingInputText(self.screen, event)

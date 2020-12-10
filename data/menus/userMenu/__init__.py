@@ -7,7 +7,7 @@ class UserMenu(object):
         pygame.init()
         self.screen = screen
         self.background = Back(backgroundImage, painelState, nivel)
-        self.painel = pygame.image.load("resources/image/menu/user_menu/painel1.png").convert_alpha()
+        self.painel = pygame.image.load("resources/image/menu/user_menu/painel.png").convert_alpha()
         self.title = pygame.image.load("resources/image/title/MinoTrolls1.png").convert_alpha()
         self.timeOut = 0
         self.img = pygame.image.load("resources/image/menu/initial_menu/animation/0_Goblin_Walking_"+str(self.timeOut)+".png")
@@ -16,7 +16,7 @@ class UserMenu(object):
         self.buttoms = ['gamePlay','gameMap', 'gameSkills','gameHistory', 'mainMenu']
         self.currentButtom = self.buttoms[0]
         self.allButtom = []
-        self.allPosition = [(80, 150), (80, 200), (80, 250), (80, 300), (80, 350)]
+        self.allPosition = [(100, 150), (100, 200), (100, 250), (100, 300), (100, 350)]
         self.displayButtoms()
         self.count = 0
         
@@ -38,8 +38,8 @@ class UserMenu(object):
 
     def mainMenuEsc(self):
         self.background.settingBackground(self.screen)
-        self.screen.blit(self.painel, (25, 35))
-        self.screen.blit(self.title, (260, 50))
+        self.screen.blit(self.painel, (52, 50))
+        self.screen.blit(self.title, (270, 60))
 
         if (self.menuControl==150):
             self.currentButtom = self.buttoms[0]
