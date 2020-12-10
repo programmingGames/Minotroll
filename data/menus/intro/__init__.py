@@ -37,7 +37,7 @@ class Intro(object):
                 paragrafoControl += 1
             
         if(self.change == 5):
-            return 4
+            return 3
         else:
             self.timeout += 1
-            return 3
+            return 6

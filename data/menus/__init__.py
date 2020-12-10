@@ -27,9 +27,10 @@ class Menus(object):
             self.painelState = self.mainMenu.movingInMainMenu()
         elif(self.painelState == 2):
             self.painelState = self.createUser.drawUserMenu(event)
-            print(self.painelState)
         elif(self.painelState == 3):
             self.painelState = self.userMenu.movingInUserMenu()
+        elif(self.painelState == 6):
+            self.painelState = self.intro.introDisplay()
         # elif(self.painelState == 4):
         #     self.painelState = self.userMenu.movingInUserMenu()
                  

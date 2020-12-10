@@ -5,7 +5,6 @@ from data.textInput import Textinput as textInput
 
 class CreateUserMenu:
     def __init__(self, screen, nrImage, painelState, nivel):
-        pygame.init()
         self.screen = screen
         self.painelState = painelState
         self.background = Back(nrImage, painelState, nivel)
