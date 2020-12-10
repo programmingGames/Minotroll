@@ -20,6 +20,7 @@ class Menus(object):
         self.intro = Intro(screen, backgroundImage, painelState, nivel)
         self.userMenu = UserMenu(screen, backgroundImage, painelState, nivel)
         self.loadUser = LoadUser(screen, backgroundImage, painelState, nivel)
+        self.user = ''
 
     # Method to move in the main menu
     def interMenuMoving(self, screenState, event):
@@ -36,6 +37,6 @@ class Menus(object):
         elif(self.painelState == 5):
             self.painelState = self.exitMenu.movingInExitMenu()
         elif(self.painelState == 4):
-            self.painelState = self.loadUser.movingInLoadMenu()
+            self.painelState, self.user = self.loadUser.movingInLoadMenu()
                  
         return self.painelState

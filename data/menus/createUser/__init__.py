@@ -21,7 +21,7 @@ class CreateUserMenu:
         self.buttoms = ['createuser','back']
         self.currentButtom = self.buttoms[0]
         self.allButtom = []
-        self.allPosition = [(260, 250), (260, 300)]
+        self.allPosition = [(250, 250), (250, 300)]
         self.displayButtoms()
 
     # Method to render all the components in the screen
@@ -56,6 +56,8 @@ class CreateUserMenu:
 
         self.displayButtoms()
         [self.screen.blit(img, pos) for img, pos in zip(self.allButtom, self.allPosition)]
+        if(self.viewUserLimit()==False):
+            self.deniedUserCreate()
 
     # Method to move in this menu and return the choose
     def drawUserMenu(self, event):
@@ -74,11 +76,14 @@ class CreateUserMenu:
                 self.menuControl -= 50
 
         self.count += 1
-        if((pressed_keys[K_x])and(self.menuControl==250)and(self.count >= 5)and(len(self.user) != 0)):
+        if(((pressed_keys[K_KP_ENTER])or(pressed_keys.index(1)==40))and(self.menuControl==250)and(self.count >= 5)and(len(self.user) != 0)):
             self.count = 0
-            self.createUserData()
-            return 3
-        elif((pressed_keys[K_x])and(self.menuControl==300)and(self.count >= 5)):
+            if(self.viewUserLimit()):
+                self.createUserData()
+                return 3
+            else:
+                return 2
+        elif(((pressed_keys[K_KP_ENTER])or(pressed_keys.index(1)==36))and(self.menuControl==300)and(self.count >= 5)):
             self.count = 0
             return 1
         self.settingUserName(event)
@@ -106,3 +111,14 @@ class CreateUserMenu:
             pygame.image.save(surf, self.user+""+str(i)+".png")
             os.chdir('..')
         os.chdir('..')
+
+    def viewUserLimit(self):
+        if(len(os.listdir('users')) > 3):
+            return False
+        else:
+            return True
+    def deniedUserCreate(self):
+        font = pygame.font.SysFont("Arial", 14)
+        font.set_bold(True)
+        line = font.render("Passed the number of allowed users!", True, (206, 0,0))
+        self.screen.blit(line, (225, 350))

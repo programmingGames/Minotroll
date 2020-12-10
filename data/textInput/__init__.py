@@ -12,6 +12,7 @@ class Textinput:
         self.color_passive = pygame.Color(255, 255, 255)
         self.color = self.color_passive
         self.active = False
+        self.limit = 10
     
     # Method to receive the input text from the keyboard
     def settingInputText(self, screen, event):
@@ -31,7 +32,9 @@ class Textinput:
                 if (event.key == pygame.K_BACKSPACE):
                     self.text = self.text[:-1]
                 else:
-                    self.text += event.unicode
+                    if(len(self.text)<=self.limit):
+                        self.text += event.unicode
+                        print(ord(event.unicode))
 
         if self.active:
             self.color = self.color_active
@@ -39,6 +42,6 @@ class Textinput:
             self.color = self.color_passive
         pygame.draw.rect(screen, self.color, self.input_rect, 2)
         text_surface = self.base_font.render(self.text, True, (255, 255, 255))
-        screen.blit(text_surface, (self.input_rect.x + 5, self.input_rect.y + 5))
+        screen.blit(text_surface, (int(self.input_rect.x+80), int(self.input_rect.y+5)))
         self.input_rect.w = max(300, text_surface.get_width() + 10)
         return self.text

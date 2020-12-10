@@ -10,41 +10,89 @@ class LoadUser(object):
         self.background = Back(backgroundImage, painelState, nivel)
         self.painel = pygame.image.load("resources/image/menu/painel.png").convert_alpha()
         self.title = pygame.image.load("resources/image/title/MinoTrolls1.png").convert_alpha()
-        self.createText = "Chose or user game"
+        self.createText = "Chose your user name"
         self.font = pygame.font.SysFont("Arial", 24)
         self.currentButtom = ''
         self.users = []
         self.allUser()
-        self.menuControl = 150
+        self.menuControl = 200
         self.timeEfect = 0
+        self.count = 0
         self.allButtom = []
+        self.allPosition = [(250, 200), (250, 250), (250, 300), (250, 350)]
+        self.displayButtoms()
+        self.nrUser = len(self.users)
+        self.maxScroll = self.menuControl+(self.nrUser * 50)
 
     def displayButtoms(self):
         self.allButtom = []
         for user in self.users:
             if(self.currentButtom == user):
                 if (self.timeEfect == 10):
-                    img = pygame.image.load("resources/image/menu/initial_menu/"+user+"1.png").convert_alpha()
+                    img = pygame.image.load("users/"+user+"/"+user+"1.png").convert_alpha()
                     self.timeEfect = 0
                 else:
-                    img = pygame.image.load("resources/image/menu/initial_menu/"+user+"2.png").convert_alpha()
+                    img = pygame.image.load("users/"+user+"/"+user+"2.png").convert_alpha()
                     self.timeEfect += 1
             else:
-                img = pygame.image.load("resources/image/menu/initial_menu/"+user+"0.png").convert_alpha()
+                img = pygame.image.load("users/"+user+"/"+user+"0.png").convert_alpha()
             self.allButtom.append(img)
 
-    def movingInLoadMenu(self):
-        self.draw()
-        
-        return 4
-    
-    def draw(self):
+    def loadMenuEsc(self):
         self.background.settingBackground(self.screen)
         self.screen.blit(self.painel, (105, 70))
         self.screen.blit(self.title, (275, 90))
         self.font.set_bold(True)
         line = self.font.render(self.createText, True, (0, 0,0))
-        self.screen.blit(line, (265, 150))
+        self.screen.blit(line, (215, 150))
+
+        for i in range(len(self.users)):
+            if(self.menuControl == ((i*50)+200)):
+                self.currentButtom = self.users[i]
+
+        self.displayButtoms()
+        [self.screen.blit(img, pos) for img, pos in zip(self.allButtom, self.allPosition)]
+
+    def movingInLoadMenu(self):
+        self.allUser()
+        pressed_keys = pygame.key.get_pressed()
+        
+        if(pressed_keys[K_DOWN]):
+            pygame.time.delay(100)
+            if(self.menuControl==self.maxScroll):
+                self.menuControl = 150
+            else:
+                self.menuControl += 50
+        elif(pressed_keys[K_UP]):
+            pygame.time.delay(100)
+            if(self.menuControl==150):
+                self.menuControl = 150
+            else:
+                self.menuControl -= 50
+
+        
+        # if((pressed_keys[K_x])and(self.menuControl==200)and(self.count >= 5)):
+        #     self.count = 0
+        #     return 3
+        # elif ((pressed_keys[K_x])and(self.menuControl==250)and(self.count >= 5)):
+        #     self.count = 0
+        #     return 3
+        # elif ((pressed_keys[K_x])and(self.menuControl==300)and(self.count >= 5)):
+        #     self.count = 0
+        #     return 3
+        # elif ((pressed_keys[K_x])and(self.menuControl==350)and(self.count >= 5)):
+        #     self.count = 0
+        #     return 3
+        self.count += 1
+        for i in range(len(self.users)):
+            if((pressed_keys[K_x])and(self.count >= 5)and(self.menuControl == ((i*50)+200))):
+                self.count = 0
+                return 3, self.users[i]
+                
+        
+
+        self.loadMenuEsc()
+        return 4, ''
     
     def allUser(self):
         if(len(os.listdir('users')) == 0):

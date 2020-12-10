@@ -72,7 +72,7 @@ class MainMenu(object):
                 self.menuControl -= 50
 
         self.count += 1
-        if((pressed_keys[K_x])and(self.menuControl==150)and(self.count >= 5)):
+        if((pressed_keys[pygame.K_KP_ENTER] or pressed_keys.index(1)==36)and(self.menuControl==150)and(self.count >= 5)):
             self.count = 0
             return 2
         elif ((pressed_keys[K_x])and(self.menuControl==200)and(self.count >= 5)):
