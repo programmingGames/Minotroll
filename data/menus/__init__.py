@@ -32,7 +32,7 @@ class Menus(object):
         elif(self.painelState == 2):
             self.painelState = self.createUser.drawUserMenu(self.event)
         elif(self.painelState == 3):
-            self.painelState = self.userMenu.movingInUserMenu()
+            self.painelState = self.userMenu.movingInUserMenu(self.user)
         elif(self.painelState == 6):
             self.painelState = self.intro.introDisplay()
         elif(self.painelState == 5):

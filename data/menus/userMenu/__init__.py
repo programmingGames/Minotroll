@@ -19,6 +19,7 @@ class UserMenu(object):
         self.allPosition = [(100, 150), (100, 200), (100, 250), (100, 300), (100, 350)]
         self.displayButtoms()
         self.count = 0
+        self.user = ''
         
 
     # Method to choose option in main menu
@@ -36,6 +37,8 @@ class UserMenu(object):
                 img = pygame.image.load("resources/image/menu/user_menu/"+buttom+"0.png").convert_alpha()
             self.allButtom.append(img)
 
+    def drawUserLevel(self):
+        pass
     def mainMenuEsc(self):
         self.background.settingBackgroundMenu(2)
         self.screen.blit(self.painel, (52, 50))
@@ -56,7 +59,8 @@ class UserMenu(object):
         [self.screen.blit(img, pos) for img, pos in zip(self.allButtom, self.allPosition)]
 
     # Method to move in the main menu
-    def movingInUserMenu(self):
+    def movingInUserMenu(self, user):
+        self.user = user
         pressed_keys = pygame.key.get_pressed()
         if(pressed_keys[K_DOWN]):
             pygame.time.delay(100)

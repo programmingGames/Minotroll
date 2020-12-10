@@ -22,6 +22,8 @@ class CreateUserMenu:
         self.allButtom = []
         self.allPosition = [(250, 250), (250, 300)]
         self.displayButtoms()
+        self.limit = True
+        self.exist = False
 
     # Method to render all the components in the screen
     def displayButtoms(self):
@@ -55,7 +57,7 @@ class CreateUserMenu:
 
         self.displayButtoms()
         [self.screen.blit(img, pos) for img, pos in zip(self.allButtom, self.allPosition)]
-        if(self.viewUserLimit()==False):
+        if(not self.limit or self.exist):
             self.deniedUserCreate()
 
     # Method to move in this menu and return the choose
@@ -77,8 +79,11 @@ class CreateUserMenu:
         self.count += 1
         if(((pressed_keys[K_RETURN])or(pressed_keys.index(1)==40))and(self.menuControl==250)and(self.count >= 5)and(len(self.user) != 0)):
             self.count = 0
-            if(self.viewUserLimit()):
+            self.viewUserLimit()
+            self.viewUserExist()
+            if(self.limit and not self.exist):
                 self.createUserDirAndButtom()
+                self.createUserEvolutionData()
                 return 3
             else:
                 return 2
@@ -110,16 +115,36 @@ class CreateUserMenu:
             pygame.image.save(surf, self.user+""+str(i)+".png")
             os.chdir('..')
         os.chdir('..')
-    def createUserEvolutionDate(self):
-        pass
+
+    def createUserEvolutionData(self):
+        os.chdir('users/'+self.user)
+        file = open('data.txt', 'w')
+        #          nivel      skills     Position
+        file.write(str(1)+' '+str(1)+' '+str(500))
+        file.close()
+        os.chdir('../..')
 
     def viewUserLimit(self):
         if(len(os.listdir('users')) > 3):
-            return False
+            self.limit = False
         else:
-            return True
+            self.limit = True
+
+    def viewUserExist(self):
+        userList = os.listdir('users')
+        for user in userList:
+            if(self.user == user):
+                self.exist = True
+
     def deniedUserCreate(self):
         font = pygame.font.SysFont("Arial", 14)
         font.set_bold(True)
-        line = font.render("Passed the number of allowed users!", True, (206, 0,0))
-        self.screen.blit(line, (225, 350))
+        if(not self.limit):
+            line = font.render("Passed the number of allowed users!", True, (206, 0,0))
+            self.screen.blit(line, (225, 350))
+        elif(self.exist):
+            line = font.render("User already exist!", True, (206, 0,0))
+            self.screen.blit(line, (285, 350))
+        else:
+            line = font.render("Not possible to create a user!", True, (206, 0,0))
+            self.screen.blit(line, (225, 350))

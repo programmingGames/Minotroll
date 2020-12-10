@@ -72,7 +72,7 @@ class LoadUser(object):
 
         self.count += 1
         for i in range(len(self.users)):
-            if((pressed_keys[K_RETURN])and(self.count >= 10)and(self.menuControl == ((i*50)+200))):
+            if((pressed_keys[K_RETURN])and(self.count >= 5)and(self.menuControl == ((i*50)+200))):
                 self.count = 0
                 return 3, self.users[i]
                 

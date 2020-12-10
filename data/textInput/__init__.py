@@ -8,20 +8,20 @@ class Textinput:
         self.base_font = pygame.font.SysFont(None, 32)
         self.text = ''
         self.input_rect = pygame.Rect(205, 190, 140, 32)
-        self.color_active = pygame.Color(128,128,128)
-        self.color_passive = pygame.Color(255, 255, 255)
+        self.color_passive = pygame.Color(128,128,128)
+        self.color_active = pygame.Color(255, 255, 255)
         self.color = self.color_passive
-        self.active = False
+        self.active = True
         self.limit = 10
     
     # Method to receive the input text from the keyboard
     def settingInputText(self, screen, event):
         # Verifica se o mause esta dentro da caixa d texto para permitir a escrita
-        if(event.type == pygame.MOUSEBUTTONDOWN):
-            if (self.input_rect.collidepoint(event.pos)):
-                self.active = True
-            else:
-                self.active = False
+        # if(event.type == pygame.MOUSEBUTTONDOWN):
+        #     # if (self.input_rect.collidepoint(event.pos)):
+        #     #     self.active = True
+        #     # else:
+        #     #     self.active = False
 
         # Pega todos os eventos de escrita do teclado
         if (event.type == pygame.KEYDOWN):
@@ -33,6 +33,10 @@ class Textinput:
                 else:
                     if(len(self.text)<=self.limit):
                         self.text += event.unicode
+                    if(event.key == K_RETURN):
+                        text = self.text
+                        self.text = ''
+                        return text
 
         if self.active:
             self.color = self.color_active
