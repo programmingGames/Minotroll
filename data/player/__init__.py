@@ -4,7 +4,7 @@ from data.vector import Vector2
 from data.player.life import Life
 
 class Player:
-    def __init__(self, screen):
+    def __init__(self, screen, nivel, skills, lastPassPoint):
         self.life = Life(screen)
         self.screen = screen
         self.air_timer = 0
@@ -15,12 +15,14 @@ class Player:
         self.move_frame = 0
         self.player_img = pygame.image.load("resources/image/Golem/"+self.state+"/"+self.move_direction+"/0_Goblin_"+self.state+"_0.png").convert_alpha()
         self.player_rect=self.player_img.get_rect()
-        self.player_rect.x = 500
+        self.player_rect.x = lastPassPoint
         self.moving_right = False
         self.moving_left = False
         self.vertical_momentum = 0
         self.air_timer = 0
         self.player_screen_limit = 280
+        self.nivel = nivel
+        self.skills = skills
 
     def collision_test(self, rect, tiles):
         hit_list = []

@@ -84,4 +84,4 @@ class LoadUser(object):
             pass
         else:
             self.users = os.listdir('users')
-            self.currentButtom = self.users[0]    
+            self.currentButtom = self.users[0]

@@ -61,6 +61,7 @@ class UserMenu(object):
     # Method to move in the main menu
     def movingInUserMenu(self, user):
         self.user = user
+        nivel, skills, lastPassPoint = self.loadUserData(user)
         pressed_keys = pygame.key.get_pressed()
         if(pressed_keys[K_DOWN]):
             pygame.time.delay(100)
@@ -74,8 +75,14 @@ class UserMenu(object):
                 self.menuControl = 150
             else:
                 self.menuControl -= 50
+        choice = self.userChoise(pressed_keys)
+        
+        self.mainMenuEsc()  
+        self.drawUserInfor(user)
+        self.golemAnimation()
+        return choice, int(nivel), int(skills), int(lastPassPoint)
 
-
+    def userChoise(self, pressed_keys):
         self.count += 1
         if((pressed_keys[K_RETURN])and(self.menuControl==150)and(self.count >= 5)):
             self.count = 0
@@ -92,9 +99,6 @@ class UserMenu(object):
         elif ((pressed_keys[K_RETURN])and(self.menuControl==350)and(self.count >= 5)):
             self.count = 0
             return 1
-                
-        self.mainMenuEsc()  
-        self.golemAnimation()
         return 3
 
     def golemAnimation(self):
@@ -107,3 +111,25 @@ class UserMenu(object):
             self.timeOut += 1
         self.screen.blit(self.img, (420, 160))
     
+    def loadUserData(self, user):
+        file = open('users/'+user+'/data.txt', 'r')
+        data = file.read()
+        file.close()
+        allUserData = data.split(' ')
+        nivel = allUserData[0]    # The current level of the player 
+        skills = allUserData[1]     # the skilss that the user had
+        lastPassPoint = allUserData[2]   # the last point in the game tha the user pass to
+        return nivel, skills, lastPassPoint
+
+    def drawUserInfor(self, user):
+        playerIcon = pygame.image.load("resources/image/user/Head1.png")
+        progressBox = pygame.image.load("resources/image/user/progress.png")
+        selo = pygame.image.load("resources/image/user/nivel-sel2.png")
+        font = pygame.font.SysFont("Arial", 18)
+        font.set_bold(True)
+        line = font.render(user, True, (255, 255,255))
+        
+        self.screen.blit(playerIcon, (160, 100))
+        self.screen.blit(progressBox, (490, 105))
+        self.screen.blit(selo, (460, 95))
+        self.screen.blit(line, (195, 110))

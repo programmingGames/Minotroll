@@ -77,21 +77,21 @@ class CreateUserMenu:
                 self.menuControl -= 50
 
         self.count += 1
-        if(((pressed_keys[K_RETURN])or(pressed_keys.index(1)==40))and(self.menuControl==250)and(self.count >= 5)and(len(self.user) != 0)):
+        if((pressed_keys[K_RETURN])and(self.menuControl==250)and(self.count >= 5)and(len(self.user) != 0)):
             self.count = 0
             self.viewUserLimit()
             self.viewUserExist()
             if(self.limit and not self.exist):
                 self.createUserDirAndButtom()
                 self.createUserEvolutionData()
-                return 3
+                return 3, self.user
             else:
-                return 2
-        elif(((pressed_keys[K_RETURN])or(pressed_keys.index(1)==36))and(self.menuControl==300)and(self.count >= 5)):
+                return 2, self.user
+        elif((pressed_keys[K_RETURN])and(self.menuControl==300)and(self.count >= 5)):
             self.count = 0
-            return 1
+            return 1, self.user
         self.settingUserName(event)
-        return 2
+        return 2, self.user
 
     def createUserDirAndButtom(self):
         os.chdir('users')

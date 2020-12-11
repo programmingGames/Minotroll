@@ -8,36 +8,61 @@ from data.menus.mainMenu import MainMenu
 from data.menus.userMenu import UserMenu
 from data.menus.intro import Intro
 from data.menus.loadMenu import LoadUser
+from data.player import Player
+from data.plataforma import Plataform
+from data.start import Initiation
 
 #  Class for controling all the menu on the game
 class Menus(object):
-    def __init__(self, screen, painelState):
-        self.screen = screen
-        self.painelState = painelState
-        self.createUser = CreateUserMenu(screen)
-        self.exitMenu = ExitMenu(screen)
-        self.mainMenu = MainMenu(screen)
-        self.intro = Intro(screen)
-        self.userMenu = UserMenu(screen)
-        self.loadUser = LoadUser(screen)
-        self.user = ''
+    def __init__(self):
+        self.screen = pygame.display.set_mode((700, 480), 0, 32)
+        pygame.display.set_caption("Minotroll")
+        self.painelState = 0
+        self.createUser = CreateUserMenu(self.screen)
+        self.exitMenu = ExitMenu(self.screen)
+        self.mainMenu = MainMenu(self.screen)
+        self.intro = Intro(self.screen)
+        self.userMenu = UserMenu(self.screen)
+        self.loadUser = LoadUser(self.screen)
+        self.initiation = Initiation(self.screen)
+        self.painelState = 0  # this is to control where we are in the game
+        self.user = '' # keep the current user name
+        self. nivel = 1 # default value of the level started usualy in 1 
+        self.skills = 1 # default value of skills the player have
+        self.lastPassPoint = 500 # default Value for position of the player in the platform
+        self.player_rect = pygame.Rect(0, 0, 0, 0) # To control the player rects
+        self.scroll = [0, 0]  # Variable to control the scroll of the screen
+        self.pygameEvent = 0 # to keep all the pygame.event in the game loop
 
     # Method to move in the main menu
-    def interMenuMoving(self, screenState, event):
-        self.event = event
-        self.painelState = screenState
-        # print(self.painelState)
+    def interMenuMoving(self):
+        self.findEvent()
+        if(self.painelState==0):
+            self.painelState = self.initiation.settingStart()
         if(self.painelState == 1):
             self.painelState = self.mainMenu.movingInMainMenu()
         elif(self.painelState == 2):
-            self.painelState = self.createUser.drawUserMenu(self.event)
+            self.painelState, self.user = self.createUser.drawUserMenu(self.pygameEvent)
+            self.player = Player(self.screen, self.nivel, self.skills,self.lastPassPoint)
         elif(self.painelState == 3):
-            self.painelState = self.userMenu.movingInUserMenu(self.user)
+            self.painelState, self.nivel, self.skills, self.lastPassPoint = self.userMenu.movingInUserMenu(self.user)
+            self.player = Player(self.screen, self.nivel, self.skills,self.lastPassPoint)
         elif(self.painelState == 6):
             self.painelState = self.intro.introDisplay()
         elif(self.painelState == 5):
             self.painelState = self.exitMenu.movingInExitMenu()
         elif(self.painelState == 4):
             self.painelState, self.user = self.loadUser.movingInLoadMenu()
-                 
-        return self.painelState
+        elif(self.painelState == 7):
+            plataforma = Plataform(self.screen)
+            tile_rects, tile_item = plataforma.settingPlataform(self.scroll)
+            # wizard_rect = wizard.activation(pygameEvent, tile_rects, scroll, player_rect)
+            # tile_rects.append(wizard_rect)
+            self.scroll, player_rect = self.player.settingPlayer(self.pygameEvent, tile_rects,tile_item, self.scroll)
+            tile_rects.append(player_rect)
+            
+    def findEvent(self):
+        for event in pygame.event.get():
+            self.pygameEvent = event
+            if event.type == QUIT:
+                exit()
