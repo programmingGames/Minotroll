@@ -130,6 +130,6 @@ class UserMenu(object):
         line = font.render(user, True, (255, 255,255))
         
         self.screen.blit(playerIcon, (160, 100))
-        self.screen.blit(progressBox, (490, 105))
-        self.screen.blit(selo, (460, 95))
+        self.screen.blit(progressBox, (465, 105))
+        self.screen.blit(selo, (440, 95))
         self.screen.blit(line, (195, 110))

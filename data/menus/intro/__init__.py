@@ -17,6 +17,7 @@ class Intro(object):
 
     def introDisplay(self):
         tx, ty = 165, 165
+        self.restart()
         paragrafoControl = 0
         if((self.timeout == 100)):
             self.timeout = 0
@@ -41,3 +42,7 @@ class Intro(object):
         else:
             self.timeout += 1
             return 6
+    # To start the display of the story again
+    def restart(self):
+        if(self.change == 5):
+            self.change = 0
