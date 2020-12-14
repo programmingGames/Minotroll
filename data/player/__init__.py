@@ -58,6 +58,7 @@ class Player:
             elif movement[1] < 0:
                 self.player_rect.top = tile[0].bottom
                 collision_types['top'] = True
+        
         return collision_types
 
     def determinateMove(self):
@@ -118,6 +119,9 @@ class Player:
             self.vertical_momentum = 0
         else:
             self.air_timer += 1
+        ## life damage example 
+        if(platformCollisions['left']):
+            self.life.damageLife(1)
 
 
     def settingPlayer(self, event, tile_rects, tile_item, scroll):
