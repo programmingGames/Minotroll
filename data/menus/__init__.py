@@ -8,9 +8,12 @@ from data.menus.mainMenu import MainMenu
 from data.menus.userMenu import UserMenu
 from data.menus.intro import Intro
 from data.menus.loadMenu import LoadUser
+from data.menus.pauseMenu import PauseMenu
 from data.player import Player
 from data.plataforma import Plataform
 from data.start import Initiation
+from data.enimy.wizard import WizardSimpleAI as Wizard
+
 
 #  Class for controling all the menu on the game
 class Menus(object):
@@ -25,6 +28,7 @@ class Menus(object):
         self.userMenu = UserMenu(self.screen)
         self.loadUser = LoadUser(self.screen)
         self.initiation = Initiation(self.screen)
+        self.pause = PauseMenu(self.screen)
         self.painelState = 0  # this is to control where we are in the game
         self.user = '' # keep the current user name
         self. nivel = 1 # default value of the level started usualy in 1 
@@ -34,9 +38,19 @@ class Menus(object):
         self.scroll = [0, 0]  # Variable to control the scroll of the screen
         self.pygameEvent = 0 # to keep all the pygame.event in the game loop
 
+        # test
+        self.wizard = Wizard(self.screen)
+
     # Method to move in the main menu
     def interMenuMoving(self):
-        self.findEvent()
+        for event in pygame.event.get():
+            self.pygameEvent = event
+            if event.type == QUIT:
+                exit()
+        key = pygame.key.get_pressed()
+        if((key[K_ESCAPE])and(self.painelState == 7)):
+            self.painelState = 8
+
         if(self.painelState==0):
             self.painelState = self.initiation.settingStart()
         if(self.painelState == 1):
@@ -56,13 +70,10 @@ class Menus(object):
         elif(self.painelState == 7):
             plataforma = Plataform(self.screen)
             tile_rects, tile_item = plataforma.settingPlataform(self.scroll)
-            # wizard_rect = wizard.activation(pygameEvent, tile_rects, scroll, player_rect)
-            # tile_rects.append(wizard_rect)
             self.scroll, player_rect = self.player.settingPlayer(self.pygameEvent, tile_rects,tile_item, self.scroll)
-            tile_rects.append(player_rect)
+            wizard_rect = self.wizard.activation(self.pygameEvent, tile_rects, self.scroll, player_rect)
+            # tile_rects.append(wizard_rect)
             
-    def findEvent(self):
-        for event in pygame.event.get():
-            self.pygameEvent = event
-            if event.type == QUIT:
-                exit()
+            tile_rects.append(player_rect)
+        elif (self.painelState == 8):
+            self.painelState = self.pause.drawUserMenu()

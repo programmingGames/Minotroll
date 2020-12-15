@@ -102,7 +102,7 @@ class CreateUserMenu:
             if(i!=0):
                 y = 40
             font = pygame.font.SysFont("arial", 24)
-            font.set_bold(True)
+            # font.set_bold(True)
             surf = pygame.Surface((x, y))
             os.chdir('..')
             img = pygame.image.load("resources/image/menu/botao"+str(i)+".png")
