@@ -9,6 +9,7 @@ from data.menus.userMenu import UserMenu
 from data.menus.intro import Intro
 from data.menus.loadMenu import LoadUser
 from data.menus.pauseMenu import PauseMenu
+from data.skills import Skills
 from data.player import Player
 from data.plataforma import Plataform
 from data.start import Initiation
@@ -73,7 +74,10 @@ class Menus(object):
             self.scroll, player_rect = self.player.settingPlayer(self.pygameEvent, tile_rects,tile_item, self.scroll)
             wizard_rect = self.wizard.activation(self.pygameEvent, tile_rects, self.scroll, player_rect)
             # tile_rects.append(wizard_rect)
-            
             tile_rects.append(player_rect)
+        elif(self.painelState == 9):
+            self.skills = Skills(self.screen, self.nivel)
+            
         elif (self.painelState == 8):
             self.painelState = self.pause.drawUserMenu()
+        # print(self.painelState)

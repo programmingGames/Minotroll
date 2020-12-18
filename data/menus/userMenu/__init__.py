@@ -92,7 +92,7 @@ class UserMenu(object):
             return 3
         elif ((pressed_keys[K_RETURN])and(self.menuControl==250)and(self.count >= 5)):
             self.count = 0
-            return 4
+            return 9
         elif ((pressed_keys[K_RETURN])and(self.menuControl==300)and(self.count >= 5)):
             self.count = 0
             return 6

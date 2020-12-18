@@ -53,20 +53,23 @@ class LoadUser(object):
         self.displayButtoms()
         [self.screen.blit(img, pos) for img, pos in zip(self.allButtom, self.allPosition)]
 
+
+# there is a problem here then you shoud see it 
     def movingInLoadMenu(self):
+        self.allUser()
         self.allUser()
         pressed_keys = pygame.key.get_pressed()
         
         if(pressed_keys[K_DOWN]):
             pygame.time.delay(100)
             if(self.menuControl==self.maxScroll):
-                self.menuControl = 150
+                self.menuControl = 200
             else:
                 self.menuControl += 50
         elif(pressed_keys[K_UP]):
             pygame.time.delay(100)
-            if(self.menuControl==150):
-                self.menuControl = 150
+            if(self.menuControl==200):
+                self.menuControl = 200
             else:
                 self.menuControl -= 50
 
