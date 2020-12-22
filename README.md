@@ -7,7 +7,7 @@ The development of this project is to cover to process develop of a simple 2D ga
 The game incluid a certain number of componetes that are distributed in modules, in what, whicth module represent a element in the game.
 
 ## Technologies
-The project is made based on the Pygame library of python programming language, and other librarys Os, Random, ...
+The project is made based on the Pygame library of python programming language, and other librarys Os, Random, etc
 
 ## Launch
 ## Project status
