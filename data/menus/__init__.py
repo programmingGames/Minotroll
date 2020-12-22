@@ -77,7 +77,7 @@ class Menus(object):
             tile_rects.append(player_rect)
         elif(self.painelState == 9):
             self.skills = Skills(self.screen, self.nivel)
-            
+            self.skills.movingInPainelSkills()
         elif (self.painelState == 8):
             self.painelState = self.pause.drawUserMenu()
         # print(self.painelState)
