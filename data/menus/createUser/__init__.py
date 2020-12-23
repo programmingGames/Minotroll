@@ -96,11 +96,11 @@ class CreateUserMenu:
     def createUserDirAndButtom(self):
         os.chdir('users')
         os.mkdir(self.user)
-        x = 210
+        x = 208
         y = 30
         for i in range(3):
             if(i!=0):
-                y = 40
+                y = 37
             font = pygame.font.SysFont("arial", 24)
             # font.set_bold(True)
             surf = pygame.Surface((x, y))

@@ -51,6 +51,8 @@ class Menus(object):
         key = pygame.key.get_pressed()
         if((key[K_ESCAPE])and(self.painelState == 7)):
             self.painelState = 8
+        if(key[K_TAB]):
+            exit()
 
         if(self.painelState==0):
             self.painelState = self.initiation.settingStart()
