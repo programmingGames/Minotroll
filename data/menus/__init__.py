@@ -64,6 +64,7 @@ class Menus(object):
         elif(self.painelState == 3):
             self.painelState, self.nivel, self.skills, self.lastPassPoint = self.userMenu.movingInUserMenu(self.user)
             self.player = Player(self.screen, self.nivel, self.skills,self.lastPassPoint)
+            self.skills = Skills(self.screen, self.nivel)
         elif(self.painelState == 6):
             self.painelState = self.intro.introDisplay()
         elif(self.painelState == 5):
@@ -78,8 +79,7 @@ class Menus(object):
             # tile_rects.append(wizard_rect)
             tile_rects.append(player_rect)
         elif(self.painelState == 9):
-            self.skills = Skills(self.screen, self.nivel)
-            self.skills.movingInPainelSkills()
+            self.painelState = self.skills.movingInPainelSkills()
         elif (self.painelState == 8):
             self.painelState = self.pause.drawUserMenu()
         # print(self.painelState)

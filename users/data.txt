@@ -1,0 +1,7 @@
+1 handCard
+2 kickingCard
+3 slachingCard
+4 battleaxCard
+5 smollfirecard
+6 fireCard
+7 bluefireCard
