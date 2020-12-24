@@ -16,6 +16,9 @@ class Skills(object):
         self.allCard = []
         # self.timeEfect = 0
         self.cards = {'kickingCard':False, 'slashingCard':False, 'battleaxCard':False,'handCard':False, 'smollfirecard':False, 'fireCard':False, 'bluefireCard':False}
+        self.skillsOfPlayer()
+        self.movingCards()
+        self.distibutingTheCardsForTheDisplay()
         self.skillsControl = []
         self.allCardsPosition = []
         self.cardsActive = True
@@ -25,15 +28,8 @@ class Skills(object):
 
     # Method to make a list it a option in skills
     def displayButtoms(self):
-        self.allCard = []
-        self.allPosition = []
-        self.arrows = []
         self.x, self.y = 130, 150
-        reversCard = self.cards[::-1]
-        leftCards = self.cards[0:int(len(self.cards)/2)]
-        rightCards = reversCard[0:int(len(reversCard)/2)]
-        rightCards = rightCards[::-1]
-        for card in leftCards:
+        for (card, state) in self.leftCards.items():
             img = pygame.image.load("resources/image/skills/"+card+"1.png").convert_alpha()
             self.x += 40
             self.allCard.append(img)
@@ -71,9 +67,61 @@ class Skills(object):
 
     # method to Know, how many skills the player already have
     def skillsOfPlayer(self):
-        pass
-            
+        count = 1
+        for (k, v) in self.cards.items():
+            if(count <= self.nivel):
+                v = True
+                self.cards[k] = v
+            count += 1
 
+    # moving the cards, just to put the firts card of the player,
+    # in the midle to help in the display of the cards
+    def movingCards(self):
+        copy = dict(self.cards)
+        middlePos = len(self.cards)//2 - 1
+        self.cards.clear()
+        count = 1
+        for (k,v) in copy.items():
+            if(k == 'handCard'):
+                holdKey = k
+                holdValue = v
+            else:
+                self.cards[k] = v
+
+            if(middlePos == count):
+                self.cards[holdKey] = holdValue
+            count += 1
+
+    # distibuting the cards of the dictionary in left and right to help in the circular display of the skills
+    def distibutingTheCardsForTheDisplay(self):
+        self.leftCards = {}
+        self.rightCards = {}
+        middlePos = len(self.cards)//2 -1
+        count = 0
+        # right cards
+        for (k,v) in self.cards.items():
+            if (middlePos > count):
+                self.leftCards[k] = v
+            elif (middlePos < count):
+                self.rightCards[k] = v  
+            count += 1
+
+        # going to reverse the elements of this dictionary
+        updateRigth = {}    
+        for i in range(len(self.rightCards)*3):
+            if (len(self.rightCards)==0):
+                break
+            else:
+                count = 0
+                for (k, v) in self.rightCards.items():
+                    if(count == len(self.rightCards)-1):
+                        updateRigth[k] = v
+                    count += 1
+            del self.rightCards[k]
+        self.rightCards = updateRigth
+        del updateRigth
+
+            
     # method to move only on the skills display
     def movingInSkillsDsiplay(self):
         key_pressed = pygame.key.get_pressed()     
