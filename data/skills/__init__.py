@@ -19,6 +19,7 @@ class Skills(object):
         # self.timeEfect = 0
         self.cards = ['handCard','kickingCard', 'slashingCard', 'battleaxCard', 'smollfirecard', 'fireCard', 'bluefireCard']
         self.state = [False, False,False,False,False,False,False]
+        self.font = pygame.font.SysFont("Arial", 20)
         self.cardsDiscription = ''
         self.skillsOfPlayer()
         self.skillsControl = []
@@ -27,6 +28,8 @@ class Skills(object):
         self.backButtom = ''
         self.currentCard = self.cards[int(len(self.cards)/2)]
         self.count = 0
+        self.level = 0
+        self.stateLock = False
 
     # Method to make a list it a option in skills
     def displayButtoms(self):
@@ -43,6 +46,8 @@ class Skills(object):
                     self.arrows.append(pygame.image.load("resources/image/skills/arrows/leftarrow1.png").convert_alpha())
                     self.arrows.append(pygame.image.load("resources/image/skills/arrows/rightarrow1.png").convert_alpha())
                     self.backButtom = pygame.image.load("resources/image/skills/back1.png").convert_alpha()
+                    self.level = count
+                    self.stateLock = state
                 else:
                     img1 = pygame.image.load("resources/image/skills/pergaminios/"+self.currentCard+"0.png").convert_alpha()
                     self.arrows.append(pygame.image.load("resources/image/skills/arrows/leftarrow0.png").convert_alpha())
@@ -75,8 +80,13 @@ class Skills(object):
         # self.screen.blit(cardName, (270, 100))
         [self.screen.blit(card, pos) for card, pos in zip(self.allCard, self.allCardsPosition)]
         [self.screen.blit(arrows, pos) for arrows, pos in zip(self.arrows, self.arrowsPosition)]
-        self.screen.blit(self.backButtom, (250, 380))
-        self.screen.blit(self.cardsDiscription, (250,280))
+        self.screen.blit(self.backButtom, (245, 380))
+        self.screen.blit(self.cardsDiscription, (225,240))
+
+        if(not self.stateLock):
+            self.font.set_bold(True)
+            line = self.font.render(str(self.level), True, (0, 0,0))
+            self.screen.blit(line, (415, 253))
 
     # method to Know, how many skills the player already have
     def skillsOfPlayer(self):
