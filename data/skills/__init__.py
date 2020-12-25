@@ -5,6 +5,7 @@ from data.backgrounds import Backgound as Back
 
 
 
+
 class Skills(object):
     def __init__(self, screen, nivel):
         self.screen = screen
