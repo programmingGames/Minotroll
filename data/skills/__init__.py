@@ -13,12 +13,13 @@ class Skills(object):
         self.painel = pygame.image.load("resources/image/skills/painel.png").convert_alpha()
         self.title = pygame.image.load("resources/image/title/MinoTrolls1.png").convert_alpha()
         self.arrows = []
-        self.arrowsPosition = [(110, 180), (553, 180)]
+        self.arrowsPosition = [(145, 160), (525, 160)]
         self.backgrounds = Back(screen)
         self.allCard = []
         # self.timeEfect = 0
-        self.cards = ['kickingCard', 'slashingCard', 'battleaxCard','handCard', 'smollfirecard', 'fireCard', 'bluefireCard']
+        self.cards = ['handCard','kickingCard', 'slashingCard', 'battleaxCard', 'smollfirecard', 'fireCard', 'bluefireCard']
         self.state = [False, False,False,False,False,False,False]
+        self.cardsDiscription = ''
         self.skillsOfPlayer()
         self.skillsControl = []
         self.allCardsPosition = []
@@ -33,23 +34,24 @@ class Skills(object):
         self.allCardsPosition = []
         self.arrows = []
         right = []
-        self.x, self.y = 168, 150
+        self.x, self.y = 168, 130
         count = 0
         for (card, state) in zip(self.cards, self.state):
             if(self.currentCard == card):
                 if self.cardsActive:
-                    img1 = pygame.image.load("resources/image/skills/"+self.currentCard+"2-"+str(state)+".png").convert_alpha()
-                    self.arrows.append(pygame.image.load("resources/image/skills/leftarrow1.png").convert_alpha())
-                    self.arrows.append(pygame.image.load("resources/image/skills/rightarrow1.png").convert_alpha())
+                    img1 = pygame.image.load("resources/image/skills/pergaminios/"+self.currentCard+"2-"+str(state)+".png").convert_alpha()
+                    self.arrows.append(pygame.image.load("resources/image/skills/arrows/leftarrow1.png").convert_alpha())
+                    self.arrows.append(pygame.image.load("resources/image/skills/arrows/rightarrow1.png").convert_alpha())
                     self.backButtom = pygame.image.load("resources/image/skills/back1.png").convert_alpha()
                 else:
-                    img1 = pygame.image.load("resources/image/skills/"+self.currentCard+"0.png").convert_alpha()
-                    self.arrows.append(pygame.image.load("resources/image/skills/leftarrow0.png").convert_alpha())
-                    self.arrows.append(pygame.image.load("resources/image/skills/rightarrow0.png").convert_alpha())
+                    img1 = pygame.image.load("resources/image/skills/pergaminios/"+self.currentCard+"0.png").convert_alpha()
+                    self.arrows.append(pygame.image.load("resources/image/skills/arrows/leftarrow0.png").convert_alpha())
+                    self.arrows.append(pygame.image.load("resources/image/skills/arrows/rightarrow0.png").convert_alpha())
                     self.backButtom = pygame.image.load("resources/image/skills/back2.png").convert_alpha()
+                self.cardsDiscription = pygame.image.load("resources/image/skills/pergaminio-"+str(state)+".png")
                 self.x = 450
             else:
-                img = pygame.image.load("resources/image/skills/"+card+"1.png").convert_alpha()
+                img = pygame.image.load("resources/image/skills/pergaminios/"+card+"1.png").convert_alpha()
                 if(count < self.cards.index(self.currentCard)):
                     self.allCard.append(img)
                     self.allCardsPosition.append((self.x, self.y))
@@ -60,7 +62,7 @@ class Skills(object):
                     self.x -= 40
             count += 1
         self.allCard += right[::-1]
-        self.x, self.y = 300, 134
+        self.x, self.y = 300, 114
         self.allCard.append(img1)
         self.allCardsPosition.append((self.x, self.y))
             
@@ -69,11 +71,12 @@ class Skills(object):
         self.backgrounds.settingBackgroundMenu(2)
         self.screen.blit(self.painel, (52, 35))
         self.screen.blit(self.title, (270, 45))
-        cardName = pygame.image.load("resources/image/skills/"+self.currentCard+".png")
-        self.screen.blit(cardName, (270, 100))
+        # cardName = pygame.image.load("resources/image/skills/"+self.currentCard+".png")
+        # self.screen.blit(cardName, (270, 100))
         [self.screen.blit(card, pos) for card, pos in zip(self.allCard, self.allCardsPosition)]
         [self.screen.blit(arrows, pos) for arrows, pos in zip(self.arrows, self.arrowsPosition)]
         self.screen.blit(self.backButtom, (250, 380))
+        self.screen.blit(self.cardsDiscription, (250,280))
 
     # method to Know, how many skills the player already have
     def skillsOfPlayer(self):
@@ -83,7 +86,7 @@ class Skills(object):
                 self.state[count] = not state
             if (self.nivel == 2):
                 n = self.state[count]
-                if(self.state.index(n)<=1):
+                if(self.state.index(n)<=2):
                     self.state[count] = not state
             count += 1
 
