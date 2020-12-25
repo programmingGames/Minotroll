@@ -79,10 +79,13 @@ class Skills(object):
     def skillsOfPlayer(self):
         count = 0
         for state in self.state:
-            if(count < self.nivel):
+            if(count < self.nivel-1):
                 self.state[count] = not state
+            if (self.nivel == 2):
+                n = self.state[count]
+                if(self.state.index(n)<=1):
+                    self.state[count] = not state
             count += 1
-
 
     # move cards to right
     def movingLeftInSkillsDisplay(self):
