@@ -4,6 +4,7 @@ from pygame.locals import *
 from data.backgrounds import Backgound as Back
 
 
+
 class Skills(object):
     def __init__(self, screen, nivel):
         self.screen = screen
@@ -11,14 +12,13 @@ class Skills(object):
         self.painel = pygame.image.load("resources/image/skills/painel.png").convert_alpha()
         self.title = pygame.image.load("resources/image/title/MinoTrolls1.png").convert_alpha()
         self.arrows = []
-        self.arrowsPosition = [(100, 180), (555, 180)]
+        self.arrowsPosition = [(110, 180), (553, 180)]
         self.backgrounds = Back(screen)
         self.allCard = []
         # self.timeEfect = 0
-        self.cards = {'kickingCard':False, 'slashingCard':False, 'battleaxCard':False,'handCard':False, 'smollfirecard':False, 'fireCard':False, 'bluefireCard':False}
+        self.cards = ['kickingCard', 'slashingCard', 'battleaxCard','handCard', 'smollfirecard', 'fireCard', 'bluefireCard']
+        self.state = [False, False,False,False,False,False,False]
         self.skillsOfPlayer()
-        self.movingCards()
-        self.distibutingTheCardsForTheDisplay()
         self.skillsControl = []
         self.allCardsPosition = []
         self.cardsActive = True
@@ -28,32 +28,41 @@ class Skills(object):
 
     # Method to make a list it a option in skills
     def displayButtoms(self):
-        self.x, self.y = 130, 150
-        for (card, state) in self.leftCards.items():
-            img = pygame.image.load("resources/image/skills/"+card+"1.png").convert_alpha()
-            self.x += 40
-            self.allCard.append(img)
-            self.allCardsPosition.append((self.x, self.y))
-        self.x = 480
-        for card in rightCards:
-            img = pygame.image.load("resources/image/skills/"+card+"1.png").convert_alpha()
-            self.x -= 40
-            self.allCard.append(img)
-            self.allCardsPosition.append((self.x, self.y))
-        if self.cardsActive:
-            img = pygame.image.load("resources/image/skills/"+self.currentCard+"2.png").convert_alpha()
-            self.arrows.append(pygame.image.load("resources/image/skills/leftarrow1.png").convert_alpha())
-            self.arrows.append(pygame.image.load("resources/image/skills/rightarrow1.png").convert_alpha())
-            self.backButtom = pygame.image.load("resources/image/skills/back1.png").convert_alpha()
-        else:
-            img = pygame.image.load("resources/image/skills/"+self.currentCard+"0.png").convert_alpha()
-            self.arrows.append(pygame.image.load("resources/image/skills/leftarrow0.png").convert_alpha())
-            self.arrows.append(pygame.image.load("resources/image/skills/rightarrow0.png").convert_alpha())
-            self.backButtom = pygame.image.load("resources/image/skills/back2.png").convert_alpha()
-        self.x, self.y = 295, 134
-        self.allCard.append(img)
+        self.allCard = []
+        self.allCardsPosition = []
+        self.arrows = []
+        right = []
+        self.x, self.y = 168, 150
+        count = 0
+        for (card, state) in zip(self.cards, self.state):
+            if(self.currentCard == card):
+                if self.cardsActive:
+                    img1 = pygame.image.load("resources/image/skills/"+self.currentCard+"2-"+str(state)+".png").convert_alpha()
+                    self.arrows.append(pygame.image.load("resources/image/skills/leftarrow1.png").convert_alpha())
+                    self.arrows.append(pygame.image.load("resources/image/skills/rightarrow1.png").convert_alpha())
+                    self.backButtom = pygame.image.load("resources/image/skills/back1.png").convert_alpha()
+                else:
+                    img1 = pygame.image.load("resources/image/skills/"+self.currentCard+"0.png").convert_alpha()
+                    self.arrows.append(pygame.image.load("resources/image/skills/leftarrow0.png").convert_alpha())
+                    self.arrows.append(pygame.image.load("resources/image/skills/rightarrow0.png").convert_alpha())
+                    self.backButtom = pygame.image.load("resources/image/skills/back2.png").convert_alpha()
+                self.x = 450
+            else:
+                img = pygame.image.load("resources/image/skills/"+card+"1.png").convert_alpha()
+                if(count < self.cards.index(self.currentCard)):
+                    self.allCard.append(img)
+                    self.allCardsPosition.append((self.x, self.y))
+                    self.x += 40
+                elif(count > self.cards.index(self.currentCard)):
+                    right.append(img)
+                    self.allCardsPosition.append((self.x, self.y))
+                    self.x -= 40
+            count += 1
+        self.allCard += right[::-1]
+        self.x, self.y = 300, 134
+        self.allCard.append(img1)
         self.allCardsPosition.append((self.x, self.y))
-
+            
     # method to draw the painel skills on the screen
     def drawingSkillsPainel(self):
         self.backgrounds.settingBackgroundMenu(2)
@@ -67,82 +76,58 @@ class Skills(object):
 
     # method to Know, how many skills the player already have
     def skillsOfPlayer(self):
-        count = 1
-        for (k, v) in self.cards.items():
-            if(count <= self.nivel):
-                v = True
-                self.cards[k] = v
-            count += 1
-
-    # moving the cards, just to put the firts card of the player,
-    # in the midle to help in the display of the cards
-    def movingCards(self):
-        copy = dict(self.cards)
-        middlePos = len(self.cards)//2 - 1
-        self.cards.clear()
-        count = 1
-        for (k,v) in copy.items():
-            if(k == 'handCard'):
-                holdKey = k
-                holdValue = v
-            else:
-                self.cards[k] = v
-
-            if(middlePos == count):
-                self.cards[holdKey] = holdValue
-            count += 1
-
-    # distibuting the cards of the dictionary in left and right to help in the circular display of the skills
-    def distibutingTheCardsForTheDisplay(self):
-        self.leftCards = {}
-        self.rightCards = {}
-        middlePos = len(self.cards)//2 -1
         count = 0
-        # right cards
-        for (k,v) in self.cards.items():
-            if (middlePos > count):
-                self.leftCards[k] = v
-            elif (middlePos < count):
-                self.rightCards[k] = v  
+        for state in self.state:
+            if(count < self.nivel):
+                self.state[count] = not state
             count += 1
+    
+    # move cards to right
+    def movingLeftInSkillsDisplay(self):
+        # move in the cards list
+        fistscardcopy = self.cards[0]
+        restcardscopy = self.cards[1:len(self.cards)]
+        restcardscopy.append(fistscardcopy)
+        self.cards = restcardscopy  
 
-        # going to reverse the elements of this dictionary
-        updateRigth = {}    
-        for i in range(len(self.rightCards)*3):
-            if (len(self.rightCards)==0):
-                break
-            else:
-                count = 0
-                for (k, v) in self.rightCards.items():
-                    if(count == len(self.rightCards)-1):
-                        updateRigth[k] = v
-                    count += 1
-            del self.rightCards[k]
-        self.rightCards = updateRigth
-        del updateRigth
+        # move in the state list
+        fistsstatecopy = self.state[0]
+        reststatescopy = self.state[1:len(self.state)]
+        reststatescopy.append(fistsstatecopy)
+        self.state = reststatescopy  
 
-            
+
+
+    # move cards to left
+    def movingRightInSkillsDisplay(self):
+        # move in the cards list
+        restcardscopy = []
+        lastcardcopy = self.cards[int(len(self.cards)-1)]
+        restcardscopy.append(lastcardcopy)
+        restcardscopy += self.cards[0:len(self.cards)-1]
+        self.cards = restcardscopy
+
+        # move in the state list
+        reststatescopy = []
+        laststatecopy = self.state[int(len(self.state)-1)]
+        reststatescopy.append(laststatecopy)
+        reststatescopy += self.state[0:len(self.state)-1]
+        self.state = reststatescopy
+
     # method to move only on the skills display
     def movingInSkillsDsiplay(self):
         key_pressed = pygame.key.get_pressed()     
 
         # Setting the move in skill Cards
         if(self.cardsActive and key_pressed[K_RIGHT] and (self.count > 10)):
-            fistscardcopy = self.cards[0]
-            self.currentCard = self.cards[len(self.cards)-1]
-            restcardscopy = self.cards[1:len(self.cards)]
-            restcardscopy.append(fistscardcopy)
-            self.cards = restcardscopy
+            self.movingLeftInSkillsDisplay()
             self.count = 0
         elif(self.cardsActive and key_pressed[K_LEFT] and (self.count > 10)):
-            restcardscopy = []
-            lastcardcopy = self.cards[int(len(self.cards)-1)]
-            restcardscopy.append(lastcardcopy)
-            restcardscopy += self.cards[0:len(self.cards)-1]
-            self.cards = restcardscopy
-            self.currentCard = self.cards[int(len(self.cards)/2)]
+            self.movingRightInSkillsDisplay()
             self.count = 0
+
         self.count += 1                
+        self.currentCard = self.cards[int(len(self.cards)/2)]
 
     # method to move in the painel of the skills
     def movingInPainelSkills(self):
