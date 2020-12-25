@@ -82,7 +82,8 @@ class Skills(object):
             if(count < self.nivel):
                 self.state[count] = not state
             count += 1
-    
+
+
     # move cards to right
     def movingLeftInSkillsDisplay(self):
         # move in the cards list
