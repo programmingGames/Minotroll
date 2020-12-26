@@ -3,9 +3,6 @@ from sys import exit
 from pygame.locals import *
 from data.backgrounds import Backgound as Back
 
-
-
-
 class Skills(object):
     def __init__(self, screen, nivel):
         self.screen = screen
@@ -89,7 +86,10 @@ class Skills(object):
         count = 0
         for card in self.copyCards:
             if(card == self.currentCard):
-                self.level = count - 1
+                if(self.copyCards.index(card)==1):
+                    self.level = count
+                else:
+                    self.level = count - 1
                 break
             count += 1
         if(not self.stateLock):
@@ -103,13 +103,11 @@ class Skills(object):
         for state in self.state:
             if(count <= self.nivel):
                 self.state[count] = not state
-            if (self.nivel <= 1):
-                print(count)
+            if (self.nivel == 1):
                 n = self.state[count]
                 if(self.state.index(n)<=2):
                     self.state[count] = not state
             count += 1
-        print("-------")
 
     # move cards to right
     def movingLeftInSkillsDisplay(self):
@@ -124,8 +122,6 @@ class Skills(object):
         reststatescopy = self.state[1:len(self.state)]
         reststatescopy.append(fistsstatecopy)
         self.state = reststatescopy  
-
-
 
     # move cards to left
     def movingRightInSkillsDisplay(self):

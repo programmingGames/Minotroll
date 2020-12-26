@@ -3,7 +3,7 @@ from pygame.locals import *
 from data.vector import Vector2
 from data.player.life import Life
 
-class Player:
+class Player(object):
     def __init__(self, screen, nivel, skills, lastPassPoint):
         self.life = Life(screen)
         self.screen = screen
