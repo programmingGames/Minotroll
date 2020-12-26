@@ -18,6 +18,7 @@ class Skills(object):
         self.allCard = []
         # self.timeEfect = 0
         self.cards = ['handCard','kickingCard', 'slashingCard', 'battleaxCard', 'smollfirecard', 'fireCard', 'bluefireCard']
+        self.copyCards = ['handCard','kickingCard', 'slashingCard', 'battleaxCard', 'smollfirecard', 'fireCard', 'bluefireCard']
         self.state = [False, False,False,False,False,False,False]
         self.font = pygame.font.SysFont("Arial", 20)
         self.cardsDiscription = ''
@@ -46,7 +47,6 @@ class Skills(object):
                     self.arrows.append(pygame.image.load("resources/image/skills/arrows/leftarrow1.png").convert_alpha())
                     self.arrows.append(pygame.image.load("resources/image/skills/arrows/rightarrow1.png").convert_alpha())
                     self.backButtom = pygame.image.load("resources/image/skills/back1.png").convert_alpha()
-                    self.level = count
                     self.stateLock = state
                 else:
                     img1 = pygame.image.load("resources/image/skills/pergaminios/"+self.currentCard+"0.png").convert_alpha()
@@ -83,6 +83,15 @@ class Skills(object):
         self.screen.blit(self.backButtom, (245, 380))
         self.screen.blit(self.cardsDiscription, (225,240))
 
+        self.levelToUnlockTheCards()
+    # display of the level to unlock
+    def levelToUnlockTheCards(self):
+        count = 0
+        for card in self.copyCards:
+            if(card == self.currentCard):
+                self.level = count - 1
+                break
+            count += 1
         if(not self.stateLock):
             self.font.set_bold(True)
             line = self.font.render(str(self.level), True, (0, 0,0))
@@ -92,13 +101,15 @@ class Skills(object):
     def skillsOfPlayer(self):
         count = 0
         for state in self.state:
-            if(count < self.nivel-1):
+            if(count <= self.nivel):
                 self.state[count] = not state
-            if (self.nivel == 2):
+            if (self.nivel <= 1):
+                print(count)
                 n = self.state[count]
                 if(self.state.index(n)<=2):
                     self.state[count] = not state
             count += 1
+        print("-------")
 
     # move cards to right
     def movingLeftInSkillsDisplay(self):
