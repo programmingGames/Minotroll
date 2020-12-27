@@ -14,6 +14,7 @@ from data.player import Player
 from data.plataforma import Plataform
 from data.start import Initiation
 from data.enimy.wizard import WizardSimpleAI as Wizard
+from data.menus.map import Map
 
 
 #  Class for controling all the menu on the game
@@ -30,6 +31,7 @@ class Menus(object):
         self.loadUser = LoadUser(self.screen)
         self.initiation = Initiation(self.screen)
         self.pause = PauseMenu(self.screen)
+        self.map = Map(self.screen)
         self.painelState = 0  # this is to control where we are in the game
         self.user = '' # keep the current user name
         self. nivel = 1 # default value of the level started usualy in 1 
@@ -51,6 +53,8 @@ class Menus(object):
         key = pygame.key.get_pressed()
         if((key[K_ESCAPE])and(self.painelState == 7)):
             self.painelState = 8
+        elif((key[K_ESCAPE])and(self.painelState == 10)):
+            self.painelState = 3
         if(key[K_TAB]):
             exit()
 
@@ -82,4 +86,6 @@ class Menus(object):
             self.painelState = self.skills.movingInPainelSkills()
         elif (self.painelState == 8):
             self.painelState = self.pause.drawUserMenu()
+        elif(self.painelState == 10):
+            self.map.drawMapInTheScreen()
         # print(self.painelState)
