@@ -1,10 +1,10 @@
 import pygame
 from pygame.locals import *
 from data.vector import Vector2
-from data.player.life import Life
+from data.gameplay.player.life import Life
 
 class Player(object):
-    def __init__(self, screen, nivel, skills, lastPassPoint):
+    def __init__(self, screen, nivel, lastPassPoint):
         self.life = Life(screen)
         self.screen = screen
         self.air_timer = 0
@@ -22,7 +22,6 @@ class Player(object):
         self.air_timer = 0
         self.player_screen_limit = 280
         self.nivel = nivel
-        self.skills = skills
 
     def collision_test(self, rect, tiles):
         hit_list = []

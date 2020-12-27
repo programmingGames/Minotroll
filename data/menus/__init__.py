@@ -9,11 +9,9 @@ from data.menus.userMenu import UserMenu
 from data.menus.intro import Intro
 from data.menus.loadMenu import LoadUser
 from data.menus.pauseMenu import PauseMenu
-from data.skills import Skills
-from data.player import Player
-from data.plataforma import Plataform
-from data.start import Initiation
-from data.enimy.wizard import WizardSimpleAI as Wizard
+from data.menus.skills import Skills
+from data.menus.start import Initiation
+from data.gameplay import GamePlay
 from data.menus.map import Map
 
 
@@ -33,16 +31,9 @@ class Menus(object):
         self.pause = PauseMenu(self.screen)
         self.painelState = 0  # this is to control where we are in the game
         self.user = '' # keep the current user name
-        self. nivel = 1 # default value of the level started usualy in 1 
-        self.skills = 1 # default value of skills the player have
-        self.lastPassPoint = 500 # default Value for position of the player in the platform
-        self.player_rect = pygame.Rect(0, 0, 0, 0) # To control the player rects
-        self.scroll = [0, 0]  # Variable to control the scroll of the screen
         self.pygameEvent = 0 # to keep all the pygame.event in the game loop
 
-        # test
-        self.wizard = Wizard(self.screen)
-
+        
     # Method to move in the main menu
     def interMenuMoving(self):
         for event in pygame.event.get():
@@ -63,10 +54,10 @@ class Menus(object):
             self.painelState = self.mainMenu.movingInMainMenu()
         elif(self.painelState == 2):
             self.painelState, self.user = self.createUser.drawUserMenu(self.pygameEvent)
-            self.player = Player(self.screen, self.nivel, self.skills,self.lastPassPoint)
+            # self.player = Player(self.screen, self.nivel, self.skills,self.lastPassPoint)
         elif(self.painelState == 3):
             self.painelState, self.nivel, self.skills, self.lastPassPoint = self.userMenu.movingInUserMenu(self.user)
-            self.player = Player(self.screen, self.nivel, self.skills,self.lastPassPoint)
+            self.gamplay = GamePlay(self.screen, self.nivel, self.lastPassPoint, self.pygameEvent)
             self.skills = Skills(self.screen, self.nivel)
             self.map = Map(self.screen, self.nivel)
         elif(self.painelState == 6):
@@ -76,12 +67,7 @@ class Menus(object):
         elif(self.painelState == 4):
             self.painelState, self.user = self.loadUser.movingInLoadMenu()
         elif(self.painelState == 7):
-            plataforma = Plataform(self.screen)
-            tile_rects, tile_item = plataforma.settingPlataform(self.scroll)
-            self.scroll, player_rect = self.player.settingPlayer(self.pygameEvent, tile_rects,tile_item, self.scroll)
-            wizard_rect = self.wizard.activation(self.pygameEvent, tile_rects, self.scroll, player_rect)
-            # tile_rects.append(wizard_rect)
-            tile_rects.append(player_rect)
+            self.gamplay.drawingTheGamePlayEnvirement()
         elif(self.painelState == 9):
             self.painelState = self.skills.movingInPainelSkills()
         elif (self.painelState == 8):

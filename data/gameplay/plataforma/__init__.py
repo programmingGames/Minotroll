@@ -1,6 +1,6 @@
 import pygame
 from data.backgrounds import Backgound as Back
-from data.enimy.cactus import Cactus
+from data.gameplay.enimy.cactus import Cactus
 
 class Plataform:
     def __init__(self, screen):
@@ -13,7 +13,7 @@ class Plataform:
         self.cactu = pygame.image.load("resources/image/platform/florest/Cactus-2.png").convert_alpha()
 
     def load_map(self, fileName):
-        file = open('data/plataforma/'+fileName + '.txt', 'r')
+        file = open('data/gameplay/plataforma/'+fileName + '.txt', 'r')
         data = file.read()
         file.close()
         data = data.split('\n')
