@@ -31,7 +31,6 @@ class Menus(object):
         self.loadUser = LoadUser(self.screen)
         self.initiation = Initiation(self.screen)
         self.pause = PauseMenu(self.screen)
-        self.map = Map(self.screen)
         self.painelState = 0  # this is to control where we are in the game
         self.user = '' # keep the current user name
         self. nivel = 1 # default value of the level started usualy in 1 
@@ -69,6 +68,7 @@ class Menus(object):
             self.painelState, self.nivel, self.skills, self.lastPassPoint = self.userMenu.movingInUserMenu(self.user)
             self.player = Player(self.screen, self.nivel, self.skills,self.lastPassPoint)
             self.skills = Skills(self.screen, self.nivel)
+            self.map = Map(self.screen, self.nivel)
         elif(self.painelState == 6):
             self.painelState = self.intro.introDisplay()
         elif(self.painelState == 5):
