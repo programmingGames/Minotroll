@@ -123,13 +123,13 @@ class UserMenu(object):
 
     def drawUserInfor(self, user):
         playerIcon = pygame.image.load("resources/image/user/Head1.png")
-        progressBox = pygame.image.load("resources/image/user/progress.png")
-        selo = pygame.image.load("resources/image/user/nivel-sel2.png")
+        # progressBox = pygame.image.load("resources/image/user/progress.png")
+        # selo = pygame.image.load("resources/image/user/nivel-sel2.png")
         font = pygame.font.SysFont("Arial", 18)
         font.set_bold(True)
         line = font.render(user, True, (255, 255,255))
         
         self.screen.blit(playerIcon, (160, 100))
-        self.screen.blit(progressBox, (465, 105))
-        self.screen.blit(selo, (440, 95))
+        # self.screen.blit(progressBox, (465, 105))
+        # self.screen.blit(selo, (440, 95))
         self.screen.blit(line, (195, 110))
