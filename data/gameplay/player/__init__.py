@@ -1,11 +1,10 @@
 import pygame
 from pygame.locals import *
 from data.vector import Vector2
-from data.gameplay.player.life import Life
+
 
 class Player(object):
     def __init__(self, screen, nivel, lastPassPoint):
-        self.life = Life(screen)
         self.screen = screen
         self.air_timer = 0
         self.vertical_momentum = 0
@@ -35,17 +34,16 @@ class Player(object):
         self.player_rect.x += movement[0]
         hit_list = self.collision_test(self.player_rect,tiles)
         for tile in zip(hit_list, tile_item):
-            print(tile)
             if movement[0] > 0:
                 self.player_rect.right = tile[0].left
                 collision_types['right'] = True
-                if(tile[1]==3):
-                    self.life.damageLife(1)
+                # if(tile[1]==3):
+                #     self.life.damageLife(1)
             elif movement[0] < 0:
                 self.player_rect.left = tile[0].right
                 collision_types['left'] = True
-                if(tile[1]==3):
-                    self.life.damageLife(10)
+                # if(tile[1]==3):
+                #     self.life.damageLife(10)
 
 
         self.player_rect.y += movement[1]
@@ -119,8 +117,8 @@ class Player(object):
         else:
             self.air_timer += 1
         ## life damage example 
-        if(platformCollisions['left']):
-            self.life.damageLife(1)
+        # if(platformCollisions['left']):
+        #     self.life.damageLife(1)
 
 
     def settingPlayer(self, event, tile_rects, tile_item, scroll):
@@ -138,11 +136,11 @@ class Player(object):
         correct_scroll = scroll.copy()
         correct_scroll[0] = int(correct_scroll[0])
         correct_scroll[1] = int(correct_scroll[1])
-        self.lifeControl()
+        # self.lifeControl()
         return correct_scroll, self.player_rect
             
-    def lifeControl(self):
-        self.life.draw()
+    # def lifeControl(self):
+    #     self.life.draw()
 
     def walk(self):
         self.state = 'Walking'

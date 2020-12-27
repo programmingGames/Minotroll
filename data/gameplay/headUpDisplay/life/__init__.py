@@ -4,7 +4,9 @@ import pygame
 class Life:
     def __init__(self, screen):
         self.screen = screen
-        self.img = pygame.image.load("resources/image/life/conteiner-2.png").convert_alpha()
+        self.player = pygame.image.load("resources/image/headUpDisplay/conteiner/faceIcon.png")
+        self.lifeBox = pygame.image.load("resources/image/headUpDisplay/conteiner/box1.png")
+        self.progressBox = pygame.image.load("resources/image/headUpDisplay/conteiner/progressBox.png")
         self.lifeArray = []
         self.x = 34
         self.y = 28
@@ -18,13 +20,14 @@ class Life:
         for i in range(damage):
             self.lifeArray = self.lifeArray[:-1]
     def draw(self):
-        self.maxLife
-        if (self.start):
-            self.initialLife()
-            self.start = False
+        # if (self.start):
+        #     self.initialLife()
+        #     self.start = False
         self.x = 34
         [life.rectDraw() for life in self.lifeArray]
-        self.screen.blit(self.img, (10, 10))
+        self.screen.blit(self.player, (10, 10))
+        self.screen.blit(self.lifeBox, (95, 20))
+        self.screen.blit(self.progressBox, (90, 55))
 
 
     def initialLife(self):
@@ -34,10 +37,6 @@ class Life:
             self.x += 1
 
         
-
-        
-
-
 class Rects:
     def __init__(self, screen, curv, x, y):
         self.screen = screen
@@ -47,7 +46,6 @@ class Rects:
         self.x = x
         self.y = y
         self.height = 20
-        
 
     def rectDraw(self):
         pygame.draw.rect(self.screen, self.color, pygame.Rect(self.x, self.y, self.width,self.height))
