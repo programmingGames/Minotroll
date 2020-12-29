@@ -119,8 +119,8 @@ class CreateUserMenu:
     def createUserEvolutionData(self):
         os.chdir('users/'+self.user)
         file = open('data.txt', 'w')
-        #          nivel      skills     Position
-        file.write(str(1)+' '+str(1)+' '+str(500))
+        #          nivel      Position   Initial Life
+        file.write(str(0)+' '+str(500)+' '+str(238))
         file.close()
         os.chdir('../..')
 

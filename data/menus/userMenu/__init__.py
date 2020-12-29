@@ -117,9 +117,9 @@ class UserMenu(object):
         file.close()
         allUserData = data.split(' ')
         nivel = allUserData[0]    # The current level of the player 
-        skills = allUserData[1]     # the skilss that the user had
-        lastPassPoint = allUserData[2]   # the last point in the game tha the user pass to
-        return nivel, skills, lastPassPoint
+        lastPassPoint = allUserData[1]   # the last point in the game tha the user pass to
+        life = allUserData[2]  # the last quantity of life save by the user
+        return nivel, lastPassPoint, life
 
     def drawUserInfor(self, user):
         playerIcon = pygame.image.load("resources/image/user/Head1.png")

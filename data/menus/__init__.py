@@ -56,8 +56,8 @@ class Menus(object):
             self.painelState, self.user = self.createUser.drawUserMenu(self.pygameEvent)
             # self.player = Player(self.screen, self.nivel, self.skills,self.lastPassPoint)
         elif(self.painelState == 3):
-            self.painelState, self.nivel, self.skills, self.lastPassPoint = self.userMenu.movingInUserMenu(self.user)
-            self.gamplay = GamePlay(self.screen, self.nivel, self.lastPassPoint, self.pygameEvent)
+            self.painelState, self.nivel,self.lastPassPoint, self.qtlife = self.userMenu.movingInUserMenu(self.user)
+            self.gamplay = GamePlay(self.screen, self.nivel, self.lastPassPoint,self.qtlife, self.pygameEvent)
             self.skills = Skills(self.screen, self.nivel)
             self.map = Map(self.screen, self.nivel)
         elif(self.painelState == 6):
