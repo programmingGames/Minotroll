@@ -1,7 +1,9 @@
 import random
 
+
 class SimpleEnimysAI:
     def __init__(self, screen, patrolingRadius, position):
+        # self.allEnimys = ['blue wizard', 'fire golem', 'stone golem', 'ice golem', 'blue robots', 'dark robots', 'gold robots']
         self.patrolRadius = patrolingRadius
         self.attacking = False
         self.move_right = False
@@ -11,7 +13,8 @@ class SimpleEnimysAI:
         self.direction = 'right'
         self.timer = 0 
         
-    def activation(self, enimy_rect):
+    def activation(self, enimy_rect, player_rect):
+        self.enimy_rect = enimy_rect
         if(self.timer == 50):
             self.choisingMove()
             self.timer = 0
@@ -19,19 +22,21 @@ class SimpleEnimysAI:
             self.timer += 1
         
         # Controlling the radius of patroling
-        if((enimy_rect.x - self.position)>self.patrolRadius):
+        if((self.enimy_rect.x - self.position)>self.patrolRadius):
                 self.move_right = False
-        elif((enimy_rect.x - self.position)<(-1*self.patrolRadius)):
+        elif((self.enimy_rect.x - self.position)<(-1*self.patrolRadius)):
             self.move_left = False
 
+        self.calculateProximity(player_rect)
         return self.direction, self.move_right, self.move_left, self.attacking
 
     # Next time i'm going to do this part here
     def calculateProximity(self, player_rect):
-        if((self.position-player_rect.x)<=80):
-            return True
+        if((self.position-player_rect.x)<=200):
+            # print("ok")
+            self.attacking = True
         else:
-            return False 
+            self.attacking = False 
 
     def choisingMove(self):
         rand = random.random()

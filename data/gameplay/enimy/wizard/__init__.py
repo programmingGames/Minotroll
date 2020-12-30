@@ -9,9 +9,12 @@ from data.gameplay.collisionControl import Colision
 class Wizard:
     def __init__(self, screen):
         self.screen = screen
-        self.ai = EnimysAI(self.screen, 100, 1000)
-        self.collision = Colision()
+        self.patrolRadius = 100
         self.rect = pygame.Rect(40, 30, 20, 42)
+        self.rect.x = 1000
+        self.initialPosition = self.rect.x
+        self.ai = EnimysAI(self.screen, self.patrolRadius, self.rect.x)
+        self.collision = Colision()
         self.state = 'idle'
         self.move_direction = 'right'
         self.move_right = False
@@ -19,7 +22,7 @@ class Wizard:
         self.air_timer = 0
         self.vertical_momentum = 0
         self.img = pygame.image.load("resources/image/enimy/wizard/"+self.state+"/"+self.move_direction+"/Chara-0.png")
-        self.rect.x = 1000
+        
         self.move_frame = 0
         self.attacking = False
 
@@ -39,7 +42,7 @@ class Wizard:
         else:
             self.air_timer += 1
         
-    def addingWizard(self, platform_rects, scroll):
+    def addingWizard(self, platform_rects,player_rect, scroll):
         wizard_move = [0, 0]
         if self.move_right:
             wizard_move[0] += 1
@@ -48,7 +51,7 @@ class Wizard:
             wizard_move[0] -= 1
         
         if self.attacking:
-            self.attack()
+            self.startAttack()
 
         # if move_right and move_left not True call idle
         if ((not self.move_right)and(not self.move_left)):
@@ -60,15 +63,14 @@ class Wizard:
         self.vertical_momentum += 0.2
         if self.vertical_momentum > 8:
             self.vertical_momentum = 8
-
         
         self.rect.x += wizard_move[0]
         
         
-        self.move_direction, self.move_right, self.move_left, self.attack = self.ai.activation(self.rect)
+        self.move_direction, self.move_right, self.move_left, self.attacking = self.ai.activation(self.rect, player_rect)
         self.controlingCollision(wizard_move, platform_rects)
         self.screen.blit(self.img,(self.rect.x-scroll[0], self.rect.y-scroll[1]))
-        return self.rect   
+        return self.rect, 'blue wizard'
 
     def walk(self):
         self.state = 'walk'
@@ -92,7 +94,7 @@ class Wizard:
         else:
             self.img = pygame.image.load("resources/image/enimy/wizard/"+self.state+"/"+self.move_direction+"/Chara-"+str(self.move_frame)+".png").convert_alpha()
             
-    def attack(self):
+    def startAttack(self):
         # image = 15
         self.state = 'attack'
         if((self.attacking)and(self.move_frame <= 15)):
@@ -104,9 +106,13 @@ class Wizard:
         else:
             self.img = pygame.image.load("resources/image/enimy/wizard/"+self.state+"/"+self.move_direction+"/Dash3-"+str(self.move_frame)+".png").convert_alpha()
 
-        if(self.move_direction == 'right'):
+        if((self.rect.x - self.initialPosition)>self.patrolRadius):
+                self.move_right = False
+        elif((self.rect.x - self.initialPosition)<(-1*self.patrolRadius)):
+            self.move_left = False
+        if((self.move_direction == 'right')and(self.move_right)):
             self.rect.x += 10
-        elif(self.move_direction == 'left'):
+        elif((self.move_direction == 'left')and(self.move_left)):
             self.rect.x -= 10
 
         

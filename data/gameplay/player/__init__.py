@@ -21,7 +21,9 @@ class Player(object):
         self.vertical_momentum = 0
         self.air_timer = 0
         self.player_screen_limit = 280
-        self.nivel = nivel          
+        self.nivel = nivel
+        self.enimyCollision = False
+        self.enimyType = ''         
 
     def controlPlayerScreenMove(self):
         ## Validando bordas do screen
@@ -54,7 +56,7 @@ class Player(object):
             self.air_timer += 1
 
 
-    def settingPlayer(self, tile_rects, scroll):
+    def settingPlayer(self, tile_rects, scroll, allEnimysRectsAndType):
         player_movement = [0,0]
         self.screen.blit(self.player_img,(self.player_rect.x-scroll[0],self.player_rect.y-scroll[1]))
         self.determinateMove()
@@ -69,7 +71,20 @@ class Player(object):
         correct_scroll = scroll.copy()
         correct_scroll[0] = int(correct_scroll[0])
         correct_scroll[1] = int(correct_scroll[1])
-        return correct_scroll, self.player_rect
+        # print(allEnimysRectsAndType)
+        self.checkingEnimysCollision(player_movement,allEnimysRectsAndType)
+        return correct_scroll, self.player_rect, self.enimyCollision, self.enimyType
+
+    def checkingEnimysCollision(self, player_move,enimysRectsAndType):
+        rectList = []
+        enimyList = []
+        for enimy in enimysRectsAndType:
+            rectList.append(enimy[0])
+            enimyList.append(enimy[1])
+        collision, position = self.collision.enimysCollision(player_move,self.player_rect,rectList)
+        
+        print(collision, position)
+
 
     def determinateMove(self):
         key_press = pygame.key.get_pressed()
