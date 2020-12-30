@@ -32,9 +32,7 @@ class GamePlay(object):
     # method to display all the components in the platform
     def drawingTheGamePlayEnvirement(self):
         tile_rects = self.plataforma.settingPlataform(self.scroll)
-    # self.enimyCollision, self.enimyType , self.enimys_rects
         self.scroll, player_rect, self.enimyCollision, self.enimyType  = self.player.settingPlayer(tile_rects, self.scroll, self.allEnimysRectsAndTypes)
-        tile_rects.append(player_rect)
 
         # update after we check the collision
         self.allEnimysRectsAndTypes = []
@@ -42,4 +40,10 @@ class GamePlay(object):
 
         self.headUpDisplay.headUpDisplayScreenDraw(self.lastPassPoint)
         self.lastPassPoint = player_rect.x
+
+        self.controllingThePlayerLife()
+    
+    def controllingThePlayerLife(self):
+        if self.enimyCollision:
+            self.headUpDisplay.damagingPlayerLife(self.enimyType)
         

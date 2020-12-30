@@ -143,12 +143,6 @@ class HeadUpDisplay(object):
         elif(key_press[K_7]):
             self.inUse = 6
 
-        # test
-        if(key_press[K_x]):
-            self.life.damageLife(1)
-        if(key_press[K_c]):
-            self.life.incrementLife(1)
-        
         # controls to hidde in show the skills cards
         if(key_press[K_TAB] and (self.count >= 10)):
             self.show = not self.show
@@ -158,3 +152,12 @@ class HeadUpDisplay(object):
         # verification if the skills is available and reselect
         if(self.inUse > self.maxskills):
             self.inUse = self.maxskills
+    def damagingPlayerLife(self,enimyType):
+        if(enimyType == 'blue wizard'):
+            self.life.damageLife(1)
+        # if(key_press[K_x]):
+            
+        # if(key_press[K_c]):
+        #     self.life.incrementLife(1)
+        
+        

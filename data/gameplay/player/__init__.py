@@ -22,6 +22,7 @@ class Player(object):
         self.air_timer = 0
         self.player_screen_limit = 280
         self.nivel = nivel
+        self.impactDelay = 0
         self.enimyCollision = False
         self.enimyType = ''         
 
@@ -73,6 +74,7 @@ class Player(object):
         correct_scroll[1] = int(correct_scroll[1])
         # print(allEnimysRectsAndType)
         self.checkingEnimysCollision(player_movement,allEnimysRectsAndType)
+        self.collisionInpact()
         return correct_scroll, self.player_rect, self.enimyCollision, self.enimyType
 
     def checkingEnimysCollision(self, player_move,enimysRectsAndType):
@@ -81,9 +83,27 @@ class Player(object):
         for enimy in enimysRectsAndType:
             rectList.append(enimy[0])
             enimyList.append(enimy[1])
+
         collision, position = self.collision.enimysCollision(player_move,self.player_rect,rectList)
         
-        print(collision, position)
+        if(collision['top'] or collision['right'] or collision['bottom'] or collision['left']):
+            self.enimyCollision = True
+            self.impactDelay = 0
+            self.enimyType = enimyList[position]
+
+    def collisionInpact(self):
+        if self.enimyCollision :
+            if(self.impactDelay <= 10):
+                if(self.move_direction == 'right'):
+                    self.player_rect.x -= 10
+                    self.player_rect.y -= 10
+                elif(self.move_direction == 'left'):
+                    self.player_rect.x += 10
+                    self.player_rect.y -= 10
+                self.impactDelay += 1
+            else:
+                self.enimyCollision = False
+                
 
 
     def determinateMove(self):
