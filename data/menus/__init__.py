@@ -45,7 +45,7 @@ class Menus(object):
             self.painelState = 8
         elif((key[K_ESCAPE])and(self.painelState == 10)):
             self.painelState = 3
-        if(key[K_TAB]):
+        if(key[K_KP_ENTER]):
             exit()
 
         if(self.painelState==0):

@@ -12,9 +12,15 @@ class HeadUpDisplay(object):
         self.progress = LevelProgress(self.screen, self.lastPassPoint)
         self.player = pygame.image.load("resources/image/headUpDisplay/conteiner/faceIcon.png")
         self.nivel = nivel
-        # self.lifeBox = pygame.image.load("resources/image/headUpDisplay/lifebox1.png")
         self.skillOfThePlayer()
         self.inUse = 0
+        self.show = False
+        self.count = 0
+        self.allcards = []
+        self.allpos = []
+        self.y_Disable = 460
+        self.y_Active = 445
+        self.timeToHidde = 0
 
     # method to draw the HUD um the game screen
     def headUpDisplayScreenDraw(self, lastPassPoint):
@@ -22,9 +28,79 @@ class HeadUpDisplay(object):
         self.screen.blit(self.player, (10, 10))
         self.life.draw()
         self.progress.draw(lastPassPoint)
-        
         self.displaySkillsCars()
+        self.showHiddenSkilssOnGameEnvirement()
         # self.screen.blit(self.lifeBox, (50, 50))
+
+    def showSkillsOnGameEnvirement(self):
+        self.allcards = []
+        self.allpos = []
+        x1 = 700/2 - ((50+(40*self.nivel))/2)
+        x2 = (550/2 + ((50+(40*self.nivel))/2))
+        count = 0
+        control = 0
+        midle = int(len(self.cardsActive)/2)
+        for (cardActive, cardDisable) in zip(self.hiddenCardsActive, self.hiddenCardsDisable):
+            if(count == self.inUse):
+                midlecard = cardActive
+            elif(count != self.inUse):
+                if (control < midle):
+                    self.allcards.append(cardDisable)
+                    self.allpos.append((x1, self.y_Disable))
+                    x1 += 30
+                elif(control >= midle):
+                    self.allcards.append(cardDisable)
+                    self.allpos.append((x2, self.y_Disable))
+                    x2 -= 30
+                control += 1
+            count += 1
+            
+        self.allcards.append(midlecard)
+        self.allpos.append(((700/2 - 100/2), self.y_Active))
+
+    def hiddeSkillsOnGameEnvirement(self):
+        self.allcards = []
+        self.allpos = []
+        x1 = 700/2 - ((50+(40*self.nivel))/2)
+        x2 = (550/2 + ((50+(40*self.nivel))/2))
+        count = 0
+        control = 0
+        midle = int(len(self.cardsActive)/2)
+        for (cardActive, cardDisable) in zip(self.hiddenCardsActive, self.hiddenCardsDisable):
+            if(count == self.inUse):
+                midlecard = cardActive
+            elif(count != self.inUse):
+                if (control < midle):
+                    self.allcards.append(cardDisable)
+                    self.allpos.append((x1, self.y_Disable))
+                    x1 += 30
+                elif(control >= midle):
+                    self.allcards.append(cardDisable)
+                    self.allpos.append((x2, self.y_Disable))
+                    x2 -= 30
+                control += 1
+            count += 1
+        self.allcards.append(midlecard)
+        self.allpos.append(((700/2 - 100/2), self.y_Active))
+
+    def showHiddenSkilssOnGameEnvirement(self):
+        if(self.show):
+            self.showSkillsOnGameEnvirement()
+            [self.screen.blit(card, pos) for (card, pos) in zip(self.allcards, self.allpos)]
+            if((self.y_Active >= 360)and(self.y_Disable >= 387)):
+                self.y_Active -= 2
+                self.y_Disable -= 2
+            self.timeToHidde += 1
+        else:
+            self.hiddeSkillsOnGameEnvirement()
+            [self.screen.blit(card, pos) for (card, pos) in zip(self.allcards, self.allpos)]
+            if((self.y_Active <= 470)and(self.y_Disable <= 455)):
+                self.y_Active += 2
+                self.y_Disable += 2
+        if(self.timeToHidde > 90):
+            self.show = not self.show
+            self.timeToHidde = 0
+            
 
     def displaySkillsCars(self):
         x, y = 10, 98
@@ -47,9 +123,10 @@ class HeadUpDisplay(object):
             self.maxskills = self.nivel
         self.cardsActive = [pygame.image.load("resources/image/headUpDisplay/cardIcon/"+str(i)+"-True.png")for i in range(self.nivel+1)]
         self.cardsDisable = [pygame.image.load("resources/image/headUpDisplay/cardIcon/"+str(i)+"-False.png")for i in range(self.nivel+1)]
+        self.hiddenCardsActive = [pygame.image.load("resources/image/headUpDisplay/card/"+str(i)+"-True.png")for i in range(self.nivel+1)]
+        self.hiddenCardsDisable = [pygame.image.load("resources/image/headUpDisplay/card/"+str(i)+"-False.png")for i in range(self.nivel+1)]
     
     def changeSkillsToUse(self):
-
         key_press = pygame.key.get_pressed()
         if(key_press[K_1]):
             self.inUse = 0
@@ -69,6 +146,14 @@ class HeadUpDisplay(object):
         # test
         if(key_press[K_x]):
             self.life.damageLife(1)
+        if(key_press[K_c]):
+            self.life.incrementLife(1)
+        
+        # controls to hidde in show the skills cards
+        if(key_press[K_TAB] and (self.count >= 10)):
+            self.show = not self.show
+            self.count = 0
+        self.count += 1
 
         # verification if the skills is available and reselect
         if(self.inUse > self.maxskills):

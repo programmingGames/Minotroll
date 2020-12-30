@@ -50,7 +50,7 @@ class Skills(object):
                     self.arrows.append(pygame.image.load("resources/image/skills/arrows/leftarrow0.png").convert_alpha())
                     self.arrows.append(pygame.image.load("resources/image/skills/arrows/rightarrow0.png").convert_alpha())
                     self.backButtom = pygame.image.load("resources/image/skills/back2.png").convert_alpha()
-                self.cardsDiscription = pygame.image.load("resources/image/skills/pergaminio-"+str(state)+".png")
+                self.cardsDiscription = pygame.image.load("resources/image/skills/description/pergaminio-"+str(state)+".png")
                 self.x = 450
             else:
                 img = pygame.image.load("resources/image/skills/pergaminios/"+card+"1.png").convert_alpha()

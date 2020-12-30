@@ -2,7 +2,7 @@ import pygame
 from pygame.locals import *
 from data.gameplay.player import Player
 from data.gameplay.plataforma import Plataform
-from data.gameplay.enimy.wizard import WizardSimpleAI as Wizard
+from data.gameplay.enimy.wizard import Wizard
 from data.gameplay.headUpDisplay import HeadUpDisplay as H_u_d
 
 
@@ -25,12 +25,12 @@ class GamePlay(object):
     # method to display all the components in the platform
     def drawingTheGamePlayEnvirement(self):
         plataforma = Plataform(self.screen)
-        tile_rects, tile_item = plataforma.settingPlataform(self.scroll)
-        self.headUpDisplay.headUpDisplayScreenDraw(self.lastPassPoint)
+        tile_rects = plataforma.settingPlataform(self.scroll)
         
-        self.scroll, player_rect = self.player.settingPlayer(self.pygameEvent, tile_rects,tile_item, self.scroll)
-        wizard_rect = self.wizard.activation(self.pygameEvent, tile_rects, self.scroll, player_rect)
+        
+        self.scroll, player_rect = self.player.settingPlayer(tile_rects, self.scroll)
+        wizard_rect = self.wizard.addingWizard(tile_rects, self.scroll)
         # tile_rects.append(wizard_rect)
-        tile_rects.append(player_rect)
-
+        # tile_rects.append(player_rect)
+        self.headUpDisplay.headUpDisplayScreenDraw(self.lastPassPoint)
         self.lastPassPoint = player_rect.x

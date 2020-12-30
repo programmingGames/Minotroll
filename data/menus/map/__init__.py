@@ -20,7 +20,6 @@ class Map(object):
         self.levelDescription = pygame.image.load("resources/image/map/Level/"+str(self.nivel)+"-"+str(self.state[self.nivel])+".png")
         self.effect = 0
         self.count = 0
-        
 
     # Method to display the map in the screen
     def drawMapInTheScreen(self):
@@ -40,7 +39,6 @@ class Map(object):
         self.screen.blit(self.golem, (self.allPlayerLevelMapPosition[self.nivel]))
         
         self.movementInMap()
-        
 
     # Method to control the movemente in the map
     def movementInMap(self):
