@@ -35,8 +35,8 @@ class GamePlay(object):
         self.scroll, player_rect, self.enimyCollision, self.enimyType  = self.player.settingPlayer(tile_rects, self.scroll, self.allEnimysRectsAndTypes)
 
         # update after we check the collision
-        self.allEnimysRectsAndTypes = []
-        self.allEnimysRectsAndTypes.append(self.enimys.enimysAdd(tile_rects, player_rect, self.scroll))
+        self.allEnimysRectsAndTypes = self.enimys.enimysAdd(tile_rects, player_rect, self.scroll)
+        # self.allEnimysRectsAndTypes.append()
 
         painelState = self.headUpDisplay.headUpDisplayScreenDraw(self.lastPassPoint)
         self.lastPassPoint = player_rect.x

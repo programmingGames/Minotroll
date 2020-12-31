@@ -7,12 +7,12 @@ from data.gameplay.collisionControl import Colision
 
 
 class Wizard:
-    def __init__(self, screen):
+    def __init__(self, screen, patrolRadius, initialPosition):
         self.screen = screen
-        self.patrolRadius = 100
+        self.patrolRadius = patrolRadius
         self.rect = pygame.Rect(40, 30, 20, 42)
-        self.rect.x = 1000
-        self.initialPosition = self.rect.x
+        self.rect.x = initialPosition
+        self.initialPosition = initialPosition
         self.ai = EnimysAI(self.screen, self.patrolRadius, self.rect.x)
         self.collision = Colision()
         self.state = 'idle'
