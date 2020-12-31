@@ -11,8 +11,9 @@ from data.menus.loadMenu import LoadUser
 from data.menus.pauseMenu import PauseMenu
 from data.menus.skills import Skills
 from data.menus.start import Initiation
-from data.gameplay import GamePlay
 from data.menus.map import Map
+from data.menus.gameOver import GameOver
+from data.gameplay import GamePlay
 
 
 #  Class for controling all the menu on the game
@@ -28,6 +29,7 @@ class Menus(object):
         self.userMenu = UserMenu(self.screen)
         self.loadUser = LoadUser(self.screen)
         self.initiation = Initiation(self.screen)
+        self.gameOver = GameOver(self.screen)
         self.pause = PauseMenu(self.screen)
         self.painelState = 0  # this is to control where we are in the game
         self.user = '' # keep the current user name
@@ -67,11 +69,13 @@ class Menus(object):
         elif(self.painelState == 4):
             self.painelState, self.user = self.loadUser.movingInLoadMenu()
         elif(self.painelState == 7):
-            self.gamplay.drawingTheGamePlayEnvirement()
+            self.painelState = self.gamplay.drawingTheGamePlayEnvirement()
         elif(self.painelState == 9):
             self.painelState = self.skills.movingInPainelSkills()
         elif (self.painelState == 8):
             self.painelState = self.pause.drawUserMenu()
         elif(self.painelState == 10):
             self.map.drawMapInTheScreen()
+        elif(self.painelState == 11):
+            self.gameOver.showGameOverPainel()
         # print(self.painelState)

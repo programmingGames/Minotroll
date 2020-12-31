@@ -30,6 +30,11 @@ class HeadUpDisplay(object):
         self.progress.draw(lastPassPoint)
         self.displaySkillsCars()
         self.showHiddenSkilssOnGameEnvirement()
+
+        if(len(self.life.lifeArray) == 0):
+            return 11
+        else:
+            return 7
         # self.screen.blit(self.lifeBox, (50, 50))
 
     def showSkillsOnGameEnvirement(self):
