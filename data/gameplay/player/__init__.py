@@ -28,7 +28,7 @@ class Player(object):
 
     def controlPlayerScreenMove(self):
         ## Validando bordas do screen
-        if(self.player_rect.x == self.player_screen_limit):
+        if(self.player_rect.x <= self.player_screen_limit):
             self.moving_left = False
 
         ## Reduzindo o espaço a que o jogador pode voltar para traz

@@ -13,7 +13,7 @@ class Wizard:
         self.rect = pygame.Rect(40, 30, 20, 42)
         self.rect.x = initialPosition
         self.initialPosition = initialPosition
-        self.ai = EnimysAI(self.screen, self.patrolRadius,100, self.rect.x)
+        self.ai = EnimysAI(self.screen, self.patrolRadius,200, self.rect.x)
         self.collision = Colision()
         self.state = 'idle'
         self.move_direction = 'right'

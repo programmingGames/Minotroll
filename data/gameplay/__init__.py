@@ -48,7 +48,7 @@ class GamePlay(object):
 
         self.controllingThePlayerLife()
 
-        
+        print(player_rect.x)        
 
         return painelState
     

@@ -14,9 +14,9 @@ class Skills(object):
         self.backgrounds = Back(screen)
         self.allCard = []
         # self.timeEfect = 0
-        self.cards = ['handCard','kickingCard', 'slashingCard', 'battleaxCard', 'smollfirecard', 'fireCard', 'bluefireCard']
-        self.copyCards = ['handCard','kickingCard', 'slashingCard', 'battleaxCard', 'smollfirecard', 'fireCard', 'bluefireCard']
-        self.state = [False, False,False,False,False,False,False]
+        self.cards = ['kickingCard', 'slashingCard', 'battleaxCard', 'fireCard', 'bluefireCard']
+        self.copyCards = ['kickingCard', 'slashingCard', 'battleaxCard', 'fireCard', 'bluefireCard']
+        self.state = [False,False,False,False,False]
         self.font = pygame.font.SysFont("Arial", 20)
         self.cardsDiscription = ''
         self.skillsOfPlayer()
@@ -35,7 +35,7 @@ class Skills(object):
         self.allCardsPosition = []
         self.arrows = []
         right = []
-        self.x, self.y = 168, 130
+        self.x, self.y = 228, 130
         count = 0
         for (card, state) in zip(self.cards, self.state):
             if(self.currentCard == card):
@@ -51,7 +51,7 @@ class Skills(object):
                     self.arrows.append(pygame.image.load("resources/image/skills/arrows/rightarrow0.png").convert_alpha())
                     self.backButtom = pygame.image.load("resources/image/skills/back2.png").convert_alpha()
                 self.cardsDiscription = pygame.image.load("resources/image/skills/description/pergaminio-"+str(state)+".png")
-                self.x = 450
+                self.x = 390
             else:
                 img = pygame.image.load("resources/image/skills/pergaminios/"+card+"1.png").convert_alpha()
                 if(count < self.cards.index(self.currentCard)):
@@ -100,13 +100,20 @@ class Skills(object):
     # method to Know, how many skills the player already have
     def skillsOfPlayer(self):
         count = 0
+        maxSkills = 0
         for state in self.state:
-            if(count <= self.nivel):
+            if (self.nivel == 0):
+                maxSkills = 2
+
+            elif(self.nivel == 1):
+                maxSkills = 4
+
+            elif(self.nivel == 2):
+                maxSkills = 5
+
+            n = self.state[count]
+            if(self.state.index(n)<maxSkills):
                 self.state[count] = not state
-            if (self.nivel == 1):
-                n = self.state[count]
-                if(self.state.index(n)<=2):
-                    self.state[count] = not state
             count += 1
 
     # move cards to right

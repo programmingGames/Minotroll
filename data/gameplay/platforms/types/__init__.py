@@ -9,7 +9,7 @@ def platformP1(game_map,screen, scroll):
     # components [5] = bottom left grass
     # components [6] = bottom midle grass
     # components [7] = bottom right grass
-    components = [pygame.image.load('resources/image/platform/florest/tiles/'+str(i)+'.png') for i in range(12)]
+    components = [pygame.image.load('resources/image/platform/florest/tiles/'+str(i)+'.png') for i in range(9)]
     tile_rects = []
     y = 0
     for layer in game_map:
@@ -28,13 +28,14 @@ def platformP1(game_map,screen, scroll):
             elif(tile == '5'):
                 screen.blit(components[4], (x*16-scroll[0], y*16-scroll[1]))
             elif(tile == '6'):
+                tile_rects.append(pygame.Rect(x*16,y*16,16,16))
                 screen.blit(components[6], (x*16-scroll[0], y*16-scroll[1]))
             elif(tile == '7'):
-                screen.blit(components[9], (x*16-scroll[0], y*16-scroll[1]))
+                screen.blit(components[7], (x*16-scroll[0], y*16-scroll[1]))
             elif(tile == '8'):
-                screen.blit(components[10], (x*16-scroll[0], y*16-scroll[1]))
-            elif(tile == '9'):
                 screen.blit(components[8], (x*16-scroll[0], y*16-scroll[1]))
+            # elif(tile == '9'):
+            #     screen.blit(components[6], (x*16-scroll[0], y*16-scroll[1]))
 
             x += 1
         y += 1
