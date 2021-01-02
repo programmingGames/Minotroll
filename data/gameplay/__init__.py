@@ -1,7 +1,7 @@
 import pygame
 from pygame.locals import *
 from data.gameplay.player import Player
-from data.gameplay.plataforma import Plataform
+from data.gameplay.platforms import Plataform
 from data.gameplay.headUpDisplay import HeadUpDisplay as H_u_d
 from data.gameplay.enimy import ControlEnimys
 from data.gameplay.animation import Animation
@@ -16,7 +16,7 @@ class GamePlay(object):
         self.qtlife = qtlife
         self.pygameEvent = pygameEvent
         self.player = Player(self.screen, self.nivel, self.lastPassPoint)
-        self.plataforma = Plataform(self.screen)
+        self.plataforma = Plataform(self.screen, self.nivel)
         self.enimys = ControlEnimys(self.screen)
         self.animation = Animation(self.screen, self.nivel)
         self.headUpDisplay = H_u_d(self.screen, self.nivel, self.lastPassPoint, self.qtlife)

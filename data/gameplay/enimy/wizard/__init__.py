@@ -22,7 +22,6 @@ class Wizard:
         self.air_timer = 0
         self.vertical_momentum = 0
         self.img = pygame.image.load("resources/image/enimy/wizard/"+self.state+"/"+self.move_direction+"/Chara-0.png")
-        
         self.move_frame = 0
         self.attacking = False
 
@@ -110,10 +109,10 @@ class Wizard:
     def startAttack(self):
         # image = 15
         self.state = 'attack'
-        if((self.attacking)and(self.move_frame <= 15)):
+        if((self.attacking)and(self.move_frame <= 12)):
             self.img = pygame.image.load("resources/image/enimy/wizard/"+self.state+"/"+self.move_direction+"/Dash3-"+str(self.move_frame)+".png").convert_alpha()
             self.move_frame += 1
-        elif((self.attacking)and(self.move_frame > 15)):
+        elif((self.attacking)and(self.move_frame > 12)):
             self.move_frame = 0
             self.img = pygame.image.load("resources/image/enimy/wizard/"+self.state+"/"+self.move_direction+"/Dash3-"+str(self.move_frame)+".png").convert_alpha()
         else:
