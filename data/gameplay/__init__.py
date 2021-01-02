@@ -4,6 +4,7 @@ from data.gameplay.player import Player
 from data.gameplay.plataforma import Plataform
 from data.gameplay.headUpDisplay import HeadUpDisplay as H_u_d
 from data.gameplay.enimy.enimysControl import ControlEnimys
+from data.gameplay.animation import Animation
 
 
 class GamePlay(object):
@@ -17,6 +18,7 @@ class GamePlay(object):
         self.player = Player(self.screen, self.nivel, self.lastPassPoint)
         self.plataforma = Plataform(self.screen)
         self.enimys = ControlEnimys(self.screen)
+        self.animation = Animation(self.screen, self.nivel)
         self.headUpDisplay = H_u_d(self.screen, self.nivel, self.lastPassPoint, self.qtlife)
         self. nivel = 1 # default value of the level started usualy in 1 
         self.skills = 1 # default value of skills the player have
@@ -38,10 +40,15 @@ class GamePlay(object):
         self.allEnimysRectsAndTypes = self.enimys.enimysAdd(tile_rects, player_rect, self.scroll)
         # self.allEnimysRectsAndTypes.append()
 
+        # Drawing some visual animation
+        self.animation.draw()
+
         painelState = self.headUpDisplay.headUpDisplayScreenDraw(self.lastPassPoint)
         self.lastPassPoint = player_rect.x
 
         self.controllingThePlayerLife()
+
+        
 
         return painelState
     
