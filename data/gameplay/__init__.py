@@ -3,7 +3,7 @@ from pygame.locals import *
 from data.gameplay.player import Player
 from data.gameplay.plataforma import Plataform
 from data.gameplay.headUpDisplay import HeadUpDisplay as H_u_d
-from data.gameplay.enimy.enimysControl import ControlEnimys
+from data.gameplay.enimy import ControlEnimys
 from data.gameplay.animation import Animation
 
 

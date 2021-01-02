@@ -67,7 +67,7 @@ class Player(object):
         
         ## Calculando o scroll do ecrã
         scroll[0] += (self.player_rect.x-scroll[0]-300)/20
-        scroll[1] += (self.player_rect.y-scroll[1]-350)/10
+        scroll[1] += (self.player_rect.y-scroll[1]-320)/10
         # Transformando a scroll em um valor inteiro 
         correct_scroll = scroll.copy()
         correct_scroll[0] = int(correct_scroll[0])

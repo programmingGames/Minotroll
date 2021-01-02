@@ -1,53 +1,24 @@
-import random
+import pygame
+from data.gameplay.enimy.wizard import Wizard
 
+class ControlEnimys(object):
+    def __init__(self, screen):
+        self.screen = screen
+        self.allWizards = []
+        self.allEnimys = []
 
-class SimpleEnimysAI:
-    def __init__(self, screen, patrolingRadius, position):
-        # self.allEnimys = ['blue wizard', 'fire golem', 'stone golem', 'ice golem', 'blue robots', 'dark robots', 'gold robots']
-        self.patrolRadius = patrolingRadius
-        self.attacking = False
-        self.move_right = False
-        self.move_left = False
-        self.initialPosition = position
-        self.position = position
-        self.direction = 'right'
-        self.timer = 0 
-        
-    def activation(self, enimy_rect, player_rect):
-        self.enimy_rect = enimy_rect
-        if(self.timer == 50):
-            self.choisingMove()
-            self.timer = 0
-        else:
-            self.timer += 1
-        
-        # Controlling the radius of patroling
-        if((self.enimy_rect.x - self.position)>self.patrolRadius):
-                self.move_right = False
-        elif((self.enimy_rect.x - self.position)<(-1*self.patrolRadius)):
-            self.move_left = False
+        # test
+        self.allWizards.append(Wizard(self.screen, 100, 1000))
+        # self.allWizards.append(Wizard(self.screen, 200, 1500))
+        # self.allWizards.append(Wizard(self.screen,100, 1200))
+        # self.allWizards.append(Wizard(self.screen,100, 1100))
+        # self.allWizards.append(Wizard(self.screen,100, 1300))
+        # self.allWizards.append(Wizard(self.screen,300, 1350))
+        # self.allWizards.append(Wizard(self.screen,100, 1450))
+        # self.allWizards.append(Wizard(self.screen,200, 1450))
 
-        self.calculateProximity(player_rect)
-        return self.direction, self.move_right, self.move_left, self.attacking
+    def enimysAdd(self, tile_rects, player_rect, scroll):
+        # Just for test
+        [self.allEnimys.append(wizard.addingWizard(tile_rects, player_rect, scroll)) for wizard in self.allWizards]
 
-    # Next time i'm going to do this part here
-    def calculateProximity(self, player_rect):
-        if((self.position-player_rect.x)<=200):
-            # print("ok")
-            self.attacking = True
-        else:
-            self.attacking = False 
-
-    def choisingMove(self):
-        rand = random.random()
-        if (rand<0.3):
-            self.direction = 'left'
-            self.move_right = False
-            self.move_left = True
-        elif((rand>=0.3)and(rand<0.7)):
-            self.move_left = False
-            self.move_right = False
-        else:
-            self.direction = 'right'
-            self.move_left = False
-            self.move_right = True
+        return self.allEnimys

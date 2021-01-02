@@ -7,7 +7,6 @@ class Plataform:
         self.screen = screen
         # self.display = pygame.Surface((300,200))
         self.game_map = self.load_map('map')
-        
         self.background = Back(screen)
         self.plat_green = pygame.image.load("resources/image/platform/florest/p4.png").convert_alpha()
         self.plat_black = pygame.image.load("resources/image/platform/florest/p4_dark.png").convert_alpha()

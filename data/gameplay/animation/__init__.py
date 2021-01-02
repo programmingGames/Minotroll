@@ -28,9 +28,7 @@ class Animation(object):
                 [self.items.append(Item(self.itemName, self.screen)) for b in range(random.randint(10,30))]
             self.count = 0
         else:
-            self.count += 1
-
-    
+            self.count += 1    
 
     def chosingItemAccordingLevel(self):
         if (self.nivel < 2):

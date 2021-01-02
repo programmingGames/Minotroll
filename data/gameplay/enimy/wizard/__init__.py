@@ -1,6 +1,6 @@
 import pygame
 from pygame.locals import *
-from data.gameplay.enimy import SimpleEnimysAI as EnimysAI
+from data.gameplay.enimy.simpleAI import SimpleEnimysAI as EnimysAI
 from data.gameplay.collisionControl import Colision
 # from sys import exit
 # import random
@@ -13,7 +13,7 @@ class Wizard:
         self.rect = pygame.Rect(40, 30, 20, 42)
         self.rect.x = initialPosition
         self.initialPosition = initialPosition
-        self.ai = EnimysAI(self.screen, self.patrolRadius, self.rect.x)
+        self.ai = EnimysAI(self.screen, self.patrolRadius,100, self.rect.x)
         self.collision = Colision()
         self.state = 'idle'
         self.move_direction = 'right'
@@ -68,9 +68,22 @@ class Wizard:
         
         
         self.move_direction, self.move_right, self.move_left, self.attacking = self.ai.activation(self.rect, player_rect)
+        self.determinateAttack()
         self.controlingCollision(wizard_move, platform_rects)
         self.screen.blit(self.img,(self.rect.x-scroll[0], self.rect.y-scroll[1]))
+        # print(self.attacking, self.move_direction)
         return self.rect, 'blue wizard'
+
+    def determinateAttack(self):
+
+        if((self.rect.x - self.initialPosition)>self.patrolRadius):
+                self.move_right = False
+        elif((self.rect.x - self.initialPosition)<(-1*self.patrolRadius)):
+            self.move_left = False
+        if((self.move_direction == 'right')and(self.move_right)):
+            self.rect.x += 10
+        elif((self.move_direction == 'left')and(self.move_left)):
+            self.rect.x -= 10
 
     def walk(self):
         self.state = 'walk'
@@ -105,14 +118,5 @@ class Wizard:
             self.img = pygame.image.load("resources/image/enimy/wizard/"+self.state+"/"+self.move_direction+"/Dash3-"+str(self.move_frame)+".png").convert_alpha()
         else:
             self.img = pygame.image.load("resources/image/enimy/wizard/"+self.state+"/"+self.move_direction+"/Dash3-"+str(self.move_frame)+".png").convert_alpha()
-
-        if((self.rect.x - self.initialPosition)>self.patrolRadius):
-                self.move_right = False
-        elif((self.rect.x - self.initialPosition)<(-1*self.patrolRadius)):
-            self.move_left = False
-        if((self.move_direction == 'right')and(self.move_right)):
-            self.rect.x += 10
-        elif((self.move_direction == 'left')and(self.move_left)):
-            self.rect.x -= 10
 
         
