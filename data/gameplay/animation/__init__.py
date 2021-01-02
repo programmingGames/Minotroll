@@ -17,6 +17,7 @@ class Animation(object):
             self.createNewItems()
         [item.draw() for item in self.items]
         [item.draw() for item in self.suport]
+        
 
     def createNewItems(self):
         if (self.count >= 100):
