@@ -8,8 +8,8 @@ class ControlEnimys(object):
         self.allEnimys = []
 
         # test
-        self.allWizards.append(Wizard(self.screen, 100, 1516))
-        self.allWizards.append(Wizard(self.screen, 100, 1480))
+        self.allWizards.append(Wizard(self.screen, 160, 1520))
+        self.allWizards.append(Wizard(self.screen, 100, 1490))
         # self.allWizards.append(Wizard(self.screen, 200, 1500))
         # self.allWizards.append(Wizard(self.screen,100, 1200))
         # self.allWizards.append(Wizard(self.screen,100, 1100))
