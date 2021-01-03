@@ -47,8 +47,9 @@ class GamePlay(object):
         self.lastPassPoint = player_rect.x
 
         self.controllingThePlayerLife()
-
-        print(player_rect.x)        
+ 
+        if(player_rect.y >= 720):
+            painelState = 11    
 
         return painelState
     
