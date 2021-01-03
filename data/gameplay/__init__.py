@@ -28,7 +28,7 @@ class GamePlay(object):
         self.enimyCollision = False
         self.enimyType = ''
         self.allEnimysRectsAndTypes = []
-        
+        self.ptforStart = True        
 
     
     # method to display all the components in the platform
