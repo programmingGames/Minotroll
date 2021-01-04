@@ -17,11 +17,7 @@ class Plataform:
         
 
     def load_map(self):
-        if(self.nivel<2):
-            fileName = 'p1'
-        elif(self.nivel>=2):
-            fileName = 'p2'
-        file = open('data/gameplay/platforms/'+fileName + '.txt', 'r')
+        file = open('data/gameplay/platforms/p'+str(self.nivel)+ '.txt', 'r')
         data = file.read()
         file.close()
         data = data.split('\n')

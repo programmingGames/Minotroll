@@ -15,12 +15,13 @@ class Player(object):
         self.move_frame = 0
         self.player_img = pygame.image.load("resources/image/Golem/"+self.state+"/"+self.move_direction+"/0_Goblin_"+self.state+"_0.png").convert_alpha()
         self.player_rect=self.player_img.get_rect()
-        self.player_rect.x = lastPassPoint
+        self.player_rect.x = 2500
+        self.player_rect.y = 550
         self.moving_right = False
         self.moving_left = False
         self.vertical_momentum = 0
         self.air_timer = 0
-        self.player_screen_limit = 280
+        self.player_screen_limit = 100
         self.nivel = nivel
         self.impactDelay = 0
         self.enimyCollision = False
