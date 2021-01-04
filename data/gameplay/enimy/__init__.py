@@ -35,8 +35,8 @@ class ControlEnimys(object):
     def addingAllTheAnimys(self):
         self.allWizards.append(Wizard(self.screen, 160, 1520))
         self.allWizards.append(Wizard(self.screen, 100, 1490))
-        self.allCactus.append(Cactus(self.screen, 916))
-        self.allCactus.append(Cactus(self.screen, 948))
+        # self.allCactus.append(Cactus(self.screen, 916))
+        # self.allCactus.append(Cactus(self.screen, 948))
         # self.allCactus.append(Cactus(self.screen, 976))
         # self.allCactus.append(Cactus(self.screen, 1986))
         # self.allCactus.append(Cactus(self.screen, 2278))
