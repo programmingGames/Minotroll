@@ -44,7 +44,7 @@ class Colision(object):
             if (playerRect.colliderect(tile)):
                 hit_list.append(tile)
                 colisionPosition = count
-            count += 0
+            count += 1
         return hit_list, colisionPosition
 
     def enimysCollision(self,playerMove, playerRect, enimysRects):

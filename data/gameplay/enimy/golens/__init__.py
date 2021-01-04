@@ -56,7 +56,7 @@ class Golens:
                 golens_move[0]-=4'''
 
         # if move_right and move_left not True call idle
-        if ((not self.move_right)and(not self.move_left)):
+        if ((not self.move_right)and(not self.move_left)and (not self.attacking)):
             self.idle()
         else:
             self.walk()
@@ -78,14 +78,9 @@ class Golens:
     def determinateAttack(self):
         if((self.rect.x - self.initialPosition)>self.patrolRadius):
             self.move_right = False
-            self.attacking = True
         elif((self.rect.x - self.initialPosition)<(-1*self.patrolRadius)):
             self.move_left = False
-            self.attacking = True
-        if((self.move_direction == 'right')and(self.move_right)):
-            self.rect.x += 10
-        elif((self.move_direction == 'left')and(self.move_left)):
-            self.rect.x -= 10
+   
 
     def walk(self):
         self.state = 'Walking'
@@ -114,9 +109,11 @@ class Golens:
         if((self.attacking)and(self.move_frame <= 11)):
             self.imgGolens = pygame.image.load("resources/image/enimy/golens/Golem_2/"+self.state+"/"+self.move_direction+"/0_Golem_"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
             self.move_frame += 1
+            print("1")
         elif((self.attacking)and(self.move_frame > 11)):
             self.move_frame = 0
             self.imgGolens = pygame.image.load("resources/image/enimy/golens/Golem_2/"+self.state+"/"+self.move_direction+"/0_Golem_"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
+            print("2")
         else:
             self.imgGolens = pygame.image.load("resources/image/enimy/golens/Golem_2/"+self.state+"/"+self.move_direction+"/0_Golem_"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
         
