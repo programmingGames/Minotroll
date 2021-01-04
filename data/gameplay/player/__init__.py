@@ -15,8 +15,8 @@ class Player(object):
         self.move_frame = 0
         self.player_img = pygame.image.load("resources/image/Golem/"+self.state+"/"+self.move_direction+"/0_Goblin_"+self.state+"_0.png").convert_alpha()
         self.player_rect=self.player_img.get_rect()
-        self.player_rect.x = 2500
-        self.player_rect.y = 550
+        self.player_rect.x = lastPassPoint
+        # self.player_rect.y = 550
         self.moving_right = False
         self.moving_left = False
         self.vertical_momentum = 0
@@ -34,7 +34,7 @@ class Player(object):
 
         ## Reduzindo o espaço a que o jogador pode voltar para traz
         if((self.player_rect.x-self.player_screen_limit)>800):
-            self.player_screen_limit += 40
+            self.player_screen_limit += 30
     
     def playerMove(self, tile_rects, player_movement):
         if self.moving_right:
