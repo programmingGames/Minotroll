@@ -31,6 +31,7 @@ class Menus(object):
         self.initiation = Initiation(self.screen)
         self.gameOver = GameOver(self.screen)
         self.pause = PauseMenu(self.screen)
+        self.suport = 0
         self.painelState = 0  # this is to control where we are in the game
         self.user = '' # keep the current user name
         self.pygameEvent = 0 # to keep all the pygame.event in the game loop
@@ -41,7 +42,8 @@ class Menus(object):
         for event in pygame.event.get():
             self.pygameEvent = event
             if event.type == QUIT:
-                exit()
+                self.suport = self.painelState
+                self.painelState = 5
         key = pygame.key.get_pressed()
         if((key[K_ESCAPE])and(self.painelState == 7)):
             self.painelState = 8
@@ -65,7 +67,7 @@ class Menus(object):
         elif(self.painelState == 6):
             self.painelState = self.intro.introDisplay()
         elif(self.painelState == 5):
-            self.painelState = self.exitMenu.movingInExitMenu()
+            self.painelState = self.exitMenu.movingInExitMenu(self.suport)
         elif(self.painelState == 4):
             self.painelState, self.user = self.loadUser.movingInLoadMenu()
         elif(self.painelState == 7):

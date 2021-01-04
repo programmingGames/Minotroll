@@ -36,7 +36,7 @@ class ExitMenu:
                 img = pygame.image.load("resources/image/menu/exit_menu/"+buttom+"0.png").convert_alpha()
             self.allButtom.append(img)
 
-    def movingInExitMenu(self):
+    def movingInExitMenu(self, suport):
         pressed_keys = pygame.key.get_pressed()
         if(pressed_keys[K_RIGHT]):
             pygame.time.delay(100)
@@ -58,7 +58,7 @@ class ExitMenu:
             exit()
         elif ((pressed_keys[K_RETURN])and(self.menuControl==380)and(self.count >= 5)):
             self.count = 0
-            return 1
+            return suport
         
                 
         self.exitMenuEsc()  

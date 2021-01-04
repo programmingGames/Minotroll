@@ -148,7 +148,8 @@ class HeadUpDisplay(object):
     def damagingPlayerLife(self,enimyType):
         if(enimyType == 'blue wizard'):
             self.life.damageLife(1)
-        # if(key_press[K_x]):
+        if(enimyType == 'stone golem'):
+            self.life.damageLife(10)
             
         # if(key_press[K_c]):
         #     self.life.incrementLife(1)
