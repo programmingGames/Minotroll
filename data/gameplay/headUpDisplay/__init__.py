@@ -32,7 +32,7 @@ class HeadUpDisplay(object):
         self.displaySkillsCars()
         self.showHiddenSkilssOnGameEnvirement()
 
-        if(len(self.life.lifeArray) == 0):
+        if(self.life.qtlife == 0):
             return 11
         else:
             return 7
@@ -107,7 +107,7 @@ class HeadUpDisplay(object):
         elif(self.nivel == 1):
             self.skills = 4
 
-        elif(self.nivel == 2):
+        elif(self.nivel >= 2):
             self.skills = 5
 
         self.cardsActive = [pygame.image.load("resources/image/headUpDisplay/cardIcon/"+str(i)+"-True.png")for i in range(self.skills)]
@@ -148,14 +148,12 @@ class HeadUpDisplay(object):
     def damagingPlayerLife(self,enimyType):
         # print(enimyType)
         if(enimyType == 'blue wizard'):
-            self.life.damageLife(1)
 
+            self.life.updateLife(-1)
         elif(enimyType == 'stone golem'):
-            self.life.damageLife(5)
-
+            self.life.updateLife(-10)
         elif(enimyType == "cactus"):
-            self.life.damageLife(1)
-
+            self.life.updateLife(-1)
             
         # if(key_press[K_c]):
         #     self.life.incrementLife(1)
