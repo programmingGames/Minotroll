@@ -28,3 +28,5 @@ class Plataform:
             return platformP1(self.game_map, self.screen, scroll)
         elif(self.nivel == 2):
             return platformP2(self.game_map, self.screen, scroll)
+        elif(self.nivel == 3):
+            return platformP1(self.game_map, self.screen, scroll)

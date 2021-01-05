@@ -107,7 +107,7 @@ class HeadUpDisplay(object):
         elif(self.nivel == 1):
             self.skills = 4
 
-        elif(self.nivel == 2):
+        elif(self.nivel >= 2):
             self.skills = 5
 
         self.cardsActive = [pygame.image.load("resources/image/headUpDisplay/cardIcon/"+str(i)+"-True.png")for i in range(self.skills)]
