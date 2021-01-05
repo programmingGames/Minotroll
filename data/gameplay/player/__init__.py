@@ -85,7 +85,7 @@ class Player(object):
             enimyList.append(enimy[1])
 
         collision, position = self.collision.enimysCollision(player_move,self.player_rect,rectList)
-        
+        # print(position)
         if(collision['top'] or collision['right'] or collision['bottom'] or collision['left']):
             self.enimyCollision = True
             self.impactDelay = 0

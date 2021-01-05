@@ -37,4 +37,4 @@ class Cactus:
         self.controlingCollision(move, platform_rects)
         self.screen.blit(self.img, (self.cactusRects.x-scroll[0], self.cactusRects.y-scroll[1]))
 
-        return self.cactusRects, 'cactus'
+        return (self.cactusRects, 'cactus')
