@@ -50,7 +50,7 @@ class GamePlay(object):
  
         if(player_rect.y >= 720):
             painelState = 11    
-        print(player_rect.x)
+        print(player_rect.x, player_rect.y)
         return painelState
     
     def controllingThePlayerLife(self):

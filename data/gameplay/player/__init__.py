@@ -15,7 +15,7 @@ class Player(object):
         self.move_frame = 0
         self.player_img = pygame.image.load("resources/image/Golem/"+self.state+"/"+self.move_direction+"/0_Goblin_"+self.state+"_0.png").convert_alpha()
         self.player_rect=self.player_img.get_rect()
-        self.player_rect.x = 3000
+        self.player_rect.x = lastPassPoint
         # self.player_rect.y = 550
         self.moving_right = False
         self.moving_left = False
@@ -68,7 +68,7 @@ class Player(object):
         
         ## Calculando o scroll do ecrã
         scroll[0] += (self.player_rect.x-scroll[0]-300)/20
-        scroll[1] += (self.player_rect.y-scroll[1]-320)/10
+        scroll[1] += (self.player_rect.y-scroll[1]-300)/10
         # Transformando a scroll em um valor inteiro 
         correct_scroll = scroll.copy()
         correct_scroll[0] = int(correct_scroll[0])
