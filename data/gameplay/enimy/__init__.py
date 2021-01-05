@@ -16,7 +16,7 @@ class ControlEnimys(object):
 
         # test
         #self.allWizards.append(Wizard(self.screen, 100, 600))
-        self.allGolens.append(Golens(self.screen,100,600))
+        # self.allGolens.append(Golens(self.screen,100,600))
         # self.allWizards.append(Wizard(self.screen, 200, 1500))
         # self.allWizards.append(Wizard(self.screen,100, 1200))
         # self.allWizards.append(Wizard(self.screen,100, 1100))
@@ -29,7 +29,7 @@ class ControlEnimys(object):
         # Just for test
         [self.allEnimys.append(golens.addingGolens(tile_rects,player_rect,scroll))for golens in self.allGolens]
         # [self.allEnimys.append(wizard.addingWizard(tile_rects, player_rect, scroll)) for wizard in self.allWizards]
-        # [self.allEnimys.append(cactus.addCactus(tile_rects, scroll)) for cactus in self.allCactus]
+        [self.allEnimys.append(cactus.addCactus(tile_rects, scroll)) for cactus in self.allCactus]
 
         return self.allEnimys
     def addingAllTheAnimys(self):

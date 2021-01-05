@@ -56,6 +56,7 @@ def platformP2(game_map,screen, scroll):
                 screen.blit(components[1], (x*30-scroll[0], y*30-scroll[1]))
             elif(tile == '3'):
                 screen.blit(components[2], (x*30-scroll[0], y*30-scroll[1]))
+                tile_rects.append(pygame.Rect(x*30,y*30,30,30))
             elif(tile == '4'):
                 tile_rects.append(pygame.Rect(x*30,y*30,30,30))
                 screen.blit(components[3], (x*30-scroll[0], y*30-scroll[1]))
