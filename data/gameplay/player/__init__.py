@@ -21,7 +21,7 @@ class Player(object):
         self.moving_left = False
         self.vertical_momentum = 0
         self.air_timer = 0
-        self.player_screen_limit = 100
+        self.player_screen_limit = 280
         self.nivel = nivel
         self.impactDelay = 0
         self.enimyCollision = False
@@ -34,7 +34,7 @@ class Player(object):
 
         ## Reduzindo o espaço a que o jogador pode voltar para traz
         if((self.player_rect.x-self.player_screen_limit)>800):
-            self.player_screen_limit += 30
+            self.player_screen_limit += 40
     
     def playerMove(self, tile_rects, player_movement):
         if self.moving_right:
