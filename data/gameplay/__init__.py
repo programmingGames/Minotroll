@@ -1,10 +1,10 @@
 import pygame
 from pygame.locals import *
-from data.gameplay.player import Player
-from data.gameplay.platforms import Plataform
 from data.gameplay.headUpDisplay import HeadUpDisplay as H_u_d
 from data.gameplay.enimy import ControlEnimys
 from data.gameplay.animation import Animation
+from data.gameplay.player import Player
+from data.gameplay.platforms import Plataform
 
 
 class GamePlay(object):
@@ -15,11 +15,11 @@ class GamePlay(object):
         self.lastPassPoint = lastPassPoint
         self.qtlife = qtlife
         self.pygameEvent = pygameEvent
-        self.player = Player(self.screen, self.nivel, self.lastPassPoint)
-        self.plataforma = Plataform(self.screen, self.nivel)
         self.enimys = ControlEnimys(self.screen)
         self.animation = Animation(self.screen, self.nivel)
         self.headUpDisplay = H_u_d(self.screen, self.nivel, self.lastPassPoint, self.qtlife)
+        self.player = Player(self.screen, self.nivel, self.lastPassPoint)
+        self.platform = Plataform(self.screen, self.nivel)
         self. nivel = 1 # default value of the level started usualy in 1 
         self.skills = 1 # default value of skills the player have
         self.lastPassPoint = 500 # default Value for position of the player in the platform
@@ -33,24 +33,25 @@ class GamePlay(object):
     
     # method to display all the components in the platform
     def drawingTheGamePlayEnvirement(self):
-        tile_rects = self.plataforma.settingPlataform(self.scroll)
-        self.scroll, player_rect, self.enimyCollision, self.enimyType  = self.player.settingPlayer(tile_rects, self.scroll, self.allEnimysRectsAndTypes)
+        # tile_rects = self.level.levelDrawingPlatform(self.player_rect.x)
+        tile_rects = self.platform.settingPlataform(self.scroll, self.player_rect.x)
+        self.scroll, self.player_rect, self.enimyCollision, self.enimyType  = self.player.settingPlayer(tile_rects, self.scroll, self.allEnimysRectsAndTypes)
 
         # update after we check the collision
-        self.allEnimysRectsAndTypes = self.enimys.enimysAdd(tile_rects, player_rect, self.scroll)
-        # self.allEnimysRectsAndTypes.append()
+        self.allEnimysRectsAndTypes = self.enimys.enimysAdd(tile_rects, self.player_rect, self.scroll)
+        # self.scroll, self.player_rect, self.enimyCollision, self.enimyType  = self.level.levelDrawingPlayer(self.allEnimysRectsAndTypes)
 
         # Drawing some visual animation
         self.animation.draw()
 
         painelState = self.headUpDisplay.headUpDisplayScreenDraw(self.lastPassPoint)
-        self.lastPassPoint = player_rect.x
+        self.lastPassPoint = self.player_rect.x
 
         self.controllingThePlayerLife()
  
-        if(player_rect.y >= 720):
+        if(self.player_rect.y >= 720):
             painelState = 11    
-        print(player_rect.x, player_rect.y)
+        # print(self.player_rect.x, self.player_rect.y)
         return painelState
     
     def controllingThePlayerLife(self):

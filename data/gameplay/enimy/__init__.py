@@ -16,7 +16,7 @@ class ControlEnimys(object):
 
         # test
         #self.allWizards.append(Wizard(self.screen, 100, 600))
-        # self.allGolens.append(Golens(self.screen,100,600))
+        self.allGolens.append(Golens(self.screen,100,600))
         # self.allWizards.append(Wizard(self.screen, 200, 1500))
         # self.allWizards.append(Wizard(self.screen,100, 1200))
         # self.allWizards.append(Wizard(self.screen,100, 1100))
