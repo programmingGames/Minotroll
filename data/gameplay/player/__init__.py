@@ -21,7 +21,8 @@ class Player(object):
         self.moving_left = False
         self.vertical_momentum = 0
         self.air_timer = 0
-        self.player_screen_limit = 280
+        self.scrollLimit_x = 245
+        self.player_screen_limit = 0
         self.nivel = nivel
         self.impactDelay = 0
         self.enimyCollision = False
@@ -31,43 +32,56 @@ class Player(object):
         ## Validando bordas do screen
         if(self.player_rect.x <= self.player_screen_limit):
             self.moving_left = False
+            self.scrollLimit_x +=1120
+        
+        if(self.player_rect.x > self.player_screen_limit +1120):
+            self.player_screen_limit += 1120
+            self.scrollLimit_x +=1117
 
         ## Reduzindo o espaço a que o jogador pode voltar para traz
-        if((self.player_rect.x-self.player_screen_limit)>800):
-            self.player_screen_limit += 40
+        # if((self.player_rect.x-self.player_screen_limit)>800):
+        #     self.player_screen_limit += 40
     
-    def playerMove(self, tile_rects, player_movement):
+    def playerMove(self, tile_rects, player_movement, scroll):
         if self.moving_right:
             self.walk()
             player_movement[0] += 4
         if self.moving_left:
             self.walk()
             player_movement[0] -= 4
-
         if((not self.moving_left)and(not self.moving_right)):
             self.idle()
         player_movement[1] += self.vertical_momentum
         self.vertical_momentum += 0.3
         if self.vertical_momentum > 6:
             self.vertical_momentum = 6
-        platformCollisions = self.collision.platformCollision(player_movement,self.player_rect,tile_rects)
+        self.player_rect, platformCollisions = self.collision.platformCollision(player_movement,self.player_rect,tile_rects)
         if (platformCollisions['bottom']):
             self.air_timer = 0
             self.vertical_momentum = 0
         else:
             self.air_timer += 1
+        self.screen.blit(self.player_img,(self.player_rect.x-scroll[0],self.player_rect.y-scroll[1]))
 
 
     def settingPlayer(self, tile_rects, scroll, allEnimysRectsAndType):
         player_movement = [0,0]
-        self.screen.blit(self.player_img,(self.player_rect.x-scroll[0],self.player_rect.y-scroll[1]))
         self.determinateMove()
         self.controlPlayerScreenMove()
-        self.playerMove(tile_rects, player_movement)
+        self.playerMove(tile_rects, player_movement, scroll)
 
         
         ## Calculando o scroll do ecrã
-        scroll[0] += (self.player_rect.x-scroll[0]-300)/20
+        if(self.player_rect.x > self.scrollLimit_x):
+            print(self.player_rect.x)
+            print(self.scrollLimit_x)
+            print(self.player_screen_limit)
+            print("--------")
+            scroll[0] += (self.player_rect.x-scroll[0]-300)/20
+        else:
+            if(self.moving_right):
+                self.player_rect.x +=1
+        
         scroll[1] += (self.player_rect.y-scroll[1]-300)/10
         # Transformando a scroll em um valor inteiro 
         correct_scroll = scroll.copy()
@@ -96,16 +110,14 @@ class Player(object):
         if self.enimyCollision :
             if(self.impactDelay <= 10):
                 if(self.move_direction == 'right'):
-                    self.player_rect.x -= 10
-                    self.player_rect.y -= 10
+                    self.player_rect.x -= 5
+                    self.player_rect.y -= 5
                 elif(self.move_direction == 'left'):
-                    self.player_rect.x += 10
-                    self.player_rect.y -= 10
+                    self.player_rect.x += 5
+                    self.player_rect.y -= 5
                 self.impactDelay += 1
             else:
                 self.enimyCollision = False
-                
-
 
     def determinateMove(self):
         key_press = pygame.key.get_pressed()

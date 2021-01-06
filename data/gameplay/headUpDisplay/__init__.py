@@ -150,7 +150,7 @@ class HeadUpDisplay(object):
         if(enimyType == 'blue wizard'):
             self.life.updateLife(-1)
         elif(enimyType == 'stone golem'):
-            self.life.updateLife(-10)
+            self.life.updateLife(-1)
         elif(enimyType == "cactus"):
             self.life.updateLife(-1)
             

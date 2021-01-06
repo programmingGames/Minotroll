@@ -5,9 +5,10 @@ class Plataform:
     def __init__(self, screen, nivel):
         self.screen = screen
         self.nivel = nivel
-        self.parts = 1
+        self.parts = 0
         self.maxPixelofParts = 70
         self.positionControl = 694
+        self.ajust = 0
         # self.positionControl = 694
         self.game_map = []
         self.suport = []
@@ -21,10 +22,7 @@ class Plataform:
 
     def load_map(self):
         self.game_map = []
-        if(not self.controlDrawing):
-            self.game_map.extend(self.suport)
-
-        file = open('data/gameplay/platforms/level'+str(self.nivel+1)+'/p'+str(self.parts)+ '.txt', 'r')
+        file = open('data/gameplay/platforms/level'+str(self.nivel+1)+'/p'+str(self.parts+1)+ '.txt', 'r')
         data = file.read()
         file.close()
         data = data.split('\n')
@@ -33,22 +31,32 @@ class Plataform:
 
 
     def settingPlataform(self, scroll, player_x):
-        if(player_x >= self.positionControl):
+        # print(self.positionControl)
+        # print("---------")
+        # print(player_x)
+        if(player_x >= self.positionControl+self.ajust):
             self.parts += 1
-            self.positionControl = self.positionControl * self.parts
-            self.controlDrawing = not self.controlDrawing
+            self.positionControl += 694
             self.suport = self.game_map
         self.load_map()
         self.background.movingBackgourndGamePlay(1)
         if(self.nivel <= 1):
-            return self.platformForestEnvirement(scroll)
+            tile_rects = []
+            # print(self.maxPixelofParts*(self.parts))
+            if(len(self.suport)!=0):
+                if((self.maxPixelofParts*(self.parts-1))<0):
+                    tile_rects += self.platformForestEnvirement(self.suport,(self.maxPixelofParts*(self.parts-1))*-1,scroll)
+                else:
+                    tile_rects += self.platformForestEnvirement(self.suport,self.maxPixelofParts*(self.parts-1),scroll)
+            tile_rects += self.platformForestEnvirement(self.game_map,self.maxPixelofParts*(self.parts),scroll)
+            return tile_rects
         elif(self.nivel == 2):
             return self.platformSwampEnvirement(scroll)
-        elif(self.nivel == 3):
-            return self.platformForestEnvirement(scroll)
+        # elif(self.nivel == 3):
+        #     return self.platformForestEnvirement(scroll)
 
 
-    def platformForestEnvirement(self,scroll):
+    def platformForestEnvirement(self,game_map,x,scroll):
     # components [0] = dark
     # components [1] = floor
     # components [2] = midle grass
@@ -60,9 +68,9 @@ class Plataform:
         components = [pygame.image.load('resources/image/platform/florest/tiles/'+str(i)+'.png') for i in range(9)]
         tile_rects = []
         self.y = 0
-        for layer in self.game_map:
+        for layer in game_map:
 
-            self.x = 0
+            self.x = x 
             # self.x = self.maxPixelofParts * (self.parts-1)
             for tile in layer:
                 if (tile == '1'):
