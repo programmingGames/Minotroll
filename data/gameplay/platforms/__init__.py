@@ -26,7 +26,7 @@ class Plataform:
 
     def settingPlataform(self, scroll):
         self.background.movingBackgourndGamePlay(1)
-        if(self.nivel <=1):
+        if(self.nivel <= 1):
             return platformP1(self.game_map, self.screen, scroll)
         elif(self.nivel == 2):
             return platformP2(self.game_map, self.screen, scroll)

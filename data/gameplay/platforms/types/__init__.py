@@ -1,4 +1,5 @@
 import pygame
+import random
 
 def platformP1(game_map,screen, scroll):
     # components [0] = dark
@@ -42,7 +43,7 @@ def platformP1(game_map,screen, scroll):
     return tile_rects
 
 def platformP2(game_map,screen, scroll):
-    components = [pygame.image.load('resources/image/platform/pantano/tiles/'+str(i)+'.png') for i in range(4)]
+    components = [pygame.image.load('resources/image/platform/pantano/tiles/'+str(i)+'.png').convert_alpha() for i in range(6)]
     tile_rects = []
     y = 0
     for layer in game_map:
@@ -54,9 +55,16 @@ def platformP2(game_map,screen, scroll):
             elif(tile == '2'):
                 tile_rects.append(pygame.Rect(x*30,y*30,30,30))
                 screen.blit(components[1], (x*30-scroll[0], y*30-scroll[1]))
-            elif(tile == '3'):
-                screen.blit(components[2], (x*30-scroll[0], y*30-scroll[1]))
             elif(tile == '4'):
+                tile_rects.append(pygame.Rect(x*30,y*30,30,30))
+                screen.blit(components[2], (x*30-scroll[0], y*30-scroll[1]))
+            elif(tile == '3'):
+                tile_rects.append(pygame.Rect(x*30,y*30,30,30))
+                screen.blit(components[4], (x*30-scroll[0], y*30-scroll[1]))
+            elif(tile == '6'):
+                tile_rects.append(pygame.Rect(x*30,y*30,30,30))
+                screen.blit(components[5], (x*30-scroll[0], y*30-scroll[1]))
+            elif(tile == '5'):
                 tile_rects.append(pygame.Rect(x*30,y*30,30,30))
                 screen.blit(components[3], (x*30-scroll[0], y*30-scroll[1]))
             x += 1
