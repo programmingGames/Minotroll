@@ -21,7 +21,7 @@ class Player(object):
         self.moving_left = False
         self.vertical_momentum = 0
         self.air_timer = 0
-        self.scrollLimit_x = 245
+        # self.scrollLimit_x = 245
         self.player_screen_limit = 0
         self.nivel = nivel
         self.impactDelay = 0
@@ -29,19 +29,14 @@ class Player(object):
         self.enimyType = ''         
 
     def controlPlayerScreenMove(self):
-        ## Validando bordas do screen
+        ## validando o limite que o jogador pode voltar atraz
         if(self.player_rect.x <= self.player_screen_limit):
             self.moving_left = False
-            self.scrollLimit_x +=1120
-        
-        if(self.player_rect.x > self.player_screen_limit +1120):
-            self.player_screen_limit += 1120
-            self.scrollLimit_x +=1117
 
-        ## Reduzindo o espaço a que o jogador pode voltar para traz
-        # if((self.player_rect.x-self.player_screen_limit)>800):
-        #     self.player_screen_limit += 40
-    
+        ## atualizando o limite a que o jogador pode voltar para traz
+        if(self.player_rect.x > self.player_screen_limit +800):
+            self.player_screen_limit += 80
+
     def playerMove(self, tile_rects, player_movement, scroll):
         if self.moving_right:
             self.walk()
@@ -70,24 +65,13 @@ class Player(object):
         self.controlPlayerScreenMove()
         self.playerMove(tile_rects, player_movement, scroll)
 
-        
-        ## Calculando o scroll do ecrã
-        if(self.player_rect.x > self.scrollLimit_x):
-            print(self.player_rect.x)
-            print(self.scrollLimit_x)
-            print(self.player_screen_limit)
-            print("--------")
+        if(self.player_rect.x > 500):
             scroll[0] += (self.player_rect.x-scroll[0]-300)/20
-        else:
-            if(self.moving_right):
-                self.player_rect.x +=1
-        
         scroll[1] += (self.player_rect.y-scroll[1]-300)/10
         # Transformando a scroll em um valor inteiro 
         correct_scroll = scroll.copy()
         correct_scroll[0] = int(correct_scroll[0])
         correct_scroll[1] = int(correct_scroll[1])
-        # print(allEnimysRectsAndType)
         self.checkingEnimysCollision(player_movement,allEnimysRectsAndType)
         self.collisionInpact()
         return correct_scroll, self.player_rect, self.enimyCollision, self.enimyType
@@ -100,7 +84,6 @@ class Player(object):
             enimyList.append(enimy[1])
 
         collision, position = self.collision.enimysCollision(player_move,self.player_rect,rectList)
-        # print(position)
         if(collision['top'] or collision['right'] or collision['bottom'] or collision['left']):
             self.enimyCollision = True
             self.impactDelay = 0
