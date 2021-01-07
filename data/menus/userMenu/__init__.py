@@ -37,8 +37,8 @@ class UserMenu(object):
                 img = pygame.image.load("resources/image/menu/user_menu/"+buttom+"0.png").convert_alpha()
             self.allButtom.append(img)
 
-    def drawUserLevel(self):
-        pass
+    # def drawUserLevel(self):
+    #     pass
     def mainMenuEsc(self):
         self.background.settingBackgroundMenu(2)
         self.screen.blit(self.painel, (52, 50))

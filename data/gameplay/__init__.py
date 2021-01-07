@@ -67,7 +67,7 @@ class GamePlay(object):
             surf.blit(img1, (0, 0))
             os.chdir('resources/image/menu/gamOver')
             pygame.image.save(surf, "back.png")
-            os.chdir('/../../../..')
+            os.chdir('../../../..')
         return painelState
     
     def controllingThePlayerLife(self):
