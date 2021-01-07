@@ -7,12 +7,13 @@ from data.gameplay.collisionControl import Colision
 
 
 class Wizard:
-    def __init__(self, screen, patrolRadius, initialPosition):
+    def __init__(self, screen, pos, patrolRadius):
         self.screen = screen
         self.patrolRadius = patrolRadius
         self.rect = pygame.Rect(40, 30, 20, 42)
-        self.rect.x = initialPosition
-        self.initialPosition = initialPosition
+        self.rect.x = pos[0]
+        self.rect.y = pos[1]
+        self.initialPosition = pos[0]
         self.ai = EnimysAI(self.screen, self.patrolRadius,200, self.rect.x)
         self.collision = Colision()
         self.state = 'idle'
@@ -27,8 +28,9 @@ class Wizard:
 
 
     def controlingCollision(self, wizard_move, platform_rects):
-        plat_collisions = self.collision.platformCollision(wizard_move,self.rect, platform_rects)
+        rect, plat_collisions = self.collision.platformCollision(wizard_move,self.rect, platform_rects)
         # right, left collision
+        del rect
         if(plat_collisions['right']):
             self.move_right = False
         elif(plat_collisions['left']):
@@ -41,7 +43,7 @@ class Wizard:
         else:
             self.air_timer += 1
         
-    def addingWizard(self, platform_rects,player_rect, scroll):
+    def add(self, platform_rects,player_rect, scroll):
         wizard_move = [0, 0]
         if self.move_right:
             wizard_move[0] += 1

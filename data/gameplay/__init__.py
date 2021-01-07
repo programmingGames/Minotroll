@@ -16,7 +16,7 @@ class GamePlay(object):
         self.lastPassPoint = lastPassPoint
         self.qtlife = qtlife
         self.pygameEvent = pygameEvent
-        self.enimys = ControlEnimys(self.screen)
+        self.enimys = ControlEnimys(self.screen, self.nivel)
         self.animation = Animation(self.screen, self.nivel)
         self.headUpDisplay = H_u_d(self.screen, self.nivel, self.lastPassPoint, self.qtlife)
         self.player = Player(self.screen, self.nivel, self.lastPassPoint)
@@ -40,6 +40,7 @@ class GamePlay(object):
 
         # update after we check the collision
         self.allEnimysRectsAndTypes = self.enimys.enimysAdd(tile_rects, self.player_rect, self.scroll)
+        print(self.allEnimysRectsAndTypes)
 
         # Drawing some visual animation
         self.animation.draw()
