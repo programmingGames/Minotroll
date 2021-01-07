@@ -33,7 +33,7 @@ class Colision(object):
             if move[1]<0:
                 rect.top = tile.bottom
                 collision_types['top'] = True
-        return collision_types
+        return rect,collision_types
 
     def enimysTestCollision(self, playerRect, enimysRects):
         hit_list = []

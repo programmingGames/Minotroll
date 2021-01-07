@@ -26,7 +26,7 @@ class Golens:
         self.attacking = False
 
     def controlingCollision(self, golens_move, platform_rects):
-        plat_collisions = self.collision.platformCollision(golens_move,self.rect, platform_rects)
+        rect, plat_collisions = self.collision.platformCollision(golens_move,self.rect, platform_rects)
         # right, left collision
         if(plat_collisions['right']):
             self.move_right = False

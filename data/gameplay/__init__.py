@@ -34,7 +34,7 @@ class GamePlay(object):
     # method to display all the components in the platform
     def drawingTheGamePlayEnvirement(self):
         # tile_rects = self.level.levelDrawingPlatform(self.player_rect.x)
-        tile_rects = self.platform.settingPlataform(self.scroll, self.player_rect.x)
+        tile_rects = self.platform.settingPlataform(self.scroll)
         self.scroll, self.player_rect, self.enimyCollision, self.enimyType  = self.player.settingPlayer(tile_rects, self.scroll, self.allEnimysRectsAndTypes)
 
         # update after we check the collision

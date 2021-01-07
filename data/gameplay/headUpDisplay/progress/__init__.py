@@ -14,7 +14,7 @@ class LevelProgress(object):
             self.progressRect.drawSelectColor(self.currentProgress)
             self.start = not self.start 
         else:
-            if(self.currentProgress <= 160):
+            if self.currentProgress in range(0,160):
                 self.currentProgress = int(((currentLastPassPoint - 500)*160)/10000)
                 self.progressRect.drawSelectColor(self.currentProgress)
         self.screen.blit(self.progressBox, (90, 55))  
