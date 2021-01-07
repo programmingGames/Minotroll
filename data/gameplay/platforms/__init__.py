@@ -7,7 +7,8 @@ class Plataform:
         self.nivel = nivel
         self.game_map = []
         self.positionForest_x =[]
-        self.parts = self.determinateLevelParts()
+        self.positionSwamp_x = []
+        self.determinateLevelParts()
         self.load_map()
         self.background = Back(screen)
          
@@ -15,10 +16,19 @@ class Plataform:
     def determinateLevelParts(self):
         if(self.nivel >= 0 and self.nivel <= 1):
             self.positionForest_x =[0, 20, 40, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240, 260, 280, 300, 320, 340]
-            return int(18)
+            self.parts = int(18)
         elif(self.nivel == 3):
             self.positionForest_x =[0, 20, 40, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240]
-            return int(13)
+            self.parts = int(13)
+        elif(self.nivel == 2):
+            self.positionSwamp_x = [0, 12, 24, 36, 48, 60, 72, 84, 96, 108, 120, 132, 144, 156, 168, 180, 192, 204, 216, 228]
+            self.parts = int(20)
+
+        # Controlling the size of the items on the platform
+        if((self.nivel==0)or(self.nivel==1)or(self.nivel==3)):
+            self.size = int(16)
+        elif(self.nivel == 2):
+            self.size = int(30)
 
     def load_map(self):
         for i in range(self.parts):
@@ -32,18 +42,20 @@ class Plataform:
             self.game_map.append(part_map)
 
 
-    def settingPlataform(self, scroll, player_x):
+    def settingPlataform(self, scroll):
         self.background.movingBackgourndGamePlay(1)
         if((self.nivel==1)or(self.nivel==0)or(self.nivel==3)):
             tile_rects = []
             for pos in self.positionForest_x:
-                if(pos*16 in range(scroll[0]-450, scroll[0]+650)):
+                if(pos*self.size in range(scroll[0]-450, scroll[0]+650)):
                     tile_rects += self.platformForestEnvirement(self.game_map[self.positionForest_x.index(pos)],pos,scroll)
             return tile_rects
         elif(self.nivel == 2):
-            return self.platformSwampEnvirement(scroll)
-        # elif(self.nivel == 3):
-        #     return self.platformForestEnvirement(self.game_map[0], pos,scroll)
+            tile_rects = []
+            for pos in self.positionSwamp_x:
+                if(pos*self.size in range(scroll[0]-450, scroll[0]+650)):
+                    tile_rects += self.platformSwampEnvirement(self.game_map[self.positionSwamp_x.index(pos)],pos,scroll)
+            return tile_rects
 
 
     def platformForestEnvirement(self,game_map,pos_x,scroll):
@@ -86,12 +98,12 @@ class Plataform:
         return tile_rects
 
 
-    def platformSwampEnvirement(self,scroll):
+    def platformSwampEnvirement(self,game_map, pos_x,scroll):
         components = [pygame.image.load('resources/image/platform/pantano/tiles/'+str(i)+'.png').convert_alpha() for i in range(6)]
         tile_rects = []
         y = 0
-        for layer in self.game_map:
-            x = 0
+        for layer in game_map:
+            x = pos_x
             for tile in layer:
                 if (tile == '1'):
                     self.screen.blit(components[0], (x*30-scroll[0], y*30-scroll[1]))
