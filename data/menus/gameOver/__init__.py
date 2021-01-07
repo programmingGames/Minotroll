@@ -10,3 +10,4 @@ class GameOver(object):
 
     def showGameOverPainel(self):
         self.screen.blit(self.back, (0, 0))
+        

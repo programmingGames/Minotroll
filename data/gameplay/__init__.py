@@ -58,7 +58,7 @@ class GamePlay(object):
         if(painelState==11):
             os.chdir('resources/image/menu/gamOver')
             pygame.image.save(self.screen, "back.png")
-            pygame.time.delay(100)
+            # pygame.time.delay(100)
             os.chdir('../../../..')
             surf = pygame.Surface((700, 480))
             img = pygame.image.load("resources/image/menu/gamOver/back.png").convert_alpha()
