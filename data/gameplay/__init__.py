@@ -1,5 +1,6 @@
 import pygame
 from pygame.locals import *
+import os
 from data.gameplay.headUpDisplay import HeadUpDisplay as H_u_d
 from data.gameplay.lifeItem import LifeItem
 from data.gameplay.enimy import ControlEnimys
@@ -54,6 +55,19 @@ class GamePlay(object):
         if(self.player_rect.y >= 720):
             painelState = 11    
         print(self.player_rect.x, self.player_rect.y)
+        if(painelState==11):
+            os.chdir('resources/image/menu/gamOver')
+            pygame.image.save(self.screen, "back.png")
+            pygame.time.delay(100)
+            os.chdir('../../../..')
+            surf = pygame.Surface((700, 480))
+            img = pygame.image.load("resources/image/menu/gamOver/back.png").convert_alpha()
+            img1 = pygame.image.load("resources/image/menu/gamOver/back1.png").convert_alpha()
+            surf.blit(img, (0, 0))
+            surf.blit(img1, (0, 0))
+            os.chdir('resources/image/menu/gamOver')
+            pygame.image.save(surf, "back.png")
+            os.chdir('/../../../..')
         return painelState
     
     def controllingThePlayerLife(self):

@@ -32,7 +32,7 @@ class HeadUpDisplay(object):
         self.displaySkillsCars()
         self.showHiddenSkilssOnGameEnvirement()
 
-        if(self.life.qtlife == 0):
+        if(self.life.qtlife <= 0):
             return 11
         else:
             return 7
@@ -152,6 +152,6 @@ class HeadUpDisplay(object):
         elif(itemType == 'stone golem'):
             self.life.updateLife(-1)
         elif(itemType == "cactus"):
-            self.life.updateLife(-1)
+            self.life.updateLife(-10)
         elif(itemType == "life plant"):
             self.life.updateLife(20)
