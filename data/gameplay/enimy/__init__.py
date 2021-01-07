@@ -13,10 +13,10 @@ class ControlEnimys(object):
 
     def enimysAdd(self, tile_rects, player_rect, scroll):
         all_rects = []
-        if(len(self.positions)!=0):
-            for (pos, enimy) in zip(self.positions, self.allEnimys):
-                if(pos[0] in range(scroll[0]-250, scroll[0]+750)):
-                    all_rects.append(enimy.add(tile_rects,player_rect, scroll))
+        # if(len(self.positions)!=0):
+        #     for (pos, enimy) in zip(self.positions, self.allEnimys):
+        #         if(pos[0] in range(scroll[0]-250, scroll[0]+750)):
+        #             all_rects.append(enimy.add(tile_rects,player_rect, scroll))
 
         return all_rects
     def addingAllTheAnimys(self):
