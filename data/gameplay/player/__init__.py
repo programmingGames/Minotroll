@@ -65,8 +65,8 @@ class Player(object):
         self.controlPlayerScreenMove()
         self.playerMove(tile_rects, player_movement, scroll)
 
-        if(self.player_rect.x > 500):
-            scroll[0] += (self.player_rect.x-scroll[0]-300)/20
+        # if(self.player_rect.x > 500):
+        scroll[0] += (self.player_rect.x-scroll[0]-300)/20
         scroll[1] += (self.player_rect.y-scroll[1]-300)/10
         # Transformando a scroll em um valor inteiro 
         correct_scroll = scroll.copy()

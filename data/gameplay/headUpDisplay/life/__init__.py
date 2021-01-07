@@ -12,7 +12,7 @@ class Life:
         ## pixel of the life is equal 242
 
     def updateLife(self, qtlife):
-        if(self.qtlife <= 242):
+        if(self.qtlife+qtlife <= 242):
             self.qtlife = self.qtlife + qtlife
 
     def draw(self):

@@ -145,16 +145,13 @@ class HeadUpDisplay(object):
         # verification if the skills is available and reselect
         if(self.inUse > self.skills - 1):
             self.inUse = 0
-    def damagingPlayerLife(self,enimyType):
+    def updatingPlayerLife(self,itemType):
         # print(enimyType)
-        if(enimyType == 'blue wizard'):
+        if(itemType == 'blue wizard'):
             self.life.updateLife(-1)
-        elif(enimyType == 'stone golem'):
+        elif(itemType == 'stone golem'):
             self.life.updateLife(-1)
-        elif(enimyType == "cactus"):
+        elif(itemType == "cactus"):
             self.life.updateLife(-1)
-            
-        # if(key_press[K_c]):
-        #     self.life.incrementLife(1)
-        
-        
+        elif(itemType == "life plant"):
+            self.life.updateLife(20)

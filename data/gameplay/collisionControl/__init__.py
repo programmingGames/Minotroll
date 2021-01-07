@@ -6,6 +6,8 @@ class Colision(object):
         pass
     
     def TestCollision(self,rect, tiles):
+        # print(type(rect))
+        # print(type(tiles))
         hit_list = []
         for tile in tiles:
             if (rect.colliderect(tile)):
@@ -13,6 +15,7 @@ class Colision(object):
         return hit_list
 
     def platformCollision(self,move,rect, tiles):
+        # print(type(rect))
         collision_types = {'top':False,'bottom':False,'right':False,'left':False}
         rect.x += move[0]
         hit_list = self.TestCollision(rect,tiles)
