@@ -40,7 +40,6 @@ class GamePlay(object):
 
         # update after we check the collision
         self.allEnimysRectsAndTypes = self.enimys.enimysAdd(tile_rects, self.player_rect, self.scroll)
-        print(self.allEnimysRectsAndTypes)
 
         # Drawing some visual animation
         self.animation.draw()
@@ -54,7 +53,7 @@ class GamePlay(object):
  
         if(self.player_rect.y >= 720):
             painelState = 11    
-        # print(self.player_rect.x, self.player_rect.y)
+        print(self.player_rect.x, self.player_rect.y)
         return painelState
     
     def controllingThePlayerLife(self):
