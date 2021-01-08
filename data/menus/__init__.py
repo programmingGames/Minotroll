@@ -48,7 +48,8 @@ class Menus(object):
             self.pygameEvent = event
             if event.type == QUIT:
                 self.suport = self.painelState
-                self.saveUserData()
+                if(self.painelState == 7):
+                    self.saveUserData()
                 self.painelState = 5
         key = pygame.key.get_pressed()
         if((key[K_ESCAPE])and(self.painelState == 7)):
