@@ -106,7 +106,7 @@ class Minotauro:
             self.imgMinotaur = pygame.image.load("resources/image/enimy/minotauro/Minotaur_1/"+self.state+"/"+self.move_direction+"/Minotaur_01_"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
 
     def startAttack(self):
-        self.state = 'Slashing'
+        self.state = 'Attacking'
         if((self.attacking)and(self.move_frame <= 11)):
             self.imgMinotaur = pygame.image.load("resources/image/enimy/minotauro/Minotaur_1/"+self.state+"/"+self.move_direction+"/Minotaur_01_"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
             self.move_frame += 1
