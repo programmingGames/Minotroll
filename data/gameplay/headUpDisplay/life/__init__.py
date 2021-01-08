@@ -13,7 +13,10 @@ class Life:
 
     def updateLife(self, qtlife):
         if(self.qtlife <= 242):
-            self.qtlife = self.qtlife + qtlife
+            if(self.qtlife+qtlife > 240):
+                self.qtlife = 240
+            else:
+                self.qtlife = self.qtlife + qtlife
 
     def draw(self):
         if (self.start):

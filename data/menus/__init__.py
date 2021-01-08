@@ -79,5 +79,5 @@ class Menus(object):
         elif(self.painelState == 10):
             self.map.drawMapInTheScreen()
         elif(self.painelState == 11):
-            self.gameOver.showGameOverPainel()
+            self.painelState = self.gameOver.showGameOverPainel()
         # print(self.painelState)

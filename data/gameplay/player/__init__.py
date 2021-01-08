@@ -47,11 +47,11 @@ class Player(object):
         if((not self.moving_left)and(not self.moving_right)):
             self.idle()
         player_movement[1] += self.vertical_momentum
-        self.vertical_momentum += 0.3
+        self.vertical_momentum += 0.6
         if self.vertical_momentum > 6:
             self.vertical_momentum = 6
-        self.player_rect, platformCollisions = self.collision.platformCollision(player_movement,self.player_rect,tile_rects)
-        if (platformCollisions['bottom']):
+        self.player_rect, self.platformCollisions = self.collision.platformCollision(player_movement,self.player_rect,tile_rects)
+        if (self.platformCollisions['bottom']):
             self.air_timer = 0
             self.vertical_momentum = 0
         else:
@@ -65,15 +65,15 @@ class Player(object):
         self.controlPlayerScreenMove()
         self.playerMove(tile_rects, player_movement, scroll)
 
-        if(self.player_rect.x > 500):
-            scroll[0] += (self.player_rect.x-scroll[0]-300)/20
+        # if(self.player_rect.x > 500):
+        scroll[0] += (self.player_rect.x-scroll[0]-300)/20
         scroll[1] += (self.player_rect.y-scroll[1]-300)/10
         # Transformando a scroll em um valor inteiro 
         correct_scroll = scroll.copy()
         correct_scroll[0] = int(correct_scroll[0])
         correct_scroll[1] = int(correct_scroll[1])
         self.checkingEnimysCollision(player_movement,allEnimysRectsAndType)
-        self.collisionInpact()
+        self.collisionInpact(tile_rects)
         return correct_scroll, self.player_rect, self.enimyCollision, self.enimyType
 
     def checkingEnimysCollision(self, player_move,enimysRectsAndType):
@@ -89,15 +89,21 @@ class Player(object):
             self.impactDelay = 0
             self.enimyType = enimyList[position]
 
-    def collisionInpact(self):
+    def collisionInpact(self, tile_rects):
+        # player_movement=[0 , 0]
         if self.enimyCollision :
-            if(self.impactDelay <= 10):
+            if(self.impactDelay <= 5):
+                # self.player_rect, platformCollisions = self.collision.platformCollision(player_movement,self.player_rect,tile_rects)
                 if(self.move_direction == 'right'):
+                    if (self.impactDelay>5):
+                        self.move_direction = 'left'
                     self.player_rect.x -= 5
-                    self.player_rect.y -= 5
+                    self.player_rect.y -= 10
                 elif(self.move_direction == 'left'):
+                    if (self.impactDelay>5):
+                        self.move_direction = 'right'
                     self.player_rect.x += 5
-                    self.player_rect.y -= 5
+                    self.player_rect.y -= 10
                 self.impactDelay += 1
             else:
                 self.enimyCollision = False
@@ -111,7 +117,7 @@ class Player(object):
 
             if(key_press[K_UP]):
                 if self.air_timer < 8:
-                    self.vertical_momentum = -7
+                    self.vertical_momentum = -10
 
         elif(key_press[K_LEFT]):
             self.move_direction = 'left'
@@ -120,11 +126,11 @@ class Player(object):
 
             if(key_press[K_UP]):
                 if self.air_timer < 8:
-                    self.vertical_momentum = -7
+                    self.vertical_momentum = -10
 
         elif(key_press[K_UP]):
             if self.air_timer < 8:
-                self.vertical_momentum = -7
+                self.vertical_momentum = -10
             self.state = 'Walking'
             
         elif(not key_press[K_RIGHT] and not key_press[K_LEFT]):

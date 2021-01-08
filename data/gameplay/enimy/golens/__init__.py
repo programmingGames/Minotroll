@@ -7,16 +7,18 @@ from data.gameplay.collisionControl import Colision
 
 
 class Golens:
-    def __init__(self, screen, patrolRadius, initialPosition):
+    def __init__(self, screen,pos, patrolRadius):
         self.screen = screen
         self.patrolRadius = patrolRadius
-        self.rect = pygame.Rect(40, 30, 20, 42)
-        self.rect.x = initialPosition
-        self.initialPosition = initialPosition
-        self.ai = EnimysAI(self.screen, self.patrolRadius,100, self.rect.x)
-        self.collision = Colision()
         self.state = 'Idle'
         self.move_direction = 'right'
+        self.imgGolens = pygame.image.load("resources/image/enimy/golens/Golem_2/"+self.state+"/"+self.move_direction+"/0_Golem_"+self.state+"_0.png").convert_alpha()
+        self.rect = self.imgGolens.get_rect()
+        self.rect.x = pos[0]
+        self.rect.y = pos[1]
+        self.initialPosition = pos[0]
+        self.ai = EnimysAI(self.screen, self.patrolRadius,100, self.rect.x)
+        self.collision = Colision()
         self.move_right = False
         self.move_left = False
         self.air_timer = 0
@@ -40,7 +42,7 @@ class Golens:
         else:
             self.air_timer += 1
 
-    def addingGolens(self, platform_rects,player_rect, scroll):
+    def add(self, platform_rects,player_rect, scroll):
         golens_move = [0, 0]
         if self.move_right:
             golens_move[0] += 1
