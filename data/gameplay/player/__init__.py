@@ -16,7 +16,8 @@ class Player(object):
         self.player_img = pygame.image.load("resources/image/Golem/"+self.state+"/"+self.move_direction+"/0_Goblin_"+self.state+"_0.png").convert_alpha()
         self.player_rect=self.player_img.get_rect()
         self.player_rect.x = lastPassPoint
-        # self.player_rect.y = 550
+        # self.player_rect.x = 5460
+        # self.player_rect.y = 5453
         self.moving_right = False
         self.moving_left = False
         self.vertical_momentum = 0

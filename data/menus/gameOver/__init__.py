@@ -51,8 +51,10 @@ class GameOver(object):
                 self.menuControl = 300
             else:
                 self.menuControl -= 50
-        choice = self.gameOverChoise(pressed_keys)
+        
         self.gameOverMenuEsc()
+        choice = self.gameOverChoise(pressed_keys)
+        # print(choice)
         return choice, False
 
     def gameOverChoise(self, pressed_keys):
@@ -64,4 +66,3 @@ class GameOver(object):
             self.count = 0
             return 3
         return 11
-

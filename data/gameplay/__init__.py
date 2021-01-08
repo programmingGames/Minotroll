@@ -23,8 +23,8 @@ class GamePlay(object):
         self.player = Player(self.screen, self.nivel, self.lastPassPoint)
         self.platform = Plataform(self.screen, self.nivel)
         self.liveItem = LifeItem(self.screen, self.nivel)
-        self. nivel = 1 # default value of the level started usualy in 1 
-        self.skills = 1 # default value of skills the player have
+        self. nivel = nivel # default value of the level started usualy in 0
+        # self.skills = 1 # default value of skills the player have
         self.lastPassPoint = 500 # default Value for position of the player in the platform
         self.player_rect = pygame.Rect(0, 0, 0, 0) # To control the player rects
         self.scroll = [0, 0]  # Variable to control the scroll of the screen
@@ -51,9 +51,9 @@ class GamePlay(object):
         self.lastPassPoint = self.player_rect.x
 
         self.controllingThePlayerLife()
-
+        print(self.player_rect.x, self.player_rect.y, self.nivel)
         if(self.nivel == 0):
-            if(self.player_rect.x >= 5458):
+            if(self.player_rect.x >= 5460):
                 painelState = 13
         # elif(self.nivel == 1)
 

@@ -47,10 +47,15 @@ class LifeItem(object):
             self.nrItem = 3
         elif(self.nivel == 1):
             self.position = []
+            self.nrItem = 0
         elif(self.nivel == 2):
             self.position = []
+            self.nrItem = 0
+
         elif(self.nivel == 3):
             self.position = []
+            self.nrItem = 0
+
 
 class PlantLife(object):
     def __init__(self, screen):

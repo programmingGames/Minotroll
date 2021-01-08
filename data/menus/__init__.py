@@ -1,6 +1,7 @@
 import pygame
 from pygame.locals import *
 from sys import exit
+import os
 from data.backgrounds import Backgound as Back
 from data.menus.createUser import CreateUserMenu
 from data.menus.exitMenu import ExitMenu 
@@ -86,8 +87,13 @@ class Menus(object):
         elif(self.painelState == 13):
             self.painelState, self.complet = self.levelComplet.drawingLevelCompletPainel()
         elif(self.painelState == 12):
+            self.updatingUserData()
+            self.painelState = 7
+        elif(self.painelState == 14):
             self.painelState = self.updatingUserData()
+            self.painelState = 7
         # print(self.painelState)
+
     def updatingUserData(self):
         if not self.complet:
             file = open('users/'+self.user+'/data.txt', 'r')
@@ -97,8 +103,25 @@ class Menus(object):
             self.nivel = int(allUserData[0])    # The current level of the player 
             self.lastPassPoint = int(allUserData[1])   # the last point in the game tha the user pass to
             self.qtlife = int(allUserData[2])  # the last quantity of life save by the user
-            self.gamplay = GamePlay(self.screen, self.nivel, self.lastPassPoint,self.qtlife, self.pygameEvent)
-            return 7
-        # else:
+            
+        else:
+            os.chdir('users/'+self.user)
+            # os.remove('data.txt')
+            file = open('data.txt', 'w')
+            #          nivel      Position   Initial Life
+            file.write(str(self.nivel+1)+' '+str(500)+' '+str(240))
+            file.close()
+            os.chdir('../..')
+
+            file = open('users/'+self.user+'/data.txt', 'r')
+            data = file.read()
+            file.close()
+            allUserData = data.split(' ')
+            self.nivel = int(allUserData[0])    # The current level of the player 
+            self.lastPassPoint = int(allUserData[1])   # the last point in the game tha the user pass to
+            self.qtlife = int(allUserData[2])  # the last quantity of life save by the user
+            # restarting the game whit new data
+        # restarting the game whit new data
+        self.gamplay = GamePlay(self.screen, self.nivel, self.lastPassPoint,self.qtlife, self.pygameEvent)
 
 
