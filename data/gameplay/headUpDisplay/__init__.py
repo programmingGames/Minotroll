@@ -1,4 +1,5 @@
 import pygame
+from pygame.display import update
 from pygame.locals import *
 from data.gameplay.headUpDisplay.life import Life
 from data.gameplay.headUpDisplay.progress import LevelProgress
@@ -153,5 +154,7 @@ class HeadUpDisplay(object):
             self.life.updateLife(-1)
         elif(itemType == "cactus"):
             self.life.updateLife(-10)
+        elif(itemType == 'brown minotaur'):
+            self.life.update(-1)
         elif(itemType == "life plant"):
             self.life.updateLife(20)

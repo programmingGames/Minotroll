@@ -23,7 +23,6 @@ class Golens:
         self.move_left = False
         self.air_timer = 0
         self.vertical_momentum = 0
-        self.imgGolens = pygame.image.load("resources/image/enimy/golens/Golem_2/"+self.state+"/"+self.move_direction+"/0_Golem_"+self.state+"_0.png").convert_alpha()
         self.move_frame = 0
         self.attacking = False
 

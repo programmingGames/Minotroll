@@ -13,6 +13,7 @@ from data.menus.skills import Skills
 from data.menus.start import Initiation
 from data.menus.map import Map
 from data.menus.gameOver import GameOver
+from data.menus.levelComplet import LevelComplet
 from data.gameplay import GamePlay
 
 
@@ -30,11 +31,13 @@ class Menus(object):
         self.loadUser = LoadUser(self.screen)
         self.initiation = Initiation(self.screen)
         self.gameOver = GameOver(self.screen)
+        self.levelComplet = LevelComplet(self.screen)
         self.pause = PauseMenu(self.screen)
         self.suport = 0
         self.painelState = 0  # this is to control where we are in the game
         self.user = '' # keep the current user name
         self.pygameEvent = 0 # to keep all the pygame.event in the game loop
+        self.complet = False
 
         
     # Method to move in the main menu
@@ -60,7 +63,7 @@ class Menus(object):
             self.painelState, self.user = self.createUser.drawUserMenu(self.pygameEvent)
             # self.player = Player(self.screen, self.nivel, self.skills,self.lastPassPoint)
         elif(self.painelState == 3):
-            self.painelState, self.nivel,self.lastPassPoint, self.qtlife = self.userMenu.movingInUserMenu(self.user)
+            self.painelState, self.nivel, self.lastPassPoint, self.qtlife = self.userMenu.movingInUserMenu(self.user)
             self.gamplay = GamePlay(self.screen, self.nivel, self.lastPassPoint,self.qtlife, self.pygameEvent)
             self.skills = Skills(self.screen, self.nivel)
             self.map = Map(self.screen, self.nivel)
@@ -79,5 +82,23 @@ class Menus(object):
         elif(self.painelState == 10):
             self.map.drawMapInTheScreen()
         elif(self.painelState == 11):
-            self.painelState = self.gameOver.showGameOverPainel()
+            self.painelState, self.complet = self.gameOver.showGameOverPainel()
+        elif(self.painelState == 13):
+            self.painelState, self.complet = self.levelComplet.drawingLevelCompletPainel()
+        elif(self.painelState == 12):
+            self.painelState = self.updatingUserData()
         # print(self.painelState)
+    def updatingUserData(self):
+        if not self.complet:
+            file = open('users/'+self.user+'/data.txt', 'r')
+            data = file.read()
+            file.close()
+            allUserData = data.split(' ')
+            self.nivel = int(allUserData[0])    # The current level of the player 
+            self.lastPassPoint = int(allUserData[1])   # the last point in the game tha the user pass to
+            self.qtlife = int(allUserData[2])  # the last quantity of life save by the user
+            self.gamplay = GamePlay(self.screen, self.nivel, self.lastPassPoint,self.qtlife, self.pygameEvent)
+            return 7
+        # else:
+
+
