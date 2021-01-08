@@ -7,21 +7,22 @@ from data.gameplay.collisionControl import Colision
 
 
 class Minotauro:
-    def __init__(self, screen, patrolRadius, initialPosition):
+    def __init__(self, screen,pos, patrolRadius):
         self.screen = screen
         self.patrolRadius = patrolRadius
-        self.rect = pygame.Rect(40, 30, 20, 42)
-        self.rect.x = initialPosition
-        self.initialPosition = initialPosition
-        self.ai = EnimysAI(self.screen, self.patrolRadius,100, self.rect.x)
-        self.collision = Colision()
         self.state = 'Idle'
         self.move_direction = 'right'
+        self.imgMinotaur = pygame.image.load("resources/image/enimy/minotauro/Minotaur_1/"+self.state+"/"+self.move_direction+"/Minotaur_01_"+self.state+"_0.png").convert_alpha()
+        self.rect = self.imgMinotaur.get_rect()
+        self.rect.x = pos[0]
+        self.rect.y = pos[1]
+        self.initialPosition = pos[0]
+        self.ai = EnimysAI(self.screen, self.patrolRadius,100, self.rect.x)
+        self.collision = Colision()
         self.move_right = False
         self.move_left = False
         self.air_timer = 0
-        self.vertical_momentum = 0 #resources\image\enimy\minotauro\Minotaur_1\Idle\right\Minotaur_01_Idle_0.png
-        self.imgMinotaur = pygame.image.load("resources/image/enimy/minotauro/Minotaur_1/"+self.state+"/"+self.move_direction+"/Minotaur_01_"+self.state+"_0.png").convert_alpha()
+        self.vertical_momentum = 0
         self.move_frame = 0
         self.attacking = False
 
