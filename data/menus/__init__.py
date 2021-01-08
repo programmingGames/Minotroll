@@ -34,6 +34,7 @@ class Menus(object):
         self.gameOver = GameOver(self.screen)
         self.levelComplet = LevelComplet(self.screen)
         self.pause = PauseMenu(self.screen)
+        self.player_rect = pygame.Rect(0, 0, 0, 0)
         self.suport = 0
         self.painelState = 0  # this is to control where we are in the game
         self.user = '' # keep the current user name
@@ -47,9 +48,11 @@ class Menus(object):
             self.pygameEvent = event
             if event.type == QUIT:
                 self.suport = self.painelState
+                self.saveUserData()
                 self.painelState = 5
         key = pygame.key.get_pressed()
         if((key[K_ESCAPE])and(self.painelState == 7)):
+            self.saveUserData()
             self.painelState = 8
         elif((key[K_ESCAPE])and(self.painelState == 10)):
             self.painelState = 3
@@ -65,7 +68,7 @@ class Menus(object):
             # self.player = Player(self.screen, self.nivel, self.skills,self.lastPassPoint)
         elif(self.painelState == 3):
             self.painelState, self.nivel, self.lastPassPoint, self.qtlife = self.userMenu.movingInUserMenu(self.user)
-            self.gamplay = GamePlay(self.screen, self.nivel, self.lastPassPoint,self.qtlife, self.pygameEvent)
+            self.gamplay = GamePlay(self.screen, self.nivel, self.lastPassPoint, self.qtlife, self.pygameEvent)
             self.skills = Skills(self.screen, self.nivel)
             self.map = Map(self.screen, self.nivel)
         elif(self.painelState == 6):
@@ -75,7 +78,7 @@ class Menus(object):
         elif(self.painelState == 4):
             self.painelState, self.user = self.loadUser.movingInLoadMenu()
         elif(self.painelState == 7):
-            self.painelState = self.gamplay.drawingTheGamePlayEnvirement()
+            self.painelState, self.player_rect, self.qtlife = self.gamplay.drawingTheGamePlayEnvirement()
         elif(self.painelState == 9):
             self.painelState = self.skills.movingInPainelSkills()
         elif (self.painelState == 8):
@@ -90,38 +93,69 @@ class Menus(object):
             self.updatingUserData()
             self.painelState = 7
         elif(self.painelState == 14):
-            self.painelState = self.updatingUserData()
+            self.updatingUserData()
             self.painelState = 7
         # print(self.painelState)
 
     def updatingUserData(self):
         if not self.complet:
-            file = open('users/'+self.user+'/data.txt', 'r')
-            data = file.read()
-            file.close()
-            allUserData = data.split(' ')
-            self.nivel = int(allUserData[0])    # The current level of the player 
-            self.lastPassPoint = int(allUserData[1])   # the last point in the game tha the user pass to
-            self.qtlife = int(allUserData[2])  # the last quantity of life save by the user
-            
-        else:
+            # setting the user data in the defaul level start
             os.chdir('users/'+self.user)
             # os.remove('data.txt')
             file = open('data.txt', 'w')
             #          nivel      Position   Initial Life
-            file.write(str(self.nivel+1)+' '+str(500)+' '+str(240))
+            if(self.nivel == 0):
+                file.write(str(self.nivel)+' '+str(500)+' '+str(120)+' '+str(240))
+            elif(self.nivel == 1):
+                file.write(str(self.nivel)+' '+str(500)+' '+str(88)+' '+str(240))
+            elif(self.nivel == 2):
+                file.write(str(self.nivel)+' '+str(500)+' '+str(440)+' '+str(240))
+            elif(self.nivel == 3):
+                file.write(str(self.nivel)+' '+str(500)+' '+str(200)+' '+str(240))
+            file.close()
+            os.chdir('../..')
+            self.getUpdateUserData()
+            
+        else:
+            self.nivel += 1
+            os.chdir('users/'+self.user)
+            # os.remove('data.txt')
+            file = open('data.txt', 'w')
+            #          nivel      Position   Initial Life
+            if(self.nivel == 1):
+                file.write(str(self.nivel)+' '+str(500)+' '+str(88)+' '+str(240))
+            elif(self.nivel == 2):
+                file.write(str(self.nivel)+' '+str(500)+' '+str(440)+' '+str(240))
+            elif(self.nivel == 3):
+                file.write(str(self.nivel)+' '+str(500)+' '+str(200)+' '+str(240))
             file.close()
             os.chdir('../..')
 
-            file = open('users/'+self.user+'/data.txt', 'r')
-            data = file.read()
-            file.close()
-            allUserData = data.split(' ')
-            self.nivel = int(allUserData[0])    # The current level of the player 
-            self.lastPassPoint = int(allUserData[1])   # the last point in the game tha the user pass to
-            self.qtlife = int(allUserData[2])  # the last quantity of life save by the user
+            self.getUpdateUserData()
             # restarting the game whit new data
         # restarting the game whit new data
         self.gamplay = GamePlay(self.screen, self.nivel, self.lastPassPoint,self.qtlife, self.pygameEvent)
+        self.skills = Skills(self.screen, self.nivel)
+        self.map = Map(self.screen, self.nivel)
+
+    def saveUserData(self):
+        os.chdir('users/'+self.user)
+        file = open('data.txt', 'w')
+        #          nivel      Position   Initial Life
+        file.write(str(self.nivel)+' '+str(self.player_rect.x)+' '+str(self.player_rect.y)+' '+str(self.qtlife))
+        file.close()
+        os.chdir('../..')
+        self.getUpdateUserData()
+
+    def getUpdateUserData(self):
+        file = open('users/'+self.user+'/data.txt', 'r')
+        data = file.read()
+        file.close()
+        allUserData = data.split(' ')
+        self.nivel = int(allUserData[0])    # The current level of the player 
+        lastPassPoint_x = int(allUserData[1])   # the last point in the game tha the user pass to in x
+        lastPassPoint_y = int(allUserData[2])   # the last point in the game tha the user pass to in y
+        self.lastPassPoint = (lastPassPoint_x, lastPassPoint_y)
+        self.qtlife = int(allUserData[3])  # the last quantity of life save by the user
 
 

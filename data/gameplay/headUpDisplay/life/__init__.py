@@ -25,6 +25,7 @@ class Life:
         
         self.lostLifeDrawEffect()
         self.screen.blit(self.lifeBox, (95, 20))
+        return self.qtlife
         
     def lostLifeDrawEffect(self):
         if(self.qtlife >= 200):

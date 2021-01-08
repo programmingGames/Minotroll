@@ -7,7 +7,7 @@ class HeadUpDisplay(object):
     def __init__(self, screen, nivel, lastPassPoint, qtlife):
         self.screen = screen
         self.life = Life(self.screen, qtlife)
-        self.lastPassPoint = lastPassPoint
+        self.lastPassPoint = lastPassPoint[0]
         # self.qtlife = qtlife
         self.progress = LevelProgress(self.screen, self.lastPassPoint)
         self.player = pygame.image.load("resources/image/headUpDisplay/conteiner/faceIcon.png")
@@ -27,15 +27,15 @@ class HeadUpDisplay(object):
         self.changeSkillsToUse()
         self.lastPassPoint = lastPassPoint
         self.screen.blit(self.player, (10, 10))
-        self.life.draw()
+        self.qtlife = self.life.draw()
         self.progress.draw(lastPassPoint)
         self.displaySkillsCars()
         self.showHiddenSkilssOnGameEnvirement()
 
         if(self.life.qtlife <= 0):
-            return 11
+            return 11, self.qtlife
         else:
-            return 7
+            return 7, self.qtlife
         # self.screen.blit(self.lifeBox, (50, 50))
 
     def showSkillsOnGameEnvirement(self):

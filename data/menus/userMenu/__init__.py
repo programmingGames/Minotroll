@@ -61,7 +61,7 @@ class UserMenu(object):
     # Method to move in the main menu
     def movingInUserMenu(self, user):
         self.user = user
-        nivel, skills, lastPassPoint = self.loadUserData(user)
+        nivel,  lastPassPoint_x, lastPassPoint_y, life = self.loadUserData(user)
         pressed_keys = pygame.key.get_pressed()
         if(pressed_keys[K_DOWN]):
             pygame.time.delay(100)
@@ -80,7 +80,7 @@ class UserMenu(object):
         self.mainMenuEsc()  
         self.drawUserInfor(user)
         self.golemAnimation()
-        return choice, int(nivel), int(skills), int(lastPassPoint)
+        return choice, int(nivel),  (int(lastPassPoint_x), int(lastPassPoint_y)),  int(life)
 
     def userChoise(self, pressed_keys):
         self.count += 1
@@ -117,9 +117,10 @@ class UserMenu(object):
         file.close()
         allUserData = data.split(' ')
         nivel = allUserData[0]    # The current level of the player 
-        lastPassPoint = allUserData[1]   # the last point in the game tha the user pass to
-        life = allUserData[2]  # the last quantity of life save by the user
-        return nivel, lastPassPoint, life
+        lastPassPoint_x = allUserData[1]   # the last point in the game tha the user pass to in x
+        lastPassPoint_y = allUserData[2]   # the last point in the game tha the user pass to in y
+        life = allUserData[3]  # the last quantity of life save by the user
+        return nivel, lastPassPoint_x, lastPassPoint_y, life
 
     def drawUserInfor(self, user):
         playerIcon = pygame.image.load("resources/image/user/Head1.png")

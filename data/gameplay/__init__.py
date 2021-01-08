@@ -25,7 +25,7 @@ class GamePlay(object):
         self.liveItem = LifeItem(self.screen, self.nivel)
         self. nivel = nivel # default value of the level started usualy in 0
         # self.skills = 1 # default value of skills the player have
-        self.lastPassPoint = 500 # default Value for position of the player in the platform
+        # self.lastPassPoint = 500 # default Value for position of the player in the platform
         self.player_rect = pygame.Rect(0, 0, 0, 0) # To control the player rects
         self.scroll = [0, 0]  # Variable to control the scroll of the screen
         self.enimyCollision = False
@@ -44,17 +44,23 @@ class GamePlay(object):
 
         # Drawing some visual animation
         self.animation.draw()
-        painelState = self.headUpDisplay.headUpDisplayScreenDraw(self.lastPassPoint)
+        painelState, self.qtlife = self.headUpDisplay.headUpDisplayScreenDraw(self.player_rect.x)
 
         self.itemLifeCollision = self.liveItem.drawingTheLifeItem(self.player_rect, self.scroll)
-        
-        self.lastPassPoint = self.player_rect.x
+         
 
         self.controllingThePlayerLife()
+
+        ## cheking end of the level
         print(self.player_rect.x, self.player_rect.y, self.nivel)
-        if(self.nivel == 0):
+        if((self.nivel == 0)or(self.nivel == 1)):
             if(self.player_rect.x >= 5460):
                 painelState = 13
+        elif(self.nivel==2):
+            if(self.player_rect.x >= 6760):
+                painelState = 13
+
+
         # elif(self.nivel == 1)
 
         if(self.player_rect.y >= 720):
@@ -89,7 +95,7 @@ class GamePlay(object):
             pygame.image.save(surf, "back.png")
             os.chdir('../../../..')
 
-        return painelState
+        return painelState, self.player_rect, self.qtlife
     
     def controllingThePlayerLife(self):
         if self.enimyCollision:
