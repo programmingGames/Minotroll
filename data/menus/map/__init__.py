@@ -1,63 +1,55 @@
 import pygame
 from pygame.locals import *
-from data.backgrounds import Backgound as Back
 
 class Map(object):
     def __init__(self, screeen, nivel):
         self.screen = screeen
         self.nivel = nivel
-        self.background = Back(screeen)
-        self.map = pygame.image.load("resources/image/map/map.png")
-        self.painel = pygame.image.load("resources/image/map/painel.png")
+        self.map = pygame.image.load("resources/image/map/map.png").convert_alpha()
         self.golem = pygame.image.load("resources/image/map/Head.png")
-        self.allPlayerLevelMapPosition = [(235, 123),(228, 220), (296, 225), (356, 192), (416, 159), (430, 220), (455, 263)]
-        self.state = [False, False, False, False, False, False, False]
-        self.limiteOfThePlayerViewInMap()
-        self.font = pygame.font.SysFont("Arial", 14)
-        self.font1 = pygame.font.SysFont("Arial", 24)
-        self.font1.set_bold(True)
-        self.maxPositionMap = self.nivel
-        self.levelDescription = pygame.image.load("resources/image/map/Level/"+str(self.nivel)+"-"+str(self.state[self.nivel])+".png")
+        self.levelDescription = pygame.image.load("resources/image/map/Level/1.png")
+        self.progressPositions = []
+        self.initialProgresplayer()
+        self.nrPoints = len(self.progressPositions)
+        self.indexPosition = 0
+        # self.font = pygame.font.SysFont("Arial", 14)
+        # self.font1 = pygame.font.SysFont("Arial", 24)
+        # self.font1.set_bold(True)
+        # self.maxPositionMap = self.nivel
+        self.x, self.y = 0, 0
         self.effect = 0
-        self.count = 0
+        # self.count = 0
 
     # Method to display the map in the screen
     def drawMapInTheScreen(self):
-        self.background.settingBackgroundMenu(2)
-        self.screen.blit(self.painel,(15, 17))
-        self.screen.blit(self.map,(155, 60))
-        self.screen.blit(self.levelDescription, (160, 315))
-        title = self.font1.render("Map", True, (0, 0,0))
-        self.screen.blit(title, (330,30))
-        self.font.set_bold(True)
-        if(self.effect == 15):
-            self.effect = 0
+        self.screen.blit(self.map,(700/2-473/2, 60))
+        self.screen.blit(self.levelDescription, (700/2-150/2, 340))
+        # title = self.font1.render("Map", True, (0, 0,0))
+        # self.screen.blit(title, (330,30))
+        # self.font.set_bold(True)
+        if(self.indexPosition <= self.nrPoints):
+            self.screen.blit(self.golem, (self.progressPositions[self.indexPosition-1]))
+            # print(self.progressPositions[self.indexPosition-1])
         else:
-            line = self.font.render("Press ESC to exit map", True, (0, 0,0))
-            self.screen.blit(line, (275, 440))
-            self.effect += 1
-        self.screen.blit(self.golem, (self.allPlayerLevelMapPosition[self.nivel]))
-        
-        self.movementInMap()
+            self.screen.blit(self.golem, (self.progressPositions[self.nrPoints-1]))
+        # player_x=0
+        # self.updateProgressInMap(500)
 
-    # Method to control the movemente in the map
-    def movementInMap(self):
-        key_press = pygame.key.get_pressed()
-        
-        if((key_press[K_RIGHT])and(self.nivel<6)and(self.count > 10)):
-            self.nivel += 1
-            self.levelDescription = pygame.image.load("resources/image/map/Level/"+str(self.nivel)+"-"+str(self.state[self.nivel])+".png")
-            self.count = 0
-        elif((key_press[K_LEFT])and(self.nivel>0)and(self.count > 10)):
-            self.nivel -= 1
-            self.levelDescription = pygame.image.load("resources/image/map/Level/"+str(self.nivel)+"-"+str(self.state[self.nivel])+".png")
-            self.count = 0
-        self.count += 1
-
+    # Method to update the map progress
+    def updateProgressInMap(self, player_x):
+        self.indexPosition = int((self.nrPoints * player_x)/self.pixelNr)
+    
     # Method to determinate the display level description on the map
-    def limiteOfThePlayerViewInMap(self):
-        count = 0
-        for state in self.state:
-            if (self.nivel >= count):
-                self.state[count] = not state
-            count += 1
+    def initialProgresplayer(self):
+        if(self.nivel == 0):
+            self.progressPositions = [(196, 148),(184, 176),(180, 192),(184, 204),(192, 224),(200, 232),(200,240),(202, 256)]
+            self.pixelNr = 4960
+        elif(self.nivel == 1):
+            self.progressPositions = [(204, 256), (208, 272),(220, 292),(240, 292),(256, 280),(276, 276),(292, 268),(304, 260),(324, 252)]
+            self.pixelNr = 4960
+        elif(self.nivel == 2):
+            self.pixelNr = 6260
+            self.progressPositions = [(324, 252),(348, 232),(364, 220),(380, 208),(396, 200),(416, 200),(432, 200)]
+        elif(self.nivel == 3):
+            self.pixelNr = 3000
+            self.progressPositions = [(432, 200),(444, 212),(444, 224),(440, 236),(436, 248),(436, 260),(452, 280)]

@@ -36,7 +36,7 @@ class GamePlay(object):
     
     # method to display all the components in the platform
     def drawingTheGamePlayEnvirement(self):
-        key_press = pygame.key.get_pressed()
+        # key_press = pygame.key.get_pressed()
         tile_rects = self.platform.settingPlataform(self.scroll)
         self.scroll, self.player_rect, self.enimyCollision, self.enimyType  = self.player.settingPlayer(tile_rects, self.scroll, self.allEnimysRectsAndTypes)
 

@@ -121,8 +121,6 @@ class HeadUpDisplay(object):
         if(key_press[K_TAB] and (self.count >= 10)):
             self.show = not self.show
             self.count = 0
-        elif(key_press[K_m]):
-            self.painelState = 1
         self.count += 1
         
         if(self.show):
