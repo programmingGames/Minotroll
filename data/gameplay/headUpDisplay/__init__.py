@@ -117,12 +117,12 @@ class HeadUpDisplay(object):
     
     def changeSkillsToUse(self):
         key_press = pygame.key.get_pressed()
-        
-
         # controls to hidde in show the skills cards
         if(key_press[K_TAB] and (self.count >= 10)):
             self.show = not self.show
             self.count = 0
+        elif(key_press[K_m]):
+            self.painelState = 1
         self.count += 1
         
         if(self.show):
@@ -141,7 +141,6 @@ class HeadUpDisplay(object):
             elif(key_press[K_5]and (self.count >= 10)):
                 self.inUse = 4
                 self.count = 0
-
         # verification if the skills is available and reselect
         if(self.inUse > self.skills - 1):
             self.inUse = 0

@@ -87,6 +87,7 @@ class Menus(object):
             self.painelState = self.pause.drawUserMenu()
         elif(self.painelState == 10):
             self.map.drawMapInTheScreen()
+            print(self.painelState)
         elif(self.painelState == 11):
             self.getUpdateUserData()
             self.painelState, self.complet = self.gameOver.showGameOverPainel()

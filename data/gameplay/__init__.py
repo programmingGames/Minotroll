@@ -36,7 +36,7 @@ class GamePlay(object):
     
     # method to display all the components in the platform
     def drawingTheGamePlayEnvirement(self):
-        painelState = 7
+        key_press = pygame.key.get_pressed()
         tile_rects = self.platform.settingPlataform(self.scroll)
         self.scroll, self.player_rect, self.enimyCollision, self.enimyType  = self.player.settingPlayer(tile_rects, self.scroll, self.allEnimysRectsAndTypes)
 
@@ -49,14 +49,9 @@ class GamePlay(object):
 
         self.itemLifeCollision = self.liveItem.drawingTheLifeItem(self.player_rect, self.scroll)
          
-
         self.controllingThePlayerLife()
 
-        ## cheking end of the level
-        # print(self.player_rect.x, self.player_rect.y, self.nivel)
-
-
-        # controlling the and of the levels
+        # controlling the end of the levels
         if((self.nivel == 0)or(self.nivel == 1)):
             if(self.player_rect.x >= 5460):
                 painelState = 13
@@ -69,7 +64,7 @@ class GamePlay(object):
             painelState = 11  
 
         # print(self.player_rect.x, self.player_rect.y)
-        print(painelState)
+        # print(painelState)
         self.controllingTheImageOfGameOverAndLevelComplete(painelState)
         return painelState, self.player_rect, self.qtlife
     
