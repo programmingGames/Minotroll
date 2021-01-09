@@ -69,6 +69,8 @@ class Menus(object):
             # self.player = Player(self.screen, self.nivel, self.skills,self.lastPassPoint)
         elif(self.painelState == 3):
             self.painelState, self.nivel, self.lastPassPoint, self.qtlife = self.userMenu.movingInUserMenu(self.user)
+            self.updatingUserData()
+            self.getUpdateUserData()
             self.gamplay = GamePlay(self.screen, self.nivel, self.lastPassPoint, self.qtlife, self.pygameEvent)
             self.skills = Skills(self.screen, self.nivel)
             self.map = Map(self.screen, self.nivel)
@@ -131,6 +133,7 @@ class Menus(object):
                 file.write(str(self.nivel)+' '+str(500)+' '+str(200)+' '+str(240))
             file.close()
             os.chdir('../..')
+            self.complet = not self.complet
 
             self.getUpdateUserData()
             # restarting the game whit new data

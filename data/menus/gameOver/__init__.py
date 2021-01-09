@@ -6,10 +6,11 @@ class GameOver(object):
     def __init__(self, screen):
         self.screen = screen
         self.back = pygame.image.load("resources/image/menu/gamOver/back.png").convert_alpha()
+        self.title = pygame.image.load("resources/image/menu/gamOver/3.png").convert_alpha()
         self.buttoms = ['Restart','GameMenu']
         self.currentButtom = self.buttoms[0]
-        self.menuControl = 300
-        self.allPosition = [(700/2-208/2, 300), (700/2-208/2, 350)]
+        self.menuControl = 250
+        self.allPosition = [(700/2-208/2, 250), (700/2-208/2, 300)]
         self.timeEfect = 0
         self.count = 0 
 
@@ -28,9 +29,10 @@ class GameOver(object):
             self.allButtom.append(img)
     def gameOverMenuEsc(self):
         self.screen.blit(self.back, (0, 0))
-        if (self.menuControl==300):
+        self.screen.blit(self.title, (700/2-350/2, 170))
+        if (self.menuControl==250):
             self.currentButtom = self.buttoms[0]
-        elif (self.menuControl==350):
+        elif (self.menuControl==300):
             self.currentButtom = self.buttoms[1]
 
         self.displayButtoms()
@@ -41,14 +43,14 @@ class GameOver(object):
         pressed_keys = pygame.key.get_pressed()
         if(pressed_keys[K_DOWN]):
             pygame.time.delay(100)
-            if(self.menuControl==350):
-                self.menuControl = 300
+            if(self.menuControl==300):
+                self.menuControl = 250
             else:
                 self.menuControl += 50
         elif(pressed_keys[K_UP]):
             pygame.time.delay(100)
-            if(self.menuControl==300):
-                self.menuControl = 300
+            if(self.menuControl==250):
+                self.menuControl = 250
             else:
                 self.menuControl -= 50
         
@@ -59,10 +61,10 @@ class GameOver(object):
 
     def gameOverChoise(self, pressed_keys):
         self.count += 1
-        if((pressed_keys[K_RETURN])and(self.menuControl==300)and(self.count >= 5)):
+        if((pressed_keys[K_RETURN])and(self.menuControl==250)and(self.count >= 5)):
             self.count = 0
             return 12
-        elif ((pressed_keys[K_RETURN])and(self.menuControl==350)and(self.count >= 5)):
+        elif ((pressed_keys[K_RETURN])and(self.menuControl==300)and(self.count >= 5)):
             self.count = 0
             return 3
         return 11
