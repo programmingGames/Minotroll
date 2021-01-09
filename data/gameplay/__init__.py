@@ -36,6 +36,7 @@ class GamePlay(object):
     
     # method to display all the components in the platform
     def drawingTheGamePlayEnvirement(self):
+        painelState = 7
         tile_rects = self.platform.settingPlataform(self.scroll)
         self.scroll, self.player_rect, self.enimyCollision, self.enimyType  = self.player.settingPlayer(tile_rects, self.scroll, self.allEnimysRectsAndTypes)
 
@@ -52,7 +53,10 @@ class GamePlay(object):
         self.controllingThePlayerLife()
 
         ## cheking end of the level
-        print(self.player_rect.x, self.player_rect.y, self.nivel)
+        # print(self.player_rect.x, self.player_rect.y, self.nivel)
+
+
+        # controlling the and of the levels
         if((self.nivel == 0)or(self.nivel == 1)):
             if(self.player_rect.x >= 5460):
                 painelState = 13
@@ -60,13 +64,22 @@ class GamePlay(object):
             if(self.player_rect.x >= 6760):
                 painelState = 13
 
-
-        # elif(self.nivel == 1)
-
+        # controlling the falling out of the game platform
         if(self.player_rect.y >= 720):
-            painelState = 11    
+            painelState = 11  
+
         # print(self.player_rect.x, self.player_rect.y)
-        
+        print(painelState)
+        self.controllingTheImageOfGameOverAndLevelComplete(painelState)
+        return painelState, self.player_rect, self.qtlife
+    
+    def controllingThePlayerLife(self):
+        if self.enimyCollision:
+            self.headUpDisplay.updatingPlayerLife(self.enimyType)
+        elif self.itemLifeCollision:
+            self.headUpDisplay.updatingPlayerLife('life plant')
+
+    def controllingTheImageOfGameOverAndLevelComplete(self, painelState):
         if(painelState==11):
             os.chdir('resources/image/menu/gamOver')
             pygame.image.save(self.screen, "back.png")
@@ -94,12 +107,4 @@ class GamePlay(object):
             os.chdir('resources/image/menu/levelComplet')
             pygame.image.save(surf, "back.png")
             os.chdir('../../../..')
-
-        return painelState, self.player_rect, self.qtlife
-    
-    def controllingThePlayerLife(self):
-        if self.enimyCollision:
-            self.headUpDisplay.updatingPlayerLife(self.enimyType)
-        elif self.itemLifeCollision:
-            self.headUpDisplay.updatingPlayerLife('life plant')
         
