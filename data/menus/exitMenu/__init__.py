@@ -13,14 +13,7 @@ class ExitMenu:
         self.title = pygame.image.load("resources/image/title/MinoTrolls1.png").convert_alpha()
         self.createText = "Do you realy wanna exit game?"
         self.font = pygame.font.SysFont("Arial", 24)
-        self.menuControl = 230
-        self.timeEfect = 0
-        self.buttoms = ["yes", "no"]
-        self.currentButtom = self.buttoms[0]
-        self.alllButtoms = []
-        self.allPosition = [(230, 250), (380, 250)]
-        self.displayButtoms()
-        self.count = 0
+        
 
     def displayButtoms(self):
         self.allButtom = []
