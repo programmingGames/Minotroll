@@ -7,12 +7,13 @@ class Textinput:
         pygame.init()
         self.base_font = pygame.font.SysFont('cambriacambriamath', 32)
         self.text = ''
-        self.input_rect = pygame.Rect(205, 190, 140, 32)
+        self.input_rect = pygame.Rect(206, 190, 140, 32)
         self.color_passive = pygame.Color(128,128,128)
         self.color_active = pygame.Color(255, 255, 255)
         self.color = self.color_passive
         self.active = True
         self.limit = 10
+        self.count = 0
     
     # Method to receive the input text from the keyboard
     def settingInputText(self, screen, event):
@@ -24,8 +25,8 @@ class Textinput:
         #     #     self.active = False
 
         # Pega todos os eventos de escrita do teclado
-        if (event.type == pygame.KEYDOWN):
-            pygame.time.delay(100)
+        if ((event.type == pygame.KEYDOWN)and (self.count > 5)):
+            # pygame.time.delay(10)
             # So escreve na caixa do teclado se a active estiver ativo
             if(self.active == True):
                 if (event.key == pygame.K_BACKSPACE):
@@ -37,6 +38,8 @@ class Textinput:
                         text = self.text
                         self.text = ''
                         return text
+            self.count = 0
+        self.count += 1
 
         if self.active:
             self.color = self.color_active
@@ -44,6 +47,7 @@ class Textinput:
             self.color = self.color_passive
         pygame.draw.rect(screen, self.color, self.input_rect, 2)
         text_surface = self.base_font.render(self.text, True, (255, 255, 255))
-        screen.blit(text_surface, (int(self.input_rect.x+80), int(self.input_rect.y+5)))
+        size = pygame.font.Font.size(self.base_font, str(self.text))
+        screen.blit(text_surface, (int(700/2-size[0]/2), int(self.input_rect.y+5)))
         self.input_rect.w = max(300, text_surface.get_width() + 10)
         return self.text

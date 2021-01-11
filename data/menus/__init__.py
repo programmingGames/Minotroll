@@ -82,10 +82,14 @@ class Menus(object):
             self.skills = Skills(self.screen, self.nivel)
             self.map = Map(self.screen, self.nivel)
             self.map.updateProgressInMap(self.lastPassPoint[0])
+
         elif(self.painelState == 6):
             self.painelState = self.intro.introDisplay()
         elif(self.painelState == 5):
-            self.painelState = self.exitMenu.movingInExitMenu(self.suport)
+            if self.exitMenu.movingInExitMenu():
+                self.painelState = 5
+            else:
+                self.painelState = self.suport
         elif(self.painelState == 4):
             self.painelState, self.user = self.loadUser.movingInLoadMenu()
         elif(self.painelState == 7):
@@ -110,7 +114,6 @@ class Menus(object):
             self.updatingUserData()
             self.painelState = 7
 
-        # print(self.painelState)
 
     def updatingUserData(self):
         if not self.complet:

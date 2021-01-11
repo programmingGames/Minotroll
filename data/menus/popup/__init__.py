@@ -16,6 +16,7 @@ class Popup(object):
         self.allPosition = [(30, 60), (150, 60)]
         self.displayButtoms()
         self.count = 0
+        self.close = False
 
     def movingInPopUp(self, pressed_keys):
         if(pressed_keys[K_RIGHT]):
@@ -33,11 +34,13 @@ class Popup(object):
 
 
         self.count += 1
+        self.close = False
         if((pressed_keys[K_RETURN])and(self.menuControl==30)and(self.count >= 5)):
             self.count = 0
             return True
         elif ((pressed_keys[K_RETURN])and(self.menuControl==150)and(self.count >= 5)):
             self.count = 0
+            self.close = True
             return False
         
 
@@ -72,6 +75,6 @@ class Popup(object):
         choice = self.movingInPopUp(pressed_keys)
         self.displayButtoms()
 
-        return choice
+        return choice, self.close
         # self.displayButtoms()
         

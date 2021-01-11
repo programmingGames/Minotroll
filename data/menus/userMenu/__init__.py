@@ -92,14 +92,16 @@ class UserMenu(object):
 
         ## controling th popUp display
         if(self.active):
-            ver = self.popup.draw(pressed_keys)
+            ver, close = self.popup.draw(pressed_keys)
+            if close:
+                self.active = not self.active
             if ver:
                 os.chdir('users')
                 shutil.rmtree(self.user)
                 os.chdir('..')
                 choice = 1
-            else:
                 self.active = False
+            else:                
                 choice = 3
 
 

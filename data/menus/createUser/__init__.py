@@ -13,6 +13,7 @@ class CreateUserMenu:
         self.title = pygame.image.load("resources/image/title/MinoTrolls1.png").convert_alpha()
         self.createText = "Enter a user name"
         self.font = pygame.font.SysFont("Arial", 24)
+        self.size = pygame.font.Font.size(self.font, self.createText)
         self.text = textInput()
         self.menuControl = 250
         self.count = 0
@@ -43,10 +44,10 @@ class CreateUserMenu:
     def settingUserName(self, event):
         self.background.settingBackgroundMenu(2)
         self.screen.blit(self.painel, (105, 70))
-        self.screen.blit(self.title, (275, 90))
+        self.screen.blit(self.title, (270, 90))
         self.font.set_bold(True)
         line = self.font.render(self.createText, True, (0, 0,0))
-        self.screen.blit(line, (265, 150))
+        self.screen.blit(line, ((700/2-self.size[0]/2)-10, 150))
         self.user = self.text.settingInputText(self.screen, event)
 
         # Controling menu buttons efects
