@@ -69,5 +69,6 @@ class LevelComplet(object):
             return 14
         elif ((pressed_keys[K_RETURN])and(self.menuControl==350)and(self.count >= 5)):
             self.count = 0
+            self.menuControl = 300
             return 3
         return 13

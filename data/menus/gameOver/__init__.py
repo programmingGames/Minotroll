@@ -66,5 +66,6 @@ class GameOver(object):
             return 12
         elif ((pressed_keys[K_RETURN])and(self.menuControl==300)and(self.count >= 5)):
             self.count = 0
+            self.menuControl = 250
             return 3
         return 11

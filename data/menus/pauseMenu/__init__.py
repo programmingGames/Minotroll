@@ -71,9 +71,11 @@ class PauseMenu(object):
             return 7
         elif((pressed_keys[K_RETURN])and(self.menuControl==250)and(self.count >= 5)):
             self.count = 0
+            self.menuControl = 200
             return 3
         elif((pressed_keys[K_RETURN])and(self.menuControl==300)and(self.count >= 5)):
             self.count = 0
+            self.menuControl = 200
             return 1
 
         self.settingPauseMenu()

@@ -101,11 +101,12 @@ class UserMenu(object):
                 os.chdir('..')
                 choice = 1
                 self.active = False
+                self.user = ''
             else:                
                 choice = 3
 
 
-        return choice, int(nivel),  (int(lastPassPoint_x), int(lastPassPoint_y)),  int(life)
+        return choice,self.user, int(nivel),  (int(lastPassPoint_x), int(lastPassPoint_y)),  int(life)
 
     def userChoise(self, pressed_keys):
         self.count += 1
@@ -114,15 +115,19 @@ class UserMenu(object):
             return 7
         elif ((pressed_keys[K_RETURN])and(self.menuControl==200)and(self.count >= 5)):
             self.count = 0
+            self.menuControl = 150
             return 9
         elif ((pressed_keys[K_RETURN])and(self.menuControl==250)and(self.count >= 5)):
             self.count = 0
+            self.menuControl = 150
             return 6
         elif ((pressed_keys[K_RETURN])and(self.menuControl==300)and(self.count >= 5)):
             self.count = 0
+            self.menuControl = 150
             return 1
         elif ((pressed_keys[K_RETURN])and(self.menuControl==350)and(self.count >= 5)):
             self.count = 0
+            self.menuControl = 150
             self.active = True
         
 

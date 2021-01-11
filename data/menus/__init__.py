@@ -76,7 +76,7 @@ class Menus(object):
             self.painelState, self.user = self.createUser.drawUserMenu(self.pygameEvent)
             # self.player = Player(self.screen, self.nivel, self.skills,self.lastPassPoint)
         elif(self.painelState == 3):
-            self.painelState, self.nivel, self.lastPassPoint, self.qtlife = self.userMenu.movingInUserMenu(self.user)
+            self.painelState, self.user, self.nivel, self.lastPassPoint, self.qtlife = self.userMenu.movingInUserMenu(self.user)
             # self.getUpdateUserData()
             self.gamplay = GamePlay(self.screen, self.nivel, self.lastPassPoint, self.qtlife, self.pygameEvent)
             self.skills = Skills(self.screen, self.nivel)
@@ -113,6 +113,10 @@ class Menus(object):
         elif(self.painelState == 14):
             self.updatingUserData()
             self.painelState = 7
+
+        ## controling atribute self.user
+        if(len(os.listdir('users')) == 0):
+            self.user=''
 
 
     def updatingUserData(self):

@@ -11,12 +11,16 @@ class LoadUser(object):
         self.painel = pygame.image.load("resources/image/menu/painel.png").convert_alpha()
         self.title = pygame.image.load("resources/image/title/MinoTrolls1.png").convert_alpha()
         self.createText = "Chose your user name"
+        self.zeroUseText = "There is no user already created."
+        self.esc = 'Press "Esc" to go back'
+        self.font1 = pygame.font.SysFont("Arial", 14)
         self.font = pygame.font.SysFont("Arial", 24)
         self.currentButtom = ''
         self.users = []
         self.allUser()
         self.menuControl = 200
         self.timeEfect = 0
+        self.timeEfect1 = 0
         self.count = 0
         self.allButtom = []
         self.allPosition = [(250, 200), (250, 250), (250, 300), (250, 350)]
@@ -44,14 +48,34 @@ class LoadUser(object):
         self.screen.blit(self.title, (275, 90))
         self.font.set_bold(True)
         line = self.font.render(self.createText, True, (0, 0,0))
-        self.screen.blit(line, (215, 150))
+        # title 
+        size = pygame.font.Font.size(self.font, self.createText)
+        self.screen.blit(line, ((700/2-size[0]/2)+10, 150))
+
+        # exit load menu
+        self.font1.set_bold(True)
+        size = pygame.font.Font.size(self.font1, self.esc)
+        line = self.font1.render(self.esc, True, (0, 0,0))
+
+        ## blitting the esc evente 
+        if (self.timeEfect1 > 5):
+            self.timeEfect1 = 0
+        else:
+            self.screen.blit(line, ((700/2-size[0]/2)+10, 390))
+            self.timeEfect1 += 1
+        
 
         for i in range(len(self.users)):
             if(self.menuControl == ((i*50)+200)):
                 self.currentButtom = self.users[i]
-
-        self.displayButtoms()
-        [self.screen.blit(img, pos) for img, pos in zip(self.allButtom, self.allPosition)]
+        # menssage if there is no user
+        if(len(os.listdir('users')) == 0):
+            size = pygame.font.Font.size(self.font1, self.zeroUseText)
+            line = self.font1.render(self.zeroUseText, True, (0, 0,0))
+            self.screen.blit(line, ((700/2-size[0]/2)+10, 480/2-size[1]/2))
+        else:
+            self.displayButtoms()
+            [self.screen.blit(img, pos) for img, pos in zip(self.allButtom, self.allPosition)]
 
 
 # there is a problem here then you shoud see it 
@@ -72,19 +96,21 @@ class LoadUser(object):
                 self.menuControl = 200
             else:
                 self.menuControl -= 50
+        elif(pressed_keys[K_ESCAPE]):
+            self.menuControl = 200
+            return 1, ''
 
         self.count += 1
         for i in range(len(self.users)):
             if((pressed_keys[K_RETURN])and(self.count >= 5)and(self.menuControl == ((i*50)+200))):
                 self.count = 0
+                self.menuControl = 200
                 return 3, self.users[i]
-                
+
         self.loadMenuEsc()
         return 4, ''
     
     def allUser(self):
-        if(len(os.listdir('users')) == 0):
-            pass
-        else:
+        if(len(os.listdir('users')) != 0):
             self.users = os.listdir('users')
             self.currentButtom = self.users[0]

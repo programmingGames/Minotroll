@@ -85,12 +85,14 @@ class CreateUserMenu:
             if(self.limit and not self.exist):
                 self.createUserDirAndButtom()
                 self.createUserEvolutionData()
+                self.menuControl = 250
                 return 3, self.user
             else:
                 return 2, self.user
         elif((pressed_keys[K_RETURN])and(self.menuControl==300)and(self.count >= 5)):
             self.count = 0
-            return 1, self.user
+            self.menuControl = 250
+            return 1, ''
         self.settingUserName(event)
         return 2, self.user
 
