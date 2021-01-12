@@ -116,7 +116,7 @@ class Menus(object):
             self.getUpdateUserData()
             self.painelState = 7
 
-        print(self.player_rect.x, self.player_rect.y)
+        # print(self.player_rect.x, self.player_rect.y)
 
 
     def updatingUserData(self):

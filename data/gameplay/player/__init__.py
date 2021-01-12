@@ -20,6 +20,7 @@ class Player(object):
         self.player_rect.y = lastPassPoint[1]
         self.moving_right = False
         self.moving_left = False
+        self.jumping = False
         self.vertical_momentum = 0
         self.air_timer = 0
         # self.scrollLimit_x = 245
@@ -41,11 +42,20 @@ class Player(object):
     def playerMove(self, tile_rects, player_movement, scroll):
         self.idle()
         if self.moving_right:
-            self.walk()
+            if self.jumping:
+                self.jump()
+            else:
+                self.walk()
             player_movement[0] += 4
         if self.moving_left:
-            self.walk()
+            if self.jumping:
+                self.jump()
+            else:
+                self.walk()
             player_movement[0] -= 4
+        if self.jumping:
+            self.jump()
+
         if((not self.moving_left)and(not self.moving_right)):
             self.idle()
         player_movement[1] += self.vertical_momentum
@@ -56,8 +66,8 @@ class Player(object):
         if (self.platformCollisions['bottom']):
             self.air_timer = 0
             self.vertical_momentum = 0
+            self.jumping = False
         else:
-            self.jump()
             self.air_timer += 1
         self.screen.blit(self.player_img,(self.player_rect.x-scroll[0],self.player_rect.y-scroll[1]))
 
@@ -132,10 +142,12 @@ class Player(object):
                 if self.air_timer < 8:
                     self.vertical_momentum = -10
 
+
         elif(key_press[K_UP]):
             self.state = 'JumLoop'
             if self.air_timer < 8:
                 self.vertical_momentum = -10
+            self.jumping = True
             # self.state = 'Walking'
             
         elif(not key_press[K_RIGHT] and not key_press[K_LEFT]):
@@ -148,6 +160,11 @@ class Player(object):
                 self.moving_right = False
             if(key_press[K_LEFT]):
                 self.moving_left = False 
+            self.jumping = True
+
+        if(key_press[K_RIGHT] or key_press[K_LEFT]):
+            if(key_press[K_UP]):
+                self.jumping = True
 
     def walk(self):
         self.state = 'Walking'
@@ -183,8 +200,6 @@ class Player(object):
             self.player_img = pygame.image.load("resources/image/Golem/"+self.state+"/"+self.move_direction+"/0_Goblin_"+self.state+"_0.png").convert_alpha()
             
     def hurt(self):
-        pass
-    def die(self):
         pass
     def kicking(self):
         pass
