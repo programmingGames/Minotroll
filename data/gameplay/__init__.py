@@ -24,6 +24,7 @@ class GamePlay(object):
         self.platform = Plataform(self.screen, self.nivel)
         self.liveItem = LifeItem(self.screen, self.nivel)
         self. nivel = nivel # default value of the level started usualy in 0
+        self.inUse = ''
         # self.skills = 1 # default value of skills the player have
         # self.lastPassPoint = 500 # default Value for position of the player in the platform
         self.player_rect = pygame.Rect(0, 0, 0, 0) # To control the player rects
@@ -31,21 +32,21 @@ class GamePlay(object):
         self.enimyCollision = False
         self.enimyType = ''
         self.allEnimysRectsAndTypes = []
-        self.ptforStart = True        
+        self.ptforStart = True     
 
     
     # method to display all the components in the platform
     def drawingTheGamePlayEnvirement(self):
         # key_press = pygame.key.get_pressed()
         tile_rects = self.platform.settingPlataform(self.scroll)
-        self.scroll, self.player_rect, self.enimyCollision, self.enimyType  = self.player.settingPlayer(tile_rects, self.scroll, self.allEnimysRectsAndTypes)
+        self.scroll, self.player_rect, self.enimyCollision, self.enimyType  = self.player.settingPlayer(tile_rects, self.scroll, self.allEnimysRectsAndTypes, self.inUse)
 
         # update after we check the collision
         self.allEnimysRectsAndTypes = self.enimys.enimysAdd(tile_rects, self.player_rect, self.scroll)
 
         # Drawing some visual animation
         self.animation.draw()
-        painelState, self.qtlife = self.headUpDisplay.headUpDisplayScreenDraw(self.player_rect.x)
+        painelState, self.qtlife, self.inUse = self.headUpDisplay.headUpDisplayScreenDraw(self.player_rect.x)
 
         self.itemLifeCollision = self.liveItem.drawingTheLifeItem(self.player_rect, self.scroll)
          

@@ -12,6 +12,7 @@ class Player(object):
         self.player_move = [0, 0]
         self.move_direction = 'right'
         self.state = 'Idle'
+        self.skillsInUse = 'kicking'
         self.move_frame = 0
         self.player_img = pygame.image.load("resources/image/Golem/"+self.state+"/"+self.move_direction+"/0_Goblin_"+self.state+"_0.png").convert_alpha()
         self.player_rect=self.player_img.get_rect()
@@ -38,6 +39,7 @@ class Player(object):
             self.player_screen_limit += 80
 
     def playerMove(self, tile_rects, player_movement, scroll):
+        self.idle()
         if self.moving_right:
             self.walk()
             player_movement[0] += 4
@@ -55,11 +57,13 @@ class Player(object):
             self.air_timer = 0
             self.vertical_momentum = 0
         else:
+            self.jump()
             self.air_timer += 1
         self.screen.blit(self.player_img,(self.player_rect.x-scroll[0],self.player_rect.y-scroll[1]))
 
 
-    def settingPlayer(self, tile_rects, scroll, allEnimysRectsAndType):
+    def settingPlayer(self, tile_rects, scroll, allEnimysRectsAndType, inUse):
+        self.skillsInUse = inUse
         player_movement = [0,0]
         self.determinateMove()
         self.controlPlayerScreenMove()
@@ -129,15 +133,17 @@ class Player(object):
                     self.vertical_momentum = -10
 
         elif(key_press[K_UP]):
+            self.state = 'JumLoop'
             if self.air_timer < 8:
                 self.vertical_momentum = -10
-            self.state = 'Walking'
+            # self.state = 'Walking'
             
         elif(not key_press[K_RIGHT] and not key_press[K_LEFT]):
             self.moving_right = False
             self.moving_left = False
 
         elif(key_press[K_UP]):
+            self.state = 'JumpLoop'
             if(key_press[K_RIGHT]):
                 self.moving_right = False
             if(key_press[K_LEFT]):
@@ -166,7 +172,16 @@ class Player(object):
             self.player_img = pygame.image.load("resources/image/Golem/"+self.state+"/"+self.move_direction+"/0_Goblin_"+self.state+"_0.png").convert_alpha()
             
     def jump(self):
-        pass
+        self.state = 'JumpLoop'
+        if(((not self.moving_right)or(not self.moving_left ))and(self.move_frame <= 5)):
+            self.player_img = pygame.image.load("resources/image/Golem/"+self.state+"/"+self.move_direction+"/0_Goblin_"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
+            self.move_frame += 1
+        elif(((not self.moving_right)or(not self.moving_left))and(self.move_frame > 5)):
+            self.move_frame = 0
+            self.player_img = pygame.image.load("resources/image/Golem/"+self.state+"/"+self.move_direction+"/0_Goblin_"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
+        else:
+            self.player_img = pygame.image.load("resources/image/Golem/"+self.state+"/"+self.move_direction+"/0_Goblin_"+self.state+"_0.png").convert_alpha()
+            
     def hurt(self):
         pass
     def die(self):

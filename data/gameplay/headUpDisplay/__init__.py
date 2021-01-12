@@ -11,6 +11,7 @@ class HeadUpDisplay(object):
         # self.qtlife = qtlife
         self.progress = LevelProgress(self.screen, self.lastPassPoint)
         self.player = pygame.image.load("resources/image/headUpDisplay/conteiner/faceIcon.png")
+        self.avalableSkills = ["kicking", "slashing","battleax", "greenfire", "bluefire"]
         self.nivel = nivel
         self.skillOfThePlayer()
         self.inUse = 0
@@ -33,9 +34,9 @@ class HeadUpDisplay(object):
         self.showHiddenSkilssOnGameEnvirement()
 
         if(self.life.qtlife <= 0):
-            return 11, self.qtlife
+            return 11, self.qtlife, self.avalableSkills[self.inUse]
         else:
-            return 7, self.qtlife
+            return 7, self.qtlife, self.avalableSkills[self.inUse]
         # self.screen.blit(self.lifeBox, (50, 50))
 
     def showSkillsOnGameEnvirement(self):
