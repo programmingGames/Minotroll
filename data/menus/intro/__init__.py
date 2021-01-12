@@ -1,4 +1,5 @@
 import pygame 
+from pygame.locals import *
 from data.menus import intro
 from data.backgrounds import Backgound as Back
 from data import Hysto 
@@ -11,12 +12,16 @@ class Intro(object):
         self.painel = pygame.image.load("resources/image/menu/painel.png").convert_alpha()
         self.title = pygame.image.load("resources/image/title/MinoTrolls1.png").convert_alpha()
         self.font = pygame.font.SysFont("Arial", 12,1)
+        self.esc = 'Press "Esc" to go back'
+        self.font1 = pygame.font.SysFont("Arial", 14)
+        self.timeEfect1 = 0
         self.timeout = 0
         self.next = True
         self.change = 0
 
     def introDisplay(self):
-        tx, ty = 165, 165
+        key=pygame.key.get_pressed()
+        ty = 165
         self.restart()
         paragrafoControl = 0
         if((self.timeout == 100)):
@@ -28,16 +33,28 @@ class Intro(object):
             self.screen.blit(self.painel, (105, 70))
             self.screen.blit(self.title, (275, 90))
             for line in paragrafo:
+                size = pygame.font.Font.size(self.font, str(line))
                 line = self.font.render(line, True, (0, 0,0))
-                self.screen.blit(line, (tx, ty))
+                self.screen.blit(line, ((700/2-size[0]/2)+10, ty))
                 ty += 15
             if(self.change == paragrafoControl):
                 break
             else:
                 ty = 165
                 paragrafoControl += 1
-            
-        if(self.change == 5):
+
+        # exit load menu
+        self.font1.set_bold(True)
+        size = pygame.font.Font.size(self.font1, self.esc)
+        line = self.font1.render(self.esc, True, (0, 0,0))
+
+        ## blitting the esc evente 
+        if (self.timeEfect1 > 5):
+            self.timeEfect1 = 0
+        else:
+            self.screen.blit(line, ((700/2-size[0]/2)+10, 390))
+            self.timeEfect1 += 1
+        if((self.change == 5) or key[K_ESCAPE]):
             return 3
         else:
             self.timeout += 1

@@ -109,14 +109,14 @@ class Menus(object):
             self.painelState, self.complet = self.levelComplet.drawingLevelCompletPainel()
         elif(self.painelState == 12):
             self.updatingUserData()
+            self.getUpdateUserData()
             self.painelState = 7
         elif(self.painelState == 14):
             self.updatingUserData()
+            self.getUpdateUserData()
             self.painelState = 7
 
-        ## controling atribute self.user
-        if(len(os.listdir('users')) == 0):
-            self.user=''
+        print(self.player_rect.x, self.player_rect.y)
 
 
     def updatingUserData(self):
@@ -153,10 +153,7 @@ class Menus(object):
             os.chdir('../..')
             self.complet = not self.complet
             # restarting the game whit new data
-        # restarting the game whit new data
-        self.gamplay = GamePlay(self.screen, self.nivel, self.lastPassPoint,self.qtlife, self.pygameEvent)
-        self.skills = Skills(self.screen, self.nivel)
-        self.map = Map(self.screen, self.nivel)
+        
 
     def saveUserData(self):
         os.chdir('users/'+self.user)
@@ -177,3 +174,7 @@ class Menus(object):
         lastPassPoint_y = int(allUserData[2])   # the last point in the game tha the user pass to in y
         self.lastPassPoint = (lastPassPoint_x, lastPassPoint_y)
         self.qtlife = int(allUserData[3])  # the last quantity of life save by the user
+        # restarting the game whit new data
+        self.gamplay = GamePlay(self.screen, self.nivel, self.lastPassPoint,self.qtlife, self.pygameEvent)
+        self.skills = Skills(self.screen, self.nivel)
+        self.map = Map(self.screen, self.nivel)
