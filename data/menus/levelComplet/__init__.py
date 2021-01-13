@@ -6,7 +6,6 @@ class LevelComplet(object):
     
     def __init__(self, screen):
         self.screen = screen
-        self.back = pygame.image.load("resources/image/menu/levelComplet/back.png").convert_alpha()
         self.title = pygame.image.load("resources/image/menu/levelComplet/1.png").convert_alpha()
         self.buttoms = ['NextLevel','GameMenu']
         self.currentButtom = self.buttoms[0]
@@ -31,6 +30,7 @@ class LevelComplet(object):
             self.allButtom.append(img)
 
     def nextLevelMenuEsc(self):
+        self.back = pygame.image.load("resources/image/menu/levelComplet/back.png").convert_alpha()
         self.screen.blit(self.back, (0, 0))
         self.screen.blit(self.title, (700/2-350/2, 170))
         if (self.menuControl==300):

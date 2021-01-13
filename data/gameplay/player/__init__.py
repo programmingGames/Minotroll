@@ -18,9 +18,15 @@ class Player(object):
         self.player_rect=self.player_img.get_rect()
         self.player_rect.x = lastPassPoint[0]
         self.player_rect.y = lastPassPoint[1]
+
+        ## atributes to control the player state
         self.moving_right = False
         self.moving_left = False
         self.jumping = False
+        self.hurtten = False
+        self.attack = False
+        self.bottomColision = False
+
         self.vertical_momentum = 0
         self.air_timer = 0
         # self.scrollLimit_x = 245
@@ -40,14 +46,13 @@ class Player(object):
             self.player_screen_limit += 80
 
     def playerMove(self, tile_rects, player_movement, scroll):
-        self.idle()
         if self.moving_right:
             if self.jumping:
                 self.jump()
             else:
                 self.walk()
             player_movement[0] += 4
-        if self.moving_left:
+        elif self.moving_left:
             if self.jumping:
                 self.jump()
             else:
@@ -55,6 +60,14 @@ class Player(object):
             player_movement[0] -= 4
         if self.jumping:
             self.jump()
+            if self.air_timer < 8:
+                self.vertical_momentum = -10
+        
+        if self.hurtten:
+            self.hurt()
+
+        # elif self.attack:
+            
 
         if((not self.moving_left)and(not self.moving_right)):
             self.idle()
@@ -67,6 +80,12 @@ class Player(object):
             self.air_timer = 0
             self.vertical_momentum = 0
             self.jumping = False
+            self.bottomColision = True
+        else:
+            self.bottomColision = False
+        if self.platformCollisions['top']:
+            self.jumping = False
+            self.vertical_momentum += 5
         else:
             self.air_timer += 1
         self.screen.blit(self.player_img,(self.player_rect.x-scroll[0],self.player_rect.y-scroll[1]))
@@ -88,6 +107,7 @@ class Player(object):
         correct_scroll[1] = int(correct_scroll[1])
         self.checkingEnimysCollision(player_movement,allEnimysRectsAndType)
         self.collisionInpact(tile_rects)
+        print(self.bottomColision)
         return correct_scroll, self.player_rect, self.enimyCollision, self.enimyType
 
     def checkingEnimysCollision(self, player_move,enimysRectsAndType):
@@ -99,9 +119,12 @@ class Player(object):
 
         collision, position = self.collision.enimysCollision(player_move,self.player_rect,rectList)
         if(collision['top'] or collision['right'] or collision['bottom'] or collision['left']):
+            self.hurtten = True
             self.enimyCollision = True
             self.impactDelay = 0
             self.enimyType = enimyList[position]
+        else:
+            self.hurtten = False
 
     def collisionInpact(self, tile_rects):
         # player_movement=[0 , 0]
@@ -129,7 +152,7 @@ class Player(object):
             self.moving_right = True
             self.state = 'Walking'
 
-            if(key_press[K_UP]):
+            if(key_press[K_UP]and self.bottomColision==True):
                 if self.air_timer < 8:
                     self.vertical_momentum = -10
 
@@ -138,15 +161,13 @@ class Player(object):
             self.moving_left = True
             self.state = 'Walking'
 
-            if(key_press[K_UP]):
+            if(key_press[K_UP] and self.bottomColision==True):
                 if self.air_timer < 8:
                     self.vertical_momentum = -10
 
 
-        elif(key_press[K_UP]):
+        elif(key_press[K_UP]and self.bottomColision==True):
             self.state = 'JumLoop'
-            if self.air_timer < 8:
-                self.vertical_momentum = -10
             self.jumping = True
             # self.state = 'Walking'
             
@@ -154,7 +175,7 @@ class Player(object):
             self.moving_right = False
             self.moving_left = False
 
-        elif(key_press[K_UP]):
+        elif(key_press[K_UP]and self.bottomColision==True):
             self.state = 'JumpLoop'
             if(key_press[K_RIGHT]):
                 self.moving_right = False
@@ -163,8 +184,13 @@ class Player(object):
             self.jumping = True
 
         if(key_press[K_RIGHT] or key_press[K_LEFT]):
-            if(key_press[K_UP]):
+            if(key_press[K_UP]and self.bottomColision==True):
                 self.jumping = True
+        ## button for to attack
+        if key_press[K_q]:
+            self.attack = True
+        else:
+            self.attack = False
 
     def walk(self):
         self.state = 'Walking'
@@ -200,7 +226,17 @@ class Player(object):
             self.player_img = pygame.image.load("resources/image/Golem/"+self.state+"/"+self.move_direction+"/0_Goblin_"+self.state+"_0.png").convert_alpha()
             
     def hurt(self):
-        pass
+        self.state = 'Hurt'
+        if(((not self.moving_right)or(not self.moving_left ))and(self.move_frame <= 11)):
+            self.player_img = pygame.image.load("resources/image/Golem/"+self.state+"/"+self.move_direction+"/0_Goblin_"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
+            self.move_frame += 1
+        elif(((not self.moving_right)or(not self.moving_left))and(self.move_frame > 11)):
+            self.move_frame = 0
+            # self.hurtten = False
+            self.player_img = pygame.image.load("resources/image/Golem/"+self.state+"/"+self.move_direction+"/0_Goblin_"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
+        else:
+            self.player_img = pygame.image.load("resources/image/Golem/"+self.state+"/"+self.move_direction+"/0_Goblin_"+self.state+"_0.png").convert_alpha()
+            
     def kicking(self):
         pass
     def slashing(self):
