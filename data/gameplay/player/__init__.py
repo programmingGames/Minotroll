@@ -26,6 +26,7 @@ class Player(object):
         self.hurtten = False
         self.attack = False
         self.bottomColision = False
+        self.firing = False
 
         self.vertical_momentum = 0
         self.air_timer = 0
@@ -34,6 +35,9 @@ class Player(object):
         self.nivel = nivel
         self.impactDelay = 0
         self.slashingControl = 0
+        self.count = 0
+        self.fireArray = []
+        self.fire = Fire(self.screen, 'greenfire', self.player_rect)
         self.enimyCollision = False
         self.enimyType = ''         
 
@@ -68,8 +72,10 @@ class Player(object):
             self.hurt()
 
         if self.attack :
+            # self.firing = True
             self.determinateAttack()
-            
+        
+        self.fireControl()
 
         if((not self.moving_left)and(not self.moving_right)and not self.attack):
             self.idle()
@@ -90,14 +96,18 @@ class Player(object):
             self.vertical_momentum += 5
         else:
             self.air_timer += 1
+
         self.screen.blit(self.player_img,(self.player_rect.x-scroll[0],self.player_rect.y-scroll[1]))
 
+    def fireControl(self):
+        if self.firing:
+            [fire.draw() for fire in self.fireArray]
 
     def settingPlayer(self, tile_rects, scroll, allEnimysRectsAndType, inUse):
         self.skillsInUse = inUse
         # print(self.skillsInUse)
         player_movement = [0,0]
-        self.determinateMove()
+        self.determinateMove(scroll)
         self.controlPlayerScreenMove()
         self.playerMove(tile_rects, player_movement, scroll)
 
@@ -147,7 +157,7 @@ class Player(object):
             else:
                 self.enimyCollision = False
 
-    def determinateMove(self):
+    def determinateMove(self, scroll):
         key_press = pygame.key.get_pressed()
         if(key_press[K_RIGHT]):
             self.move_direction = 'right'
@@ -190,10 +200,14 @@ class Player(object):
                 self.jumping = True
         ## button for to attack
         if key_press[K_q]:
+            if(self.skillsInUse == 'bluefire' or self.skillsInUse == 'greenfire'):
+                self.fireArray.append(Fire(self.screen, self.skillsInUse,(self.player_rect.x-scroll[0], self.player_rect.y-scroll[1])))
+                self.firing = True
             self.attack = True
         else:
             self.slashingControl = 0
             self.attack = False
+        
 
     def walk(self):
         self.state = 'Walking'
@@ -305,8 +319,20 @@ class Player(object):
 
     def throwing(self, type):
         pass
-    def numberSprite(self):
-        if(self.state=='Walking'):
-            return 23
-        elif(self.state=='Idle'):
-            return 17
+    # def numberSprite(self):
+    #     if(self.state=='Walking'):
+    #         return 23
+    #     elif(self.state=='Idle'):
+    #         return 17
+
+class Fire(object):
+    def __init__(self, screen, fireType, pos):
+        self.screen = screen
+        self.img = pygame.image.load("resources/image/Golem/fire/"+fireType+".png")
+        self.x = pos[0]+25
+        self.y = pos[1]+15
+
+
+    def draw(self):
+        self.screen.blit(self.img, (self.x, self.y))
+        self.x += 10
