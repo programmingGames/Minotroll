@@ -30,9 +30,10 @@ class Player(object):
         self.vertical_momentum = 0
         self.air_timer = 0
         # self.scrollLimit_x = 245
-        self.player_screen_limit = 0
+        self.player_screen_limit = 380
         self.nivel = nivel
         self.impactDelay = 0
+        self.slashingControl = 0
         self.enimyCollision = False
         self.enimyType = ''         
 
@@ -66,10 +67,11 @@ class Player(object):
         if self.hurtten:
             self.hurt()
 
-        # elif self.attack:
+        if self.attack :
+            self.determinateAttack()
             
 
-        if((not self.moving_left)and(not self.moving_right)):
+        if((not self.moving_left)and(not self.moving_right)and not self.attack):
             self.idle()
         player_movement[1] += self.vertical_momentum
         self.vertical_momentum += 0.6
@@ -93,6 +95,7 @@ class Player(object):
 
     def settingPlayer(self, tile_rects, scroll, allEnimysRectsAndType, inUse):
         self.skillsInUse = inUse
+        # print(self.skillsInUse)
         player_movement = [0,0]
         self.determinateMove()
         self.controlPlayerScreenMove()
@@ -107,7 +110,6 @@ class Player(object):
         correct_scroll[1] = int(correct_scroll[1])
         self.checkingEnimysCollision(player_movement,allEnimysRectsAndType)
         self.collisionInpact(tile_rects)
-        print(self.bottomColision)
         return correct_scroll, self.player_rect, self.enimyCollision, self.enimyType
 
     def checkingEnimysCollision(self, player_move,enimysRectsAndType):
@@ -190,6 +192,7 @@ class Player(object):
         if key_press[K_q]:
             self.attack = True
         else:
+            self.slashingControl = 0
             self.attack = False
 
     def walk(self):
@@ -236,14 +239,71 @@ class Player(object):
             self.player_img = pygame.image.load("resources/image/Golem/"+self.state+"/"+self.move_direction+"/0_Goblin_"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
         else:
             self.player_img = pygame.image.load("resources/image/Golem/"+self.state+"/"+self.move_direction+"/0_Goblin_"+self.state+"_0.png").convert_alpha()
-            
+
+
+
+    ### the following method is related to the player attack
+    def determinateAttack(self):
+        self.state = self.skillsInUse
+        if (self.skillsInUse == 'kicking'):
+            self.kicking()
+        elif(self.skillsInUse == 'greenfire'):
+            self.throwing('greenfire')
+        elif(self.skillsInUse == 'bluefire'):
+            self.throwing('bluefire')
+        ## just for hork
+        elif(self.skillsInUse == 'slashing'):
+            ## Actuly is sliding not slashing after i will change this logic in all over the project
+            self.sliding()
+        elif(self.skillsInUse == 'battleax'):
+            self.battleax()
+
     def kicking(self):
-        pass
-    def slashing(self):
-        pass
+        self.state = 'Kicking'
+        if(((not self.moving_right)or(not self.moving_left ))and(self.move_frame <= 11)):
+            self.player_img = pygame.image.load("resources/image/Golem/"+self.state+"/"+self.move_direction+"/0_Goblin_"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
+            self.move_frame += 1
+        elif(((not self.moving_right)or(not self.moving_left))and(self.move_frame > 11)):
+            self.move_frame = 0
+            # self.hurtten = False
+            self.player_img = pygame.image.load("resources/image/Golem/"+self.state+"/"+self.move_direction+"/0_Goblin_"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
+        else:
+            self.player_img = pygame.image.load("resources/image/Golem/"+self.state+"/"+self.move_direction+"/0_Goblin_"+self.state+"_0.png").convert_alpha()
+
+    def battleax(self):
+        self.state = 'battleax'
+        if(((not self.moving_right)or(not self.moving_left ))and(self.move_frame <= 11)):
+            self.player_img = pygame.image.load("resources/image/Golem/"+self.state+"/"+self.move_direction+"/0_Goblin_"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
+            self.move_frame += 1
+        elif(((not self.moving_right)or(not self.moving_left))and(self.move_frame > 11)):
+            self.move_frame = 0
+            self.player_img = pygame.image.load("resources/image/Golem/"+self.state+"/"+self.move_direction+"/0_Goblin_"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
+        else:
+            self.player_img = pygame.image.load("resources/image/Golem/"+self.state+"/"+self.move_direction+"/0_Goblin_"+self.state+"_0.png").convert_alpha()
+        
     def sliding(self):
-        pass
-    def throwing(self):
+        self.state = 'battleax'
+        if(((not self.moving_right)or(not self.moving_left ))and(self.move_frame <= 11)):
+            self.player_img = pygame.image.load("resources/image/Golem/"+self.state+"/"+self.move_direction+"/0_Goblin_"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
+            self.move_frame += 1
+        elif(((not self.moving_right)or(not self.moving_left))and(self.move_frame > 11)):
+            self.move_frame = 0
+            # self.hurtten = False
+            self.player_img = pygame.image.load("resources/image/Golem/"+self.state+"/"+self.move_direction+"/0_Goblin_"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
+        else:
+            self.player_img = pygame.image.load("resources/image/Golem/"+self.state+"/"+self.move_direction+"/0_Goblin_"+self.state+"_0.png").convert_alpha()
+
+        if(self.slashingControl <= 10):
+            if(self.move_direction=='right'):
+                self.player_rect.x  += 9
+                self.slashingControl += 1
+            else:
+                self.slashingControl += 1
+                self.player_rect.x -= 9
+        else:
+            self.attack = False
+
+    def throwing(self, type):
         pass
     def numberSprite(self):
         if(self.state=='Walking'):

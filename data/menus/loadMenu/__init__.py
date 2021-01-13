@@ -101,11 +101,12 @@ class LoadUser(object):
             return 1, ''
 
         self.count += 1
-        for i in range(len(self.users)):
-            if((pressed_keys[K_RETURN])and(self.count >= 5)and(self.menuControl == ((i*50)+200))):
-                self.count = 0
-                self.menuControl = 200
-                return 3, self.users[i]
+        if (len(os.listdir('users')) != 0):
+            for i in range(len(self.users)):
+                if((pressed_keys[K_RETURN])and(self.count >= 5)and(self.menuControl == ((i*50)+200))):
+                    self.count = 0
+                    self.menuControl = 200
+                    return 3, self.users[i]
 
         self.loadMenuEsc()
         return 4, ''
