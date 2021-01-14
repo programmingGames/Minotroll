@@ -37,7 +37,7 @@ class Player(object):
         self.slashingControl = 0
         self.count = 0
         self.fireArray = []
-        self.fire = Fire(self.screen, 'greenfire', self.player_rect)
+        self.fire = Fire(self.screen, 'greenfire', self.player_rect, self.move_direction)
         self.enimyCollision = False
         self.enimyType = ''         
 
@@ -200,13 +200,15 @@ class Player(object):
                 self.jumping = True
         ## button for to attack
         if key_press[K_q]:
-            if(self.skillsInUse == 'bluefire' or self.skillsInUse == 'greenfire'):
-                self.fireArray.append(Fire(self.screen, self.skillsInUse,(self.player_rect.x-scroll[0], self.player_rect.y-scroll[1])))
+            if((self.skillsInUse == 'bluefire' or self.skillsInUse == 'greenfire') and (self.count >= 10)):
+                self.fireArray.append(Fire(self.screen, self.skillsInUse,(self.player_rect.x-scroll[0], self.player_rect.y-scroll[1]), self.move_direction))
                 self.firing = True
+                self.count = 0
             self.attack = True
         else:
             self.slashingControl = 0
             self.attack = False
+        self.count += 1
         
 
     def walk(self):
@@ -262,9 +264,9 @@ class Player(object):
         if (self.skillsInUse == 'kicking'):
             self.kicking()
         elif(self.skillsInUse == 'greenfire'):
-            self.throwing('greenfire')
+            self.throwing()
         elif(self.skillsInUse == 'bluefire'):
-            self.throwing('bluefire')
+            self.throwing()
         ## just for hork
         elif(self.skillsInUse == 'slashing'):
             ## Actuly is sliding not slashing after i will change this logic in all over the project
@@ -296,11 +298,11 @@ class Player(object):
             self.player_img = pygame.image.load("resources/image/Golem/"+self.state+"/"+self.move_direction+"/0_Goblin_"+self.state+"_0.png").convert_alpha()
         
     def sliding(self):
-        self.state = 'battleax'
-        if(((not self.moving_right)or(not self.moving_left ))and(self.move_frame <= 11)):
+        self.state = 'Sliding'
+        if(((not self.moving_right)or(not self.moving_left ))and(self.move_frame <= 5)):
             self.player_img = pygame.image.load("resources/image/Golem/"+self.state+"/"+self.move_direction+"/0_Goblin_"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
             self.move_frame += 1
-        elif(((not self.moving_right)or(not self.moving_left))and(self.move_frame > 11)):
+        elif(((not self.moving_right)or(not self.moving_left))and(self.move_frame > 5)):
             self.move_frame = 0
             # self.hurtten = False
             self.player_img = pygame.image.load("resources/image/Golem/"+self.state+"/"+self.move_direction+"/0_Goblin_"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
@@ -317,22 +319,33 @@ class Player(object):
         else:
             self.attack = False
 
-    def throwing(self, type):
-        pass
-    # def numberSprite(self):
-    #     if(self.state=='Walking'):
-    #         return 23
-    #     elif(self.state=='Idle'):
-    #         return 17
+    def throwing(self):
+        self.state = 'Throwing' 
+        if(((not self.moving_right)or(not self.moving_left ))and(self.move_frame <= 11)):
+            self.player_img = pygame.image.load("resources/image/Golem/"+self.state+"/"+self.move_direction+"/0_Goblin_"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
+            self.move_frame += 1
+        elif(((not self.moving_right)or(not self.moving_left))and(self.move_frame > 11)):
+            self.move_frame = 0
+            # self.hurtten = False
+            self.player_img = pygame.image.load("resources/image/Golem/"+self.state+"/"+self.move_direction+"/0_Goblin_"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
+        else:
+            self.player_img = pygame.image.load("resources/image/Golem/"+self.state+"/"+self.move_direction+"/0_Goblin_"+self.state+"_0.png").convert_alpha()
 
 class Fire(object):
-    def __init__(self, screen, fireType, pos):
+    def __init__(self, screen, fireType, pos, direction):
         self.screen = screen
-        self.img = pygame.image.load("resources/image/Golem/fire/"+fireType+".png")
-        self.x = pos[0]+25
+        self.img = pygame.image.load("resources/image/Golem/fire/"+direction+"/"+fireType+".png")
+        if(direction == "right"):
+            self.x = pos[0]+30
+        else:
+            self.x = pos[0]-25
         self.y = pos[1]+15
+        self.direction = direction
 
 
     def draw(self):
         self.screen.blit(self.img, (self.x, self.y))
-        self.x += 10
+        if(self.direction == 'right'):
+            self.x += 10
+        else:
+            self.x -= 10
