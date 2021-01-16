@@ -37,7 +37,7 @@ class Player(object):
         self.slashingControl = 0
         self.count = 0
         self.fireArray = []
-        self.fire = Fire(self.screen, 'greenfire', self.player_rect, self.move_direction)
+        # self.fire = Fire(self.screen, 'greenfire', self.player_rect, self.move_direction)
         self.enimyCollision = False
         self.enimyType = ''         
 
@@ -50,7 +50,7 @@ class Player(object):
         if(self.player_rect.x > self.player_screen_limit +800):
             self.player_screen_limit += 80
 
-    def playerMove(self, tile_rects, player_movement, scroll):
+    def playerMove(self, tile_rects, player_movement, scroll, tile_rect):
         if self.moving_right:
             if self.jumping:
                 self.jump()
@@ -75,7 +75,7 @@ class Player(object):
             # self.firing = True
             self.determinateAttack()
         
-        self.fireControl()
+        self.fireControl(tile_rects, scroll)
 
         if((not self.moving_left)and(not self.moving_right)and not self.attack):
             self.idle()
@@ -99,9 +99,21 @@ class Player(object):
 
         self.screen.blit(self.player_img,(self.player_rect.x-scroll[0],self.player_rect.y-scroll[1]))
 
-    def fireControl(self):
+    def fireControl(self, tile_rect, scroll):
+        colision = []
         if self.firing:
-            [fire.draw() for fire in self.fireArray]
+            colision = [fire.draw(tile_rect, scroll) for fire in self.fireArray]
+        i = 0
+
+        ## cheching all the condition to delete one fire
+        for colid in colision:
+            if colid:
+                del self.fireArray[i]
+        i = 0
+        for fire in self.fireArray:
+            if ((fire.rect.x > self.player_rect.x + 700)or(-1*fire.rect.x > (self.player_rect.x - 700)*-1)):
+                del self.fireArray[i]
+        # print(colision)
 
     def settingPlayer(self, tile_rects, scroll, allEnimysRectsAndType, inUse):
         self.skillsInUse = inUse
@@ -109,7 +121,7 @@ class Player(object):
         player_movement = [0,0]
         self.determinateMove(scroll)
         self.controlPlayerScreenMove()
-        self.playerMove(tile_rects, player_movement, scroll)
+        self.playerMove(tile_rects, player_movement, scroll, tile_rects)
 
         # if(self.player_rect.x > 500):
         scroll[0] += (self.player_rect.x-scroll[0]-300)/20
@@ -138,7 +150,7 @@ class Player(object):
         else:
             self.hurtten = False
 
-    def collisionInpact(self, tile_rects):
+    def collisionInpact(self, tile_rect):
         # player_movement=[0 , 0]
         if self.enimyCollision :
             if(self.impactDelay <= 5):
@@ -201,7 +213,7 @@ class Player(object):
         ## button for to attack
         if key_press[K_q]:
             if((self.skillsInUse == 'bluefire' or self.skillsInUse == 'greenfire') and (self.count >= 10)):
-                self.fireArray.append(Fire(self.screen, self.skillsInUse,(self.player_rect.x-scroll[0], self.player_rect.y-scroll[1]), self.move_direction))
+                self.fireArray.append(Fire(self.screen, self.skillsInUse,(self.player_rect.x, self.player_rect.y), self.move_direction))
                 self.firing = True
                 self.count = 0
             self.attack = True
@@ -334,18 +346,36 @@ class Player(object):
 class Fire(object):
     def __init__(self, screen, fireType, pos, direction):
         self.screen = screen
+        self.collision = Colision()
         self.img = pygame.image.load("resources/image/Golem/fire/"+direction+"/"+fireType+".png")
+        self.rect = self.img.get_rect()
+        self.player_pos = pos
         if(direction == "right"):
-            self.x = pos[0]+30
+            self.rect.x = pos[0]+40
         else:
-            self.x = pos[0]-25
-        self.y = pos[1]+15
+            self.rect.x = pos[0]-40
+        self.rect.y = pos[1] + 15
         self.direction = direction
 
-
-    def draw(self):
-        self.screen.blit(self.img, (self.x, self.y))
+        
+    def draw(self, tile_rect, scroll):
+        fire_move = [0, 0]
+        platform_colid = False
         if(self.direction == 'right'):
-            self.x += 10
+            fire_move[0] += 5
         else:
-            self.x -= 10
+            fire_move[0] -= 5
+        
+        ## cheching platoform colision
+        rect, plat_collisions = self.collision.platformCollision(fire_move,self.rect, tile_rect)
+        del rect
+        if(plat_collisions['right'] or plat_collisions['left']):
+            platform_colid = True
+        else:
+            platform_colid = False
+        
+        self.rect.x += fire_move[0]
+        print(self.rect.x)
+        
+        self.screen.blit(self.img,(self.rect.x-scroll[0], self.rect.y-scroll[1]))
+        return platform_colid
