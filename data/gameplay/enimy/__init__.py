@@ -2,21 +2,28 @@ import pygame
 from data.gameplay.enimy.cactus import Cactus
 from data.gameplay.enimy.wizard import Wizard
 from data.gameplay.enimy.golens import Golens
+from data.gameplay.collisionControl import Colision
 
 class ControlEnimys(object):
     def __init__(self, screen, nivel):
         self.screen = screen
         self.nivel = nivel
+        self.collision = Colision()
         self.allEnimys = []
         self.addingAllTheAnimys()
 
-    def enimysAdd(self, tile_rects, player_rect, scroll):
+    def enimysAdd(self, tile_rects, player_rect,fireCollision, scroll):
         all_rects = []
         if(len(self.positions)!=0):
             for (pos, enimy) in zip(self.positions, self.allEnimys):
                 if(pos[0] in range(scroll[0]-450, scroll[0]+650)):
                     all_rects.append(enimy.add(tile_rects,player_rect, scroll))
 
+
+        if fireCollision[0]:
+            print(fireCollision)
+            del self.allEnimys[fireCollision[1]]
+        # collision, pos = self.collision.enimysCollision([0, 0], fireRectList, enimyRectList)
         return all_rects
     def addingAllTheAnimys(self):
         if(self.nivel == 0):
@@ -86,6 +93,7 @@ class ControlEnimys(object):
 
             self.positions = [(876, 530),(1048, 530),(1156, 530),(1256, 530),(1856, 350),(3148, 50), (3604, 110),(3704, 110),(3848, 110),(5168, 560),(5240, 560)]
         elif (self.nivel == 3):
+
             self.allEnimys.append(Cactus(self.screen, (716, 232)))
             self.allEnimys.append(Cactus(self.screen, (756, 232)))
             self.allEnimys.append(Cactus(self.screen, (788, 232)))
@@ -114,3 +122,8 @@ class ControlEnimys(object):
                         (1194, 232),(1218, 232),(1238, 232),(1266, 232),(1394, 232),(1414, 232),(1438, 232),(1466, 232),(1494, 232),
                         (1882, 232),(1906, 232),(1934, 232),(1960, 536),(2724, 280)]
             # self.positions = [(1448, 168),(1595, 168),(2718, 408),(2750, 296),(4014, 296),(4710, 584), (4870, 584)] 
+
+    def calculatingEnimyDelete(self, fireCollision, all_rect):
+        
+        
+        pass

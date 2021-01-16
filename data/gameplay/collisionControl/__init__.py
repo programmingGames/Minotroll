@@ -3,7 +3,8 @@ from pygame.locals import *
 
 class Colision(object):
     def __init__(self):
-        pass
+        self.colisionPos = 0
+        
     
     def TestCollision(self,rect, tiles):
         # print(type(rect))
@@ -41,18 +42,18 @@ class Colision(object):
     def enimysTestCollision(self, playerRect, enimysRects):
         hit_list = []
         count = 0
-        colisionPosition = 0
+        # colisionPosition = 0
         # print(len(enimysRects))
         for tile in enimysRects:
             if (playerRect.colliderect(tile)):
                 hit_list.append(tile)
-                colisionPosition = count
+                self.colisionPos = count
             count += 1
-        return hit_list, colisionPosition
+        return hit_list
 
     def enimysCollision(self,playerMove, playerRect, enimysRects):
         collision_types = {'top':False,'bottom':False,'right':False,'left':False}
-        hit_list, colisionPosition = self.enimysTestCollision(playerRect,enimysRects)
+        hit_list = self.enimysTestCollision(playerRect,enimysRects)
         for tile in hit_list:
             if(playerMove[0]>0):
                 playerRect.right = tile.left
@@ -61,7 +62,7 @@ class Colision(object):
                 playerRect.left = tile.right
                 collision_types['left'] = True
         
-        hit_list, colisionPosition = self.enimysTestCollision(playerRect,enimysRects)
+        hit_list= self.enimysTestCollision(playerRect,enimysRects)
         for tile in hit_list:
             if playerMove[1]>0:
                 playerRect.bottom = tile.top
@@ -69,4 +70,5 @@ class Colision(object):
             if playerMove[1]<0:
                 playerRect.top = tile.bottom
                 collision_types['top'] = True
-        return collision_types, colisionPosition
+        # print(self.colisionPos)
+        return collision_types, self.colisionPos

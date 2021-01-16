@@ -39,10 +39,10 @@ class GamePlay(object):
     def drawingTheGamePlayEnvirement(self):
         # key_press = pygame.key.get_pressed()
         tile_rects = self.platform.settingPlataform(self.scroll)
-        self.scroll, self.player_rect, self.enimyCollision, self.enimyType  = self.player.settingPlayer(tile_rects, self.scroll, self.allEnimysRectsAndTypes, self.inUse)
+        self.scroll, self.player_rect,self.fireArray, self.enimyCollision, self.enimyType, self.fireEnimyColision, self.fireCollsionPos  = self.player.settingPlayer(tile_rects, self.scroll, self.allEnimysRectsAndTypes, self.inUse)
 
         # update after we check the collision
-        self.allEnimysRectsAndTypes = self.enimys.enimysAdd(tile_rects, self.player_rect, self.scroll)
+        self.allEnimysRectsAndTypes = self.enimys.enimysAdd(tile_rects, self.player_rect,(self.fireEnimyColision, self.fireCollsionPos), self.scroll)
 
         # Drawing some visual animation
         self.animation.draw()

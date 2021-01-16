@@ -1,3 +1,4 @@
+from data.gameplay import enimy
 import pygame
 from pygame.locals import *
 from data.gameplay.collisionControl import Colision
@@ -75,7 +76,7 @@ class Player(object):
             # self.firing = True
             self.determinateAttack()
         
-        self.fireControl(tile_rects, scroll)
+        self.fireEnimyCollision, self.fireCollisionPos = self.fireControl(tile_rects, scroll)
 
         if((not self.moving_left)and(not self.moving_right)and not self.attack):
             self.idle()
@@ -101,19 +102,27 @@ class Player(object):
 
     def fireControl(self, tile_rect, scroll):
         colision = []
+        platfcolision = []
+        enimyCollision = False
+        pos = 0
         if self.firing:
-            colision = [fire.draw(tile_rect, scroll) for fire in self.fireArray]
+            platfcolision = [fire.draw(tile_rect,self.enimyRectList, scroll) for fire in self.fireArray]
         i = 0
 
         ## cheching all the condition to delete one fire
-        for colid in colision:
-            if colid:
+        for colid in platfcolision:
+            if colid[0]:
                 del self.fireArray[i]
+                enimyCollision = colid[1]
+                pos = colid[2]
+
+
         i = 0
         for fire in self.fireArray:
             if ((fire.rect.x > self.player_rect.x + 700)or(-1*fire.rect.x > (self.player_rect.x - 700)*-1)):
                 del self.fireArray[i]
         # print(colision)
+        return enimyCollision, pos
 
     def settingPlayer(self, tile_rects, scroll, allEnimysRectsAndType, inUse):
         self.skillsInUse = inUse
@@ -132,16 +141,17 @@ class Player(object):
         correct_scroll[1] = int(correct_scroll[1])
         self.checkingEnimysCollision(player_movement,allEnimysRectsAndType)
         self.collisionInpact(tile_rects)
-        return correct_scroll, self.player_rect, self.enimyCollision, self.enimyType
+        return correct_scroll, self.player_rect,self.fireArray, self.enimyCollision, self.enimyType,self.fireEnimyCollision, self.fireCollisionPos
 
     def checkingEnimysCollision(self, player_move,enimysRectsAndType):
-        rectList = []
+        self.enimyRectList = []
         enimyList = []
         for enimy in enimysRectsAndType:
-            rectList.append(enimy[0])
+            self.enimyRectList.append(enimy[0])
             enimyList.append(enimy[1])
+        
 
-        collision, position = self.collision.enimysCollision(player_move,self.player_rect,rectList)
+        collision, position = self.collision.enimysCollision(player_move,self.player_rect,self.enimyRectList)
         if(collision['top'] or collision['right'] or collision['bottom'] or collision['left']):
             self.hurtten = True
             self.enimyCollision = True
@@ -358,9 +368,10 @@ class Fire(object):
         self.direction = direction
 
         
-    def draw(self, tile_rect, scroll):
+    def draw(self, tile_rect,enimysRects, scroll):
         fire_move = [0, 0]
-        platform_colid = False
+        platfcollision = False
+        enimyCollision = False
         if(self.direction == 'right'):
             fire_move[0] += 5
         else:
@@ -368,14 +379,18 @@ class Fire(object):
         
         ## cheching platoform colision
         rect, plat_collisions = self.collision.platformCollision(fire_move,self.rect, tile_rect)
+        enimys_colid, pos = self.collision.enimysCollision(fire_move, self.rect, enimysRects)
         del rect
-        if(plat_collisions['right'] or plat_collisions['left']):
-            platform_colid = True
+        if(plat_collisions['right'] or plat_collisions['left'] or enimys_colid['right'] or enimys_colid['left']):
+            if enimys_colid['right'] or enimys_colid['left']:
+                enimyCollision = True
+            else:
+                enimyCollision = False
+            platfcollision = True
         else:
-            platform_colid = False
+            platfcollision = False
         
         self.rect.x += fire_move[0]
-        print(self.rect.x)
         
         self.screen.blit(self.img,(self.rect.x-scroll[0], self.rect.y-scroll[1]))
-        return platform_colid
+        return platfcollision, enimyCollision, pos
