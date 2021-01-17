@@ -1,4 +1,5 @@
 import pygame
+from pygame import rect
 from data.gameplay.enimy.cactus import Cactus
 from data.gameplay.enimy.wizard import Wizard
 from data.gameplay.enimy.golens import Golens
@@ -18,19 +19,23 @@ class ControlEnimys(object):
         self.count = 0
         fireColid = False
         enimyFiredPos = 0
+        
+        if fireCollision[0]:
+            fireColid = True
+            enimyFiredPos = fireCollision[1]
+            # del all_rects[fireCollision[1]]
+        else:
+            fireColid = False
+        self.calculatingEnimyDelete(fireColid,enimyFiredPos, scroll)
+
         if(len(self.positions)!=0):
             for (pos, enimy) in zip(self.positions, self.allEnimys):
                 if(pos[0] in range(scroll[0]-450, scroll[0]+650)):
                     all_rects.append(enimy.add(tile_rects,player_rect, scroll))
                     self.count += 1
-
-
-        if fireCollision[0]:
-            print(fireCollision)
-            fireColid = True
-            enimyFiredPos = fireCollision[1]
-            # del all_rects[fireCollision[1]]
-        self.calculatingEnimyDelete(fireColid,enimyFiredPos, scroll)
+        print(self.positions)
+        # print(scroll[0]-450)
+        # [print(enimys.rect.x) for enimys in self.allEnimys]
         # collision, pos = self.collision.enimysCollision([0, 0], fireRectList, enimyRectList)
         return all_rects
     def addingAllTheAnimys(self):
@@ -132,13 +137,14 @@ class ControlEnimys(object):
             # self.positions = [(1448, 168),(1595, 168),(2718, 408),(2750, 296),(4014, 296),(4710, 584), (4870, 584)] 
 
     def calculatingEnimyDelete(self,fireColid, pos, scroll):
-        i = 0
+        onlyOne = False
         if(len(self.positions)!=0):
             for (position, enimy) in zip(self.positions, self.allEnimys):
-                if(position in range(scroll[0]-450, scroll[0]+650)):
-                    if fireColid:
+                if(position[0] in range(scroll[0]-450, scroll[0]+650)):
+                    if fireColid and not onlyOne:
                         del self.allEnimys[pos]
-                elif(position < scroll[0]-450):
+                        del self.positions[pos]
+                        onlyOne = True
+                elif(position[0] < scroll[0]):
                     del self.allEnimys[0]
-
-            i += 1
+                    del self.positions[0]
