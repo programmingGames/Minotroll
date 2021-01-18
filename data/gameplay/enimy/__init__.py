@@ -33,6 +33,7 @@ class ControlEnimys(object):
                 if(pos[0] in range(scroll[0]-450, scroll[0]+650)):
                     all_rects.append(enimy.add(tile_rects,player_rect, scroll))
                     # playerAttack[0],
+                    
                     self.count += 1
         return all_rects
     def addingAllTheAnimys(self):
