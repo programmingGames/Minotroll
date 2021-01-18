@@ -32,7 +32,7 @@ class GamePlay(object):
         self.enimyCollision = False
         self.enimyType = ''
         self.allEnimysRectsAndTypes = []
-        self.ptforStart = True     
+        self.playerOnAttack = False
 
     
     # method to display all the components in the platform
@@ -42,7 +42,7 @@ class GamePlay(object):
         self.scroll, self.player_rect,self.fireArray, self.enimyCollision, self.enimyType, self.fireEnimyColision, self.fireCollsionPos  = self.player.settingPlayer(tile_rects, self.scroll, self.allEnimysRectsAndTypes, self.inUse)
 
         # update after we check the collision
-        self.allEnimysRectsAndTypes = self.enimys.enimysAdd(tile_rects, self.player_rect,(self.fireEnimyColision, self.fireCollsionPos), self.scroll)
+        self.allEnimysRectsAndTypes = self.enimys.enimysAdd(tile_rects, self.player_rect,(self.fireEnimyColision, self.fireCollsionPos),(self.playerOnAttack, self.inUse), self.scroll)
 
         # Drawing some visual animation
         self.animation.draw()

@@ -15,7 +15,7 @@ class ControlEnimys(object):
         self.count = 0
         self.addingAllTheAnimys()
 
-    def enimysAdd(self, tile_rects, player_rect,fireCollision, scroll):
+    def enimysAdd(self, tile_rects, player_rect,fireCollision,playerAttack,scroll):
         all_rects = []
         self.count = 0
         fireColid = False
@@ -24,7 +24,6 @@ class ControlEnimys(object):
         if fireCollision[0]:
             fireColid = True
             enimyFiredPos = fireCollision[1]
-            # del all_rects[fireCollision[1]]
         else:
             fireColid = False
         self.calculatingEnimyDelete(fireColid,enimyFiredPos, scroll)
@@ -33,8 +32,8 @@ class ControlEnimys(object):
             for (pos, enimy) in zip(self.positions, self.allEnimys):
                 if(pos[0] in range(scroll[0]-450, scroll[0]+650)):
                     all_rects.append(enimy.add(tile_rects,player_rect, scroll))
+                    # playerAttack[0],
                     self.count += 1
-        print(self.killAttempt)
         return all_rects
     def addingAllTheAnimys(self):
         if(self.nivel == 0):
@@ -169,23 +168,20 @@ class ControlEnimys(object):
             # self.positions = [(1448, 168),(1595, 168),(2718, 408),(2750, 296),(4014, 296),(4710, 584), (4870, 584)] 
 
     def calculatingEnimyDelete(self,fireColid, pos, scroll):
-        onlyOne = False
         i = 0
         if(len(self.positions)!=0):
             for (position, enimy, attemp) in zip(self.positions, self.allEnimys, self.killAttempt):
-                print(type(attemp))
                 if(position[0] in range(scroll[0]-450, scroll[0]+650)):
-                    if fireColid and not onlyOne:
-                        if(self.allEnimys[pos].name != 'cactus'):
-                            if(attemp == 0):
-                                del self.allEnimys[pos]
-                                del self.positions[pos]
-                                del self.killAttempt[pos]
-                            else:
-                                attemp -= 1
-                                self.killAttempt[i] = attemp
-                        onlyOne = True           
+                    if fireColid:
+                        if(enimy.name != 'cactus'):
+                                if(attemp <= 0):
+                                    self.allEnimys.pop(pos)
+                                    self.positions.pop(pos)
+                                    self.killAttempt.pop(pos)
+                                else:
+                                        self.killAttempt[i] = self.killAttempt[i] - 1           
                 elif(position[0] < scroll[0]):
-                    del self.allEnimys[0]
-                    del self.positions[0]
-            i += 1  
+                    self.allEnimys.pop(0)
+                    self.positions.pop(0)
+                    self.killAttempt.pop(0)
+                i += 1  
