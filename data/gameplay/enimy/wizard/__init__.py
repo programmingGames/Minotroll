@@ -9,6 +9,7 @@ from data.gameplay.collisionControl import Colision
 class Wizard:
     def __init__(self, screen, pos, patrolRadius):
         self.screen = screen
+        self.name = 'blue wizard'
         self.patrolRadius = patrolRadius
         self.rect = pygame.Rect(40, 30, 20, 42)
         self.rect.x = pos[0]
@@ -73,7 +74,7 @@ class Wizard:
         self.controlingCollision(wizard_move, platform_rects)
         self.screen.blit(self.img,(self.rect.x-scroll[0], self.rect.y-scroll[1]))
         # print(self.attacking, self.move_direction)
-        return self.rect, 'blue wizard'
+        return self.rect, self.name
 
     def determinateAttack(self):
 

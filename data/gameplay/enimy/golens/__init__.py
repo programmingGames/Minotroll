@@ -9,6 +9,7 @@ from data.gameplay.collisionControl import Colision
 class Golens:
     def __init__(self, screen,pos, patrolRadius):
         self.screen = screen
+        self.name = 'stone golem'
         self.patrolRadius = patrolRadius
         self.state = 'Idle'
         self.move_direction = 'right'
@@ -75,7 +76,7 @@ class Golens:
         self.controlingCollision(golens_move, platform_rects)
         self.screen.blit(self.imgGolens,(self.rect.x-scroll[0], self.rect.y-scroll[1]))
         # print(self.attacking, self.move_direction)
-        return self.rect, 'stone golem'
+        return self.rect, self.name
 
     def determinateAttack(self):
         if((self.rect.x - self.initialPosition)>self.patrolRadius):

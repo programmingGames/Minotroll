@@ -91,6 +91,7 @@ class UserMenu(object):
 
 
         ## controling th popUp display
+        # choice = 3
         if(self.active):
             ver, close = self.popup.draw(pressed_keys)
             if close:

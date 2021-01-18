@@ -5,6 +5,7 @@ from data.gameplay.collisionControl import Colision
 class Cactus:
     def __init__(self, screen, position):
         self.screen = screen
+        self.name = 'cactus'
         self.collision = Colision()
         self.air_timer = 0
         self.vertical_momentum = 0
@@ -12,6 +13,7 @@ class Cactus:
         self.cactusRects =self.img.get_rect()
         self.cactusRects.x = position[0]
         self.cactusRects.y = position[1]
+
 
     def controlingCollision(self, move, platform_rects):
         rct, plat_collisions = self.collision.platformCollision(move,self.cactusRects, platform_rects)
@@ -37,4 +39,4 @@ class Cactus:
         self.controlingCollision(move, platform_rects)
         self.screen.blit(self.img, (self.cactusRects.x-scroll[0], self.cactusRects.y-scroll[1]))
 
-        return (self.cactusRects, 'cactus')
+        return (self.cactusRects, self.name)
