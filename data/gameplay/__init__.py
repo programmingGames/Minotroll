@@ -1,6 +1,7 @@
 import pygame
 from pygame.locals import *
 import os
+from data.gameplay import enimy
 from data.gameplay.headUpDisplay import HeadUpDisplay as H_u_d
 from data.gameplay.lifeItem import LifeItem
 from data.gameplay.enimy import ControlEnimys
@@ -42,7 +43,7 @@ class GamePlay(object):
         self.scroll, self.player_rect,self.fireArray, self.enimyCollision, self.enimyType, self.fireEnimyColision, self.fireCollsionPos, self.playerOnAttack = self.player.settingPlayer(tile_rects, self.scroll, self.allEnimysRectsAndTypes, self.inUse)
 
         # update after we check the collision
-        self.allEnimysRectsAndTypes = self.enimys.enimysAdd(tile_rects, self.player_rect,(self.fireEnimyColision, self.fireCollsionPos),(self.playerOnAttack, self.inUse), self.scroll)
+        self.allEnimysRectsAndTypes = self.enimys.enimysAdd(tile_rects, self.player_rect,(self.fireEnimyColision, self.fireCollsionPos),(self.playerOnAttack,self.enimyCollision, self.inUse), self.scroll)
 
         # Drawing some visual animation
         self.animation.draw()
@@ -72,6 +73,9 @@ class GamePlay(object):
     def controllingThePlayerLife(self):
         if (self.enimyCollision and self.playerOnAttack == False):
             self.headUpDisplay.updatingPlayerLife(self.enimyType)
+        elif(self.enimyCollision and self.enimyType == "cactus"):
+            self.headUpDisplay.updatingPlayerLife(self.enimyType)
+            
         if self.itemLifeCollision:
             self.headUpDisplay.updatingPlayerLife('life plant')
 

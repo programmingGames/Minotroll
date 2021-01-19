@@ -27,6 +27,7 @@ class Wizard:
         self.move_frame = 0
         self.impactDelay = 0
         self.attacking = False
+        self.isMe = False
 
 
     def controlingCollision(self, wizard_move, platform_rects, player_rect, playerOnAttack):
@@ -45,16 +46,18 @@ class Wizard:
         else:
             self.air_timer += 1
         
-        playerColision, position = self.collision.enimysCollision(wizard_move, self.rect, [player_rect])
-        del position
-        if(playerColision['top'] or playerColision['bottom'] or playerColision['left'] or playerColision['right']):
+        if(self.rect.x in range(player_rect.x - 10, player_rect.x + 10)):
+            self.isMe = True
+        else:
+            self.isMe = False
+        print(playerOnAttack[0], playerOnAttack[1], self.isMe)
+        if playerOnAttack[0] and playerOnAttack[1] and self.isMe:
+            print("playerColision")
             self.impactDelay = 0
-            self.collisionImpact(playerOnAttack)
+            self.collisionImpact()
 
-    def collisionImpact(self, playerOnAttack):
-        # print(playerOnAttack)
-
-        if((self.impactDelay <= 5) and (playerOnAttack == True)):
+    def collisionImpact(self):
+        if(self.impactDelay <= 5):
             # self.player_rect, platformCollisions = self.collision.platformCollision(player_movement,self.player_rect,tile_rects)
             if(self.move_direction == 'right'):
                 self.move_direction = 'left'
