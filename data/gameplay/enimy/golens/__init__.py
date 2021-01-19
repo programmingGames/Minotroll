@@ -43,7 +43,7 @@ class Golens:
         else:
             self.air_timer += 1
 
-    def add(self, platform_rects,player_rect, scroll):
+    def add(self, platform_rects,player_rect,playerOnAttack, scroll):
         golens_move = [0, 0]
         if self.move_right:
             golens_move[0] += 1
@@ -51,7 +51,7 @@ class Golens:
         if self.move_left:
             golens_move[0] -= 1
 
-        if self.attacking:
+        if (self.attacking and playerOnAttack == False):
             self.startAttack()
             '''if(self.move_direction =='right'):
                 golens_move[0]+=4

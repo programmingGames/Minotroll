@@ -25,10 +25,11 @@ class Wizard:
         self.vertical_momentum = 0
         self.img = pygame.image.load("resources/image/enimy/wizard/"+self.state+"/"+self.move_direction+"/Chara-0.png")
         self.move_frame = 0
+        self.impactDelay = 0
         self.attacking = False
 
 
-    def controlingCollision(self, wizard_move, platform_rects):
+    def controlingCollision(self, wizard_move, platform_rects, player_rect, playerOnAttack):
         rect, plat_collisions = self.collision.platformCollision(wizard_move,self.rect, platform_rects)
         # right, left collision
         del rect
@@ -44,7 +45,28 @@ class Wizard:
         else:
             self.air_timer += 1
         
-    def add(self, platform_rects,player_rect, scroll):
+        playerColision, position = self.collision.enimysCollision(wizard_move, self.rect, [player_rect])
+        del position
+        if(playerColision['top'] or playerColision['bottom'] or playerColision['left'] or playerColision['right']):
+            self.impactDelay = 0
+            self.collisionImpact(playerOnAttack)
+
+    def collisionImpact(self, playerOnAttack):
+        # print(playerOnAttack)
+
+        if((self.impactDelay <= 5) and (playerOnAttack == True)):
+            # self.player_rect, platformCollisions = self.collision.platformCollision(player_movement,self.player_rect,tile_rects)
+            if(self.move_direction == 'right'):
+                self.move_direction = 'left'
+                self.rect.x -= 5
+                self.rect.y -= 10
+            elif(self.move_direction == 'left'):
+                self.move_direction = 'right'
+                self.rect.x += 5
+                self.rect.y -= 10
+            self.impactDelay += 1
+        
+    def add(self, platform_rects,player_rect,playerOnAttack, scroll):
         wizard_move = [0, 0]
         if self.move_right:
             wizard_move[0] += 1
@@ -52,7 +74,7 @@ class Wizard:
         if self.move_left:
             wizard_move[0] -= 1
         
-        if self.attacking:
+        if (self.attacking and playerOnAttack == False):
             self.startAttack()
 
         # if move_right and move_left not True call idle
@@ -71,7 +93,7 @@ class Wizard:
         
         self.move_direction, self.move_right, self.move_left, self.attacking = self.ai.activation(self.rect, player_rect)
         self.determinateAttack()
-        self.controlingCollision(wizard_move, platform_rects)
+        self.controlingCollision(wizard_move, platform_rects, player_rect, playerOnAttack)
         self.screen.blit(self.img,(self.rect.x-scroll[0], self.rect.y-scroll[1]))
         # print(self.attacking, self.move_direction)
         return self.rect, self.name

@@ -141,7 +141,7 @@ class Player(object):
         correct_scroll[1] = int(correct_scroll[1])
         self.checkingEnimysCollision(player_movement,allEnimysRectsAndType)
         self.collisionInpact(tile_rects)
-        return correct_scroll, self.player_rect,self.fireArray, self.enimyCollision, self.enimyType,self.fireEnimyCollision, self.fireCollisionPos
+        return correct_scroll, self.player_rect,self.fireArray, self.enimyCollision, self.enimyType,self.fireEnimyCollision, self.fireCollisionPos, self.attack
 
     def checkingEnimysCollision(self, player_move,enimysRectsAndType):
         self.enimyRectList = []
@@ -162,17 +162,15 @@ class Player(object):
 
     def collisionInpact(self, tile_rect):
         # player_movement=[0 , 0]
-        if self.enimyCollision :
+        # print(self.attack, self.enimyCollision)
+        if self.enimyCollision and self.attack == False:
+            # print("ok", self.attack)
             if(self.impactDelay <= 5):
                 # self.player_rect, platformCollisions = self.collision.platformCollision(player_movement,self.player_rect,tile_rects)
                 if(self.move_direction == 'right'):
-                    if (self.impactDelay>5):
-                        self.move_direction = 'left'
                     self.player_rect.x -= 5
                     self.player_rect.y -= 10
                 elif(self.move_direction == 'left'):
-                    if (self.impactDelay>5):
-                        self.move_direction = 'right'
                     self.player_rect.x += 5
                     self.player_rect.y -= 10
                 self.impactDelay += 1

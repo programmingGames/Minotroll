@@ -39,7 +39,7 @@ class GamePlay(object):
     def drawingTheGamePlayEnvirement(self):
         # key_press = pygame.key.get_pressed()
         tile_rects = self.platform.settingPlataform(self.scroll)
-        self.scroll, self.player_rect,self.fireArray, self.enimyCollision, self.enimyType, self.fireEnimyColision, self.fireCollsionPos  = self.player.settingPlayer(tile_rects, self.scroll, self.allEnimysRectsAndTypes, self.inUse)
+        self.scroll, self.player_rect,self.fireArray, self.enimyCollision, self.enimyType, self.fireEnimyColision, self.fireCollsionPos, self.playerOnAttack = self.player.settingPlayer(tile_rects, self.scroll, self.allEnimysRectsAndTypes, self.inUse)
 
         # update after we check the collision
         self.allEnimysRectsAndTypes = self.enimys.enimysAdd(tile_rects, self.player_rect,(self.fireEnimyColision, self.fireCollsionPos),(self.playerOnAttack, self.inUse), self.scroll)
@@ -65,14 +65,14 @@ class GamePlay(object):
             painelState = 11  
 
         # print(self.player_rect.x, self.player_rect.y)
-        # print(painelState)
+        # print(self.playerOnAttack)
         self.controllingTheImageOfGameOverAndLevelComplete(painelState)
         return painelState, self.player_rect, self.qtlife
     
     def controllingThePlayerLife(self):
-        if self.enimyCollision:
+        if (self.enimyCollision and self.playerOnAttack == False):
             self.headUpDisplay.updatingPlayerLife(self.enimyType)
-        elif self.itemLifeCollision:
+        if self.itemLifeCollision:
             self.headUpDisplay.updatingPlayerLife('life plant')
 
     def controllingTheImageOfGameOverAndLevelComplete(self, painelState):
