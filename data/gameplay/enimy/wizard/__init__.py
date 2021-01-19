@@ -46,11 +46,12 @@ class Wizard:
         else:
             self.air_timer += 1
         
-        if(self.rect.x in range(player_rect.x - 10, player_rect.x + 10)):
+        if(self.rect.x in range(player_rect.x - 20, player_rect.x + 20)):
             self.isMe = True
         else:
             self.isMe = False
-        print(playerOnAttack[0], playerOnAttack[1], self.isMe)
+        # print(player_rect.x - 20, self.rect.x, player_rect.x + 20)
+        # print(playerOnAttack[0], playerOnAttack[1], self.isMe)
         if playerOnAttack[0] and playerOnAttack[1] and self.isMe:
             print("playerColision")
             self.impactDelay = 0

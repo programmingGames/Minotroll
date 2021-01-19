@@ -26,13 +26,14 @@ class ControlEnimys(object):
             enimyFiredPos = fireCollision[1]
         else:
             fireColid = False
-        self.calculatingEnimyDelete(fireColid,enimyFiredPos, scroll)
+        self.calculatingEnimyDelete(fireColid,enimyFiredPos,playerAttack, scroll)
 
         if(len(self.positions)!=0):
             for (pos, enimy) in zip(self.positions, self.allEnimys):
                 if(pos[0] in range(scroll[0]-450, scroll[0]+650)):
                     all_rects.append(enimy.add(tile_rects,player_rect,(playerAttack[0], playerAttack[1]), scroll))
                     self.count += 1
+        # print(self.killAttempt)
         return all_rects
     def addingAllTheAnimys(self):
         if(self.nivel == 0):
@@ -68,17 +69,17 @@ class ControlEnimys(object):
             # self.killAttempt = [None, None, 2, 2, None, ]
             for enimy in self.allEnimys:
                 if(enimy.name == 'stone golem'):
-                    self.killAttempt.append(1)
+                    self.killAttempt.append(4)
                 elif(enimy.name == 'blue wizard'):
-                    self.killAttempt.append(2)
+                    self.killAttempt.append(6)
                 elif(enimy.name == 'cactus'):
                     self.killAttempt.append(None)
 
         elif (self.nivel == 1):
-            self.allEnimys.append(Cactus(self.screen, (1088, 648)))
             self.allEnimys.append(Golens(self.screen, (1260, 184), 100))
             self.allEnimys.append(Golens(self.screen, (1404, 184), 100))
             self.allEnimys.append(Cactus(self.screen, (1578, 424)))
+            self.allEnimys.append(Cactus(self.screen, (1088, 648)))
             self.allEnimys.append(Wizard(self.screen, (1716, 616), 100))
             self.allEnimys.append(Golens(self.screen, (1932, 616), 100))
             self.allEnimys.append(Golens(self.screen, (2120, 616), 100))
@@ -94,14 +95,14 @@ class ControlEnimys(object):
             self.allEnimys.append(Golens(self.screen, (4178, 104), 100))
             self.allEnimys.append(Golens(self.screen, (4846, 104), 100))
 
-            self.positions = [(1088, 648), (1260, 184),(1404, 184), (1578, 424),(1716, 616),(1932, 616),(2120, 616),(2240, 344),(4846, 104)
+            self.positions = [ (1260, 184),(1404, 184), (1578, 424),(1088, 648),(1716, 616),(1932, 616),(2120, 616),(2240, 344),(4846, 104)
                             ,(2288, 360),(2340, 376),(2758, 616),(2986, 408),(3282, 184),(3442, 184),(3650, 136),(4178, 184),(4178, 104)]
 
             for enimy in self.allEnimys:
                 if(enimy.name == 'stone golem'):
-                    self.killAttempt.append(1)
+                    self.killAttempt.append(7)
                 elif(enimy.name == 'blue wizard'):
-                    self.killAttempt.append(2)
+                    self.killAttempt.append(9)
                 elif(enimy.name == 'cactus'):
                     self.killAttempt.append(None)
 
@@ -121,9 +122,9 @@ class ControlEnimys(object):
             self.positions = [(876, 530),(1048, 530),(1156, 530),(1256, 530),(1856, 350),(3148, 50), (3604, 110),(3704, 110),(3848, 110),(5168, 560),(5240, 560)]
             for enimy in self.allEnimys:
                 if(enimy.name == 'stone golem'):
-                    self.killAttempt.append(1)
+                    self.killAttempt.append(8)
                 elif(enimy.name == 'blue wizard'):
-                    self.killAttempt.append(2)
+                    self.killAttempt.append(10)
                 elif(enimy.name == 'cactus'):
                     self.killAttempt.append(None)
 
@@ -159,28 +160,39 @@ class ControlEnimys(object):
 
             for enimy in self.allEnimys:
                 if(enimy.name == 'stone golem'):
-                    self.killAttempt.append(1)
+                    self.killAttempt.append(9)
                 elif(enimy.name == 'blue wizard'):
-                    self.killAttempt.append(2)
+                    self.killAttempt.append(11)
                 elif(enimy.name == 'cactus'):
                     self.killAttempt.append(None)
             # self.positions = [(1448, 168),(1595, 168),(2718, 408),(2750, 296),(4014, 296),(4710, 584), (4870, 584)] 
 
-    def calculatingEnimyDelete(self,fireColid, pos, scroll):
+    def calculatingEnimyDelete(self,fireColid, pos,playerAttack, scroll):
         i = 0
         if(len(self.positions)!=0):
             for (position, enimy, attemp) in zip(self.positions, self.allEnimys, self.killAttempt):
                 if(position[0] in range(scroll[0]-450, scroll[0]+650)):
-                    if fireColid:
-                        if(enimy.name != 'cactus'):
-                                if(attemp <= 0):
-                                    self.allEnimys.pop(pos)
-                                    self.positions.pop(pos)
-                                    self.killAttempt.pop(pos)
-                                else:
-                                        self.killAttempt[i] = self.killAttempt[i] - 1           
-                elif(position[0] < scroll[0]):
-                    self.allEnimys.pop(0)
-                    self.positions.pop(0)
-                    self.killAttempt.pop(0)
-                i += 1  
+                    if fireColid or (playerAttack[0] and playerAttack[1]):
+                        print(position, enimy.name, attemp)
+                        if((enimy.name != 'cactus')and(attemp != None)):
+                            if(attemp <= 0):
+                                self.allEnimys.pop(pos)
+                                self.positions.pop(pos)
+                                self.killAttempt.pop(pos)
+                            else:
+                                if(playerAttack[2] == "greenfire"):
+                                    self.killAttempt[i] = self.killAttempt[i] - 1    
+                                elif(playerAttack[2] == "bluefire"):
+                                    self.killAttempt[i] = self.killAttempt[i] - 1.5
+                                elif(playerAttack[2] == "slashing"):
+                                    self.killAttempt[i] = self.killAttempt[i] - 0.6
+                                elif(playerAttack[2] == "kicking"):
+                                    self.killAttempt[i] = self.killAttempt[i] - 0.2
+                                elif(playerAttack[2] == "battleax"):
+                                    self.killAttempt[i] = self.killAttempt[i] - 0.8
+                    
+                elif(position[0] < scroll[0]-450):
+                    self.allEnimys.pop(i)
+                    self.positions.pop(i)
+                    self.killAttempt.pop(i)
+            i += 1  
