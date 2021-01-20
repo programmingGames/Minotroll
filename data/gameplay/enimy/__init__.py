@@ -46,28 +46,10 @@ class ControlEnimys(object):
 
         return all_rects
     def addingAllTheAnimys(self):
-        if(self.nivel == 0):
-            self.allCactus.append(Cactus(self.screen, (928, 184)))
-            self.allCactus.append(Cactus(self.screen, (964, 184)))
-            self.allCactus.append(Cactus(self.screen, (2370, 504)))
-            self.allCactus.append(Cactus(self.screen, (2410, 504)))
-            self.allCactus.append(Cactus(self.screen, (2450, 504)))
-            self.allCactus.append(Cactus(self.screen, (2478, 504)))
-            self.allCactus.append(Cactus(self.screen, (3778, 472)))
-            self.allCactus.append(Cactus(self.screen, (3746, 472)))
-            self.allCactus.append(Cactus(self.screen, (3706, 472)))
-            self.allCactus.append(Cactus(self.screen, (4458, 408)))
-            self.allCactus.append(Cactus(self.screen, (4490, 408)))
-            self.allCactus.append(Cactus(self.screen, (4514, 408)))
-            self.allCactus.append(Cactus(self.screen, (5030, 520)))
-            self.allCactus.append(Cactus(self.screen, (5070, 520)))
-            self.allCactus.append(Cactus(self.screen, (5106, 520)))
-            self.allCactus.append(Cactus(self.screen, (5138, 520)))
-            self.allCactus.append(Cactus(self.screen, (5162, 520)))
-            self.allCactus.append(Cactus(self.screen, (5194, 520)))
-            
+        if(self.nivel == 0):          
             self.allCactusPosition = [(928, 184),(964, 184),(2370, 504),(2410, 504),(2450, 504),(2478, 504),(3778, 472),(3746, 472),
             (3706, 472),(4458, 408),(4490, 408),(4514, 408),(5030, 520),(5070, 520),(5106, 520),(5138, 520),(5162, 520),(5194, 520)]
+            self.allCactus = [(Cactus(self.screen, pos)) for pos in self.allCactusPosition] 
 
             self.allEnimys.append(Wizard(self.screen,(1388,168), 100))
             self.allEnimys.append(Wizard(self.screen,(1500,168), 100))
@@ -98,15 +80,8 @@ class ControlEnimys(object):
                     self.killAttempt.append(6)
 
         elif (self.nivel == 1):
-            self.allCactus.append(Cactus(self.screen, (1578, 424)))
-            self.allCactus.append(Cactus(self.screen, (1088, 648)))
-            self.allCactus.append(Cactus(self.screen, (2240, 344)))
-            self.allCactus.append(Cactus(self.screen, (2288, 360)))
-            self.allCactus.append(Cactus(self.screen, (2340, 376)))
-            self.allCactus.append(Cactus(self.screen, (2986, 408)))
-            self.allCactus.append(Cactus(self.screen, (3650, 136)))
-
             self.allCactusPosition = [(1578, 424), (1088, 648), (2240, 344), (2288, 360), (2340, 376), (2986, 408), (3650, 136)]
+            self.allCactus = [(Cactus(self.screen, pos)) for pos in self.allCactusPosition] 
 
             self.allEnimys.append(Wizard(self.screen,(1220,184), 100))
             self.allEnimys.append(Wizard(self.screen,(1296,184), 100))
@@ -141,19 +116,29 @@ class ControlEnimys(object):
                     self.killAttempt.append(9)
 
         elif (self.nivel == 2):
-            self.allEnimys.append(Golens(self.screen, (876, 530), 100))
-            self.allEnimys.append(Golens(self.screen, (1048, 530), 100))
-            self.allEnimys.append(Golens(self.screen, (1156, 530), 100))
-            self.allEnimys.append(Golens(self.screen, (1256, 530), 100))
-            self.allEnimys.append(Golens(self.screen, (1856, 350), 100))
-            self.allEnimys.append(Golens(self.screen, (3148, 50), 100))
-            self.allEnimys.append(Golens(self.screen, (3604, 110), 100))
-            self.allEnimys.append(Golens(self.screen, (3704, 110), 100))
-            self.allEnimys.append(Golens(self.screen, (3848, 110), 100))
-            self.allEnimys.append(Golens(self.screen, (5168, 560), 100))
-            self.allEnimys.append(Golens(self.screen, (5240, 560), 100))
+            self.allEnimys.append(Golens(self.screen,(852,530), 50))
+            self.allEnimys.append(Golens(self.screen,(928,530), 50))
+            self.allEnimys.append(Golens(self.screen,(988,530), 50))
+            self.allEnimys.append(Golens(self.screen,(1036,530), 50))
+            self.allEnimys.append(Golens(self.screen,(1096,530), 50))
+            self.allEnimys.append(Golens(self.screen,(1136,530), 50))
+            self.allEnimys.append(Golens(self.screen,(1184,530), 50))
+            self.allEnimys.append(Golens(self.screen,(1264,530), 50))
+            self.allEnimys.append(Golens(self.screen,(1862,350), 50))
+            self.allEnimys.append(Golens(self.screen,(3508,110), 50))
+            self.allEnimys.append(Golens(self.screen,(3596,110), 50))
+            self.allEnimys.append(Golens(self.screen,(3648,110), 50))
+            self.allEnimys.append(Golens(self.screen,(3724,110), 50))
+            self.allEnimys.append(Golens(self.screen,(3824,110), 50))
+            self.allEnimys.append(Golens(self.screen,(3916,110), 50))
+            self.allEnimys.append(Golens(self.screen,(5108,5108), 50))
+            self.allEnimys.append(Golens(self.screen,(5304,560), 50))
+            self.allEnimys.append(Golens(self.screen,(5360,560), 50))
 
-            self.allEnimysPosition = []
+            self.allEnimysPosition = [(852,852), (928,928), (988,988), (1036,1036), (1096,1096), (1136,1136), (1184,1184), (1264,1264),
+                                    (1862,1862), (3508,3508), (3596,3596), (3648,3648), (3724,3724), (3824,3824), (3916,3916), (5108,5108),
+                                    (5304,5304), (5360,5360)]            
+            
             for enimy in self.allEnimys:
                 if(enimy.name == 'stone golem'):
                     self.killAttempt.append(8)
@@ -161,32 +146,17 @@ class ControlEnimys(object):
                     self.killAttempt.append(10)
 
         elif (self.nivel == 3):
+            self.allCactusPosition = [(716, 232), (756, 232), (788, 232), (828, 232), (942, 232), (982, 232), (1010, 232), (1046, 232)
+                        ,(1170, 232), (1194, 232), (1218, 232), (1238, 232), (1266, 232), (1394, 232), (1414, 232), (1438, 232), (1466, 232)
+                        , (1494, 232), (1882, 232), (1906, 232), (1934, 232)]
+            self.allCactus = [(Cactus(self.screen, pos)) for pos in self.allCactusPosition]            
 
-            self.allEnimys.append(Cactus(self.screen, (716, 232)))
-            self.allEnimys.append(Cactus(self.screen, (756, 232)))
-            self.allEnimys.append(Cactus(self.screen, (788, 232)))
-            self.allEnimys.append(Cactus(self.screen, (828, 232)))
-            self.allEnimys.append(Cactus(self.screen, (942, 232)))
-            self.allEnimys.append(Cactus(self.screen, (982, 232)))
-            self.allEnimys.append(Cactus(self.screen, (1010, 232)))
-            self.allEnimys.append(Cactus(self.screen, (1046, 232)))
-            self.allEnimys.append(Cactus(self.screen, (1170, 232)))
-            self.allEnimys.append(Cactus(self.screen, (1194, 232)))
-            self.allEnimys.append(Cactus(self.screen, (1218, 232)))
-            self.allEnimys.append(Cactus(self.screen, (1238, 232)))
-            self.allEnimys.append(Cactus(self.screen, (1266, 232)))
-            self.allEnimys.append(Cactus(self.screen, (1394, 232)))
-            self.allEnimys.append(Cactus(self.screen, (1414, 232)))
-            self.allEnimys.append(Cactus(self.screen, (1438, 232)))
-            self.allEnimys.append(Cactus(self.screen, (1466, 232)))
-            self.allEnimys.append(Cactus(self.screen, (1494, 232)))
-            self.allEnimys.append(Cactus(self.screen, (1882, 232)))
-            self.allEnimys.append(Cactus(self.screen, (1906, 232)))
-            self.allEnimys.append(Cactus(self.screen, (1934, 232)))
-            self.allEnimys.append(Wizard(self.screen, (1960, 536), 100))
-            self.allEnimys.append(Wizard(self.screen, (2724, 280), 100))
+            self.allEnimys.append(Wizard(self.screen,(2008,536), 100))
+            self.allEnimys.append(Wizard(self.screen,(2720,280), 100))
+            self.allEnimys.append(Wizard(self.screen,(2720,280), 100))
+            self.allEnimys.append(Wizard(self.screen,(2720,280), 100))
 
-            self.positions = []
+            self.allEnimysPosition = [(2008,2008), (2720,2720), (2720,2720), (2720,2720)]
 
             for enimy in self.allEnimys:
                 if(enimy.name == 'stone golem'):
