@@ -153,7 +153,7 @@ class ControlEnimys(object):
             self.allEnimys.append(Golens(self.screen, (5168, 560), 100))
             self.allEnimys.append(Golens(self.screen, (5240, 560), 100))
 
-            self.positions = []
+            self.allEnimysPosition = []
             for enimy in self.allEnimys:
                 if(enimy.name == 'stone golem'):
                     self.killAttempt.append(8)
