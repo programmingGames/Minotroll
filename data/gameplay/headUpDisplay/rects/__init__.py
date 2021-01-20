@@ -13,6 +13,7 @@ class Rects:
     def drawGradientEffect(self, color, qtlife):
         self.width = qtlife
         pygame.draw.rect(self.screen, self.lifeGradientColor[color], pygame.Rect(self.x, self.y, self.width,self.height))
+    
     def drawSelectColor(self, progress):
         self.width = progress
         pygame.draw.rect(self.screen, self.color, pygame.Rect(self.x, self.y, self.width,self.height))

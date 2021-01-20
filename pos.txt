@@ -1,0 +1,1 @@
+self.allEnimys.append(Wizard(self.screen,(1110,120), 100))

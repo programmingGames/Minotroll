@@ -69,24 +69,24 @@ class GamePlay(object):
             painelState = 11  
 
         # print(self.player_rect.x, self.player_rect.y)
-        # key = pygame.key.get_pressed()
-        # if key[K_y] and self.count >= 10:
-        #     file = open('pos1.txt', 'a')
-        #     file.write("("+str(self.player_rect.x)+','+str(self.player_rect.x)+'), ')
-        #     file.close()
-        #     self.pos = (self.player_rect.x, self.player_rect.y)
-        #     self.count = 0
-        # if key[K_w] and self.count >= 10:
-        #     file = open('pos.txt', 'a')
-        #     file.write('self.allEnimys.append(Wizard(self.screen,('+str(self.pos[0])+','+str(self.pos[1])+'), 100))\n')
-        #     file.close()
-        #     self.count = 0
-        # elif key[K_g] and self.count >= 10:
-        #     file = open('pos.txt', 'a')
-        #     file.write('self.allEnimys.append(Golens(self.screen,('+str(self.pos[0])+','+str(self.pos[1])+'), 50))\n')
-        #     file.close()
-        #     self.count = 0
-        # self.count += 1
+        key = pygame.key.get_pressed()
+        if key[K_y] and self.count >= 10:
+            file = open('pos1.txt', 'a')
+            file.write("("+str(self.player_rect.x)+','+str(self.player_rect.x)+'), ')
+            file.close()
+            self.pos = (self.player_rect.x, self.player_rect.y)
+            self.count = 0
+        if key[K_w] and self.count >= 10:
+            file = open('pos.txt', 'a')
+            file.write('self.allEnimys.append(Wizard(self.screen,('+str(self.pos[0])+','+str(self.pos[1])+'), 100))\n')
+            file.close()
+            self.count = 0
+        elif key[K_g] and self.count >= 10:
+            file = open('pos.txt', 'a')
+            file.write('self.allEnimys.append(Golens(self.screen,('+str(self.pos[0])+','+str(self.pos[1])+'), 50))\n')
+            file.close()
+            self.count = 0
+        self.count += 1
         # print(self.playerOnAttack)
         self.controllingTheImageOfGameOverAndLevelComplete(painelState)
         return painelState, self.player_rect, self.qtlife

@@ -11,7 +11,7 @@ class Initiation:
     # Method to blit the start game font on the screen
     def settingStart(self):
         self.background.settingBackgroundMenu(1)
-        if(self.frame == 50):
+        if(self.frame == 100):
             return 1
         else:
             self.frame += 1
