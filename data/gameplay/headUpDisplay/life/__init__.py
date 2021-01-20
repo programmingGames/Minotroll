@@ -6,25 +6,25 @@ class Life:
         self.screen = screen
         self.lifeBox = pygame.image.load("resources/image/headUpDisplay/conteiner/box1.png")
         self.lifeRect = pygame.Rect(0,0,0,0)
-        self.qtlife = qtlife
-        self.maxLife = 240
+        self.qtlife = 218
+        self.maxLife = 218
         self.start = True
         ## pixel of the life is equal 242
 
     def updateLife(self, qtlife):
-        if(self.qtlife <= 242):
-            if(self.qtlife+qtlife > 240):
-                self.qtlife = 240
+        if(self.qtlife <= 218):
+            if(self.qtlife+qtlife > 218):
+                self.qtlife = 218
             else:
                 self.qtlife = self.qtlife + qtlife
 
     def draw(self):
+        self.screen.blit(self.lifeBox, (82, 42))
         if (self.start):
-            self.lifeRect = Rects(self.screen, self.qtlife, 23, 100, 27, (0,255, 0))
+            self.lifeRect = Rects(self.screen, self.qtlife, 12, 98, 55, (0,255, 0))
             self.start = False
         
         self.lostLifeDrawEffect()
-        self.screen.blit(self.lifeBox, (95, 20))
         return self.qtlife
         
     def lostLifeDrawEffect(self):

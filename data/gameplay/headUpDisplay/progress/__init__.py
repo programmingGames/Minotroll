@@ -10,11 +10,12 @@ class LevelProgress(object):
         self.start = True
 
     def draw(self, currentLastPassPoint):
-        if(self.start):
-            self.progressRect.drawSelectColor(self.currentProgress)
-            self.start = not self.start 
-        else:
-            if self.currentProgress in range(0,160):
-                self.currentProgress = int(((currentLastPassPoint - 500)*160)/10000)
-                self.progressRect.drawSelectColor(self.currentProgress)
-        self.screen.blit(self.progressBox, (90, 55))  
+        # if(self.start):
+        #     self.progressRect.drawSelectColor(self.currentProgress)
+        #     self.start = not self.start 
+        # else:
+        #     if self.currentProgress in range(0,160):
+        #         self.currentProgress = int(((currentLastPassPoint - 500)*160)/10000)
+        #         self.progressRect.drawSelectColor(self.currentProgress)
+        # self.screen.blit(self.progressBox, (90, 55))  
+        pass

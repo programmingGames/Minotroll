@@ -90,7 +90,7 @@ class HeadUpDisplay(object):
             
 
     def displaySkillsCars(self):
-        x, y = 10, 98
+        x, y = 10, 85
         count = 0
         for (cardActive, cardDisable) in zip(self.cardsActive, self.cardsDisable):
             if(count == self.inUse):
