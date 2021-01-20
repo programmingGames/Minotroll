@@ -27,8 +27,9 @@ class Golens:
         self.imgGolens = pygame.image.load("resources/image/enimy/golens/Golem_2/"+self.state+"/"+self.move_direction+"/0_Golem_"+self.state+"_0.png").convert_alpha()
         self.move_frame = 0
         self.attacking = False
+        self.isMe = False
 
-    def controlingCollision(self, golens_move, platform_rects):
+    def controlingCollision(self, golens_move, platform_rects, player_rect, playerOnAttack):
         rect, plat_collisions = self.collision.platformCollision(golens_move,self.rect, platform_rects)
         # right, left collision
         if(plat_collisions['right']):
@@ -42,6 +43,28 @@ class Golens:
             self.vertical_momentum = 0
         else:
             self.air_timer += 1
+        if(self.rect.x in range(player_rect.x - 20, player_rect.x + 20)):
+            self.isMe = True
+        else:
+            self.isMe = False
+        # print(player_rect.x - 20, self.rect.x, player_rect.x + 20)
+        # print(playerOnAttack[0], playerOnAttack[1], self.isMe)
+        if playerOnAttack[0] and playerOnAttack[1] and self.isMe:
+            self.impactDelay = 0
+            self.collisionImpact()
+
+    def collisionImpact(self):
+        if(self.impactDelay <= 5):
+            # self.player_rect, platformCollisions = self.collision.platformCollision(player_movement,self.player_rect,tile_rects)
+            if(self.move_direction == 'right'):
+                self.move_direction = 'left'
+                self.rect.x -= 5
+                self.rect.y -= 10
+            elif(self.move_direction == 'left'):
+                self.move_direction = 'right'
+                self.rect.x += 5
+                self.rect.y -= 10
+            self.impactDelay += 1
 
     def add(self, platform_rects,player_rect,playerOnAttack, scroll):
         golens_move = [0, 0]
@@ -73,7 +96,7 @@ class Golens:
 
         self.move_direction, self.move_right, self.move_left, self.attacking = self.ai.activation(self.rect, player_rect)
         self.determinateAttack()
-        self.controlingCollision(golens_move, platform_rects)
+        self.controlingCollision(golens_move, platform_rects, player_rect, playerOnAttack)
         self.screen.blit(self.imgGolens,(self.rect.x-scroll[0], self.rect.y-scroll[1]))
         # print(self.attacking, self.move_direction)
         return self.rect, self.name

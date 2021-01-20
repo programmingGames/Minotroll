@@ -280,6 +280,7 @@ class Player(object):
 
     ### the following method is related to the player attack
     def determinateAttack(self):
+
         self.state = self.skillsInUse
         if (self.skillsInUse == 'kicking'):
             self.kicking()
@@ -289,8 +290,16 @@ class Player(object):
             self.throwing()
         ## just for hork
         elif(self.skillsInUse == 'slashing'):
-            ## Actuly is sliding not slashing after i will change this logic in all over the project
-            self.sliding()
+            if(self.slashingControl <= 10):
+                self.sliding()
+            else:
+                self.attack = False
+                if(self.moving_left or self.moving_right):
+                    self.walk()
+                else:
+                    self.idle()
+            self.slashingControl += 1
+
         elif(self.skillsInUse == 'battleax'):
             self.battleax()
 
@@ -328,16 +337,10 @@ class Player(object):
             self.player_img = pygame.image.load("resources/image/Golem/"+self.state+"/"+self.move_direction+"/0_Goblin_"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
         else:
             self.player_img = pygame.image.load("resources/image/Golem/"+self.state+"/"+self.move_direction+"/0_Goblin_"+self.state+"_0.png").convert_alpha()
-
-        if(self.slashingControl <= 10):
-            if(self.move_direction=='right'):
-                self.player_rect.x  += 9
-                self.slashingControl += 1
-            else:
-                self.slashingControl += 1
-                self.player_rect.x -= 9
+        if(self.move_direction=='right'):
+            self.player_rect.x  += 9
         else:
-            self.attack = False
+            self.player_rect.x -= 9
 
     def throwing(self):
         self.state = 'Throwing' 

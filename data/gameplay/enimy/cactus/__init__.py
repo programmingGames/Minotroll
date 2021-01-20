@@ -25,9 +25,7 @@ class Cactus:
         else:
             self.air_timer += 1
 
-    def add(self, platform_rects, player_rect, playerOnattack,scroll):
-        del player_rect
-        del playerOnattack
+    def add(self, platform_rects,scroll):
         move = [0, 0]
 
         move[1] += self.vertical_momentum
