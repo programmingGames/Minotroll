@@ -88,7 +88,7 @@ class MainMenu(object):
             return 5
         
         self.mainMenuEsc()  
-        self.golemAnimation()
+        # self.golemAnimation()
         return 1
 
     def golemAnimation(self):
