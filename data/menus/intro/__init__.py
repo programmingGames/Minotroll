@@ -9,7 +9,7 @@ class Intro(object):
         self.background = Back(screen)
         self.screen = screen
         self.history = Hysto()
-        self.painel = pygame.image.load("resources/image/menu/painel.png").convert_alpha()
+        self.painel = pygame.image.load("resources/image/menu/intro/painel.png").convert_alpha()
         self.title = pygame.image.load("resources/image/title/MinoTrolls1.png").convert_alpha()
         self.font = pygame.font.SysFont("Arial", 12,1)
         self.esc = 'Press "Esc" to go back'

@@ -14,10 +14,10 @@ class MainMenu(object):
         self.img = pygame.image.load("resources/image/menu/initial_menu/animation/0_Goblin_Walking_"+str(self.timeOut)+".png")
         self.menuControl = 150
         self.timeEfect = 0
-        self.buttoms = ['newGame','loadGame', 'SettingsGame', 'QuitGame']
+        self.buttoms = ['New Game','Load Game', 'Settings', 'Quit']
         self.currentButtom = self.buttoms[0]
         self.allButtom = []
-        self.allPosition = [(150, 150), (150, 200), (150, 250), (150, 300)]
+        self.allPosition = []
         self.displayButtoms()
         self.count = 0
         
@@ -25,6 +25,9 @@ class MainMenu(object):
     # Method to choose option in main menu
     def displayButtoms(self):
         self.allButtom = []
+        self.allPosition = []
+        x = 265
+        y = 150
         for buttom in self.buttoms:
             if(self.currentButtom == buttom):
                 if (self.timeEfect == 10):
@@ -33,13 +36,18 @@ class MainMenu(object):
                 else:
                     img = pygame.image.load("resources/image/menu/initial_menu/"+buttom+"2.png").convert_alpha()
                     self.timeEfect += 1
+                x = 260
             else:
+                x = 265
                 img = pygame.image.load("resources/image/menu/initial_menu/"+buttom+"0.png").convert_alpha()
+
             self.allButtom.append(img)
+            self.allPosition.append((x, y))
+            y += 50
 
     def mainMenuEsc(self):
         self.background.settingBackgroundMenu(2)
-        self.screen.blit(self.painel, (700/2-400/2, 70))
+        self.screen.blit(self.painel, (150, 70))
         self.screen.blit(self.title, (275, 90))
 
         if (self.menuControl==150):

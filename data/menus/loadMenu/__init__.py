@@ -14,22 +14,24 @@ class LoadUser(object):
         self.zeroUseText = "There is no user already created."
         self.esc = 'Press "Esc" to go back'
         self.font1 = pygame.font.SysFont("Arial", 14)
-        self.font = pygame.font.SysFont("Arial", 24)
+        self.font = pygame.font.SysFont("Arial", 16)
         self.currentButtom = ''
         self.users = []
         self.allUser()
-        self.menuControl = 200
+        self.menuControl = 150
         self.timeEfect = 0
         self.timeEfect1 = 0
         self.count = 0
         self.allButtom = []
-        self.allPosition = [(250, 200), (250, 250), (250, 300), (250, 350)]
+        self.allPosition = [(150, 150), (200, 200), (250, 250), (250, 300)]
         self.displayButtoms()
-        self.nrUser = len(self.users)
-        self.maxScroll = self.menuControl+(self.nrUser * 50)
+        self.maxScroll = self.menuControl+((len(self.users)-1) * 50)
 
     def displayButtoms(self):
         self.allButtom = []
+        self.allPosition = []
+        x = 265
+        y = 150
         for user in self.users:
             if(self.currentButtom == user):
                 if (self.timeEfect == 10):
@@ -38,19 +40,24 @@ class LoadUser(object):
                 else:
                     img = pygame.image.load("users/"+user+"/"+user+"2.png").convert_alpha()
                     self.timeEfect += 1
+                x = 260
             else:
                 img = pygame.image.load("users/"+user+"/"+user+"0.png").convert_alpha()
+                x = 265
             self.allButtom.append(img)
+            self.allPosition.append((x, y))
+            y += 50
+
 
     def loadMenuEsc(self):
         self.background.settingBackgroundMenu(2)
-        self.screen.blit(self.painel, (105, 70))
-        self.screen.blit(self.title, (275, 90))
+        self.screen.blit(self.painel, (150, 70))
+        self.screen.blit(self.title, (275, 80))
         self.font.set_bold(True)
         line = self.font.render(self.createText, True, (0, 0,0))
         # title 
         size = pygame.font.Font.size(self.font, self.createText)
-        self.screen.blit(line, ((700/2-size[0]/2)+10, 150))
+        self.screen.blit(line, ((700/2-size[0]/2)+3, 125))
 
         # exit load menu
         self.font1.set_bold(True)
@@ -61,12 +68,12 @@ class LoadUser(object):
         if (self.timeEfect1 > 5):
             self.timeEfect1 = 0
         else:
-            self.screen.blit(line, ((700/2-size[0]/2)+10, 390))
+            self.screen.blit(line, ((700/2-size[0]/2)+1, 350))
             self.timeEfect1 += 1
         
 
         for i in range(len(self.users)):
-            if(self.menuControl == ((i*50)+200)):
+            if(self.menuControl == ((i*50)+150)):
                 self.currentButtom = self.users[i]
         # menssage if there is no user
         if(len(os.listdir('users')) == 0):
@@ -87,25 +94,25 @@ class LoadUser(object):
         if(pressed_keys[K_DOWN]):
             pygame.time.delay(100)
             if(self.menuControl==self.maxScroll):
-                self.menuControl = 200
+                self.menuControl = 150
             else:
                 self.menuControl += 50
         elif(pressed_keys[K_UP]):
             pygame.time.delay(100)
-            if(self.menuControl==200):
-                self.menuControl = 200
+            if(self.menuControl==150):
+                self.menuControl = 150
             else:
                 self.menuControl -= 50
         elif(pressed_keys[K_ESCAPE]):
-            self.menuControl = 200
+            self.menuControl = 150
             return 1, ''
 
         self.count += 1
         if (len(os.listdir('users')) != 0):
             for i in range(len(self.users)):
-                if((pressed_keys[K_RETURN])and(self.count >= 5)and(self.menuControl == ((i*50)+200))):
+                if((pressed_keys[K_RETURN])and(self.count >= 5)and(self.menuControl == ((i*50)+150))):
                     self.count = 0
-                    self.menuControl = 200
+                    self.menuControl = 150
                     return 3, self.users[i]
 
         self.loadMenuEsc()

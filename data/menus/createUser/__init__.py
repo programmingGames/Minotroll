@@ -12,13 +12,13 @@ class CreateUserMenu:
         self.painel = pygame.image.load("resources/image/menu/painel.png").convert_alpha()
         self.title = pygame.image.load("resources/image/title/MinoTrolls1.png").convert_alpha()
         self.createText = "Enter a user name"
-        self.font = pygame.font.SysFont("Arial", 24)
+        self.font = pygame.font.SysFont("Arial", 16)
         self.size = pygame.font.Font.size(self.font, self.createText)
         self.text = textInput()
         self.menuControl = 250
         self.count = 0
         self.timeEfect = 0
-        self.buttoms = ['createuser','back']
+        self.buttoms = ['Create','Back']
         self.currentButtom = self.buttoms[0]
         self.allButtom = []
         self.allPosition = [(250, 250), (250, 300)]
@@ -29,25 +29,33 @@ class CreateUserMenu:
     # Method to render all the components in the screen
     def displayButtoms(self):
         self.allButtom = []
+        self.allPosition = []
+        x = 265
+        y = 250
         for buttom in self.buttoms:
             if(self.currentButtom == buttom):
-                if (self.timeEfect == 30):
+                if (self.timeEfect == 10):
                     img = pygame.image.load("resources/image/menu/createUser/"+buttom+"1.png").convert_alpha()
                     self.timeEfect = 0
                 else:
                     img = pygame.image.load("resources/image/menu/createUser/"+buttom+"2.png").convert_alpha()
                     self.timeEfect += 1
+                x = 260
             else:
+                x = 265
                 img = pygame.image.load("resources/image/menu/createUser/"+buttom+"0.png").convert_alpha()
+
             self.allButtom.append(img)
+            self.allPosition.append((x, y))
+            y += 50
 
     def settingUserName(self, event):
         self.background.settingBackgroundMenu(2)
-        self.screen.blit(self.painel, (105, 70))
+        self.screen.blit(self.painel, (150, 70))
         self.screen.blit(self.title, (270, 90))
         self.font.set_bold(True)
         line = self.font.render(self.createText, True, (0, 0,0))
-        self.screen.blit(line, ((700/2-self.size[0]/2)-10, 150))
+        self.screen.blit(line, ((700/2-self.size[0]/2)-7, 150))
         self.user = self.text.settingInputText(self.screen, event)
 
         # Controling menu buttons efects
@@ -99,11 +107,13 @@ class CreateUserMenu:
     def createUserDirAndButtom(self):
         os.chdir('users')
         os.mkdir(self.user)
-        x = 208
+        x = 171
         y = 30
         for i in range(3):
             if(i!=0):
                 y = 37
+            if(i!=0):
+                x = 182
             font = pygame.font.SysFont("comicsansms", 28)
             font.set_bold(True)
             surf = pygame.Surface((x, y))

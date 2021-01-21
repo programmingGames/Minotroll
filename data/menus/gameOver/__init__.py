@@ -6,7 +6,7 @@ class GameOver(object):
     def __init__(self, screen):
         self.screen = screen
         self.title = pygame.image.load("resources/image/menu/gamOver/3.png").convert_alpha()
-        self.buttoms = ['Restart','GameMenu']
+        self.buttoms = ['Restart','Game Menu']
         self.currentButtom = self.buttoms[0]
         self.menuControl = 250
         self.allPosition = [(700/2-208/2, 250), (700/2-208/2, 300)]
@@ -15,6 +15,9 @@ class GameOver(object):
 
     def displayButtoms(self):
         self.allButtom = []
+        self.allPosition = []
+        x = 265
+        y = 250
         for buttom in self.buttoms:
             if(self.currentButtom == buttom):
                 if (self.timeEfect == 10):
@@ -23,9 +26,16 @@ class GameOver(object):
                 else:
                     img = pygame.image.load("resources/image/menu/gamOver/"+buttom+"2.png").convert_alpha()
                     self.timeEfect += 1
+                x = 260
             else:
+                x = 265
                 img = pygame.image.load("resources/image/menu/gamOver/"+buttom+"0.png").convert_alpha()
+
             self.allButtom.append(img)
+            self.allPosition.append((x, y))
+            y += 50
+
+            
     def gameOverMenuEsc(self):
         self.back = pygame.image.load("resources/image/menu/gamOver/back.png").convert_alpha()
         self.screen.blit(self.back, (0, 0))

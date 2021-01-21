@@ -43,13 +43,13 @@ class Skills(object):
                     img1 = pygame.image.load("resources/image/skills/pergaminios/"+self.currentCard+"2-"+str(state)+".png").convert_alpha()
                     self.arrows.append(pygame.image.load("resources/image/skills/arrows/leftarrow1.png").convert_alpha())
                     self.arrows.append(pygame.image.load("resources/image/skills/arrows/rightarrow1.png").convert_alpha())
-                    self.backButtom = pygame.image.load("resources/image/skills/back1.png").convert_alpha()
+                    self.backButtom = pygame.image.load("resources/image/skills/Back1.png").convert_alpha()
                     self.stateLock = state
                 else:
                     img1 = pygame.image.load("resources/image/skills/pergaminios/"+self.currentCard+"0.png").convert_alpha()
                     self.arrows.append(pygame.image.load("resources/image/skills/arrows/leftarrow0.png").convert_alpha())
                     self.arrows.append(pygame.image.load("resources/image/skills/arrows/rightarrow0.png").convert_alpha())
-                    self.backButtom = pygame.image.load("resources/image/skills/back2.png").convert_alpha()
+                    self.backButtom = pygame.image.load("resources/image/skills/Back2.png").convert_alpha()
                 self.cardsDiscription = pygame.image.load("resources/image/skills/description/pergaminio-"+str(state)+".png")
                 self.x = 390
             else:
@@ -71,13 +71,13 @@ class Skills(object):
     # method to draw the painel skills on the screen
     def drawingSkillsPainel(self):
         self.backgrounds.settingBackgroundMenu(2)
-        self.screen.blit(self.painel, (52, 35))
-        self.screen.blit(self.title, (270, 45))
+        self.screen.blit(self.painel, (75, 45))
+        self.screen.blit(self.title, (270, 55))
         # cardName = pygame.image.load("resources/image/skills/"+self.currentCard+".png")
         # self.screen.blit(cardName, (270, 100))
         [self.screen.blit(card, pos) for card, pos in zip(self.allCard, self.allCardsPosition)]
         [self.screen.blit(arrows, pos) for arrows, pos in zip(self.arrows, self.arrowsPosition)]
-        self.screen.blit(self.backButtom, (245, 380))
+        self.screen.blit(self.backButtom, (260, 380))
         self.screen.blit(self.cardsDiscription, (225,240))
 
         self.levelToUnlockTheCards()
