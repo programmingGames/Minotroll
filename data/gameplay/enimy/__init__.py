@@ -74,7 +74,7 @@ class ControlEnimys(object):
                                     
             # self.killAttempt = [None, None, 2, 2, None, ]
             for enimy in self.allEnimys:
-                if(enimy.name == 'stone golem'):
+                if(enimy.name == 'fire golem'):
                     self.killAttempt.append(4)
                 elif(enimy.name == 'blue wizard'):
                     self.killAttempt.append(6)
@@ -87,59 +87,59 @@ class ControlEnimys(object):
             self.allEnimys.append(Wizard(self.screen,(1296,184), 100))
             self.allEnimys.append(Wizard(self.screen,(1408,184), 100))
             self.allEnimys.append(Wizard(self.screen,(1244,360), 100))
-            self.allEnimys.append(Golens(self.screen,(1364,360), 50))
+            self.allEnimys.append(Golens(self.screen,(1364,360), 50, 2))
             self.allEnimys.append(Wizard(self.screen,(1746,616), 100))
-            self.allEnimys.append(Golens(self.screen,(1994,616), 50))
+            self.allEnimys.append(Golens(self.screen,(1994,616), 50, 2))
             self.allEnimys.append(Wizard(self.screen,(2106,616), 100))
-            self.allEnimys.append(Golens(self.screen,(2669,616), 50))
-            self.allEnimys.append(Golens(self.screen,(2757,616), 50))
-            self.allEnimys.append(Golens(self.screen,(2869,616), 50))
+            self.allEnimys.append(Golens(self.screen,(2669,616), 50, 2))
+            self.allEnimys.append(Golens(self.screen,(2757,616), 50, 2))
+            self.allEnimys.append(Golens(self.screen,(2869,616), 50, 2))
             self.allEnimys.append(Wizard(self.screen,(3270,184), 100))
             self.allEnimys.append(Wizard(self.screen,(3354,184), 100))
             self.allEnimys.append(Wizard(self.screen,(3422,184), 100))
             self.allEnimys.append(Wizard(self.screen,(3502,184), 100))
             self.allEnimys.append(Wizard(self.screen,(4113,184), 100))
             self.allEnimys.append(Wizard(self.screen,(4229,184), 100))
-            self.allEnimys.append(Golens(self.screen,(4701,104), 50))
-            self.allEnimys.append(Golens(self.screen,(4801,104), 50))
-            self.allEnimys.append(Golens(self.screen,(4861,104), 50))
-            self.allEnimys.append(Golens(self.screen,(4893,104), 50))
+            self.allEnimys.append(Golens(self.screen,(4701,104), 50, 2))
+            self.allEnimys.append(Golens(self.screen,(4801,104), 50, 2))
+            self.allEnimys.append(Golens(self.screen,(4861,104), 50, 2))
+            self.allEnimys.append(Golens(self.screen,(4893,104), 50, 2))
 
             self.allEnimysPosition = [(1220,184),(1296,184),(1408,184),(1244,360),(1364,360),(1746,616),(1994,616),(2106,616),(2669,616),
             (2757,616),(2869,616),(3270,184),(3354,184),(3422,184),(3502,184),(4113,184),(4229,184),(4701,104),(4801,104),(4861,104),(4893,104),]
 
             for enimy in self.allEnimys:
                 if(enimy.name == 'stone golem'):
-                    self.killAttempt.append(7)
+                    self.killAttempt.append(12)
                 elif(enimy.name == 'blue wizard'):
                     self.killAttempt.append(9)
 
         elif (self.nivel == 2):
-            self.allEnimys.append(Golens(self.screen,(852,530), 50))
-            self.allEnimys.append(Golens(self.screen,(928,530), 50))
-            self.allEnimys.append(Golens(self.screen,(988,530), 50))
-            self.allEnimys.append(Golens(self.screen,(1036,530), 50))
-            self.allEnimys.append(Golens(self.screen,(1096,530), 50))
-            self.allEnimys.append(Golens(self.screen,(1136,530), 50))
-            self.allEnimys.append(Golens(self.screen,(1184,530), 50))
-            self.allEnimys.append(Golens(self.screen,(1264,530), 50))
-            self.allEnimys.append(Golens(self.screen,(1862,350), 50))
-            self.allEnimys.append(Golens(self.screen,(3508,110), 50))
-            self.allEnimys.append(Golens(self.screen,(3596,110), 50))
-            self.allEnimys.append(Golens(self.screen,(3648,110), 50))
-            self.allEnimys.append(Golens(self.screen,(3724,110), 50))
-            self.allEnimys.append(Golens(self.screen,(3824,110), 50))
-            self.allEnimys.append(Golens(self.screen,(3916,110), 50))
-            self.allEnimys.append(Golens(self.screen,(5108,110), 50))
-            self.allEnimys.append(Golens(self.screen,(5304,560), 50))
-            self.allEnimys.append(Golens(self.screen,(5360,560), 50))
+            self.allEnimys.append(Golens(self.screen,(852,530), 50, 3))
+            self.allEnimys.append(Golens(self.screen,(928,530), 50, 3))
+            self.allEnimys.append(Golens(self.screen,(988,530), 50, 3))
+            self.allEnimys.append(Golens(self.screen,(1036,530), 50, 3))
+            self.allEnimys.append(Golens(self.screen,(1096,530), 50, 3))
+            self.allEnimys.append(Golens(self.screen,(1136,530), 50, 3))
+            self.allEnimys.append(Golens(self.screen,(1184,530), 50, 3))
+            self.allEnimys.append(Golens(self.screen,(1264,530), 50, 3))
+            self.allEnimys.append(Golens(self.screen,(1862,350), 50, 3))
+            self.allEnimys.append(Golens(self.screen,(3508,110), 50, 3))
+            self.allEnimys.append(Golens(self.screen,(3596,110), 50, 3))
+            self.allEnimys.append(Golens(self.screen,(3648,110), 50, 3))
+            self.allEnimys.append(Golens(self.screen,(3724,110), 50, 3))
+            self.allEnimys.append(Golens(self.screen,(3824,110), 50, 3))
+            self.allEnimys.append(Golens(self.screen,(3916,110), 50, 3))
+            self.allEnimys.append(Golens(self.screen,(5108,110), 50, 3))
+            self.allEnimys.append(Golens(self.screen,(5304,560), 50, 3))
+            self.allEnimys.append(Golens(self.screen,(5360,560), 50, 3))
 
             self.allEnimysPosition = [(852,530),(928,530),(988,530),(1036,530),(1096,530),(1136,530),(1184,530),(1264,530),(1862,350),
                         (3508,110),(3596,110),(3648,110),(3724,110),(3824,110),(3916,110),(5108,110),(5304,560),(5360,560)]            
             
             for enimy in self.allEnimys:
-                if(enimy.name == 'stone golem'):
-                    self.killAttempt.append(8)
+                if(enimy.name == 'ice golem'):
+                    self.killAttempt.append(15)
                 elif(enimy.name == 'blue wizard'):
                     self.killAttempt.append(10)
 

@@ -18,7 +18,6 @@ class LifeItem(object):
         i = 0
         for pos in self.position:
             if(pos[0] in range(scroll[0]-450, scroll[0]+650)):
-                print(self.nrItem)
                 item_list.append(self.item[i].draw(pos, scroll))
             else:
                 item_list.append(pygame.image.load("resources/image/life/1.png").get_rect())
