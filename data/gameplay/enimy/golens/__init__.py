@@ -53,7 +53,10 @@ class Golens:
         else:
             self.air_timer += 1
         if(self.rect.x in range(player_rect.x - 20, player_rect.x + 20)):
-            self.isMe = True
+            if(self.rect.y in range(player_rect.y-40, player_rect.y+40)):
+                self.isMe = True
+            else:
+                self.isMe = False
         else:
             self.isMe = False
         # print(player_rect.x - 20, self.rect.x, player_rect.x + 20)

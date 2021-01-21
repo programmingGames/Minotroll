@@ -15,6 +15,7 @@ class ControlEnimys(object):
         self.allCactus = []
         self.allCactusPosition = []
         self.killAttempt = []
+        self.enimyKilled = 0
         self.count = 0
         self.addingAllTheAnimys()
 
@@ -43,7 +44,8 @@ class ControlEnimys(object):
                 if(pos[0] in range(scroll[0]-450, scroll[0]+650)):
                     all_rects.append(cactus.add(tile_rects, scroll))
                     self.count += 1
-        print(self.killAttempt)
+        # print(self.killAttempt)
+        print(self.enimyKilled)
         return all_rects
     def addingAllTheAnimys(self):
         if(self.nivel == 0):          
@@ -138,7 +140,6 @@ class ControlEnimys(object):
                         (3508,110),(3596,110),(3648,110),(3724,110),(3824,110),(3916,110),(5108,110),(5304,560),(5360,560)]            
             
             for enimy in self.allEnimys:
-                print(enimy.name)
                 if(enimy.name == 'ice golem'):
                     self.killAttempt.append(15)
 
@@ -166,10 +167,11 @@ class ControlEnimys(object):
             for (position, enimy, attemp) in zip(self.allEnimysPosition, self.allEnimys, self.killAttempt):
                 if(position[0] in range(scroll[0]-450, scroll[0]+650)):
                     if fireColid or (playerAttack[0] and playerAttack[1]):
-                        if(attemp <= 0):
-                            self.allEnimys.pop(pos)
-                            self.allEnimysPosition.pop(pos)
-                            self.killAttempt.pop(pos)
+                        if(attemp < 0):
+                            self.allEnimys.pop(i)
+                            self.allEnimysPosition.pop(i)
+                            self.killAttempt.pop(i)
+                            self.enimyKilled += 1
                         else:
                             if(playerAttack[2] == "greenfire"):
                                 self.killAttempt[i] = self.killAttempt[i] - 1    
