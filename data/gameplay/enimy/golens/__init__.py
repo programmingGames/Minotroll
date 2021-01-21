@@ -11,6 +11,7 @@ class Golens:
         self.screen = screen
         self.golemType = golemType
         self.name = ''
+        self.renameTheGolemType()
         self.patrolRadius = patrolRadius
         self.state = 'Idle'
         self.move_direction = 'right'

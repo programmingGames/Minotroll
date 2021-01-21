@@ -43,7 +43,7 @@ class ControlEnimys(object):
                 if(pos[0] in range(scroll[0]-450, scroll[0]+650)):
                     all_rects.append(cactus.add(tile_rects, scroll))
                     self.count += 1
-
+        print(self.killAttempt)
         return all_rects
     def addingAllTheAnimys(self):
         if(self.nivel == 0):          
@@ -138,10 +138,9 @@ class ControlEnimys(object):
                         (3508,110),(3596,110),(3648,110),(3724,110),(3824,110),(3916,110),(5108,110),(5304,560),(5360,560)]            
             
             for enimy in self.allEnimys:
+                print(enimy.name)
                 if(enimy.name == 'ice golem'):
                     self.killAttempt.append(15)
-                elif(enimy.name == 'blue wizard'):
-                    self.killAttempt.append(10)
 
         elif (self.nivel == 3):
             self.allCactusPosition = [(716, 232), (756, 232), (788, 232), (828, 232), (942, 232), (982, 232), (1010, 232), (1046, 232)
@@ -157,9 +156,7 @@ class ControlEnimys(object):
             self.allEnimysPosition = [(2008,536), (2720,280), (2720,280), (2720,280)]
 
             for enimy in self.allEnimys:
-                if(enimy.name == 'stone golem'):
-                    self.killAttempt.append(9)
-                elif(enimy.name == 'blue wizard'):
+                if(enimy.name == 'blue wizard'):
                     self.killAttempt.append(11)
             # self.positions = [(1448, 168),(1595, 168),(2718, 408),(2750, 296),(4014, 296),(4710, 584), (4870, 584)] 
 
