@@ -55,18 +55,18 @@ class ControlEnimys(object):
             self.allEnimys.append(Wizard(self.screen,(1500,168), 100))
             self.allEnimys.append(Wizard(self.screen,(1596,168), 100))
             self.allEnimys.append(Wizard(self.screen,(2086,328), 100))
-            self.allEnimys.append(Golens(self.screen,(2630,408), 50))
-            self.allEnimys.append(Golens(self.screen,(2794,408), 50))
+            self.allEnimys.append(Golens(self.screen,(2630,408), 50,1))
+            self.allEnimys.append(Golens(self.screen,(2794,408), 50, 1))
             self.allEnimys.append(Wizard(self.screen,(2674,296), 100))
             self.allEnimys.append(Wizard(self.screen,(2806,296), 100))
-            self.allEnimys.append(Golens(self.screen,(3938,296), 50))
-            self.allEnimys.append(Golens(self.screen,(4022,296), 50))
-            self.allEnimys.append(Golens(self.screen,(4114,296), 50))
+            self.allEnimys.append(Golens(self.screen,(3938,296), 50, 1))
+            self.allEnimys.append(Golens(self.screen,(4022,296), 50, 1))
+            self.allEnimys.append(Golens(self.screen,(4114,296), 50, 1))
             self.allEnimys.append(Wizard(self.screen,(4376,520), 100))
-            self.allEnimys.append(Golens(self.screen,(4672,584), 50))
-            self.allEnimys.append(Golens(self.screen,(4764,584), 50))
-            self.allEnimys.append(Golens(self.screen,(4836,584), 50))
-            self.allEnimys.append(Golens(self.screen,(4908,584), 50))
+            self.allEnimys.append(Golens(self.screen,(4672,584), 50,1))
+            self.allEnimys.append(Golens(self.screen,(4764,584), 50, 1))
+            self.allEnimys.append(Golens(self.screen,(4836,584), 50, 1))
+            self.allEnimys.append(Golens(self.screen,(4908,584), 50, 1))
 
 
             self.allEnimysPosition = [(1388,168),(1500,168),(1596,168),(2086,328),(2630,408),(2794,408),(2674,296),(4836,584),
@@ -105,9 +105,8 @@ class ControlEnimys(object):
             self.allEnimys.append(Golens(self.screen,(4861,104), 50))
             self.allEnimys.append(Golens(self.screen,(4893,104), 50))
 
-            self.allEnimysPosition = [(1220,1220), (1296,1296), (1408,1408), (1244,1244), (1364,1364), (1746,1746), (1994,1994), 
-                                        (2106,2106), (2669,2669), (2757,2757), (2869,2869),(3270,3270), (3354,3354), (3422,3422), (3502,3502),
-                                        (4113,4113), (4229,4229), (4701,4701),(4801,4801), (4861,4861), (4893,4893), ]
+            self.allEnimysPosition = [(1220,184),(1296,184),(1408,184),(1244,360),(1364,360),(1746,616),(1994,616),(2106,616),(2669,616),
+            (2757,616),(2869,616),(3270,184),(3354,184),(3422,184),(3502,184),(4113,184),(4229,184),(4701,104),(4801,104),(4861,104),(4893,104),]
 
             for enimy in self.allEnimys:
                 if(enimy.name == 'stone golem'):
@@ -131,13 +130,12 @@ class ControlEnimys(object):
             self.allEnimys.append(Golens(self.screen,(3724,110), 50))
             self.allEnimys.append(Golens(self.screen,(3824,110), 50))
             self.allEnimys.append(Golens(self.screen,(3916,110), 50))
-            self.allEnimys.append(Golens(self.screen,(5108,5108), 50))
+            self.allEnimys.append(Golens(self.screen,(5108,110), 50))
             self.allEnimys.append(Golens(self.screen,(5304,560), 50))
             self.allEnimys.append(Golens(self.screen,(5360,560), 50))
 
-            self.allEnimysPosition = [(852,852), (928,928), (988,988), (1036,1036), (1096,1096), (1136,1136), (1184,1184), (1264,1264),
-                                    (1862,1862), (3508,3508), (3596,3596), (3648,3648), (3724,3724), (3824,3824), (3916,3916), (5108,5108),
-                                    (5304,5304), (5360,5360)]            
+            self.allEnimysPosition = [(852,530),(928,530),(988,530),(1036,530),(1096,530),(1136,530),(1184,530),(1264,530),(1862,350),
+                        (3508,110),(3596,110),(3648,110),(3724,110),(3824,110),(3916,110),(5108,110),(5304,560),(5360,560)]            
             
             for enimy in self.allEnimys:
                 if(enimy.name == 'stone golem'):
@@ -156,7 +154,7 @@ class ControlEnimys(object):
             self.allEnimys.append(Wizard(self.screen,(2720,280), 100))
             self.allEnimys.append(Wizard(self.screen,(2720,280), 100))
 
-            self.allEnimysPosition = [(2008,2008), (2720,2720), (2720,2720), (2720,2720)]
+            self.allEnimysPosition = [(2008,536), (2720,280), (2720,280), (2720,280)]
 
             for enimy in self.allEnimys:
                 if(enimy.name == 'stone golem'):

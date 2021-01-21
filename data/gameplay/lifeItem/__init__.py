@@ -46,17 +46,17 @@ class LifeItem(object):
 
     def determinatePositionOfLifItems(self):
         if(self.nivel == 0):
-            self.position = [(1542, -20), (2890, 408), (4238, 408)]
-            self.nrItem = 3
-        elif(self.nivel == 1):
-            self.position = [(1194,1194),(2903,2903), (2280,2280), (3046,3046)]
+            self.position = [(1542, -20), (2890, 408),(3876,488), (4238, 408)]
             self.nrItem = 4
+        elif(self.nivel == 1):
+            self.position = [(1198,648), (2282,216), (3045,200)]
+            self.nrItem = 3
         elif(self.nivel == 2):
-            self.position = [(3816,3816), (4962,4962), (5673,5673)]
+            self.position = [(1178,410), (3811,-40),(5673,380)]
             self.nrItem = 3
         elif(self.nivel == 3):
-            self.position = [(2470,2470),(2978,2978), (4058,4058)]
-            self.nrItem = 3
+            self.position = [(2474,408), (2966,232), (4081,-24),(4027,-24)]
+            self.nrItem = 4
 
 
 class PlantLife(object):
