@@ -39,7 +39,7 @@ class MainMenu(object):
 
     def mainMenuEsc(self):
         self.background.settingBackgroundMenu(2)
-        self.screen.blit(self.painel, (105, 70))
+        self.screen.blit(self.painel, (700/2-400/2, 70))
         self.screen.blit(self.title, (275, 90))
 
         if (self.menuControl==150):
