@@ -46,7 +46,7 @@ class ControlEnimys(object):
                     self.count += 1
         # print(self.killAttempt)
         print(self.enimyKilled)
-        return all_rects
+        return all_rects, self.enimyKilled
     def addingAllTheAnimys(self):
         if(self.nivel == 0):          
             self.allCactusPosition = [(928, 184),(964, 184),(2370, 504),(2410, 504),(2450, 504),(2478, 504),(3778, 472),(3746, 472),

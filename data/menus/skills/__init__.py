@@ -35,6 +35,7 @@ class Skills(object):
         self.allCardsPosition = []
         self.arrows = []
         right = []
+        img1 = ''
         self.x, self.y = 228, 130
         count = 0
         for (card, state) in zip(self.cards, self.state):

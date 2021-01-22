@@ -77,7 +77,7 @@ class UserMenu(object):
     def movingInUserMenu(self, user):
         self.user = user
         choice = 3
-        nivel,  lastPassPoint_x, lastPassPoint_y, life = self.loadUserData(user)
+        nivel,  lastPassPoint_x, lastPassPoint_y, life, enimysKilled = self.loadUserData(user)
         pressed_keys = pygame.key.get_pressed()
         if not self.active:
             if(pressed_keys[K_DOWN]):
@@ -95,7 +95,7 @@ class UserMenu(object):
             choice = self.userChoise(pressed_keys)
         
         self.mainMenuEsc()  
-        self.drawUserInfor(user, nivel, lastPassPoint_x, life)
+        self.drawUserInfor(user, nivel, lastPassPoint_x, life, enimysKilled)
         self.golemAnimation()
 
 
@@ -116,7 +116,7 @@ class UserMenu(object):
                 choice = 3
 
 
-        return choice,self.user, int(nivel),  (int(lastPassPoint_x), int(lastPassPoint_y)),  int(life)
+        return choice,self.user, int(nivel),  (int(lastPassPoint_x), int(lastPassPoint_y)),  int(life), int(enimysKilled)
 
     def userChoise(self, pressed_keys):
         self.count += 1
@@ -162,9 +162,10 @@ class UserMenu(object):
         lastPassPoint_x = allUserData[1]   # the last point in the game tha the user pass to in x
         lastPassPoint_y = allUserData[2]   # the last point in the game tha the user pass to in y
         life = allUserData[3]  # the last quantity of life save by the user
-        return nivel, lastPassPoint_x, lastPassPoint_y, life
+        enimysKilled = allUserData[4] ## the total of enimys killed by the user
+        return nivel, lastPassPoint_x, lastPassPoint_y, life, enimysKilled
 
-    def drawUserInfor(self, user, nivel, atualPosition, qtlife):
+    def drawUserInfor(self, user, nivel, atualPosition, qtlife, enimysKilled):
         playerIcon = pygame.image.load("resources/image/menu/user_menu/faceIcon.png")
         currentNivel = "Level: "+str(int(nivel)+1)
 
@@ -199,16 +200,19 @@ class UserMenu(object):
         self.screen.blit(line, (350, 285))
 
         line = font.render('Skills: ', True, (255, 255,255))
-        self.screen.blit(line, (350, 310))
+        self.screen.blit(line, (350, 305))
         
         ## bliting the skills of the player
         x = 390
         for card in self.skillsOfThePlayer(nivel):
-            self.screen.blit(card, (x, 306))
+            self.screen.blit(card, (x, 302))
             x += 16
 
-        self.screen.blit(playerIcon, (350, 180))
+        line = font.render('Enimy killed: '+str(enimysKilled), True, (255, 255,255))
+        self.screen.blit(line, (350, 325))
 
+
+        self.screen.blit(playerIcon, (350, 180))
 
     def skillsOfThePlayer(self, nivel):
         skills = 0

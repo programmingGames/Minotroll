@@ -46,7 +46,7 @@ class GamePlay(object):
         self.scroll, self.player_rect,self.fireArray, self.enimyCollision, self.enimyType, self.fireEnimyColision, self.fireCollsionPos, self.playerOnAttack = self.player.settingPlayer(tile_rects, self.scroll, self.allEnimysRectsAndTypes, self.inUse)
 
         # update after we check the collision
-        self.allEnimysRectsAndTypes = self.enimys.enimysAdd(tile_rects, self.player_rect,(self.fireEnimyColision, self.fireCollsionPos),(self.playerOnAttack,self.enimyCollision, self.inUse), self.scroll)
+        self.allEnimysRectsAndTypes, self.enimysKilled = self.enimys.enimysAdd(tile_rects, self.player_rect,(self.fireEnimyColision, self.fireCollsionPos),(self.playerOnAttack,self.enimyCollision, self.inUse), self.scroll)
 
         # Drawing some visual animation
         self.animation.draw()
@@ -89,7 +89,7 @@ class GamePlay(object):
         # self.count += 1
         # # print(self.playerOnAttack)
         # self.controllingTheImageOfGameOverAndLevelComplete(painelState)
-        return painelState, self.player_rect, self.qtlife
+        return painelState, self.player_rect, self.qtlife, self.enimysKilled
     
     def controllingThePlayerLife(self):
         if (self.enimyCollision and self.playerOnAttack == False):

@@ -17,13 +17,13 @@ class LoadUser(object):
         self.font = pygame.font.SysFont("Arial", 16)
         self.currentButtom = ''
         self.users = []
-        self.allUser()
         self.menuControl = 150
         self.timeEfect = 0
         self.timeEfect1 = 0
         self.count = 0
         self.allButtom = []
         self.allPosition = [(150, 150), (200, 200), (250, 250), (250, 300)]
+        self.allUser()
         self.displayButtoms()
         self.maxScroll = self.menuControl+((len(self.users)-1) * 50)
 
@@ -88,7 +88,6 @@ class LoadUser(object):
 # there is a problem here then you shoud see it 
     def movingInLoadMenu(self):
         self.allUser()
-        self.allUser()
         pressed_keys = pygame.key.get_pressed()
         
         if(pressed_keys[K_DOWN]):
@@ -122,3 +121,5 @@ class LoadUser(object):
         if(len(os.listdir('users')) != 0):
             self.users = os.listdir('users')
             self.currentButtom = self.users[0]
+
+        self.maxScroll = 150+((len(self.users)-1) * 50)

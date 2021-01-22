@@ -80,7 +80,7 @@ class Menus(object):
             self.painelState, self.user = self.createUser.drawUserMenu(self.pygameEvent)
             # self.player = Player(self.screen, self.nivel, self.skills,self.lastPassPoint)
         elif(self.painelState == 3):
-            self.painelState, self.user, self.nivel, self.lastPassPoint, self.qtlife = self.userMenu.movingInUserMenu(self.user)
+            self.painelState, self.user, self.nivel, self.lastPassPoint, self.qtlife, self.enimysKilled = self.userMenu.movingInUserMenu(self.user)
             # self.getUpdateUserData()
             self.gamplay = GamePlay(self.screen, self.nivel, self.lastPassPoint, self.qtlife, self.pygameEvent)
             self.skills = Skills(self.screen, self.nivel)
@@ -97,7 +97,7 @@ class Menus(object):
         elif(self.painelState == 4):
             self.painelState, self.user = self.loadUser.movingInLoadMenu()
         elif(self.painelState == 7):
-            self.painelState, self.player_rect, self.qtlife = self.gamplay.drawingTheGamePlayEnvirement()
+            self.painelState, self.player_rect, self.qtlife, self.currentenimysKilled = self.gamplay.drawingTheGamePlayEnvirement()
             # updating the map progress
             self.map.updateProgressInMap(self.player_rect.x)
         elif(self.painelState == 9):
@@ -135,13 +135,13 @@ class Menus(object):
             file = open('data.txt', 'w')
             #          nivel      Position   Initial Life
             if(self.nivel == 0):
-                file.write(str(self.nivel)+' '+str(500)+' '+str(120)+' '+str(218))
+                file.write(str(self.nivel)+' '+str(500)+' '+str(120)+' '+str(218)+str(0))
             elif(self.nivel == 1):
-                file.write(str(self.nivel)+' '+str(500)+' '+str(88)+' '+str(218))
+                file.write(str(self.nivel)+' '+str(500)+' '+str(88)+' '+str(218)+str(0))
             elif(self.nivel == 2):
-                file.write(str(self.nivel)+' '+str(500)+' '+str(440)+' '+str(218))
+                file.write(str(self.nivel)+' '+str(500)+' '+str(440)+' '+str(218)+str(0))
             elif(self.nivel == 3):
-                file.write(str(self.nivel)+' '+str(500)+' '+str(200)+' '+str(218))
+                file.write(str(self.nivel)+' '+str(500)+' '+str(200)+' '+str(218)+str(0))
             file.close()
             os.chdir('../..')
             
@@ -152,11 +152,11 @@ class Menus(object):
             file = open('data.txt', 'w')
             #          nivel      Position   Initial Life
             if(self.nivel == 1):
-                file.write(str(self.nivel)+' '+str(500)+' '+str(88)+' '+str(218))
+                file.write(str(self.nivel)+' '+str(500)+' '+str(88)+' '+str(218)+str(0))
             elif(self.nivel == 2):
-                file.write(str(self.nivel)+' '+str(500)+' '+str(440)+' '+str(218))
+                file.write(str(self.nivel)+' '+str(500)+' '+str(440)+' '+str(218)+str(0))
             elif(self.nivel == 3):
-                file.write(str(self.nivel)+' '+str(500)+' '+str(200)+' '+str(218))
+                file.write(str(self.nivel)+' '+str(500)+' '+str(200)+' '+str(218)+str(0))
             file.close()
             os.chdir('../..')
             self.complet = not self.complet
@@ -167,7 +167,7 @@ class Menus(object):
         os.chdir('users/'+self.user)
         file = open('data.txt', 'w')
         #          nivel      Position   Initial Life
-        file.write(str(self.nivel)+' '+str(self.player_rect.x)+' '+str(self.player_rect.y)+' '+str(self.qtlife))
+        file.write(str(self.nivel)+' '+str(self.player_rect.x)+' '+str(self.player_rect.y)+' '+str(self.qtlife)+' '+str(self.enimysKilled+self.currentenimysKilled))
         file.close()
         os.chdir('../..')
         # self.getUpdateUserData()
