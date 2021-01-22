@@ -4,7 +4,7 @@ from sys import exit
 from data.backgrounds import Backgound as Back
 
 #  Class for controling all the menu on the game
-class MainMenu(object):
+class Settings(object):
     def __init__(self, screen):
         self.screen = screen
         self.background = Back(screen)
@@ -14,10 +14,15 @@ class MainMenu(object):
         self.img = pygame.image.load("resources/image/menu/initial_menu/animation/0_Goblin_Walking_"+str(self.timeOut)+".png")
         self.menuControl = 150
         self.timeEfect = 0
-        self.buttoms = ['New Game','Load Game', 'Settings', 'Quit']
-        self.currentButtom = self.buttoms[0]
+        self.musicOn = True
+        self.soundOn = True
+        self.musicButton = ''
+        self.soundButton = ''
+        self.buttoms = []
         self.allButtom = []
         self.allPosition = []
+        self.checkingSounds()
+        self.currentButtom = self.buttoms[0]
         self.displayButtoms()
         self.count = 0
         
@@ -31,21 +36,34 @@ class MainMenu(object):
         for buttom in self.buttoms:
             if(self.currentButtom == buttom):
                 if (self.timeEfect == 10):
-                    img = pygame.image.load("resources/image/menu/initial_menu/"+buttom+"1.png").convert_alpha()
+                    img = pygame.image.load("resources/image/menu/settings/"+buttom+"1.png").convert_alpha()
                     self.timeEfect = 0
                 else:
-                    img = pygame.image.load("resources/image/menu/initial_menu/"+buttom+"2.png").convert_alpha()
+                    img = pygame.image.load("resources/image/menu/settings/"+buttom+"2.png").convert_alpha()
                     self.timeEfect += 1
                 x = 265
             else:
                 x = 270
-                img = pygame.image.load("resources/image/menu/initial_menu/"+buttom+"0.png").convert_alpha()
+                img = pygame.image.load("resources/image/menu/settings/"+buttom+"0.png").convert_alpha()
 
             self.allButtom.append(img)
             self.allPosition.append((x, y))
             y += 50
+    def checkingSounds(self):
+        # checking music
+        if self.musicOn:
+            self.musicButton = 'Music: On'
+        else:
+            self.musicButton = 'Music: Off'
+        # checing sound
+        if self.soundOn:
+            self.soundButton = 'Sound: On'
+        else:
+            self.soundButton = 'Sound: Off'
 
-    def mainMenuEsc(self):
+        self.buttoms = [self.musicButton,self.soundButton, 'Controls', 'Back']
+        
+    def settingsEsc(self):
         self.background.settingBackgroundMenu(2)
         self.screen.blit(self.painel, (150, 70))
         self.screen.blit(self.title, (275, 90))
@@ -63,7 +81,7 @@ class MainMenu(object):
         [self.screen.blit(img, pos) for img, pos in zip(self.allButtom, self.allPosition)]
 
     # Method to move in the main menu
-    def movingInMainMenu(self):
+    def movingInSettingsMenu(self):
         pressed_keys = pygame.key.get_pressed()
         if(pressed_keys[K_DOWN]):
             pygame.time.delay(100)
@@ -81,30 +99,18 @@ class MainMenu(object):
         self.count += 1
         if((pressed_keys[K_RETURN])and(self.menuControl==150)and(self.count >= 5)):
             self.count = 0
-            return 2
+            self.musicOn = not self.musicOn
         elif ((pressed_keys[K_RETURN])and(self.menuControl==200)and(self.count >= 5)):
             self.count = 0
-            self.menuControl = 150
-            return 4
+            self.soundOn = not self.soundOn
         elif ((pressed_keys[K_RETURN])and(self.menuControl==250)and(self.count >= 5)):
             self.count = 0
             self.menuControl = 150
-            return 20
+            return 21
         elif ((pressed_keys[K_RETURN])and(self.menuControl==300)and(self.count >= 5)):
             self.count = 0
             self.menuControl = 150
-            return 5
-        
-        self.mainMenuEsc()  
-        # self.golemAnimation()
-        return 1
-
-    def golemAnimation(self):
-        if(self.timeOut==230):
-            self.img = pygame.image.load("resources/image/menu/initial_menu/animation/0_Goblin_Walking_"+str(int(self.timeOut/10))+".png")
-            self.timeOut = 0
-        else:
-            if ((self.timeOut % 10)==0):
-                self.img = pygame.image.load("resources/image/menu/initial_menu/animation/0_Goblin_Walking_"+str(int(self.timeOut/10))+".png")
-            self.timeOut += 1
-        self.screen.blit(self.img, (420, 160))
+            return 1
+        self.checkingSounds()
+        self.settingsEsc()  
+        return 20

@@ -27,7 +27,7 @@ class ExitMenu:
     def displayButtoms(self):
         self.allButtom = []
         self.allPosition = []
-        x = 265
+        x = 270
         y = 200
         for buttom in self.buttoms:
             if(self.currentButtom == buttom):
@@ -37,9 +37,9 @@ class ExitMenu:
                 else:
                     img = pygame.image.load("resources/image/menu/exit_menu/"+buttom+"2.png").convert_alpha()
                     self.timeEfect += 1
-                x = 260
-            else:
                 x = 265
+            else:
+                x = 270
                 img = pygame.image.load("resources/image/menu/exit_menu/"+buttom+"0.png").convert_alpha()
 
             self.allButtom.append(img)
@@ -67,9 +67,7 @@ class ExitMenu:
             exit()
         elif ((pressed_keys[K_RETURN])and(self.menuControl==250)and(self.count >= 5)):
             self.count = 0
-            return False
-        print(self.menuControl)
-        
+            return False        
                 
         self.exitMenuEsc()  
         return True

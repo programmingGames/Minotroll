@@ -30,7 +30,7 @@ class LoadUser(object):
     def displayButtoms(self):
         self.allButtom = []
         self.allPosition = []
-        x = 265
+        x = 270
         y = 150
         for user in self.users:
             if(self.currentButtom == user):
@@ -40,10 +40,10 @@ class LoadUser(object):
                 else:
                     img = pygame.image.load("users/"+user+"/"+user+"2.png").convert_alpha()
                     self.timeEfect += 1
-                x = 260
+                x = 265
             else:
                 img = pygame.image.load("users/"+user+"/"+user+"0.png").convert_alpha()
-                x = 265
+                x = 270
             self.allButtom.append(img)
             self.allPosition.append((x, y))
             y += 50

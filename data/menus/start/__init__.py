@@ -1,4 +1,3 @@
-
 import pygame 
 from random import randint
 from pygame.locals import * 
@@ -15,7 +14,7 @@ class Initiation:
         self.font.set_bold(True)
         self.frame = 1
         self.dicas = [('Pressing buttom "M",', 'is possible to see your position in the map.'),
-                    ('Pressing Tap buttom,','is possible to see the skills that you have, ','and pressing buttom 1, 2,3, ...,5', 'you can change the skills in use.'),
+                    ('Pressing "TAB" buttom,','is possible to see the skills that you have, ','and pressing buttom 1, 2,3, ...,5', 'you can change the skills in use.'),
                     ('Using the arrows buttom,', 'all the player movement can be controled.'),
                     ('Using the fire skills, ', 'you can cause more damage to the enimy.'),
                     ('On the skills menu', 'you can see all the skills that you have.'),
