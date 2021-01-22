@@ -174,11 +174,11 @@ class UserMenu(object):
         atualPosition = int(atualPosition)
         currentProgressPerc = 0
         if ((nivel == 0)or(nivel == 1)):
-            currentProgressPerc = int(((atualPosition - 500)*100)/5460)
+            currentProgressPerc = int(((atualPosition - 500)*100)/(5460-500))
         elif(nivel == 2):
-            currentProgressPerc = int(((atualPosition - 500)*100)/6760)
+            currentProgressPerc = int(((atualPosition - 500)*100)/(6760-500))
         elif(nivel == 3):
-            currentProgressPerc = int(((atualPosition - 500)*100)/4200)
+            currentProgressPerc = int(((atualPosition - 500)*100)/(4200-500))
         currentProgress = "Level Status: "+str(currentProgressPerc)+'%'
 
         qtlife = int(qtlife)

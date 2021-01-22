@@ -47,6 +47,7 @@ class Menus(object):
         self.user = '' # keep the current user name
         self.pygameEvent = 0 # to keep all the pygame.event in the game loop
         self.complet = False
+        self.qtlife = 0
 
         
     # Method to move in the main menu
@@ -60,7 +61,6 @@ class Menus(object):
                 self.painelState = 5
         key = pygame.key.get_pressed()
         if((key[K_ESCAPE])and(self.painelState == 7)):
-            self.saveUserData()
             self.painelState = 8
         ## Controling the map display in the game Envirement
         elif((key[K_m])and(self.painelState == 7)and(self.count >= 10)):
@@ -83,11 +83,7 @@ class Menus(object):
             # self.player = Player(self.screen, self.nivel, self.skills,self.lastPassPoint)
         elif(self.painelState == 3):
             self.painelState, self.user, self.nivel, self.lastPassPoint, self.qtlife, self.enimysKilled = self.userMenu.movingInUserMenu(self.user)
-            # self.getUpdateUserData()
-            self.gamplay = GamePlay(self.screen, self.nivel, self.lastPassPoint, self.qtlife, self.pygameEvent)
-            self.skills = Skills(self.screen, self.nivel)
-            self.map = Map(self.screen, self.nivel)
-            self.map.updateProgressInMap(self.lastPassPoint[0])
+            self.getUpdateUserData()
 
         elif(self.painelState == 6):
             self.painelState = self.intro.introDisplay()
@@ -100,12 +96,15 @@ class Menus(object):
             self.painelState, self.user = self.loadUser.movingInLoadMenu()
         elif(self.painelState == 7):
             self.painelState, self.player_rect, self.qtlife, self.currentenimysKilled = self.gamplay.drawingTheGamePlayEnvirement()
+            self.saveUserData()
+            # self.getUpdateUserData()
             # updating the map progress
             self.map.updateProgressInMap(self.player_rect.x)
         elif(self.painelState == 9):
             self.painelState = self.skills.movingInPainelSkills()
         elif (self.painelState == 8):
             self.painelState = self.pause.drawUserMenu()
+            self.saveUserData()
         elif(self.painelState == 10):
             self.map.drawMapInTheScreen()
         elif(self.painelState == 11):
@@ -129,7 +128,7 @@ class Menus(object):
             self.painelState, self.complet = self.levelincompleted.showPainel()
 
         # print(self.player_rect.x, self.player_rect.y)
-
+        print(self.qtlife)
 
     def updatingUserData(self):
         if not self.complet:
@@ -186,7 +185,8 @@ class Menus(object):
         lastPassPoint_y = int(allUserData[2])   # the last point in the game tha the user pass to in y
         self.lastPassPoint = (lastPassPoint_x, lastPassPoint_y)
         self.qtlife = int(allUserData[3])  # the last quantity of life save by the user
+        self.enimysKilled = int(allUserData[4])
         # restarting the game whit new data
-        self.gamplay = GamePlay(self.screen, self.nivel, self.lastPassPoint,self.qtlife, self.pygameEvent)
+        self.gamplay = GamePlay(self.screen, self.nivel, self.lastPassPoint,self.qtlife, self.pygameEvent, self.enimysKilled)
         self.skills = Skills(self.screen, self.nivel)
         self.map = Map(self.screen, self.nivel)

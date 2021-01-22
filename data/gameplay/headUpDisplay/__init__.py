@@ -8,7 +8,7 @@ class HeadUpDisplay(object):
         self.screen = screen
         self.life = Life(self.screen, qtlife)
         self.lastPassPoint = lastPassPoint[0]
-        # self.qtlife = qtlife
+        self.qtlife = qtlife
         self.progress = LevelProgress(self.screen, self.lastPassPoint)
         self.player = pygame.image.load("resources/image/headUpDisplay/conteiner/faceIcon.png")
         self.avalableSkills = ["kicking", "slashing","battleax", "greenfire", "bluefire"]

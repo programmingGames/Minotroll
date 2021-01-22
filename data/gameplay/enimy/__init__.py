@@ -6,9 +6,10 @@ from data.gameplay.enimy.golens import Golens
 from data.gameplay.collisionControl import Colision
 
 class ControlEnimys(object):
-    def __init__(self, screen, nivel):
+    def __init__(self, screen, nivel, enimysKilled):
         self.screen = screen
         self.nivel = nivel
+        self.enimyskilled = enimysKilled
         self.collision = Colision()
         self.allEnimys = []
         self.allEnimysPosition = []
@@ -144,6 +145,7 @@ class ControlEnimys(object):
                     self.killAttempt.append(15)
 
         elif (self.nivel == 3):
+
             self.allCactusPosition = [(716, 232), (756, 232), (788, 232), (828, 232), (942, 232), (982, 232), (1010, 232), (1046, 232)
                         ,(1170, 232), (1194, 232), (1218, 232), (1238, 232), (1266, 232), (1394, 232), (1414, 232), (1438, 232), (1466, 232)
                         , (1494, 232), (1882, 232), (1906, 232), (1934, 232)]
@@ -160,6 +162,9 @@ class ControlEnimys(object):
                 if(enimy.name == 'blue wizard'):
                     self.killAttempt.append(11)
             # self.positions = [(1448, 168),(1595, 168),(2718, 408),(2750, 296),(4014, 296),(4710, 584), (4870, 584)] 
+        [self.allEnimys.pop(0) for i in range(self.enimyskilled)]
+        [self.allEnimysPosition.pop(0) for i in range(self.enimyskilled)]
+
 
     def calculatingEnimyDelete(self,fireColid, pos,playerAttack, scroll):
         i = 0

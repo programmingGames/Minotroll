@@ -11,14 +11,14 @@ from data.gameplay.platforms import Plataform
 
 
 class GamePlay(object):
-    def __init__(self, screen, nivel, lastPassPoint,qtlife, pygameEvent):
+    def __init__(self, screen, nivel, lastPassPoint,qtlife, pygameEvent, enimysKilled):
         # self.allEnimys = ['blue wizard', 'fire golem', 'stone golem', 'ice golem', 'blue robots', 'dark robots', 'gold robots']
         self.screen = screen
         self.nivel = nivel
         self.lastPassPoint = lastPassPoint
         self.qtlife = qtlife
         self.pygameEvent = pygameEvent
-        self.enimys = ControlEnimys(self.screen, self.nivel)
+        self.enimys = ControlEnimys(self.screen, self.nivel, enimysKilled)
         self.animation = Animation(self.screen, self.nivel)
         self.headUpDisplay = H_u_d(self.screen, self.nivel, self.lastPassPoint, self.qtlife)
         self.player = Player(self.screen, self.nivel, self.lastPassPoint)
@@ -100,7 +100,6 @@ class GamePlay(object):
 
     def controllingTheImageOfGameOverAndLevelComplete(self, painelState):
         if(painelState==11):
-            print("0k")
             os.chdir('resources/image/menu/gamOver')
             pygame.image.save(self.screen, "back.png")
             pygame.time.delay(100)
