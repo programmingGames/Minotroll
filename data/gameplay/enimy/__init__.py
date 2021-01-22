@@ -45,7 +45,7 @@ class ControlEnimys(object):
                     all_rects.append(cactus.add(tile_rects, scroll))
                     self.count += 1
         # print(self.killAttempt)
-        print(self.enimyKilled)
+        # print(self.enimyKilled)
         return all_rects, self.enimyKilled
     def addingAllTheAnimys(self):
         if(self.nivel == 0):          

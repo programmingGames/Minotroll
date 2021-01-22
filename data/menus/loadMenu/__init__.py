@@ -121,5 +121,4 @@ class LoadUser(object):
         if(len(os.listdir('users')) != 0):
             self.users = os.listdir('users')
             self.currentButtom = self.users[0]
-
         self.maxScroll = 150+((len(self.users)-1) * 50)

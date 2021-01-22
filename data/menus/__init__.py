@@ -135,13 +135,13 @@ class Menus(object):
             file = open('data.txt', 'w')
             #          nivel      Position   Initial Life
             if(self.nivel == 0):
-                file.write(str(self.nivel)+' '+str(500)+' '+str(120)+' '+str(218)+str(0))
+                file.write(str(self.nivel)+' '+str(500)+' '+str(120)+' '+str(218)+' '+str(0))
             elif(self.nivel == 1):
-                file.write(str(self.nivel)+' '+str(500)+' '+str(88)+' '+str(218)+str(0))
+                file.write(str(self.nivel)+' '+str(500)+' '+str(88)+' '+str(218)+' '+str(0))
             elif(self.nivel == 2):
-                file.write(str(self.nivel)+' '+str(500)+' '+str(440)+' '+str(218)+str(0))
+                file.write(str(self.nivel)+' '+str(500)+' '+str(440)+' '+str(218)+' '+str(0))
             elif(self.nivel == 3):
-                file.write(str(self.nivel)+' '+str(500)+' '+str(200)+' '+str(218)+str(0))
+                file.write(str(self.nivel)+' '+str(500)+' '+str(200)+' '+str(218)+' '+str(0))
             file.close()
             os.chdir('../..')
             
@@ -152,11 +152,11 @@ class Menus(object):
             file = open('data.txt', 'w')
             #          nivel      Position   Initial Life
             if(self.nivel == 1):
-                file.write(str(self.nivel)+' '+str(500)+' '+str(88)+' '+str(218)+str(0))
+                file.write(str(self.nivel)+' '+str(500)+' '+str(88)+' '+str(218)+' '+str(0))
             elif(self.nivel == 2):
-                file.write(str(self.nivel)+' '+str(500)+' '+str(440)+' '+str(218)+str(0))
+                file.write(str(self.nivel)+' '+str(500)+' '+str(440)+' '+str(218)+' '+str(0))
             elif(self.nivel == 3):
-                file.write(str(self.nivel)+' '+str(500)+' '+str(200)+' '+str(218)+str(0))
+                file.write(str(self.nivel)+' '+str(500)+' '+str(200)+' '+str(218)+' '+str(0))
             file.close()
             os.chdir('../..')
             self.complet = not self.complet

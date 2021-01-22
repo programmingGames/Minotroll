@@ -5,7 +5,6 @@ from pygame.locals import *
 class GameOver(object):
     def __init__(self, screen):
         self.screen = screen
-        self.title = pygame.image.load("resources/image/menu/gamOver/3.png").convert_alpha()
         self.buttoms = ['Restart','Game Menu']
         self.currentButtom = self.buttoms[0]
         self.menuControl = 250
@@ -39,7 +38,6 @@ class GameOver(object):
     def gameOverMenuEsc(self):
         self.back = pygame.image.load("resources/image/menu/gamOver/back.png").convert_alpha()
         self.screen.blit(self.back, (0, 0))
-        self.screen.blit(self.title, (700/2-350/2, 170))
         if (self.menuControl==250):
             self.currentButtom = self.buttoms[0]
         elif (self.menuControl==300):

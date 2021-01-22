@@ -88,7 +88,7 @@ class GamePlay(object):
         #     self.count = 0
         # self.count += 1
         # # print(self.playerOnAttack)
-        # self.controllingTheImageOfGameOverAndLevelComplete(painelState)
+        self.controllingTheImageOfGameOverAndLevelComplete(painelState)
         return painelState, self.player_rect, self.qtlife, self.enimysKilled
     
     def controllingThePlayerLife(self):
@@ -102,6 +102,7 @@ class GamePlay(object):
 
     def controllingTheImageOfGameOverAndLevelComplete(self, painelState):
         if(painelState==11):
+            print("0k")
             os.chdir('resources/image/menu/gamOver')
             pygame.image.save(self.screen, "back.png")
             pygame.time.delay(100)
@@ -122,7 +123,7 @@ class GamePlay(object):
             os.chdir('../../../..')
             surf = pygame.Surface((700, 480))
             img = pygame.image.load("resources/image/menu/levelComplet/back.png").convert_alpha()
-            img1 = pygame.image.load("resources/image/menu/gamOver/back1.png").convert_alpha()
+            img1 = pygame.image.load("resources/image/menu/levelComplet/back1.png").convert_alpha()
             surf.blit(img, (0, 0))
             surf.blit(img1, (0, 0))
             os.chdir('resources/image/menu/levelComplet')
