@@ -15,6 +15,7 @@ from data.menus.start import Initiation
 from data.menus.map import Map
 from data.menus.gameOver import GameOver
 from data.menus.levelComplet import LevelComplet
+from data.menus.levelincomplet import LevelIncompleted
 from data.menus.settings import Settings
 from data.menus.controls import Controls
 from data.gameplay import GamePlay
@@ -36,6 +37,7 @@ class Menus(object):
         self.gameOver = GameOver(self.screen)
         self.settings = Settings(self.screen)
         self.levelComplet = LevelComplet(self.screen)
+        self.levelincompleted = LevelIncompleted(self.screen)
         self.pause = PauseMenu(self.screen)
         self.controls = Controls(self.screen)
         self.player_rect = pygame.Rect(0, 0, 0, 0)
@@ -123,6 +125,8 @@ class Menus(object):
             self.painelState = self.settings.movingInSettingsMenu()
         elif(self.painelState == 21):
             self.painelState = self.controls.settingControls()
+        elif(self.painelState == 18):
+            self.painelState, self.complet = self.levelincompleted.showPainel()
 
         # print(self.player_rect.x, self.player_rect.y)
 

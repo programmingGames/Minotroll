@@ -33,12 +33,23 @@ class GamePlay(object):
         self.enimyCollision = False
         self.enimyType = ''
         self.allEnimysRectsAndTypes = []
+        self.nrInimys = 0
+        self.knowingEnimysNr()
         self.playerOnAttack = False
 
         self.count = 0
         self.pos = 0
 
-    
+    def knowingEnimysNr(self):
+        if(self.nivel==0):
+            self.nrInimys = 16
+        elif(self.nivel == 1):
+            self.nrInimys = 21
+        elif(self.nivel == 2):
+            self.nrInimys = 18
+        elif(self.nivel == 3):
+            self.nrInimys = 4
+
     # method to display all the components in the platform
     def drawingTheGamePlayEnvirement(self):
         # key_press = pygame.key.get_pressed()
@@ -59,35 +70,22 @@ class GamePlay(object):
         # controlling the end of the levels
         if((self.nivel == 0)or(self.nivel == 1)):
             if(self.player_rect.x >= 5460):
-                painelState = 13
+                if(self.enimysKilled >=10):
+                    painelState = 13
+                else:
+                    painelState = 18
         elif(self.nivel==2):
             if(self.player_rect.x >= 6760):
-                painelState = 13
+                if(self.enimysKilled >=10):
+                    painelState = 13
+                else:
+                    painelState = 18
 
         # controlling the falling out of the game platform
         if(self.player_rect.y >= 720):
             painelState = 11  
 
-        # print(self.player_rect.x, self.player_rect.y)
-        # key = pygame.key.get_pressed()
-        # if key[K_y] and self.count >= 10:
-        #     file = open('pos1.txt', 'a')
-        #     file.write("("+str(self.player_rect.x)+','+str(self.player_rect.y)+'), ')
-        #     file.close()
-        #     self.pos = (self.player_rect.x, self.player_rect.y)
-        #     self.count = 0
-        # if key[K_w] and self.count >= 10:
-        #     file = open('pos.txt', 'a')
-        #     file.write('self.allEnimys.append(Wizard(self.screen,('+str(self.pos[0])+','+str(self.pos[1])+'), 100))\n')
-        #     file.close()
-        #     self.count = 0
-        # elif key[K_g] and self.count >= 10:
-        #     file = open('pos.txt', 'a')
-        #     file.write('self.allEnimys.append(Golens(self.screen,('+str(self.pos[0])+','+str(self.pos[1])+'), 50))\n')
-        #     file.close()
-        #     self.count = 0
-        # self.count += 1
-        # # print(self.playerOnAttack)
+
         self.controllingTheImageOfGameOverAndLevelComplete(painelState)
         return painelState, self.player_rect, self.qtlife, self.enimysKilled
     
@@ -129,4 +127,47 @@ class GamePlay(object):
             os.chdir('resources/image/menu/levelComplet')
             pygame.image.save(surf, "back.png")
             os.chdir('../../../..')
+
+        elif(painelState == 18):
+            os.chdir('resources/image/menu/levelincomplet')
+            pygame.image.save(self.screen, "back.png")
+            pygame.time.delay(100)
+            os.chdir('../../../..')
+            surf = pygame.Surface((700, 480))
+            img = pygame.image.load("resources/image/menu/levelincomplet/back.png").convert_alpha()
+            img1 = pygame.image.load("resources/image/menu/levelincomplet/back1.png").convert_alpha()
+            surf.blit(img, (0, 0))
+            surf.blit(img1, (0, 0))
+            os.chdir('resources/image/menu/levelincomplet')
+            pygame.image.save(surf, "back.png")
+            os.chdir('../../../..')
         
+
+
+
+
+
+
+
+
+
+                # print(self.player_rect.x, self.player_rect.y)
+        # key = pygame.key.get_pressed()
+        # if key[K_y] and self.count >= 10:
+        #     file = open('pos1.txt', 'a')
+        #     file.write("("+str(self.player_rect.x)+','+str(self.player_rect.y)+'), ')
+        #     file.close()
+        #     self.pos = (self.player_rect.x, self.player_rect.y)
+        #     self.count = 0
+        # if key[K_w] and self.count >= 10:
+        #     file = open('pos.txt', 'a')
+        #     file.write('self.allEnimys.append(Wizard(self.screen,('+str(self.pos[0])+','+str(self.pos[1])+'), 100))\n')
+        #     file.close()
+        #     self.count = 0
+        # elif key[K_g] and self.count >= 10:
+        #     file = open('pos.txt', 'a')
+        #     file.write('self.allEnimys.append(Golens(self.screen,('+str(self.pos[0])+','+str(self.pos[1])+'), 50))\n')
+        #     file.close()
+        #     self.count = 0
+        # self.count += 1
+        # # print(self.playerOnAttack)
