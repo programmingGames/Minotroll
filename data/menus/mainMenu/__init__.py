@@ -11,7 +11,6 @@ class MainMenu(object):
         self.painel = pygame.image.load("resources/image/menu/painel.png").convert_alpha()
         self.title = pygame.image.load("resources/image/title/MinoTrolls1.png").convert_alpha()
         self.timeOut = 0
-        self.img = pygame.image.load("resources/image/menu/initial_menu/animation/0_Goblin_Walking_"+str(self.timeOut)+".png")
         self.menuControl = 150
         self.timeEfect = 0
         self.buttoms = ['New Game','Load Game', 'Settings', 'Quit']
@@ -96,15 +95,4 @@ class MainMenu(object):
             return 5
         
         self.mainMenuEsc()  
-        # self.golemAnimation()
         return 1
-
-    def golemAnimation(self):
-        if(self.timeOut==230):
-            self.img = pygame.image.load("resources/image/menu/initial_menu/animation/0_Goblin_Walking_"+str(int(self.timeOut/10))+".png")
-            self.timeOut = 0
-        else:
-            if ((self.timeOut % 10)==0):
-                self.img = pygame.image.load("resources/image/menu/initial_menu/animation/0_Goblin_Walking_"+str(int(self.timeOut/10))+".png")
-            self.timeOut += 1
-        self.screen.blit(self.img, (420, 160))

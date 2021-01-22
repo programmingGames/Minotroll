@@ -15,7 +15,7 @@ class UserMenu(object):
         self.painel = pygame.image.load("resources/image/menu/user_menu/painel.png").convert_alpha()
         self.title = pygame.image.load("resources/image/title/MinoTrolls1.png").convert_alpha()
         self.timeOut = 0
-        self.img = pygame.image.load("resources/image/menu/initial_menu/animation/0_Goblin_Walking_"+str(self.timeOut)+".png")
+        self.img = pygame.image.load("resources/image/menu/user_menu/animation/0_Goblin_Walking_"+str(self.timeOut)+".png")
         self.menuControl = 150
         self.timeEfect = 0
         self.buttoms = ['Play','Skills','History', 'Main Menu','Delete']
@@ -76,6 +76,7 @@ class UserMenu(object):
     # Method to move in the main menu
     def movingInUserMenu(self, user):
         self.user = user
+        choice = 3
         nivel,  lastPassPoint_x, lastPassPoint_y, life = self.loadUserData(user)
         pressed_keys = pygame.key.get_pressed()
         if not self.active:
@@ -94,7 +95,7 @@ class UserMenu(object):
             choice = self.userChoise(pressed_keys)
         
         self.mainMenuEsc()  
-        self.drawUserInfor(user)
+        self.drawUserInfor(user, nivel, lastPassPoint_x, life)
         self.golemAnimation()
 
 
@@ -143,14 +144,14 @@ class UserMenu(object):
         return 3
 
     def golemAnimation(self):
-        if(self.timeOut==230):
-            self.img = pygame.image.load("resources/image/menu/initial_menu/animation/0_Goblin_Walking_"+str(int(self.timeOut/10))+".png")
+        if(self.timeOut==46):
+            self.img = pygame.image.load("resources/image/menu/user_menu/animation/0_Goblin_Walking_"+str(int(self.timeOut/2))+".png")
             self.timeOut = 0
         else:
-            if ((self.timeOut % 10)==0):
-                self.img = pygame.image.load("resources/image/menu/initial_menu/animation/0_Goblin_Walking_"+str(int(self.timeOut/10))+".png")
+            if ((self.timeOut % 2)==0):
+                self.img = pygame.image.load("resources/image/menu/user_menu/animation/0_Goblin_Walking_"+str(int(self.timeOut/2))+".png")
             self.timeOut += 1
-        self.screen.blit(self.img, (420, 160))
+        self.screen.blit(self.img, (450, 180))
     
     def loadUserData(self, user):
         file = open('users/'+user+'/data.txt', 'r')
@@ -163,15 +164,62 @@ class UserMenu(object):
         life = allUserData[3]  # the last quantity of life save by the user
         return nivel, lastPassPoint_x, lastPassPoint_y, life
 
-    def drawUserInfor(self, user):
-        playerIcon = pygame.image.load("resources/image/user/Head1.png")
-        # progressBox = pygame.image.load("resources/image/user/progress.png")
-        # selo = pygame.image.load("resources/image/user/nivel-sel2.png")
+    def drawUserInfor(self, user, nivel, atualPosition, qtlife):
+        playerIcon = pygame.image.load("resources/image/menu/user_menu/faceIcon.png")
+        currentNivel = "Level: "+str(int(nivel)+1)
+
+        # calcum of the level percentage completed
+        nivel = int(nivel)
+        atualPosition = int(atualPosition)
+        currentProgressPerc = 0
+        if ((nivel == 0)or(nivel == 1)):
+            currentProgressPerc = int(((atualPosition - 500)*100)/5460)
+        elif(nivel == 2):
+            currentProgressPerc = int(((atualPosition - 500)*100)/6760)
+        elif(nivel == 3):
+            currentProgressPerc = int(((atualPosition - 500)*100)/4200)
+        currentProgress = "Level Status: "+str(currentProgressPerc)+'%'
+
+        qtlife = int(qtlife)
+        currentLifePerc = int((qtlife*100)/218)
+        currentLife = 'Life Status: '+str(currentLifePerc)+'%'
+
+        ## bliting statistic info
         font = pygame.font.SysFont("Arial", 18)
         font.set_bold(True)
         line = font.render(user, True, (255, 255,255))
+        self.screen.blit(line, (386, 188))
+        font = pygame.font.SysFont("Arial", 12)
+        font.set_bold(True)
+        line = font.render(currentNivel, True, (255, 255,255))
+        self.screen.blit(line, (350, 245))
+        line = font.render(currentProgress, True, (255, 255,255))
+        self.screen.blit(line, (350, 265))
+        line = font.render(currentLife, True, (255, 255,255))
+        self.screen.blit(line, (350, 285))
+
+        line = font.render('Skills: ', True, (255, 255,255))
+        self.screen.blit(line, (350, 310))
         
-        self.screen.blit(playerIcon, (160, 100))
-        # self.screen.blit(progressBox, (465, 105))
-        # self.screen.blit(selo, (440, 95))
-        self.screen.blit(line, (195, 110))
+        ## bliting the skills of the player
+        x = 390
+        for card in self.skillsOfThePlayer(nivel):
+            self.screen.blit(card, (x, 306))
+            x += 16
+
+        self.screen.blit(playerIcon, (350, 180))
+
+
+    def skillsOfThePlayer(self, nivel):
+        skills = 0
+        if (nivel == 0):
+            skills = 2
+
+        elif(nivel == 1):
+            skills = 4
+
+        elif(nivel >= 2):
+            skills = 5
+
+        return [pygame.image.load("resources/image/menu/user_menu/skills/"+str(i)+"-True.png")for i in range(skills)]
+        

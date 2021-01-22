@@ -11,7 +11,6 @@ class Settings(object):
         self.painel = pygame.image.load("resources/image/menu/painel.png").convert_alpha()
         self.title = pygame.image.load("resources/image/title/MinoTrolls1.png").convert_alpha()
         self.timeOut = 0
-        self.img = pygame.image.load("resources/image/menu/initial_menu/animation/0_Goblin_Walking_"+str(self.timeOut)+".png")
         self.menuControl = 150
         self.timeEfect = 0
         self.musicOn = True
