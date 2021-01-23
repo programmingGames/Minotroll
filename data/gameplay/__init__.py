@@ -83,7 +83,11 @@ class GamePlay(object):
 
         # controlling the falling out of the game platform
         if(self.player_rect.y >= 720):
-            painelState = 11  
+            painelState = 11
+
+        key = pygame.key.get_pressed()
+        if key[K_ESCAPE]:
+            painelState = 8
 
 
         self.controllingTheImageOfGameOverAndLevelComplete(painelState)
@@ -138,6 +142,20 @@ class GamePlay(object):
             surf.blit(img, (0, 0))
             surf.blit(img1, (0, 0))
             os.chdir('resources/image/menu/levelincomplet')
+            pygame.image.save(surf, "back.png")
+            os.chdir('../../../..')
+
+        elif(painelState == 8):
+            os.chdir('resources/image/menu/pause_menu')
+            pygame.image.save(self.screen, "back.png")
+            pygame.time.delay(100)
+            os.chdir('../../../..')
+            surf = pygame.Surface((700, 480))
+            img = pygame.image.load("resources/image/menu/pause_menu/back.png").convert_alpha()
+            img1 = pygame.image.load("resources/image/menu/pause_menu/back1.png").convert_alpha()
+            surf.blit(img, (0, 0))
+            surf.blit(img1, (0, 0))
+            os.chdir('resources/image/menu/pause_menu')
             pygame.image.save(surf, "back.png")
             os.chdir('../../../..')
         

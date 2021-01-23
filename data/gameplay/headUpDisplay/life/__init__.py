@@ -6,7 +6,7 @@ class Life:
         self.screen = screen
         self.lifeBox = pygame.image.load("resources/image/headUpDisplay/conteiner/box1.png")
         self.lifeRect = pygame.Rect(0,0,0,0)
-        self.qtlife = 218
+        self.qtlife = qtlife
         self.maxLife = 218
         self.start = True
         ## pixel of the life is equal 242

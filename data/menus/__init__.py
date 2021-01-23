@@ -60,10 +60,8 @@ class Menus(object):
                     self.saveUserData()
                 self.painelState = 5
         key = pygame.key.get_pressed()
-        if((key[K_ESCAPE])and(self.painelState == 7)):
-            self.painelState = 8
         ## Controling the map display in the game Envirement
-        elif((key[K_m])and(self.painelState == 7)and(self.count >= 10)):
+        if((key[K_m])and(self.painelState == 7)and(self.count >= 10)):
             self.painelState = 10
             self.count = 0
         elif((key[K_m])and(self.painelState == 10)and(self.count >= 10)):
@@ -128,7 +126,7 @@ class Menus(object):
             self.painelState, self.complet = self.levelincompleted.showPainel()
 
         # print(self.player_rect.x, self.player_rect.y)
-        print(self.qtlife)
+        # print(self.qtlife)
 
     def updatingUserData(self):
         if not self.complet:
