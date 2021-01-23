@@ -213,8 +213,8 @@ class GamePlay(object):
                 size = pygame.font.Font.size(font, 'and then press keys "1", "2", ..., "5",')
                 line = font.render('and then press keys "1", "2", ..., "5",', True, (255, 255,255))
                 self.screen.blit(line, (700/2-size[0]/2, (480/2-size[1])+30))
-                size = pygame.font.Font.size(font, 'change the skills in use.')
-                line = font.render('change the skills in use.', True, (255, 255,255))
+                size = pygame.font.Font.size(font, 'to change the skills in use.')
+                line = font.render('to change the skills in use.', True, (255, 255,255))
                 self.screen.blit(line, (700/2-size[0]/2, (480/2-size[1])+60))
 
         elif(self.tutorialParts == 2):
@@ -222,15 +222,12 @@ class GamePlay(object):
                 self.screen.blit(pygame.image.load("resources/image/tutorial/back1.png").convert_alpha(), (0, 0))
                 font = pygame.font.SysFont("Arial", 18)
                 font.set_bold(True)
-                size = pygame.font.Font.size(font, 'Press " TAB " key,')
-                line = font.render('Press " TAB " key, ', True, (255, 255,255))
+                size = pygame.font.Font.size(font, 'Press " M " key,')
+                line = font.render('Press " M " key,', True, (255, 255,255))
                 self.screen.blit(line, (700/2-size[0]/2, 480/2-size[1]))
-                size = pygame.font.Font.size(font, 'and then press keys "1", "2", ..., "5",')
-                line = font.render('and then press keys "1", "2", ..., "5",', True, (255, 255,255))
+                size = pygame.font.Font.size(font, 'to show the game Map.')
+                line = font.render('to show the game Map.', True, (255, 255,255))
                 self.screen.blit(line, (700/2-size[0]/2, (480/2-size[1])+30))
-                size = pygame.font.Font.size(font, 'change the skills in use.')
-                line = font.render('change the skills in use.', True, (255, 255,255))
-                self.screen.blit(line, (700/2-size[0]/2, (480/2-size[1])+60))
 
 
         ## controlling the timer
