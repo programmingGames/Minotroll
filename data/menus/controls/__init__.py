@@ -11,6 +11,10 @@ class Controls:
         self.title = pygame.image.load("resources/image/title/MinoTrolls1.png").convert_alpha()
         self.font = pygame.font.SysFont("Arial", 12)
         self.font.set_bold(True)
+        self.font1 = pygame.font.SysFont("Arial", 14)
+        self.text = 'Controls'
+        self.size = pygame.font.Font.size(self.font1, self.text)
+        self.font1.set_bold(True)
         self.timeEfect = 0
         self.buttom = 'Back'
         self.count = 0
@@ -43,9 +47,8 @@ class Controls:
         self.background.settingBackgroundMenu(2)
         self.screen.blit(self.painel, (105, 90))
         self.screen.blit(self.title, (270, 100))
-        # self.font.set_bold(True)
-        # line = self.font.render(self.createText, True, (0, 0,0))
-        # self.screen.blit(line, ((700/2-self.size[0]/2)-7, 150))
+        line = self.font1.render(self.text, True, (255, 255,255))
+        self.screen.blit(line, ((700/2-self.size[0]/2)-4, 350))
 
         ty = 170
         for paragrf in self.controls:
@@ -60,4 +63,4 @@ class Controls:
         else:
             img = pygame.image.load("resources/image/menu/settings/"+self.buttom+"2.png").convert_alpha()
             self.timeEfect += 1
-        self.screen.blit(img, (265, 325))
+        self.screen.blit(img, (265, 300))

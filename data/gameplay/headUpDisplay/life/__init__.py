@@ -23,8 +23,8 @@ class Life:
         if (self.start):
             self.lifeRect = Rects(self.screen, self.qtlife, 12, 98, 55, (0,255, 0))
             self.start = False
-        
-        self.lostLifeDrawEffect()
+        if(self.qtlife >= 0):
+            self.lostLifeDrawEffect()
         return self.qtlife
         
     def lostLifeDrawEffect(self):

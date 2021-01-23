@@ -146,13 +146,13 @@ class HeadUpDisplay(object):
     def updatingPlayerLife(self,itemType):
         # print(enimyType)
         if(itemType == 'blue wizard'):
-            self.life.updateLife(-1)
-        elif(itemType == 'stone golem'):
-            self.life.updateLife(-1)
-        elif(itemType == 'fire golem'):
-            self.life.updateLife(-1)
-        elif(itemType == 'ice golem'):
             self.life.updateLife(-10)
+        elif(itemType == 'stone golem'):
+            self.life.updateLife(-9)
+        elif(itemType == 'fire golem'):
+            self.life.updateLife(-6)
+        elif(itemType == 'ice golem'):
+            self.life.updateLife(-15)
         elif(itemType == "cactus"):
             self.life.updateLife(-10)
         elif(itemType == "life plant"):

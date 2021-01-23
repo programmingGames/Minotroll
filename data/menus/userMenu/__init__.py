@@ -15,6 +15,10 @@ class UserMenu(object):
         self.painel = pygame.image.load("resources/image/menu/user_menu/painel.png").convert_alpha()
         self.title = pygame.image.load("resources/image/title/MinoTrolls1.png").convert_alpha()
         self.timeOut = 0
+        self.font1 = pygame.font.SysFont("Arial", 14)
+        self.text = 'Game Menu'
+        self.size = pygame.font.Font.size(self.font1, self.text)
+        self.font1.set_bold(True)
         self.img = pygame.image.load("resources/image/menu/user_menu/animation/0_Goblin_Walking_"+str(self.timeOut)+".png")
         self.menuControl = 150
         self.timeEfect = 0
@@ -57,6 +61,9 @@ class UserMenu(object):
         self.background.settingBackgroundMenu(2)
         self.screen.blit(self.painel, (105, 60))
         self.screen.blit(self.title, (270, 70))
+
+        line = self.font1.render(self.text, True, (255, 255,255))
+        self.screen.blit(line, ((700/2-self.size[0]/2)-4, 400))
 
         if (self.menuControl==150):
             self.currentButtom = self.buttoms[0]

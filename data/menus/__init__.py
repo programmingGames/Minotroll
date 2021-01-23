@@ -48,6 +48,7 @@ class Menus(object):
         self.pygameEvent = 0 # to keep all the pygame.event in the game loop
         self.complet = False
         self.qtlife = 0
+        
 
         
     # Method to move in the main menu
@@ -81,8 +82,9 @@ class Menus(object):
             # self.player = Player(self.screen, self.nivel, self.skills,self.lastPassPoint)
         elif(self.painelState == 3):
             self.painelState, self.user, self.nivel, self.lastPassPoint, self.qtlife, self.enimysKilled = self.userMenu.movingInUserMenu(self.user)
-            self.getUpdateUserData()
-
+            self.gamplay = GamePlay(self.screen, self.nivel, self.lastPassPoint,self.qtlife, self.pygameEvent, self.enimysKilled)
+            self.skills = Skills(self.screen, self.nivel)
+            self.map = Map(self.screen, self.nivel)
         elif(self.painelState == 6):
             self.painelState = self.intro.introDisplay()
         elif(self.painelState == 5):
@@ -94,7 +96,7 @@ class Menus(object):
             self.painelState, self.user = self.loadUser.movingInLoadMenu()
         elif(self.painelState == 7):
             self.painelState, self.player_rect, self.qtlife, self.currentenimysKilled = self.gamplay.drawingTheGamePlayEnvirement()
-            self.saveUserData()
+            # self.saveUserData()
             # self.getUpdateUserData()
             # updating the map progress
             self.map.updateProgressInMap(self.player_rect.x)
@@ -106,7 +108,7 @@ class Menus(object):
         elif(self.painelState == 10):
             self.map.drawMapInTheScreen()
         elif(self.painelState == 11):
-            self.getUpdateUserData()
+            self.updatingUserData()
             self.painelState, self.complet = self.gameOver.showGameOverPainel()
         elif(self.painelState == 13):
             self.painelState, self.complet = self.levelComplet.drawingLevelCompletPainel()
@@ -125,6 +127,7 @@ class Menus(object):
         elif(self.painelState == 18):
             self.painelState, self.complet = self.levelincompleted.showPainel()
 
+        # print(self.painelState)
         # print(self.player_rect.x, self.player_rect.y)
         # print(self.qtlife)
 
@@ -188,3 +191,4 @@ class Menus(object):
         self.gamplay = GamePlay(self.screen, self.nivel, self.lastPassPoint,self.qtlife, self.pygameEvent, self.enimysKilled)
         self.skills = Skills(self.screen, self.nivel)
         self.map = Map(self.screen, self.nivel)
+        

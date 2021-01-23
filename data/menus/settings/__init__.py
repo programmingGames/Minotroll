@@ -11,6 +11,10 @@ class Settings(object):
         self.painel = pygame.image.load("resources/image/menu/painel.png").convert_alpha()
         self.title = pygame.image.load("resources/image/title/MinoTrolls1.png").convert_alpha()
         self.timeOut = 0
+        self.font = pygame.font.SysFont("Arial", 14)
+        self.text = 'Settings'
+        self.size = pygame.font.Font.size(self.font, self.text)
+        self.font.set_bold(True)
         self.menuControl = 150
         self.timeEfect = 0
         self.musicOn = True
@@ -66,6 +70,9 @@ class Settings(object):
         self.background.settingBackgroundMenu(2)
         self.screen.blit(self.painel, (150, 70))
         self.screen.blit(self.title, (275, 90))
+
+        line = self.font.render(self.text, True, (255, 255,255))
+        self.screen.blit(line, ((700/2-self.size[0]/2)-4, 350))
 
         if (self.menuControl==150):
             self.currentButtom = self.buttoms[0]
