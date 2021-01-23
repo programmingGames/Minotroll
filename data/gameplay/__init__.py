@@ -102,6 +102,7 @@ class GamePlay(object):
         
         if self.showTutorial:
             self.tutorial(key)
+        self.lastPassPoint = (self.player_rect.x, self.player_rect.y)
 
         self.controllingTheImageOfGameOverAndLevelComplete(painelState)
         return painelState, self.player_rect, self.qtlife, self.enimysKilled
