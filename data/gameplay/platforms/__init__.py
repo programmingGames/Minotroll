@@ -43,7 +43,7 @@ class Plataform:
 
 
     def settingPlataform(self, scroll):
-        self.background.movingBackgourndGamePlay(1)
+        self.background.movingBackgourndGamePlay(self.nivel)
         if((self.nivel==1)or(self.nivel==0)or(self.nivel==3)):
             tile_rects = []
             for pos in self.positionForest_x:

@@ -10,7 +10,13 @@ class Backgound(object):
         self.screen.blit(image, (0,0))
 
     def movingBackgourndGamePlay(self, nivel):
-        image = pygame.image.load("resources/image/background/nivel_"+str(nivel)+"/"+str(nivel)+".png").convert()
+        if((nivel == 0)or(nivel == 3)):
+            image = pygame.image.load("resources/image/background/nivel_1/1.png").convert()
+        elif(nivel == 1):
+            image = pygame.image.load("resources/image/background/nivel_3/1.png").convert()
+        elif(nivel == 2):
+            image = pygame.image.load("resources/image/background/nivel_2/1.png").convert()
+
         self.screen.blit(image, (0,0))
     
     def movingComponnets(self):

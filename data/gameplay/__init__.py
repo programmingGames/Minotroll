@@ -24,6 +24,11 @@ class GamePlay(object):
         self.player = Player(self.screen, self.nivel, self.lastPassPoint)
         self.platform = Plataform(self.screen, self.nivel)
         self.liveItem = LifeItem(self.screen, self.nivel)
+        self.tutorialParts = 0
+        self.showTutorial = False
+        self.hiddeBackTutorial = False
+        self.tutorialCount = 0
+        self.tutorialTab = False
         self. nivel = nivel # default value of the level started usualy in 0
         self.inUse = ''
         # self.skills = 1 # default value of skills the player have
@@ -64,7 +69,7 @@ class GamePlay(object):
         painelState, self.qtlife, self.inUse = self.headUpDisplay.headUpDisplayScreenDraw(self.player_rect.x)
 
         self.itemLifeCollision = self.liveItem.drawingTheLifeItem(self.player_rect, self.scroll)
-         
+        
         self.controllingThePlayerLife()
 
         # controlling the end of the levels
@@ -89,6 +94,16 @@ class GamePlay(object):
         if key[K_ESCAPE]:
             painelState = 8
 
+
+        if((self.nivel == 0)and(self.player_rect.x <= 500)):
+            self.showTutorial = True
+        else:
+            self.showTutorial = False
+        
+        if self.showTutorial:
+            self.tutorial(key)
+        
+        print(self.showTutorial)
 
         self.controllingTheImageOfGameOverAndLevelComplete(painelState)
         return painelState, self.player_rect, self.qtlife, self.enimysKilled
@@ -158,6 +173,76 @@ class GamePlay(object):
             os.chdir('resources/image/menu/pause_menu')
             pygame.image.save(surf, "back.png")
             os.chdir('../../../..')
+
+    def tutorial(self, key):
+        
+        ## controlling the key pressed
+        if(key[K_TAB] and (self.tutorialParts == 0)):
+            self.hiddeBackTutorial = True
+            self.tutorialParts  = 1
+            self.tutorialCount = 0
+        elif(key[K_TAB] and (self.tutorialParts == 1)):
+            self.tutorialTab = True
+        elif((key[K_1] or key[K_2] or key[K_3] or key[K_4]or key[K_5]) and self.tutorialTab):
+            self.hiddeBackTutorial = True
+            self.tutorialParts = 2
+            self.tutorialCount = 0
+
+
+
+        ## controlling the display    
+        if(self.tutorialParts == 0):
+            if(not self.hiddeBackTutorial):
+                self.screen.blit(pygame.image.load("resources/image/tutorial/back1.png").convert_alpha(), (0, 0))
+                font = pygame.font.SysFont("Arial", 18)
+                font.set_bold(True)
+                size = pygame.font.Font.size(font, 'Press " TAB " key,')
+                line = font.render('Press " TAB " key, ', True, (255, 255,255))
+                self.screen.blit(line, (700/2-size[0]/2, 480/2-size[1]))
+                size = pygame.font.Font.size(font, 'to see the skills available.')
+                line = font.render('to see the skills available.', True, (255, 255,255))
+                self.screen.blit(line, (700/2-size[0]/2, (480/2-size[1])+30))
+        elif(self.tutorialParts == 1):
+            if(not self.hiddeBackTutorial):
+                self.screen.blit(pygame.image.load("resources/image/tutorial/back1.png").convert_alpha(), (0, 0))
+                font = pygame.font.SysFont("Arial", 18)
+                font.set_bold(True)
+                size = pygame.font.Font.size(font, 'Press " TAB " key,')
+                line = font.render('Press " TAB " key, ', True, (255, 255,255))
+                self.screen.blit(line, (700/2-size[0]/2, 480/2-size[1]))
+                size = pygame.font.Font.size(font, 'and then press keys "1", "2", ..., "5",')
+                line = font.render('and then press keys "1", "2", ..., "5",', True, (255, 255,255))
+                self.screen.blit(line, (700/2-size[0]/2, (480/2-size[1])+30))
+                size = pygame.font.Font.size(font, 'change the skills in use.')
+                line = font.render('change the skills in use.', True, (255, 255,255))
+                self.screen.blit(line, (700/2-size[0]/2, (480/2-size[1])+60))
+
+        elif(self.tutorialParts == 2):
+            if(not self.hiddeBackTutorial):
+                self.screen.blit(pygame.image.load("resources/image/tutorial/back1.png").convert_alpha(), (0, 0))
+                font = pygame.font.SysFont("Arial", 18)
+                font.set_bold(True)
+                size = pygame.font.Font.size(font, 'Press " TAB " key,')
+                line = font.render('Press " TAB " key, ', True, (255, 255,255))
+                self.screen.blit(line, (700/2-size[0]/2, 480/2-size[1]))
+                size = pygame.font.Font.size(font, 'and then press keys "1", "2", ..., "5",')
+                line = font.render('and then press keys "1", "2", ..., "5",', True, (255, 255,255))
+                self.screen.blit(line, (700/2-size[0]/2, (480/2-size[1])+30))
+                size = pygame.font.Font.size(font, 'change the skills in use.')
+                line = font.render('change the skills in use.', True, (255, 255,255))
+                self.screen.blit(line, (700/2-size[0]/2, (480/2-size[1])+60))
+
+
+        ## controlling the timer
+        if(self.tutorialCount >= 20):
+            self.tutorialCount = 0
+            self.hiddeBackTutorial = False
+        else:
+            self.tutorialCount += 1
+
+
+
+            
         
 
 

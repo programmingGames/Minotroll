@@ -127,9 +127,6 @@ class Menus(object):
         elif(self.painelState == 18):
             self.painelState, self.complet = self.levelincompleted.showPainel()
 
-        # print(self.painelState)
-        # print(self.player_rect.x, self.player_rect.y)
-        # print(self.qtlife)
 
     def updatingUserData(self):
         if not self.complet:
