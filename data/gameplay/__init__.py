@@ -95,15 +95,13 @@ class GamePlay(object):
             painelState = 8
 
 
-        if((self.nivel == 0)and(self.player_rect.x <= 500)):
+        if((self.nivel == 0)and(self.lastPassPoint[0] <= 500)):
             self.showTutorial = True
         else:
             self.showTutorial = False
         
         if self.showTutorial:
             self.tutorial(key)
-        
-        print(self.showTutorial)
 
         self.controllingTheImageOfGameOverAndLevelComplete(painelState)
         return painelState, self.player_rect, self.qtlife, self.enimysKilled
@@ -183,9 +181,22 @@ class GamePlay(object):
             self.tutorialCount = 0
         elif(key[K_TAB] and (self.tutorialParts == 1)):
             self.tutorialTab = True
+            self.hiddeBackTutorial = True
         elif((key[K_1] or key[K_2] or key[K_3] or key[K_4]or key[K_5]) and self.tutorialTab):
             self.hiddeBackTutorial = True
             self.tutorialParts = 2
+            self.tutorialCount = 0
+        elif(key[K_m] and (self.tutorialParts == 2)):
+            self.hiddeBackTutorial = True
+            self.tutorialParts = 3
+            self.tutorialCount = 0
+        elif((key[K_UP] or key[K_RIGHT] or key[K_LEFT])and(self.tutorialParts == 3)):
+            self.hiddeBackTutorial = True
+            self.tutorialParts = 4
+            self.tutorialCount = 0
+        elif(key[K_q] and (self.tutorialParts == 4)):
+            self.hiddeBackTutorial = True
+            self.tutorialParts = 5
             self.tutorialCount = 0
 
 
@@ -225,28 +236,41 @@ class GamePlay(object):
                 size = pygame.font.Font.size(font, 'Press " M " key,')
                 line = font.render('Press " M " key,', True, (255, 255,255))
                 self.screen.blit(line, (700/2-size[0]/2, 480/2-size[1]))
-                size = pygame.font.Font.size(font, 'to show the game Map.')
-                line = font.render('to show the game Map.', True, (255, 255,255))
+                size = pygame.font.Font.size(font, 'to show and hide the game Map.')
+                line = font.render('to show and hide the game Map.', True, (255, 255,255))
                 self.screen.blit(line, (700/2-size[0]/2, (480/2-size[1])+30))
 
+        elif(self.tutorialParts == 3):
+            if(not self.hiddeBackTutorial):
+                self.screen.blit(pygame.image.load("resources/image/tutorial/back1.png").convert_alpha(), (0, 0))
+                font = pygame.font.SysFont("Arial", 18)
+                font.set_bold(True)
+                size = pygame.font.Font.size(font, 'Press the direction keys:')
+                line = font.render('Press the direction keys:', True, (255, 255,255))
+                self.screen.blit(line, (700/2-size[0]/2, 480/2-size[1]))
+                size = pygame.font.Font.size(font, '"left", "up" and "right",')
+                line = font.render('"left", "up" and "right",', True, (255, 255,255))
+                self.screen.blit(line, (700/2-size[0]/2, (480/2-size[1])+30))
+                size = pygame.font.Font.size(font, 'to move on the screen.')
+                line = font.render('to move on the screen.', True, (255, 255,255))
+                self.screen.blit(line, (700/2-size[0]/2, (480/2-size[1])+60))
+        elif(self.tutorialParts == 4):
+            if(not self.hiddeBackTutorial):
+                self.screen.blit(pygame.image.load("resources/image/tutorial/back1.png").convert_alpha(), (0, 0))
+                font = pygame.font.SysFont("Arial", 18)
+                font.set_bold(True)
+                size = pygame.font.Font.size(font, 'Press " Q " key, to attack.')
+                line = font.render('Press " Q " key, to attack.', True, (255, 255,255))
+                self.screen.blit(line, (700/2-size[0]/2, (480/2-size[1])+60))
 
         ## controlling the timer
-        if(self.tutorialCount >= 20):
+        if(self.tutorialCount >= 30):
             self.tutorialCount = 0
             self.hiddeBackTutorial = False
+            if(self.tutorialParts == 5):
+                self.showTutorial = False
         else:
             self.tutorialCount += 1
-
-
-
-            
-        
-
-
-
-
-
-
 
 
 

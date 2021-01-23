@@ -65,7 +65,7 @@ class Menus(object):
         if((key[K_m])and(self.painelState == 7)and(self.count >= 10)):
             self.painelState = 10
             self.count = 0
-        elif((key[K_m])and(self.painelState == 10)and(self.count >= 10)):
+        elif((key[K_m] or key[K_ESCAPE])and(self.painelState == 10)and(self.count >= 10)):
             self.painelState = 7
             self.count = 0
 
