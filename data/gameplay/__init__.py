@@ -41,6 +41,7 @@ class GamePlay(object):
         self.nrInimys = 0
         self.knowingEnimysNr()
         self.playerOnAttack = False
+        self.bossKilled = False
 
         self.count = 0
         self.pos = 0
@@ -62,7 +63,7 @@ class GamePlay(object):
         self.scroll, self.player_rect,self.fireArray, self.enimyCollision, self.enimyType, self.fireEnimyColision, self.fireCollsionPos, self.playerOnAttack = self.player.settingPlayer(tile_rects, self.scroll, self.allEnimysRectsAndTypes, self.inUse)
 
         # update after we check the collision
-        self.allEnimysRectsAndTypes, self.enimysKilled = self.enimys.enimysAdd(tile_rects, self.player_rect,(self.fireEnimyColision, self.fireCollsionPos),(self.playerOnAttack,self.enimyCollision, self.inUse), self.scroll)
+        self.allEnimysRectsAndTypes, self.enimysKilled, self.bossKilled = self.enimys.enimysAdd(tile_rects, self.player_rect,(self.fireEnimyColision, self.fireCollsionPos),(self.playerOnAttack,self.enimyCollision, self.inUse), self.scroll)
 
         # Drawing some visual animation
         self.animation.draw()
@@ -85,7 +86,7 @@ class GamePlay(object):
                     painelState = 13
                 else:
                     painelState = 18
-        elif((self.nivel == 3)and(self.enimysKilled >=5)):
+        elif((self.nivel == 3)and(self.bossKilled)):
             painelState = 19
 
         # controlling the falling out of the game platform

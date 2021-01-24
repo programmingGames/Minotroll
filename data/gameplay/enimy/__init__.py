@@ -18,6 +18,7 @@ class ControlEnimys(object):
         self.allCactusPosition = []
         self.killAttempt = []
         self.enimyKilled = 0
+        self.bossKilled = False
         self.count = 0
         self.addingAllTheAnimys()
 
@@ -46,10 +47,10 @@ class ControlEnimys(object):
                 if(pos[0] in range(scroll[0]-450, scroll[0]+650)):
                     all_rects.append(cactus.add(tile_rects, scroll))
                     self.count += 1
-        print(self.killAttempt)
+        # print(self.killAttempt)
         # print(self.killAttempt)
         # print(self.enimyKilled)
-        return all_rects, self.enimyKilled
+        return all_rects, self.enimyKilled, self.bossKilled
     def addingAllTheAnimys(self):
         if(self.nivel == 0):          
             self.allCactusPosition = [(928, 184),(964, 184),(2370, 504),(2410, 504),(2450, 504),(2478, 504),(3778, 472),(3746, 472),
@@ -157,7 +158,7 @@ class ControlEnimys(object):
             self.allEnimys.append(Wizard(self.screen,(2720,280), 100))
             self.allEnimys.append(Wizard(self.screen,(2720,280), 100))
             self.allEnimys.append(Wizard(self.screen,(2720,280), 100))
-            self.allEnimys.append(Graveller(self.screen, (3603, 120), 356))
+            self.allEnimys.append(Graveller(self.screen, (3603, 120), 250))
 
             self.allEnimysPosition = [(2008,536), (2720,280), (2720,280), (2720,280), (3603, 120)]
 
@@ -199,4 +200,6 @@ class ControlEnimys(object):
                     self.allEnimys.pop(i)
                     self.allEnimysPosition.pop(i)
                     self.killAttempt.pop(i)
-            i += 1  
+            i += 1 
+        elif((self.nivel == 3)and(len(self.allEnimysPosition)==0)):
+            self.bossKilled = True
