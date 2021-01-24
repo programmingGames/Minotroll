@@ -6,21 +6,19 @@ from data.gameplay.collisionControl import Colision
 # import random
 
 
-class Golens:
-    def __init__(self, screen,pos, patrolRadius, golemType):
+class Graveller:
+    def __init__(self, screen,pos, patrolRadius):
         self.screen = screen
-        self.golemType = golemType
-        self.name = ''
-        self.renameTheGolemType()
+        self.name = 'graveller'
         self.patrolRadius = patrolRadius
         self.state = 'Idle'
         self.move_direction = 'right'
-        self.imgGolens = pygame.image.load("resources/image/enimy/golens/Golem_"+str(self.golemType)+"/"+self.state+"/"+self.move_direction+"/0_Golem_"+self.state+"_0.png").convert_alpha()
+        self.imgGolens = pygame.image.load("resources/image/enimy/Graveler/"+self.state+"/"+self.move_direction+"/"+self.state+"_0.png").convert_alpha()
         self.rect = self.imgGolens.get_rect()
         self.rect.x = pos[0]
         self.rect.y = pos[1]
         self.initialPosition = pos[0]
-        self.ai = EnimysAI(self.screen, self.patrolRadius,100, self.rect.x)
+        self.ai = EnimysAI(self.screen, self.patrolRadius,150, self.rect.x)
         self.collision = Colision()
         self.move_right = False
         self.move_left = False
@@ -29,13 +27,6 @@ class Golens:
         self.move_frame = 0
         self.attacking = False
         self.isMe = False
-    def renameTheGolemType(self):
-        if(self.golemType == 1):
-            self.name = 'fire golem'
-        elif(self.golemType == 2):
-            self.name = 'stone golem'
-        elif(self.golemType == 3):
-            self.name = 'ice golem'
 
     def controlingCollision(self, golens_move, platform_rects, player_rect, playerOnAttack):
         rect, plat_collisions = self.collision.platformCollision(golens_move,self.rect, platform_rects)
@@ -121,35 +112,35 @@ class Golens:
             self.move_left = False
 
     def walk(self):
-        self.state = 'Walking'
-        if(((self.move_right)or(self.move_left))and(self.move_frame <= 23)):        #resources\image\enimy\golens\Golem_1\Idle\left\0_Golem_Idle_000.png
-            self.imgGolens = pygame.image.load("resources/image/enimy/golens/Golem_"+str(self.golemType)+"/"+self.state+"/"+self.move_direction+"/0_Golem_"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
+        self.state = 'Walk'
+        if(((self.move_right)or(self.move_left))and(self.move_frame <= 9)):        #resources\image\enimy\golens\Golem_1\Idle\left\0_Golem_Idle_000.png
+            self.imgGolens = pygame.image.load("resources/image/enimy/Graveler/"+self.state+"/"+self.move_direction+"/"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
             self.move_frame += 1
-        elif(((self.move_right)or(self.move_left))and(self.move_frame > 23)):
+        elif(((self.move_right)or(self.move_left))and(self.move_frame > 9)):
             self.move_frame = 0
-            self.imgGolens = pygame.image.load("resources/image/enimy/golens/Golem_"+str(self.golemType)+"/"+self.state+"/"+self.move_direction+"/0_Golem_"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()   
+            self.imgGolens = pygame.image.load("resources/image/enimy/Graveler/"+self.state+"/"+self.move_direction+"/"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()   
         else:
-            self.imgGolens = pygame.image.load("resources/image/enimy/golens/Golem_"+str(self.golemType)+"/"+self.state+"/"+self.move_direction+"/0_Golem_"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()   
+            self.imgGolens = pygame.image.load("resources/image/enimy/Graveler/"+self.state+"/"+self.move_direction+"/"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()   
 
     def idle(self):
         self.state = 'Idle'
-        if(((not self.move_right)or(not self.move_left ))and(self.move_frame <= 17)):
-            self.imgGolens = pygame.image.load("resources/image/enimy/golens/Golem_"+str(self.golemType)+"/"+self.state+"/"+self.move_direction+"/0_Golem_"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()   
+        if(((not self.move_right)or(not self.move_left ))and(self.move_frame <= 9)):
+            self.imgGolens = pygame.image.load("resources/image/enimy/Graveler/"+self.state+"/"+self.move_direction+"/"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()   
             self.move_frame += 1
-        elif(((not self.move_right)or(not self.move_left))and(self.move_frame > 17)):
+        elif(((not self.move_right)or(not self.move_left))and(self.move_frame > 9)):
             self.move_frame = 0
-            self.imgGolens = pygame.image.load("resources/image/enimy/golens/Golem_"+str(self.golemType)+"/"+self.state+"/"+self.move_direction+"/0_Golem_"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
+            self.imgGolens = pygame.image.load("resources/image/enimy/Graveler/"+self.state+"/"+self.move_direction+"/"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
         else:
-            self.imgGolens = pygame.image.load("resources/image/enimy/golens/Golem_"+str(self.golemType)+"/"+self.state+"/"+self.move_direction+"/0_Golem_"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
+            self.imgGolens = pygame.image.load("resources/image/enimy/Graveler/"+self.state+"/"+self.move_direction+"/"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
 
     def startAttack(self):
-        self.state = 'Slashing'
-        if((self.attacking)and(self.move_frame <= 11)):
-            self.imgGolens = pygame.image.load("resources/image/enimy/golens/Golem_"+str(self.golemType)+"/"+self.state+"/"+self.move_direction+"/0_Golem_"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
+        self.state = 'Attack'
+        if((self.attacking)and(self.move_frame <= 9)):
+            self.imgGolens = pygame.image.load("resources/image/enimy/Graveler/"+self.state+"/"+self.move_direction+"/"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
             self.move_frame += 1
-        elif((self.attacking)and(self.move_frame > 11)):
+        elif((self.attacking)and(self.move_frame > 9)):
             self.move_frame = 0
-            self.imgGolens = pygame.image.load("resources/image/enimy/golens/Golem_"+str(self.golemType)+"/"+self.state+"/"+self.move_direction+"/0_Golem_"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
+            self.imgGolens = pygame.image.load("resources/image/enimy/Graveler/"+self.state+"/"+self.move_direction+"/"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
         else:
-            self.imgGolens = pygame.image.load("resources/image/enimy/golens/Golem_"+str(self.golemType)+"/"+self.state+"/"+self.move_direction+"/0_Golem_"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
+            self.imgGolens = pygame.image.load("resources/image/enimy/Graveler/"+self.state+"/"+self.move_direction+"/"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
         

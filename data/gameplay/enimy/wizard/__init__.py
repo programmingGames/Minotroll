@@ -86,7 +86,6 @@ class Wizard:
         
         if self.attacking:
             self.startAttack()
-
         # if move_right and move_left not True call idle
         if ((not self.move_right)and(not self.move_left)):
             self.idle()
@@ -114,10 +113,6 @@ class Wizard:
                 self.move_right = False
         elif((self.rect.x - self.initialPosition)<(-1*self.patrolRadius)):
             self.move_left = False
-        if((self.move_direction == 'right')and(self.move_right)):
-            self.rect.x += 10
-        elif((self.move_direction == 'left')and(self.move_left)):
-            self.rect.x -= 10
 
     def walk(self):
         self.state = 'walk'

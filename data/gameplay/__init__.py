@@ -85,6 +85,8 @@ class GamePlay(object):
                     painelState = 13
                 else:
                     painelState = 18
+        elif((self.nivel == 3)and(self.enimysKilled >=5)):
+            painelState = 19
 
         # controlling the falling out of the game platform
         if(self.player_rect.y >= 720):

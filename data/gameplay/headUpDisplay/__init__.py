@@ -156,4 +156,6 @@ class HeadUpDisplay(object):
         elif(itemType == "cactus"):
             self.life.updateLife(-10)
         elif(itemType == "life plant"):
-            self.life.updateLife(40)
+            self.life.updateLife(60)
+        elif(itemType == 'graveller'):
+            self.life.updateLife(-10)

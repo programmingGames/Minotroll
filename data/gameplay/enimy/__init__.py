@@ -3,6 +3,7 @@ from pygame import rect
 from data.gameplay.enimy.cactus import Cactus
 from data.gameplay.enimy.wizard import Wizard
 from data.gameplay.enimy.golens import Golens
+from data.gameplay.enimy.graveler import Graveller
 from data.gameplay.collisionControl import Colision
 
 class ControlEnimys(object):
@@ -45,6 +46,7 @@ class ControlEnimys(object):
                 if(pos[0] in range(scroll[0]-450, scroll[0]+650)):
                     all_rects.append(cactus.add(tile_rects, scroll))
                     self.count += 1
+        print(self.killAttempt)
         # print(self.killAttempt)
         # print(self.enimyKilled)
         return all_rects, self.enimyKilled
@@ -155,16 +157,20 @@ class ControlEnimys(object):
             self.allEnimys.append(Wizard(self.screen,(2720,280), 100))
             self.allEnimys.append(Wizard(self.screen,(2720,280), 100))
             self.allEnimys.append(Wizard(self.screen,(2720,280), 100))
+            self.allEnimys.append(Graveller(self.screen, (3603, 120), 356))
 
-            self.allEnimysPosition = [(2008,536), (2720,280), (2720,280), (2720,280)]
+            self.allEnimysPosition = [(2008,536), (2720,280), (2720,280), (2720,280), (3603, 120)]
 
             for enimy in self.allEnimys:
                 if(enimy.name == 'blue wizard'):
                     self.killAttempt.append(11)
+                elif(enimy.name == 'graveller'):
+                    self.killAttempt.append(25)
             # self.positions = [(1448, 168),(1595, 168),(2718, 408),(2750, 296),(4014, 296),(4710, 584), (4870, 584)] 
         [self.allEnimys.pop(0) for i in range(self.enimyskilled)]
         [self.allEnimysPosition.pop(0) for i in range(self.enimyskilled)]
 
+        
 
     def calculatingEnimyDelete(self,fireColid, pos,playerAttack, scroll):
         i = 0
