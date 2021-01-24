@@ -73,18 +73,24 @@ class Wizard:
     def add(self, platform_rects,player_rect,playerOnAttack, scroll):
         wizard_move = [0, 0]
         if self.move_right:
-            wizard_move[0] += 1
+            if self.attacking:
+                wizard_move[0]+=10
+            else:
+                wizard_move[0] += 1
 
         if self.move_left:
-            wizard_move[0] -= 1
+            if self.attacking:
+                wizard_move[0]-=10
+            else:
+                wizard_move[0] -= 1
         
-        if (self.attacking and playerOnAttack == False):
+        if self.attacking:
             self.startAttack()
 
         # if move_right and move_left not True call idle
         if ((not self.move_right)and(not self.move_left)):
             self.idle()
-        else:
+        elif((self.move_right or self.move_left)and not self.attacking):
             self.walk()
 
         wizard_move[1] += self.vertical_momentum
