@@ -11,7 +11,12 @@ class HeadUpDisplay(object):
         self.qtlife = qtlife
         self.progress = LevelProgress(self.screen, self.lastPassPoint)
         self.player = pygame.image.load("resources/image/headUpDisplay/conteiner/faceIcon.png")
+        self.enimysBox = pygame.image.load("resources/image/headUpDisplay/attackinfo/enimys.png")
+        self.greenFireBox = pygame.image.load("resources/image/headUpDisplay/attackinfo/greenFire.png")
+        self.blueFireBox = pygame.image.load("resources/image/headUpDisplay/attackinfo/blueFire.png")
         self.avalableSkills = ["kicking", "slashing","battleax", "greenfire", "bluefire"]
+        self.font = pygame.font.Font("resources/font/montserrat-font/MontserratBold-DOWZd.ttf", 18)
+        self.font.set_bold(True)
         self.nivel = nivel
         self.skillOfThePlayer()
         self.inUse = 0
@@ -24,8 +29,8 @@ class HeadUpDisplay(object):
         self.timeToHidde = 0
 
     # method to draw the HUD um the game screen
-    def headUpDisplayScreenDraw(self, lastPassPoint, greenFire, blueFire):
-        self.greenFire, self.blueFire = greenFire, blueFire
+    def headUpDisplayScreenDraw(self, lastPassPoint, greenFire, blueFire, enimysKilled):
+        self.greenFire, self.blueFire, self.enimysKilled = greenFire, blueFire, enimysKilled
         self.changeSkillsToUse()
         self.lastPassPoint = lastPassPoint
         self.screen.blit(self.player, (10, 10))
@@ -33,13 +38,40 @@ class HeadUpDisplay(object):
         self.progress.draw(lastPassPoint)
         self.displaySkillsCars()
         self.showHiddenSkilssOnGameEnvirement()
-
+        self.showFireAndEnimysInfo()
         if(self.life.qtlife <= 0):
             return 11, self.qtlife, self.avalableSkills[self.inUse]
         else:
             return 7, self.qtlife, self.avalableSkills[self.inUse]
         # self.screen.blit(self.lifeBox, (50, 50))
+    def showFireAndEnimysInfo(self):
+        # enimys info
+        if(len(str(self.enimysKilled))==2):
+            eX = 12
+        else:
+            eX=15
+        self.screen.blit(self.enimysBox, (5, 405))
+        line = self.font.render(str(self.enimysKilled), True, (255, 0,0))
+        self.screen.blit(line, (eX, 447))
 
+        # draw green and blue fire info 
+        if(len(str(self.greenFire))==2):
+            gX = 11
+        else:
+            gX=14
+
+        if(len(str(self.blueFire))==2):
+            fX = 11
+        else:
+            fX=91
+        if((self.skills == 4) or(self.skills == 5)):
+            self.screen.blit(self.greenFireBox, (5, 329))
+            line = self.font.render(str(self.greenFire), True, (0, 255, 14))
+            self.screen.blit(line, (gX, 372))
+            if(self.skills == 5):
+                self.screen.blit(self.blueFireBox, (79, 405))
+                line = self.font.render(str(self.blueFire), True, (0, 0, 255))
+                self.screen.blit(line, (fX, 448))
     def showSkillsOnGameEnvirement(self):
         
         x1 = 700/2 - ((60*self.skills)/2)
@@ -148,7 +180,7 @@ class HeadUpDisplay(object):
         ## Verify the available green fires
         if((self.inUse == 3)and(self.greenFire<=0)or((self.inUse == 4)and (self.blueFire == 0))):
             self.inUse = 0
-            
+
     def updatingPlayerLife(self,itemType):
         # print(enimyType)
         if(itemType == 'blue wizard'):

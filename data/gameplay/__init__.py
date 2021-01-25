@@ -20,6 +20,7 @@ class GamePlay(object):
         self.pygameEvent = pygameEvent
         self.greenFire = greenFire
         self.blueFire = blueFire
+        self.currentEnimysKilled = enimysKilled
         self.enimys = ControlEnimys(self.screen, self.nivel, enimysKilled)
         self.animation = Animation(self.screen, self.nivel)
         self.headUpDisplay = H_u_d(self.screen, self.nivel, self.lastPassPoint, self.qtlife)
@@ -83,7 +84,7 @@ class GamePlay(object):
 
         # Drawing some visual animation
         self.animation.draw()
-        painelState, self.qtlife, self.inUse = self.headUpDisplay.headUpDisplayScreenDraw(self.player_rect.x, self.greenFire, self.blueFire)
+        painelState, self.qtlife, self.inUse = self.headUpDisplay.headUpDisplayScreenDraw(self.player_rect.x, self.greenFire, self.blueFire, self.enimysKilled+self.currentEnimysKilled)
 
         self.itemLifeCollision = self.liveItem.drawingTheLifeItem(self.player_rect, self.scroll)
         

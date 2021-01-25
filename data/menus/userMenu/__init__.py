@@ -15,7 +15,7 @@ class UserMenu(object):
         self.painel = pygame.image.load("resources/image/menu/user_menu/painel.png").convert_alpha()
         self.title = pygame.image.load("resources/image/title/MinoTrolls1.png").convert_alpha()
         self.timeOut = 0
-        self.font1 = pygame.font.SysFont("Arial", 14)
+        self.font1 = pygame.font.Font("resources/font/montserrat-font/MontserratBold-DOWZd.ttf", 14)
         self.text = 'Game Menu'
         self.size = pygame.font.Font.size(self.font1, self.text)
         self.font1.set_bold(True)
@@ -195,11 +195,11 @@ class UserMenu(object):
         currentLife = 'Life Status: '+str(currentLifePerc)+'%'
 
         ## bliting statistic info
-        font = pygame.font.SysFont("Arial", 18)
+        font = pygame.font.Font("resources/font/montserrat-font/MontserratBold-DOWZd.ttf", 18)
         font.set_bold(True)
         line = font.render(user, True, (255, 255,255))
         self.screen.blit(line, (386, 188))
-        font = pygame.font.SysFont("Arial", 12)
+        font = pygame.font.Font("resources/font/montserrat-font/MontserratBold-DOWZd.ttf", 12)
         font.set_bold(True)
         line = font.render(currentNivel, True, (255, 255,255))
         self.screen.blit(line, (350, 245))

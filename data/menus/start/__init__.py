@@ -10,7 +10,7 @@ class Initiation:
         self.background = Back(screen)
         self.loading = pygame.image.load("resources/image/background/loading.png")
         self.loadRect = Rects(self.screen,160,9,(700/2-150/2),315,(46,170,0))
-        self.font = pygame.font.SysFont("Arial", 11)
+        self.font = pygame.font.Font("resources/font/montserrat-font/MontserratBold-DOWZd.ttf", 12)
         self.font.set_bold(True)
         self.frame = 1
         self.dicas = [('Pressing buttom "M",', 'is possible to see your position in the map.'),
