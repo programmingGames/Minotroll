@@ -11,13 +11,15 @@ from data.gameplay.platforms import Plataform
 
 
 class GamePlay(object):
-    def __init__(self, screen, nivel, lastPassPoint,qtlife, pygameEvent, enimysKilled):
+    def __init__(self, screen, nivel, lastPassPoint,qtlife, pygameEvent, enimysKilled, greenFire, blueFire):
         # self.allEnimys = ['blue wizard', 'fire golem', 'stone golem', 'ice golem', 'blue robots', 'dark robots', 'gold robots']
         self.screen = screen
         self.nivel = nivel
         self.lastPassPoint = lastPassPoint
         self.qtlife = qtlife
         self.pygameEvent = pygameEvent
+        self.greenFire = greenFire
+        self.blueFire = blueFire
         self.enimys = ControlEnimys(self.screen, self.nivel, enimysKilled)
         self.animation = Animation(self.screen, self.nivel)
         self.headUpDisplay = H_u_d(self.screen, self.nivel, self.lastPassPoint, self.qtlife)
@@ -42,6 +44,7 @@ class GamePlay(object):
         self.knowingEnimysNr()
         self.playerOnAttack = False
         self.bossKilled = False
+        self.firing = False
 
         self.count = 0
         self.pos = 0
@@ -60,8 +63,12 @@ class GamePlay(object):
     def drawingTheGamePlayEnvirement(self):
         # key_press = pygame.key.get_pressed()
         tile_rects = self.platform.settingPlataform(self.scroll)
-        self.scroll, self.player_rect,self.fireArray, self.enimyCollision, self.enimyType, self.fireEnimyColision, self.fireCollsionPos, self.playerOnAttack = self.player.settingPlayer(tile_rects, self.scroll, self.allEnimysRectsAndTypes, self.inUse)
-
+        self.scroll, self.player_rect,self.fireArray, self.enimyCollision, self.enimyType, self.fireEnimyColision, self.fireCollsionPos, self.playerOnAttack, self.firing = self.player.settingPlayer(tile_rects, self.scroll, self.allEnimysRectsAndTypes, self.inUse)
+        if(self.firing):
+            if(self.inUse == 'greenfire'):
+                self.greenFire -= 1
+            elif(self.inUse == 'bluefire'):
+                self.blueFire -= 1
         # update after we check the collision
         self.allEnimysRectsAndTypes, self.enimysKilled, self.bossKilled = self.enimys.enimysAdd(tile_rects, self.player_rect,(self.fireEnimyColision, self.fireCollsionPos),(self.playerOnAttack,self.enimyCollision, self.inUse), self.scroll)
 
@@ -108,7 +115,7 @@ class GamePlay(object):
         self.lastPassPoint = (self.player_rect.x, self.player_rect.y)
 
         self.controllingTheImageOfGameOverAndLevelComplete(painelState)
-        return painelState, self.player_rect, self.qtlife, self.enimysKilled
+        return painelState, self.player_rect, self.qtlife, self.enimysKilled, self.greenFire, self.blueFire
     
     def controllingThePlayerLife(self):
         if (self.enimyCollision and self.playerOnAttack == False):

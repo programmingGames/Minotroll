@@ -15,9 +15,12 @@ class Skills(object):
         self.allCard = []
         # self.timeEfect = 0
         self.cards = ['kickingCard', 'slashingCard', 'battleaxCard', 'fireCard', 'bluefireCard']
+        self.description = [('5%', '5%', 'unlimited'), ('20%', '20%', 'unlimited'), ('30%', '25%', 'unlimited'), ('40%', '100%', 'limited'), ('45%', '100%', 'limited')]
+        self.descrPos = 0
         self.copyCards = ['kickingCard', 'slashingCard', 'battleaxCard', 'fireCard', 'bluefireCard']
         self.state = [False,False,False,False,False]
-        self.font = pygame.font.SysFont("Arial", 20)
+        self.font = pygame.font.SysFont("Arial", 16)
+        self.font.set_bold(True)
         self.cardsDiscription = ''
         self.skillsOfPlayer()
         self.skillsControl = []
@@ -51,6 +54,7 @@ class Skills(object):
                     self.arrows.append(pygame.image.load("resources/image/skills/arrows/leftarrow0.png").convert_alpha())
                     self.arrows.append(pygame.image.load("resources/image/skills/arrows/rightarrow0.png").convert_alpha())
                     self.backButtom = pygame.image.load("resources/image/skills/Back2.png").convert_alpha()
+                self.descrPos = count 
                 self.cardsDiscription = pygame.image.load("resources/image/skills/description/pergaminio-"+str(state)+".png")
                 self.x = 390
             else:
@@ -78,8 +82,18 @@ class Skills(object):
         # self.screen.blit(cardName, (270, 100))
         [self.screen.blit(card, pos) for card, pos in zip(self.allCard, self.allCardsPosition)]
         [self.screen.blit(arrows, pos) for arrows, pos in zip(self.arrows, self.arrowsPosition)]
+
+        # display description
+        
         self.screen.blit(self.backButtom, (260, 380))
         self.screen.blit(self.cardsDiscription, (225,240))
+        ty = 280
+        aux = ['Damage: ', 'Precision: ', 'Attempts: ']
+        for text, text1 in zip(aux, self.description[self.descrPos]):
+            size = pygame.font.Font.size(self.font, text+text1)
+            line = self.font.render(text+text1, True, (0, 0,0))
+            self.screen.blit(line, ((700/2-size[0]/2), ty))
+            ty += 20
 
         self.levelToUnlockTheCards()
     # display of the level to unlock
@@ -131,6 +145,12 @@ class Skills(object):
         reststatescopy.append(fistsstatecopy)
         self.state = reststatescopy  
 
+        # move in the description
+        fistsstatecopy = self.description[0]
+        reststatescopy = self.description[1:len(self.description)]
+        reststatescopy.append(fistsstatecopy)
+        self.description = reststatescopy  
+
     # move cards to left
     def movingRightInSkillsDisplay(self):
         # move in the cards list
@@ -146,6 +166,13 @@ class Skills(object):
         reststatescopy.append(laststatecopy)
         reststatescopy += self.state[0:len(self.state)-1]
         self.state = reststatescopy
+
+        # move in the description
+        reststatescopy = []
+        laststatecopy = self.description[int(len(self.description)-1)]
+        reststatescopy.append(laststatecopy)
+        reststatescopy += self.description[0:len(self.description)-1]
+        self.description = reststatescopy
 
     # method to move only on the skills display
     def movingInSkillsDsiplay(self):

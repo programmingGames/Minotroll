@@ -143,7 +143,7 @@ class Player(object):
         correct_scroll[1] = int(correct_scroll[1])
         self.checkingEnimysCollision(player_movement,allEnimysRectsAndType)
         self.collisionInpact(tile_rects)
-        return correct_scroll, self.player_rect,self.fireArray, self.enimyCollision, self.enimyType,self.fireEnimyCollision, self.fireCollisionPos, self.attack
+        return correct_scroll, self.player_rect,self.fireArray, self.enimyCollision, self.enimyType,self.fireEnimyCollision, self.fireCollisionPos, self.attack, self.firing
 
     def checkingEnimysCollision(self, player_move,enimysRectsAndType):
         self.enimyRectList = []

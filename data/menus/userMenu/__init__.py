@@ -84,7 +84,7 @@ class UserMenu(object):
     def movingInUserMenu(self, user):
         self.user = user
         choice = 3
-        nivel,  lastPassPoint_x, lastPassPoint_y, life, enimysKilled = self.loadUserData(user)
+        nivel,  lastPassPoint_x, lastPassPoint_y, life, enimysKilled, greenFire, bluefire = self.loadUserData(user)
         pressed_keys = pygame.key.get_pressed()
         if not self.active:
             if(pressed_keys[K_DOWN]):
@@ -123,7 +123,7 @@ class UserMenu(object):
                 choice = 3
 
 
-        return choice,self.user, int(nivel),  (int(lastPassPoint_x), int(lastPassPoint_y)),  int(life), int(enimysKilled)
+        return choice,self.user, int(nivel),  (int(lastPassPoint_x), int(lastPassPoint_y)),  int(life), int(enimysKilled), int(greenFire), int(bluefire)
 
     def userChoise(self, pressed_keys):
         self.count += 1
@@ -170,7 +170,9 @@ class UserMenu(object):
         lastPassPoint_y = allUserData[2]   # the last point in the game tha the user pass to in y
         life = allUserData[3]  # the last quantity of life save by the user
         enimysKilled = allUserData[4] ## the total of enimys killed by the user
-        return nivel, lastPassPoint_x, lastPassPoint_y, life, enimysKilled
+        greenFire = allUserData[5] ## the total of green fire availabe
+        blueFire = allUserData[6] ## the total of blue fire availabe
+        return nivel, lastPassPoint_x, lastPassPoint_y, life, enimysKilled, greenFire, blueFire
 
     def drawUserInfor(self, user, nivel, atualPosition, qtlife, enimysKilled):
         playerIcon = pygame.image.load("resources/image/menu/user_menu/faceIcon.png")
