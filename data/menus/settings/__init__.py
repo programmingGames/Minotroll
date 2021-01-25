@@ -55,14 +55,14 @@ class Settings(object):
     def checkingSounds(self):
         # checking music
         if self.musicOn:
-            self.musicButton = 'Music: On'
+            self.musicButton = 'MusicOn'
         else:
-            self.musicButton = 'Music: Off'
+            self.musicButton = 'MusicOff'
         # checing sound
         if self.soundOn:
-            self.soundButton = 'Sound: On'
+            self.soundButton = 'SoundOn'
         else:
-            self.soundButton = 'Sound: Off'
+            self.soundButton = 'SoundOff'
 
         self.buttoms = [self.musicButton,self.soundButton, 'Controls', 'Back']
         
