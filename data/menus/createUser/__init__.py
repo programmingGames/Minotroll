@@ -56,7 +56,7 @@ class CreateUserMenu:
         self.font.set_bold(True)
         line = self.font.render(self.createText, True, (0, 0,0))
         self.screen.blit(line, ((700/2-self.size[0]/2)-7, 150))
-        self.user = self.text.settingInputText(self.screen, event)
+        self.user = self.text.settingInputText(self.screen)
 
         # Controling menu buttons efects
         if (self.menuControl == 250):
@@ -119,7 +119,7 @@ class CreateUserMenu:
             surf = pygame.Surface((x, y))
             os.chdir('..')
             img = pygame.image.load("resources/image/menu/botao"+str(i)+".png")
-            name_surf = font.render(self.user, True, (0, 0, 0), img)
+            name_surf = font.render(self.user, True,(0, 0, 0))
             r = name_surf.get_rect()
             surf.fill((66, 33, 11))
             surf.blit(img, (0, 0))

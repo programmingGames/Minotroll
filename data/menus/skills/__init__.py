@@ -109,7 +109,7 @@ class Skills(object):
             elif(self.nivel == 1):
                 maxSkills = 4
 
-            elif(self.nivel == 2):
+            elif(self.nivel >= 2):
                 maxSkills = 5
 
             n = self.state[count]

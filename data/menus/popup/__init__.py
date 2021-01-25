@@ -49,13 +49,13 @@ class Popup(object):
         for buttom in self.buttoms:
             if(self.currentButtom == buttom):
                 if (self.timeEfect == 10):
-                    img = pygame.image.load("resources/image/menu/exit_menu/"+buttom+"1.png").convert_alpha()
+                    img = pygame.image.load("resources/image/menu/exit_menu/popup/"+buttom+"1.png").convert_alpha()
                     self.timeEfect = 0
                 else:
-                    img = pygame.image.load("resources/image/menu/exit_menu/"+buttom+"2.png").convert_alpha()
+                    img = pygame.image.load("resources/image/menu/exit_menu/popup/"+buttom+"2.png").convert_alpha()
                     self.timeEfect += 1
             else:
-                img = pygame.image.load("resources/image/menu/exit_menu/"+buttom+"0.png").convert_alpha()
+                img = pygame.image.load("resources/image/menu/exit_menu/popup/"+buttom+"0.png").convert_alpha()
             self.allButtom.append(img)
 
     def draw(self, pressed_keys):

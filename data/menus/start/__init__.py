@@ -46,5 +46,4 @@ class Initiation:
             line = self.font.render(paragrf, True, (255, 255,255))
             self.screen.blit(line, ((700/2-size[0]/2)-4, ty))
             ty += 15
-
         return 0

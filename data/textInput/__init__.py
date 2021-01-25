@@ -16,30 +16,22 @@ class Textinput:
         self.count = 0
     
     # Method to receive the input text from the keyboard
-    def settingInputText(self, screen, event):
+    def settingInputText(self, screen):
         # Verifica se o mause esta dentro da caixa d texto para permitir a escrita
-        # if(event.type == pygame.MOUSEBUTTONDOWN):
-        #     # if (self.input_rect.collidepoint(event.pos)):
-        #     #     self.active = True
-        #     # else:
-        #     #     self.active = False
-
         # Pega todos os eventos de escrita do teclado
-        if ((event.type == pygame.KEYDOWN)and (self.count > 5)):
-            # pygame.time.delay(10)
-            # So escreve na caixa do teclado se a active estiver ativo
-            if(self.active == True):
+        for event in pygame.event.get():
+            if (event.type == pygame.KEYDOWN):
+                # So escreve na caixa do teclado se a active estiver ativo
                 if (event.key == pygame.K_BACKSPACE):
                     self.text = self.text[:-1]
                 else:
                     if(len(self.text)<=self.limit):
                         self.text += event.unicode
-                    if(event.key == K_RETURN):
-                        text = self.text
-                        self.text = ''
-                        return text
-            self.count = 0
-        self.count += 1
+                    #if(event.key == K_RETURN):
+                     #   text = self.text
+                      #  self.text = ''
+              #  self.count = 0
+        #self.count += 1
 
         if self.active:
             self.color = self.color_active

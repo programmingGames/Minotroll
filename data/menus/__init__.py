@@ -18,6 +18,7 @@ from data.menus.levelComplet import LevelComplet
 from data.menus.levelincomplet import LevelIncompleted
 from data.menus.settings import Settings
 from data.menus.controls import Controls
+from data.menus.congrats import Congrats
 from data.gameplay import GamePlay
 
 
@@ -40,6 +41,7 @@ class Menus(object):
         self.levelincompleted = LevelIncompleted(self.screen)
         self.pause = PauseMenu(self.screen)
         self.controls = Controls(self.screen)
+        self.congrats = Congrats(self.screen)
         self.player_rect = pygame.Rect(0, 0, 0, 0)
         self.count = 0
         self.suport = 0
@@ -126,6 +128,9 @@ class Menus(object):
             self.painelState = self.controls.settingControls()
         elif(self.painelState == 18):
             self.painelState, self.complet = self.levelincompleted.showPainel()
+        elif(self.painelState == 19):
+            self.painelState, self.complet = self.congrats.drawingcongratsPainel()
+            self.saveUserData()
 
 
     def updatingUserData(self):

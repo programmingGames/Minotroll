@@ -97,7 +97,7 @@ class GamePlay(object):
         if key[K_ESCAPE]:
             painelState = 8
 
-
+        # tutorial display
         if((self.nivel == 0)and(self.lastPassPoint[0] <= 500)):
             self.showTutorial = True
         else:
@@ -173,6 +173,19 @@ class GamePlay(object):
             surf.blit(img, (0, 0))
             surf.blit(img1, (0, 0))
             os.chdir('resources/image/menu/pause_menu')
+            pygame.image.save(surf, "back.png")
+            os.chdir('../../../..')
+        elif(painelState == 19):
+            os.chdir('resources/image/menu/congrats')
+            pygame.image.save(self.screen, "back.png")
+            pygame.time.delay(100)
+            os.chdir('../../../..')
+            surf = pygame.Surface((700, 480))
+            img = pygame.image.load("resources/image/menu/congrats/back.png").convert_alpha()
+            img1 = pygame.image.load("resources/image/menu/congrats/back1.png").convert_alpha()
+            surf.blit(img, (0, 0))
+            surf.blit(img1, (0, 0))
+            os.chdir('resources/image/menu/congrats')
             pygame.image.save(surf, "back.png")
             os.chdir('../../../..')
 
