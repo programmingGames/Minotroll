@@ -7,4 +7,4 @@ clock = pygame.time.Clock()
 while True:
     menu.interMenuMoving()
     pygame.display.update()
-    clock.tick(30)
+    clock.tick(60)

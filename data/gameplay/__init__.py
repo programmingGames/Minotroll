@@ -63,12 +63,21 @@ class GamePlay(object):
     def drawingTheGamePlayEnvirement(self):
         # key_press = pygame.key.get_pressed()
         tile_rects = self.platform.settingPlataform(self.scroll)
-        self.scroll, self.player_rect,self.fireArray, self.enimyCollision, self.enimyType, self.fireEnimyColision, self.fireCollsionPos, self.playerOnAttack, self.firing = self.player.settingPlayer(tile_rects, self.scroll, self.allEnimysRectsAndTypes, self.inUse)
+        self.scroll, self.player_rect,self.fireArray, self.enimyCollision, self.enimyType, self.fireEnimyColision, self.fireCollsionPos, self.playerOnAttack = self.player.settingPlayer(tile_rects, self.scroll, self.allEnimysRectsAndTypes, self.inUse)
+        
+        if ((self.playerOnAttack)and(self.count >= 10)):
+            self.firing = True
+            self.count = 0
+        else:
+            self.firing = False
+        self.count += 1
         if((self.firing)and(self.greenFire > 0)):
             if(self.inUse == 'greenfire'):
                 self.greenFire -= 1
             elif(self.inUse == 'bluefire'):
                 self.blueFire -= 1
+            self.firing = False
+        
         # update after we check the collision
         self.allEnimysRectsAndTypes, self.enimysKilled, self.bossKilled = self.enimys.enimysAdd(tile_rects, self.player_rect,(self.fireEnimyColision, self.fireCollsionPos),(self.playerOnAttack,self.enimyCollision, self.inUse), self.scroll)
 

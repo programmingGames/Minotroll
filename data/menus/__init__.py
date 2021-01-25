@@ -147,9 +147,9 @@ class Menus(object):
             elif(self.nivel == 1):
                 file.write(str(self.nivel)+' '+str(500)+' '+str(88)+' '+str(218)+' '+str(0)+' '+str(5)+' '+str(0))
             elif(self.nivel == 2):
-                file.write(str(self.nivel)+' '+str(500)+' '+str(440)+' '+str(218)+' '+str(0)+' '+str(5)+' '+str(10))
+                file.write(str(self.nivel)+' '+str(500)+' '+str(440)+' '+str(218)+' '+str(0)+' '+str(10)+' '+str(5))
             elif(self.nivel == 3):
-                file.write(str(self.nivel)+' '+str(500)+' '+str(200)+' '+str(218)+' '+str(0)+' '+str(5)+' '+str(10))
+                file.write(str(self.nivel)+' '+str(500)+' '+str(200)+' '+str(218)+' '+str(0)+' '+str(10)+' '+str(5))
             file.close()
             os.chdir('../..')
             

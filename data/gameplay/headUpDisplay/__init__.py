@@ -146,8 +146,9 @@ class HeadUpDisplay(object):
             self.inUse = 0
         
         ## Verify the available green fires
-        if((self.inUse == 3)and(self.greenFire<=0)or((self.inUse == 4)and )):
-            self.inUse
+        if((self.inUse == 3)and(self.greenFire<=0)or((self.inUse == 4)and (self.blueFire == 0))):
+            self.inUse = 0
+            
     def updatingPlayerLife(self,itemType):
         # print(enimyType)
         if(itemType == 'blue wizard'):
