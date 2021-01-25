@@ -64,7 +64,7 @@ class GamePlay(object):
         # key_press = pygame.key.get_pressed()
         tile_rects = self.platform.settingPlataform(self.scroll)
         self.scroll, self.player_rect,self.fireArray, self.enimyCollision, self.enimyType, self.fireEnimyColision, self.fireCollsionPos, self.playerOnAttack, self.firing = self.player.settingPlayer(tile_rects, self.scroll, self.allEnimysRectsAndTypes, self.inUse)
-        if(self.firing):
+        if((self.firing)and(self.greenFire > 0)):
             if(self.inUse == 'greenfire'):
                 self.greenFire -= 1
             elif(self.inUse == 'bluefire'):
@@ -74,7 +74,7 @@ class GamePlay(object):
 
         # Drawing some visual animation
         self.animation.draw()
-        painelState, self.qtlife, self.inUse = self.headUpDisplay.headUpDisplayScreenDraw(self.player_rect.x)
+        painelState, self.qtlife, self.inUse = self.headUpDisplay.headUpDisplayScreenDraw(self.player_rect.x, self.greenFire, self.blueFire)
 
         self.itemLifeCollision = self.liveItem.drawingTheLifeItem(self.player_rect, self.scroll)
         

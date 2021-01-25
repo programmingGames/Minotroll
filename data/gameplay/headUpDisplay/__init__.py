@@ -24,7 +24,8 @@ class HeadUpDisplay(object):
         self.timeToHidde = 0
 
     # method to draw the HUD um the game screen
-    def headUpDisplayScreenDraw(self, lastPassPoint):
+    def headUpDisplayScreenDraw(self, lastPassPoint, greenFire, blueFire):
+        self.greenFire, self.blueFire = greenFire, blueFire
         self.changeSkillsToUse()
         self.lastPassPoint = lastPassPoint
         self.screen.blit(self.player, (10, 10))
@@ -143,6 +144,10 @@ class HeadUpDisplay(object):
         # verification if the skills is available and reselect
         if(self.inUse > self.skills - 1):
             self.inUse = 0
+        
+        ## Verify the available green fires
+        if((self.inUse == 3)and(self.greenFire<=0)or((self.inUse == 4)and )):
+            self.inUse
     def updatingPlayerLife(self,itemType):
         # print(enimyType)
         if(itemType == 'blue wizard'):
