@@ -135,7 +135,6 @@ class Menus(object):
         elif(self.painelState == 19):
             self.painelState, self.complet = self.congrats.drawingcongratsPainel()
             self.saveUserData()
-        # print(self.painelState)
 
     def updatingUserData(self):
         if not self.complet:

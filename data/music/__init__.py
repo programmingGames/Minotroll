@@ -6,6 +6,7 @@ class Sounds(object):
         self.menuMove = pygame.mixer.Sound("resources/sounds/menu/updownmove.ogg")
         self.select = pygame.mixer.Sound("resources/sounds/menu/selected.ogg")
         self.switch = pygame.mixer.Sound("resources/sounds/menu/switch.oga")
+        self.ambiente = pygame.mixer.Sound("resources/sounds/ambiente/anbiente.ogg")
     def startSounds(self):
         self.start.set_volume(0.0081)
         self.start.play(0)
@@ -19,3 +20,6 @@ class Sounds(object):
     def skillschange(self):
         self.switch.set_volume(0.1791)
         self.switch.play()
+    def envirementOne(self):
+        self.ambiente.set_volume(0.1591)
+        self.ambiente.play(-1)
