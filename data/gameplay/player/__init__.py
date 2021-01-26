@@ -30,6 +30,9 @@ class Player(object):
         self.attack = False
         self.bottomColision = False
         self.firing = False
+        self.preCollisionAriaRight = [0,0]
+        self.preCollisionAriaLeft = [0,0]
+     
 
         self.vertical_momentum = 0
         self.air_timer = 0
@@ -77,7 +80,7 @@ class Player(object):
 
         if self.attack :
             # self.firing = True
-            self.determinateAttack()
+            self.determinateAttack(player_movement, tile_rect)
         
         self.fireEnimyCollision, self.fireCollisionPos = self.fireControl(tile_rects, scroll)
 
@@ -149,7 +152,7 @@ class Player(object):
         correct_scroll[0] = int(correct_scroll[0])
         correct_scroll[1] = int(correct_scroll[1])
         self.checkingEnimysCollision(player_movement,allEnimysRectsAndType)
-        self.collisionInpact(tile_rects)
+        self.collisionInpact(tile_rects, player_movement)
         return correct_scroll, self.player_rect,self.fireArray, self.enimyCollision, self.enimyType,self.fireEnimyCollision, self.fireCollisionPos, self.attack
 
     def checkingEnimysCollision(self, player_move,enimysRectsAndType):
@@ -169,16 +172,29 @@ class Player(object):
         else:
             self.hurtten = False
 
-    def collisionInpact(self, tile_rect):
+    def collisionInpact(self, tile_rect, playerMove):
         # player_movement=[0 , 0]
         # print(self.attack, self.enimyCollision)
+        player_rect, prePlatformCollisionsRight = self.collision.platformCollision(playerMove,pygame.Rect(self.player_rect.x + 20, self.player_rect.y ,30, 40),tile_rect)
+        player_rect, prePlatformCollisionsLeft = self.collision.platformCollision(playerMove,pygame.Rect(self.player_rect.x - 20, self.player_rect.y ,30, 40),tile_rect)
+        del player_rect
+
+        if(prePlatformCollisionsRight['right']or prePlatformCollisionsRight['left']):
+            self.preCollisionAriaRight = []
+            self.preCollisionAriaRight.append(self.player_rect.x)
+            self.preCollisionAriaRight.append( self.player_rect.y)
+        if(prePlatformCollisionsLeft['right']or prePlatformCollisionsLeft['left']):
+            self.preCollisionAriaLeft = []
+            self.preCollisionAriaLeft.append(self.player_rect.x)
+            self.preCollisionAriaLeft.append( self.player_rect.y)
+
         if self.enimyCollision and self.attack == False:
             # print("ok", self.attack)
-            if(self.impactDelay <= 5):
-                if(self.move_direction == 'right' and not self.platformCollisions['left'] and not self.platformCollisions['top']):
+            if((self.impactDelay <= 5)and(self.player_rect.x not in range(self.preCollisionAriaRight[0]-20, self.preCollisionAriaRight[0]+20))and (self.player_rect.x not in range(self.preCollisionAriaLeft[0]-20, self.preCollisionAriaLeft[0]+20))):
+                if(self.move_direction == 'right'):
                     self.player_rect.x -= 5
                     self.player_rect.y -= 5
-                elif(self.move_direction == 'left' and not self.platformCollisions['right'] and not self.platformCollisions['top']):
+                elif(self.move_direction == 'left'):
                     self.player_rect.x += 5
                     self.player_rect.y -= 5
                 self.impactDelay += 1
@@ -284,10 +300,21 @@ class Player(object):
         else:
             self.player_img = pygame.image.load("resources/image/Golem/"+self.state+"/"+self.move_direction+"/0_Goblin_"+self.state+"_0.png").convert_alpha()
 
-
-
     ### the following method is related to the player attack
-    def determinateAttack(self):
+    def determinateAttack(self, playerMove, tile_rect):
+
+        player_rect, prePlatformCollisionsRight = self.collision.platformCollision(playerMove,pygame.Rect(self.player_rect.x + 20, self.player_rect.y ,30, 40),tile_rect)
+        player_rect, prePlatformCollisionsLeft = self.collision.platformCollision(playerMove,pygame.Rect(self.player_rect.x - 20, self.player_rect.y ,30, 40),tile_rect)
+        del player_rect
+
+        if(prePlatformCollisionsRight['right']or prePlatformCollisionsRight['left']):
+            self.preCollisionAriaRight = []
+            self.preCollisionAriaRight.append(self.player_rect.x)
+            self.preCollisionAriaRight.append( self.player_rect.y)
+        if(prePlatformCollisionsLeft['right']or prePlatformCollisionsLeft['left']):
+            self.preCollisionAriaLeft = []
+            self.preCollisionAriaLeft.append(self.player_rect.x)
+            self.preCollisionAriaLeft.append( self.player_rect.y)
 
         self.state = self.skillsInUse
         if (self.skillsInUse == 'kicking'):
@@ -298,7 +325,7 @@ class Player(object):
             self.throwing()
         ## just for hork
         
-        elif(self.skillsInUse == 'slashing'):
+        elif((self.skillsInUse == 'slashing')and(self.player_rect.x not in range(self.preCollisionAriaRight[0]-20, self.preCollisionAriaRight[0]+20))and (self.player_rect.x not in range(self.preCollisionAriaLeft[0]-20, self.preCollisionAriaLeft[0]+20))):
             if((self.slashingControl <= 10) and(self.player_rect.x >= self.player_screen_limit)):
                     self.sliding()
             else:
@@ -311,7 +338,6 @@ class Player(object):
 
         elif(self.skillsInUse == 'battleax'):
             self.battleax()
-        print(self.player_rect)
 
     def kicking(self):
         self.state = 'Kicking'
