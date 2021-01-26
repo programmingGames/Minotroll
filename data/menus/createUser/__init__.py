@@ -119,7 +119,7 @@ class CreateUserMenu:
             surf = pygame.Surface((x, y))
             os.chdir('..')
             img = pygame.image.load("resources/image/menu/botao"+str(i)+".png")
-            name_surf = font.render(self.user.capitalize(), True,(0, 0, 0))
+            name_surf = font.render(self.user, True,(0, 0, 0))
             r = name_surf.get_rect()
             surf.fill((66, 33, 11))
             surf.blit(img, (0, 0))
