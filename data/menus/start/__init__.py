@@ -37,11 +37,11 @@ class Initiation:
         self.sounds.startSounds()
         self.background.settingBackgroundMenu(1)
         self.screen.blit(self.loading, ((700/2-150/2)-5,310))
-        if(self.frame == 100):
+        if(self.frame == 20):
             return 1
         else:
             self.frame += 1
-        self.loadprogress =  int (((self.frame * 139)/100))
+        self.loadprogress =  int (((self.frame * 139)/20))
         self.loadRect.drawSelectColor(self.loadprogress)
 
         ty = 340

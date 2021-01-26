@@ -1,5 +1,5 @@
 import pygame
-from pygame import *
+from pygame.locals import *
 import os
 import shutil
 from data.backgrounds import Backgound as Back
@@ -197,7 +197,7 @@ class UserMenu(object):
         ## bliting statistic info
         font = pygame.font.Font("resources/font/montserrat-font/MontserratMedium-nRxlJ.ttf", 18)
         font.set_bold(True)
-        line = font.render(user, True, (255, 255,255))
+        line = font.render(user.capitalize(), True, (255, 255,255))
         self.screen.blit(line, (386, 188))
         font = pygame.font.Font("resources/font/montserrat-font/MontserratMedium-nRxlJ.ttf", 12)
         font.set_bold(True)
