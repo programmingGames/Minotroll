@@ -19,13 +19,13 @@ class Textinput:
     def settingInputText(self, screen):
         # Pega todos os eventos de escrita do teclado
         key = pygame.key.get_pressed()
-        if(key[K_RETURN]and(self.count>=5)):
+        if(key[K_RETURN]and(self.count>=3)):
             self.count = 0
             return self.text
-        elif(key[K_BACKSPACE]and(self.count>=5)):
+        elif(key[K_BACKSPACE]and(self.count>=3)):
             self.count = 0
             self.text = self.text[:-1]
-        elif((self.count>=5)and(len(self.text)<=self.limit)):
+        elif((self.count>=3)and(len(self.text)<=self.limit)):
             self.count = 0
             self.text += self.keysControl(key)
         self.count += 1
@@ -42,55 +42,14 @@ class Textinput:
         self.input_rect.w = max(300, text_surface.get_width() + 10)
         return self.text
     def keysControl(self, key):
-        if(key[K_q]):
-            return 'q'
-        elif(key[K_w]):
-            return 'w'
-        elif(key[K_e]):
-            return 'e'
-        elif(key[K_r]):
-            return 'r'
-        elif(key[K_t]):
-            return 't'
-        elif(key[K_y]):
-            return 'y'
-        elif(key[K_u]):
-            return 'u'
-        elif(key[K_i]):
-            return 'i'
-        elif(key[K_o]):
-            return 'o'
-        elif(key[K_p]):
-            return 'p'
-        elif(key[K_a]):
-            return 'a'
-        elif(key[K_s]):
-            return 's'
-        elif(key[K_d]):
-            return 'd'
-        elif(key[K_f]):
-            return 'f'
-        elif(key[K_g]):
-            return 'g'
-        elif(key[K_j]):
-            return 'j'
-        elif(key[K_k]):
-            return 'k'
-        elif(key[K_l]):
-            return 'l'
-        elif(key[K_z]):
-            return 'z'
-        elif(key[K_x]):
-            return 'x'
-        elif(key[K_c]):
-            return 'c'
-        elif(key[K_v]):
-            return 'v'
-        elif(key[K_b]):
-            return 'b'
-        elif(key[K_n]):
-            return 'n'
-        elif(key[K_m]):
-            return 'm'
+        text = ''
+        keysDict = {key[K_q]:'q', key[K_w]: 'w',key[K_e]: 'e',key[K_r]:'r',key[K_t]:'t',key[K_y]:'y',
+        key[K_u]: 'u',key[K_i]:'i',key[K_o]:'o',key[K_p]:'p',key[K_a]:'a',key[K_s]:'s',key[K_d]:'d',
+        key[K_f]:'f',key[K_g]:'g',key[K_j]:'j',key[K_k]:'k',key[K_l]:'l',key[K_z]:'z',key[K_x]: 'x',
+        key[K_c]:'c',key[K_v]:'v',key[K_b]:'b',key[K_n]:'n',key[K_m]:'m'}
+
+        text = [value for keys, value in keysDict.items() if keys]
+        if len(text):
+            return text[0]
         else:
             return ''
