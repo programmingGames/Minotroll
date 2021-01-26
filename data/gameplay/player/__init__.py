@@ -48,9 +48,10 @@ class Player(object):
         ## validando o limite que o jogador pode voltar atraz
         if(self.player_rect.x <= self.player_screen_limit):
             self.moving_left = False
+        
 
         ## atualizando o limite a que o jogador pode voltar para traz
-        if(self.player_rect.x > self.player_screen_limit +800):
+        if(self.player_rect.x > self.player_screen_limit + 800):
             self.player_screen_limit += 80
 
     def playerMove(self, tile_rects, player_movement, scroll, tile_rect):
@@ -291,9 +292,11 @@ class Player(object):
         elif(self.skillsInUse == 'bluefire'):
             self.throwing()
         ## just for hork
+        
         elif(self.skillsInUse == 'slashing'):
-            if(self.slashingControl <= 10):
-                self.sliding()
+            print(self.player_rect.x <= self.player_screen_limit)
+            if((self.slashingControl <= 10) and(self.player_rect.x >= self.player_screen_limit)):
+                    self.sliding()
             else:
                 self.attack = False
                 if(self.moving_left or self.moving_right):
@@ -304,6 +307,7 @@ class Player(object):
 
         elif(self.skillsInUse == 'battleax'):
             self.battleax()
+        print(self.player_rect)
 
     def kicking(self):
         self.state = 'Kicking'

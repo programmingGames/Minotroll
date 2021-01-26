@@ -47,7 +47,7 @@ class Plataform:
         if((self.nivel==1)or(self.nivel==0)or(self.nivel==3)):
             tile_rects = []
             for pos in self.positionForest_x:
-                if(pos*self.size in range(scroll[0]-450, scroll[0]+650)):
+                if(pos*self.size in range(scroll[0]-450, scroll[0]+750)):
                     tile_rects += self.platformForestEnvirement(self.game_map[self.positionForest_x.index(pos)],pos,scroll)
             return tile_rects
         elif(self.nivel == 2):

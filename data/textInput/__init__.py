@@ -21,7 +21,9 @@ class Textinput:
         key = pygame.key.get_pressed()
         if(key[K_RETURN]and(self.count>=3)):
             self.count = 0
-            return self.text
+            text = self.text
+            self.text = ''
+            return text
         elif(key[K_BACKSPACE]and(self.count>=3)):
             self.count = 0
             self.text = self.text[:-1]
