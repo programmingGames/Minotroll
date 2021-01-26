@@ -60,6 +60,7 @@ class Menus(object):
         for event in pygame.event.get():
             self.pygameEvent = event
             if event.type == QUIT:
+                pygame.time.delay(10)
                 self.suport = self.painelState
                 if(self.painelState == 7):
                     self.saveUserData()
@@ -95,6 +96,7 @@ class Menus(object):
             if self.exitMenu.movingInExitMenu():
                 self.painelState = 5
             else:
+                pygame.time.delay(10)
                 self.painelState = self.suport
         elif(self.painelState == 4):
             self.painelState, self.user = self.loadUser.movingInLoadMenu()
@@ -133,7 +135,7 @@ class Menus(object):
         elif(self.painelState == 19):
             self.painelState, self.complet = self.congrats.drawingcongratsPainel()
             self.saveUserData()
-
+        # print(self.painelState)
 
     def updatingUserData(self):
         if not self.complet:

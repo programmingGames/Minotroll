@@ -1,11 +1,13 @@
 import pygame
 from pygame.locals import *
+from data.music import Sounds
 
 
 class LevelComplet(object):
     
     def __init__(self, screen):
         self.screen = screen
+        self.sounds = Sounds()
         self.buttoms = ['Next Level','Game Menu']
         self.currentButtom = self.buttoms[0]
         self.menuControl = 300
@@ -52,12 +54,14 @@ class LevelComplet(object):
         pressed_keys = pygame.key.get_pressed()
         if(pressed_keys[K_DOWN]):
             pygame.time.delay(100)
+            self.sounds.upDownMenu()
             if(self.menuControl==350):
                 self.menuControl = 300
             else:
                 self.menuControl += 50
         elif(pressed_keys[K_UP]):
             pygame.time.delay(100)
+            self.sounds.upDownMenu()
             if(self.menuControl==300):
                 self.menuControl = 300
             else:
@@ -72,9 +76,11 @@ class LevelComplet(object):
         self.count += 1
         if((pressed_keys[K_RETURN])and(self.menuControl==300)and(self.count >= 5)):
             self.count = 0
+            self.sounds.selected()
             return 14
         elif ((pressed_keys[K_RETURN])and(self.menuControl==350)and(self.count >= 5)):
             self.count = 0
             self.menuControl = 300
+            self.sounds.selected()
             return 3
         return 13

@@ -5,12 +5,17 @@ class Sounds(object):
         self.start = pygame.mixer.Sound("resources/sounds/menu/login.oga")
         self.menuMove = pygame.mixer.Sound("resources/sounds/menu/updownmove.ogg")
         self.select = pygame.mixer.Sound("resources/sounds/menu/selected.ogg")
+        self.switch = pygame.mixer.Sound("resources/sounds/menu/switch.oga")
     def startSounds(self):
         self.start.set_volume(0.0081)
-        self.start.play()
+        self.start.play(0)
     def upDownMenu(self):
-        self.menuMove.set_volume(0.0081)
+        self.start.stop()
+        self.menuMove.set_volume(0.1991)
         self.menuMove.play()
     def selected(self):
-        self.select.set_volume(0.0081)
+        self.select.set_volume(0.1991)
         self.select.play()
+    def skillschange(self):
+        self.switch.set_volume(0.1791)
+        self.switch.play()

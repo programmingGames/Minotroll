@@ -2,6 +2,7 @@ import pygame
 from sys import exit
 from pygame.locals import *
 from data.backgrounds import Backgound as Back
+from data.music import Sounds
 
 class Skills(object):
     def __init__(self, screen, nivel):
@@ -12,6 +13,7 @@ class Skills(object):
         self.arrows = []
         self.arrowsPosition = [(145, 160), (525, 160)]
         self.backgrounds = Back(screen)
+        self.sounds = Sounds()
         self.allCard = []
         # self.timeEfect = 0
         self.cards = ['kickingCard', 'slashingCard', 'battleaxCard', 'fireCard', 'bluefireCard']
@@ -181,9 +183,11 @@ class Skills(object):
         # Setting the move in skill Cards
         if(self.cardsActive and key_pressed[K_RIGHT] and (self.count > 10)):
             self.movingLeftInSkillsDisplay()
+            self.sounds.skillschange()
             self.count = 0
         elif(self.cardsActive and key_pressed[K_LEFT] and (self.count > 10)):
             self.movingRightInSkillsDisplay()
+            self.sounds.skillschange()
             self.count = 0
 
         self.count += 1                
@@ -199,13 +203,16 @@ class Skills(object):
         # Setting the move in skills painel
         if (key_pressed[K_DOWN] and self.cardsActive and (self.count > 10)):
             self.cardsActive = False
+            self.sounds.upDownMenu()
             self.count = 0
         elif(key_pressed[K_UP] and not self.cardsActive and (self.count > 10)):
             self.cardsActive = True
+            self.sounds.upDownMenu()
             self.count = 0
 
         # control the painelState
         if(not self.cardsActive and key_pressed[K_RETURN]):
+            self.sounds.selected()
             return 3
         else:
             return 9

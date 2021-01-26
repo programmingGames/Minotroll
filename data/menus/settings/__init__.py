@@ -1,6 +1,7 @@
 import pygame
 from pygame.locals import *
-from sys import exit
+# from sys import exit
+from data.music import Sounds
 from data.backgrounds import Backgound as Back
 
 #  Class for controling all the menu on the game
@@ -8,6 +9,7 @@ class Settings(object):
     def __init__(self, screen):
         self.screen = screen
         self.background = Back(screen)
+        self.sounds = Sounds()
         self.painel = pygame.image.load("resources/image/menu/painel.png").convert_alpha()
         self.title = pygame.image.load("resources/image/title/MinoTrolls1.png").convert_alpha()
         self.timeOut = 0
@@ -91,12 +93,14 @@ class Settings(object):
         pressed_keys = pygame.key.get_pressed()
         if(pressed_keys[K_DOWN]):
             pygame.time.delay(100)
+            self.sounds.upDownMenu()
             if(self.menuControl==300):
                 self.menuControl = 150
             else:
                 self.menuControl += 50
         elif(pressed_keys[K_UP]):
             pygame.time.delay(100)
+            self.sounds.upDownMenu()
             if(self.menuControl==150):
                 self.menuControl = 150
             else:
@@ -106,16 +110,20 @@ class Settings(object):
         if((pressed_keys[K_RETURN])and(self.menuControl==150)and(self.count >= 5)):
             self.count = 0
             self.musicOn = not self.musicOn
+            self.sounds.selected()
         elif ((pressed_keys[K_RETURN])and(self.menuControl==200)and(self.count >= 5)):
             self.count = 0
             self.soundOn = not self.soundOn
+            self.sounds.selected()
         elif ((pressed_keys[K_RETURN])and(self.menuControl==250)and(self.count >= 5)):
             self.count = 0
             self.menuControl = 150
+            self.sounds.selected()
             return 21
         elif ((pressed_keys[K_RETURN])and(self.menuControl==300)and(self.count >= 5)):
             self.count = 0
             self.menuControl = 150
+            self.sounds.selected()
             return 1
         self.checkingSounds()
         self.settingsEsc()  

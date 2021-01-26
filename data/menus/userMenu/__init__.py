@@ -3,6 +3,7 @@ from pygame.locals import *
 import os
 import shutil
 from data.backgrounds import Backgound as Back
+from data.music import Sounds
 from data.menus.popup import Popup
 
 
@@ -11,6 +12,7 @@ class UserMenu(object):
         pygame.init()
         self.screen = screen
         self.background = Back(screen)
+        self.sounds = Sounds()
         self.popup = Popup(screen, "Confirm delete!")
         self.painel = pygame.image.load("resources/image/menu/user_menu/painel.png").convert_alpha()
         self.title = pygame.image.load("resources/image/title/MinoTrolls1.png").convert_alpha()
@@ -89,12 +91,14 @@ class UserMenu(object):
         if not self.active:
             if(pressed_keys[K_DOWN]):
                 pygame.time.delay(100)
+                self.sounds.upDownMenu()
                 if(self.menuControl==350):
                     self.menuControl = 150
                 else:
                     self.menuControl += 50
             elif(pressed_keys[K_UP]):
                 pygame.time.delay(100)
+                self.sounds.upDownMenu()
                 if(self.menuControl==150):
                     self.menuControl = 150
                 else:
@@ -129,25 +133,29 @@ class UserMenu(object):
         self.count += 1
         if((pressed_keys[K_RETURN])and(self.menuControl==150)and(self.count >= 5)):
             self.count = 0
+            self.sounds.selected()
             return 7
         elif ((pressed_keys[K_RETURN])and(self.menuControl==200)and(self.count >= 5)):
             self.count = 0
             self.menuControl = 150
+            self.sounds.selected()
             return 9
         elif ((pressed_keys[K_RETURN])and(self.menuControl==250)and(self.count >= 5)):
             self.count = 0
             self.menuControl = 150
+            self.sounds.selected()
             return 6
         elif ((pressed_keys[K_RETURN])and(self.menuControl==300)and(self.count >= 5)):
             self.count = 0
             self.menuControl = 150
+            self.sounds.selected()
             return 1
         elif ((pressed_keys[K_RETURN])and(self.menuControl==350)and(self.count >= 5)):
             self.count = 0
             self.menuControl = 150
+            self.sounds.selected()
             self.active = True
         
-
         return 3
 
     def golemAnimation(self):
