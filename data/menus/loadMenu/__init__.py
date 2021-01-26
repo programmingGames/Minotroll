@@ -13,8 +13,8 @@ class LoadUser(object):
         self.createText = "Chose your user name"
         self.zeroUseText = "There is no user already created."
         self.esc = 'Press "Esc" to go back'
-        self.font1 = pygame.font.SysFont("Arial", 14)
-        self.font = pygame.font.SysFont("Arial", 16)
+        self.font1 = pygame.font.Font("resources/font/montserrat-font/MontserratMedium-nRxlJ.ttf", 14)
+        self.font = pygame.font.Font("resources/font/montserrat-font/MontserratMedium-nRxlJ.ttf", 16)
         self.currentButtom = ''
         self.users = []
         self.menuControl = 150
@@ -62,7 +62,7 @@ class LoadUser(object):
         # exit load menu
         self.font1.set_bold(True)
         size = pygame.font.Font.size(self.font1, self.esc)
-        line = self.font1.render(self.esc, True, (0, 0,0))
+        line = self.font1.render(self.esc, True, (255, 255,255))
 
         ## blitting the esc evente 
         if (self.timeEfect1 > 5):

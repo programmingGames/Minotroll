@@ -15,7 +15,7 @@ class HeadUpDisplay(object):
         self.greenFireBox = pygame.image.load("resources/image/headUpDisplay/attackinfo/greenFire.png")
         self.blueFireBox = pygame.image.load("resources/image/headUpDisplay/attackinfo/blueFire.png")
         self.avalableSkills = ["kicking", "slashing","battleax", "greenfire", "bluefire"]
-        self.font = pygame.font.Font("resources/font/montserrat-font/MontserratBold-DOWZd.ttf", 18)
+        self.font = pygame.font.Font("resources/font/montserrat-font/MontserratMedium-nRxlJ.ttf", 18)
         self.font.set_bold(True)
         self.nivel = nivel
         self.skillOfThePlayer()

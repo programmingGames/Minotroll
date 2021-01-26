@@ -5,7 +5,7 @@ class Popup(object):
     def __init__(self, screen, text):
         self.screen = screen
         self.text = text
-        self.font = pygame.font.SysFont("Arial", 24)
+        self.font = pygame.font.Font("resources/font/montserrat-font/MontserratMedium-nRxlJ.ttf", 24)
         self.size = pygame.font.Font.size(self.font, str(self.text))
         self.surf = pygame.Surface((250, 110))
         self.menuControl = 30

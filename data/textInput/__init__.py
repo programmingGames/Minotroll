@@ -5,7 +5,7 @@ from pygame.locals import *
 class Textinput:
     def __init__(self):
         pygame.init()
-        self.base_font = pygame.font.SysFont('cambriacambriamath', 32)
+        self.base_font = pygame.font.Font("resources/font/montserrat-font/MontserratMedium-nRxlJ.ttf", 20)
         self.text = ''
         self.input_rect = pygame.Rect(206, 190, 140, 32)
         self.color_passive = pygame.Color(128,128,128)

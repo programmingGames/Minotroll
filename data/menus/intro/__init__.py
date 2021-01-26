@@ -11,15 +11,16 @@ class Intro(object):
         self.history = Hysto()
         self.painel = pygame.image.load("resources/image/menu/intro/painel.png").convert_alpha()
         self.title = pygame.image.load("resources/image/title/MinoTrolls1.png").convert_alpha()
-        self.font = pygame.font.SysFont("Arial", 12,1)
+        self.font = pygame.font.Font("resources/font/montserrat-font/MontserratMedium-nRxlJ.ttf", 11)
         self.esc = 'Press "Esc" to go back'
-        self.font1 = pygame.font.SysFont("Arial", 14)
+        self.font1 = pygame.font.Font("resources/font/montserrat-font/MontserratMedium-nRxlJ.ttf", 14)
         self.timeEfect1 = 0
         self.timeout = 0
         self.next = True
         self.change = 0
 
     def introDisplay(self):
+        self.font.set_bold(True)
         key=pygame.key.get_pressed()
         ty = 165
         self.restart()
@@ -46,7 +47,7 @@ class Intro(object):
         # exit load menu
         self.font1.set_bold(True)
         size = pygame.font.Font.size(self.font1, self.esc)
-        line = self.font1.render(self.esc, True, (0, 0,0))
+        line = self.font1.render(self.esc, True, (255, 255, 255))
 
         ## blitting the esc evente 
         if (self.timeEfect1 > 5):

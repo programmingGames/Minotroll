@@ -12,7 +12,7 @@ class CreateUserMenu:
         self.painel = pygame.image.load("resources/image/menu/painel.png").convert_alpha()
         self.title = pygame.image.load("resources/image/title/MinoTrolls1.png").convert_alpha()
         self.createText = "Enter a user name"
-        self.font = pygame.font.SysFont("Arial", 16)
+        self.font = pygame.font.Font("resources/font/montserrat-font/MontserratMedium-nRxlJ.ttf", 16)
         self.size = pygame.font.Font.size(self.font, self.createText)
         self.text = textInput()
         self.menuControl = 250
@@ -105,6 +105,7 @@ class CreateUserMenu:
         return 2, self.user
 
     def createUserDirAndButtom(self):
+        font = pygame.font.Font("resources/font/montserrat-font/MontserratMedium-nRxlJ.ttf", 18)
         os.chdir('users')
         os.mkdir(self.user)
         x = 171
@@ -114,7 +115,6 @@ class CreateUserMenu:
                 y = 37
             if(i!=0):
                 x = 182
-            font = pygame.font.SysFont("comicsansms", 28)
             font.set_bold(True)
             surf = pygame.Surface((x, y))
             os.chdir('..')
@@ -150,7 +150,7 @@ class CreateUserMenu:
                 self.exist = True
 
     def deniedUserCreate(self):
-        font = pygame.font.SysFont("Arial", 14)
+        font = pygame.font.Font("resources/font/montserrat-font/MontserratMedium-nRxlJ.ttf", 14)
         font.set_bold(True)
         if(not self.limit):
             line = font.render("Passed the number of allowed users!", True, (206, 0,0))

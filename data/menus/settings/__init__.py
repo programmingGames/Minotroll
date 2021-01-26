@@ -11,7 +11,7 @@ class Settings(object):
         self.painel = pygame.image.load("resources/image/menu/painel.png").convert_alpha()
         self.title = pygame.image.load("resources/image/title/MinoTrolls1.png").convert_alpha()
         self.timeOut = 0
-        self.font = pygame.font.SysFont("Arial", 14)
+        self.font = pygame.font.Font("resources/font/montserrat-font/MontserratMedium-nRxlJ.ttf", 14)
         self.text = 'Settings'
         self.size = pygame.font.Font.size(self.font, self.text)
         self.font.set_bold(True)

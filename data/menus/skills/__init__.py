@@ -19,7 +19,7 @@ class Skills(object):
         self.descrPos = 0
         self.copyCards = ['kickingCard', 'slashingCard', 'battleaxCard', 'fireCard', 'bluefireCard']
         self.state = [False,False,False,False,False]
-        self.font = pygame.font.SysFont("Arial", 16)
+        self.font = pygame.font.Font("resources/font/montserrat-font/MontserratMedium-nRxlJ.ttf", 16)
         self.font.set_bold(True)
         self.cardsDiscription = ''
         self.skillsOfPlayer()

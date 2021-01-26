@@ -239,7 +239,7 @@ class GamePlay(object):
         if(self.tutorialParts == 0):
             if(not self.hiddeBackTutorial):
                 self.screen.blit(pygame.image.load("resources/image/tutorial/back1.png").convert_alpha(), (0, 0))
-                font = pygame.font.SysFont("Arial", 18)
+                font = pygame.font.Font("resources/font/montserrat-font/MontserratMedium-nRxlJ.ttf", 18)
                 font.set_bold(True)
                 size = pygame.font.Font.size(font, 'Press " TAB " key,')
                 line = font.render('Press " TAB " key, ', True, (255, 255,255))
@@ -250,7 +250,7 @@ class GamePlay(object):
         elif(self.tutorialParts == 1):
             if(not self.hiddeBackTutorial):
                 self.screen.blit(pygame.image.load("resources/image/tutorial/back1.png").convert_alpha(), (0, 0))
-                font = pygame.font.SysFont("Arial", 18)
+                font = pygame.font.Font("resources/font/montserrat-font/MontserratMedium-nRxlJ.ttf", 18)
                 font.set_bold(True)
                 size = pygame.font.Font.size(font, 'Press " TAB " key,')
                 line = font.render('Press " TAB " key, ', True, (255, 255,255))
@@ -265,7 +265,7 @@ class GamePlay(object):
         elif(self.tutorialParts == 2):
             if(not self.hiddeBackTutorial):
                 self.screen.blit(pygame.image.load("resources/image/tutorial/back1.png").convert_alpha(), (0, 0))
-                font = pygame.font.SysFont("Arial", 18)
+                font = pygame.font.Font("resources/font/montserrat-font/MontserratMedium-nRxlJ.ttf", 18)
                 font.set_bold(True)
                 size = pygame.font.Font.size(font, 'Press " M " key,')
                 line = font.render('Press " M " key,', True, (255, 255,255))
@@ -277,7 +277,7 @@ class GamePlay(object):
         elif(self.tutorialParts == 3):
             if(not self.hiddeBackTutorial):
                 self.screen.blit(pygame.image.load("resources/image/tutorial/back1.png").convert_alpha(), (0, 0))
-                font = pygame.font.SysFont("Arial", 18)
+                font = pygame.font.Font("resources/font/montserrat-font/MontserratMedium-nRxlJ.ttf", 18)
                 font.set_bold(True)
                 size = pygame.font.Font.size(font, 'Press the direction keys:')
                 line = font.render('Press the direction keys:', True, (255, 255,255))
@@ -291,7 +291,7 @@ class GamePlay(object):
         elif(self.tutorialParts == 4):
             if(not self.hiddeBackTutorial):
                 self.screen.blit(pygame.image.load("resources/image/tutorial/back1.png").convert_alpha(), (0, 0))
-                font = pygame.font.SysFont("Arial", 18)
+                font = pygame.font.Font("resources/font/montserrat-font/MontserratMedium-nRxlJ.ttf", 18)
                 font.set_bold(True)
                 size = pygame.font.Font.size(font, 'Press " Q " key, to attack.')
                 line = font.render('Press " Q " key, to attack.', True, (255, 255,255))

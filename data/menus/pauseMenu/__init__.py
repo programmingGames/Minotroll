@@ -6,7 +6,7 @@ class PauseMenu(object):
     def __init__(self, screen):
         self.screen = screen
         self.background = Back(screen)
-        self.font = pygame.font.SysFont("Arial", 24)
+        self.font = pygame.font.Font("resources/font/montserrat-font/MontserratMedium-nRxlJ.ttf", 24)
         self.menuControl = 300
         self.count = 0
         self.timeEfect = 0

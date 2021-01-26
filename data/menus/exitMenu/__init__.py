@@ -12,7 +12,7 @@ class ExitMenu:
         self.painel = pygame.image.load("resources/image/menu/painel.png").convert_alpha()
         self.title = pygame.image.load("resources/image/title/MinoTrolls1.png").convert_alpha()
         self.createText = "Do you realy wanna exit game?"
-        self.font = pygame.font.SysFont("Arial", 16)
+        self.font = pygame.font.Font("resources/font/montserrat-font/MontserratMedium-nRxlJ.ttf", 16)
         self.size = pygame.font.Font.size(self.font, self.createText)
         self.menuControl = 200
         self.timeEfect = 0

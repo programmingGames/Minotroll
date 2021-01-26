@@ -9,9 +9,9 @@ class Controls:
         self.background = Back(screen)
         self.painel = pygame.image.load("resources/image/menu/settings/painel.png").convert_alpha()
         self.title = pygame.image.load("resources/image/title/MinoTrolls1.png").convert_alpha()
-        self.font = pygame.font.SysFont("Arial", 12)
+        self.font = pygame.font.Font("resources/font/montserrat-font/MontserratMedium-nRxlJ.ttf", 12)
         self.font.set_bold(True)
-        self.font1 = pygame.font.SysFont("Arial", 14)
+        self.font1 = pygame.font.Font("resources/font/montserrat-font/MontserratMedium-nRxlJ.ttf", 14)
         self.text = 'Controls'
         self.size = pygame.font.Font.size(self.font1, self.text)
         self.font1.set_bold(True)
@@ -23,7 +23,7 @@ class Controls:
                         'Direction keys ("left", "up", "right") - Move through the game screen.',
                         '"M" key - show and hide game map',
                         '"TAB" key - show and hide skills on the game screen.',
-                        'Keys "1", "2", "3", ..., "5" - if skills in show state, this change the skill in use.',
+                        'Keys "1", "2", ..., "5" - change the skill in use, if in show state.',
                         '"Q" key - activates the attack state, depending on the skill in use.',
                         '"ESC" key - pauses the game.'
                 ]

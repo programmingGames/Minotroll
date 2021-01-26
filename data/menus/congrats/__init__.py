@@ -6,7 +6,7 @@ class Congrats(object):
     
     def __init__(self, screen):
         self.screen = screen
-        self.font = pygame.font.SysFont("Arial", 16)
+        self.font = pygame.font.Font("resources/font/montserrat-font/MontserratMedium-nRxlJ.ttf", 16)
         self.font.set_bold(True)
         self.text = ["You finished all the Level's.","The return of brotherhood strength...","joining forces to recover their home village...","see you soon, until the next seasons."]
         self.buttoms = ['Game Menu', 'Main Menu']
