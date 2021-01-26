@@ -94,12 +94,17 @@ class Player(object):
             self.jumping = False
             self.bottomColision = True
         else:
-            self.bottomColision = False
+            self.bottomColisions = False
         if self.platformCollisions['top']:
             self.jumping = False
             self.vertical_momentum += 5
         else:
             self.air_timer += 1
+
+        if(self.platformCollisions['right']):
+            self.moving_right = False
+        elif(self.platformCollisions['left']):
+            self.moving_left = False
 
         self.screen.blit(self.player_img,(self.player_rect.x-scroll[0],self.player_rect.y-scroll[1]))
 
@@ -128,6 +133,7 @@ class Player(object):
         return enimyCollision, pos
 
     def settingPlayer(self, tile_rects, scroll, allEnimysRectsAndType, inUse):
+        self.platformCollisions = {'top':False,'bottom':False,'right':False,'left':False}
         self.skillsInUse = inUse
         # print(self.skillsInUse)
         player_movement = [0,0]
@@ -169,13 +175,12 @@ class Player(object):
         if self.enimyCollision and self.attack == False:
             # print("ok", self.attack)
             if(self.impactDelay <= 5):
-                # self.player_rect, platformCollisions = self.collision.platformCollision(player_movement,self.player_rect,tile_rects)
-                if(self.move_direction == 'right'):
+                if(self.move_direction == 'right' and not self.platformCollisions['left'] and not self.platformCollisions['top']):
                     self.player_rect.x -= 5
-                    self.player_rect.y -= 10
-                elif(self.move_direction == 'left'):
+                    self.player_rect.y -= 5
+                elif(self.move_direction == 'left' and not self.platformCollisions['right'] and not self.platformCollisions['top']):
                     self.player_rect.x += 5
-                    self.player_rect.y -= 10
+                    self.player_rect.y -= 5
                 self.impactDelay += 1
             else:
                 self.enimyCollision = False
@@ -294,7 +299,6 @@ class Player(object):
         ## just for hork
         
         elif(self.skillsInUse == 'slashing'):
-            print(self.player_rect.x <= self.player_screen_limit)
             if((self.slashingControl <= 10) and(self.player_rect.x >= self.player_screen_limit)):
                     self.sliding()
             else:
