@@ -3,7 +3,6 @@ from pygame.locals import *
 import os
 import shutil
 from data.backgrounds import Backgound as Back
-from data.music import Sounds
 from data.menus.popup import Popup
 
 
@@ -12,7 +11,6 @@ class UserMenu(object):
         pygame.init()
         self.screen = screen
         self.background = Back(screen)
-        self.sounds = Sounds()
         self.popup = Popup(screen, "Confirm delete!")
         self.painel = pygame.image.load("resources/image/menu/user_menu/painel.png").convert_alpha()
         self.title = pygame.image.load("resources/image/title/MinoTrolls1.png").convert_alpha()
@@ -89,20 +87,23 @@ class UserMenu(object):
         nivel,  lastPassPoint_x, lastPassPoint_y, life, enimysKilled, greenFire, bluefire = self.loadUserData(user)
         pressed_keys = pygame.key.get_pressed()
         if not self.active:
-            if(pressed_keys[K_DOWN]):
-                pygame.time.delay(100)
-                self.sounds.upDownMenu()
+            if(pressed_keys[K_DOWN]and self.count>=5):
+                # pygame.time.delay(5)
+                # self.sounds.upDownMenu()
                 if(self.menuControl==350):
                     self.menuControl = 150
                 else:
                     self.menuControl += 50
-            elif(pressed_keys[K_UP]):
-                pygame.time.delay(100)
-                self.sounds.upDownMenu()
+                self.count = 0
+            elif(pressed_keys[K_UP]and self.count>=5):
+                # pygame.time.delay(5)
+                # self.sounds.upDownMenu()
                 if(self.menuControl==150):
                     self.menuControl = 150
                 else:
                     self.menuControl -= 50
+                self.count = 0
+            
             choice = self.userChoise(pressed_keys)
         
         self.mainMenuEsc()  
@@ -126,34 +127,35 @@ class UserMenu(object):
             else:                
                 choice = 3
 
+        self.count += 1
+        print(self.count)
 
         return choice,self.user, int(nivel),  (int(lastPassPoint_x), int(lastPassPoint_y)),  int(life), int(enimysKilled), int(greenFire), int(bluefire)
 
     def userChoise(self, pressed_keys):
-        self.count += 1
         if((pressed_keys[K_RETURN])and(self.menuControl==150)and(self.count >= 5)):
             self.count = 0
-            self.sounds.selected()
+            # self.sounds.selected()
             return 7
         elif ((pressed_keys[K_RETURN])and(self.menuControl==200)and(self.count >= 5)):
             self.count = 0
             self.menuControl = 150
-            self.sounds.selected()
+            # self.sounds.selected()
             return 9
         elif ((pressed_keys[K_RETURN])and(self.menuControl==250)and(self.count >= 5)):
             self.count = 0
             self.menuControl = 150
-            self.sounds.selected()
+            # self.sounds.selected()
             return 6
         elif ((pressed_keys[K_RETURN])and(self.menuControl==300)and(self.count >= 5)):
             self.count = 0
             self.menuControl = 150
-            self.sounds.selected()
+            # self.sounds.selected()
             return 1
         elif ((pressed_keys[K_RETURN])and(self.menuControl==350)and(self.count >= 5)):
             self.count = 0
             self.menuControl = 150
-            self.sounds.selected()
+            # self.sounds.selected()
             self.active = True
         
         return 3

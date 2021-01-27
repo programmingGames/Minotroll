@@ -151,9 +151,9 @@ class Player(object):
         correct_scroll = scroll.copy()
         correct_scroll[0] = int(correct_scroll[0])
         correct_scroll[1] = int(correct_scroll[1])
-        self.checkingEnimysCollision(player_movement,allEnimysRectsAndType)
+        position = self.checkingEnimysCollision(player_movement,allEnimysRectsAndType)
         self.collisionInpact(tile_rects, player_movement)
-        return correct_scroll, self.player_rect,self.fireArray, self.enimyCollision, self.enimyType,self.fireEnimyCollision, self.fireCollisionPos, self.attack
+        return correct_scroll, self.player_rect,self.fireArray, self.enimyCollision, self.enimyType,self.fireEnimyCollision, self.fireCollisionPos, (self.attack,position)
 
     def checkingEnimysCollision(self, player_move,enimysRectsAndType):
         self.enimyRectList = []
@@ -171,6 +171,7 @@ class Player(object):
             self.enimyType = enimyList[position]
         else:
             self.hurtten = False
+        return position
 
     def collisionInpact(self, tile_rect, playerMove):
         # player_movement=[0 , 0]
@@ -193,10 +194,10 @@ class Player(object):
             if((self.impactDelay <= 5)and(self.player_rect.x not in range(self.preCollisionAriaRight[0]-20, self.preCollisionAriaRight[0]+20))and (self.player_rect.x not in range(self.preCollisionAriaLeft[0]-20, self.preCollisionAriaLeft[0]+20))):
                 if(self.move_direction == 'right'):
                     self.player_rect.x -= 5
-                    self.player_rect.y -= 5
+                    self.player_rect.y -= 10
                 elif(self.move_direction == 'left'):
                     self.player_rect.x += 5
-                    self.player_rect.y -= 5
+                    self.player_rect.y -= 10
                 self.impactDelay += 1
             else:
                 self.enimyCollision = False

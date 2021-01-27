@@ -68,7 +68,7 @@ class GamePlay(object):
         tile_rects = self.platform.settingPlataform(self.scroll)
         self.scroll, self.player_rect,self.fireArray, self.enimyCollision, self.enimyType, self.fireEnimyColision, self.fireCollsionPos, self.playerOnAttack = self.player.settingPlayer(tile_rects, self.scroll, self.allEnimysRectsAndTypes, self.inUse)
         
-        if ((self.playerOnAttack)and(self.count >= 10)):
+        if ((self.playerOnAttack[0])and(self.count >= 10)):
             self.firing = True
             self.count = 0
         else:
@@ -82,7 +82,7 @@ class GamePlay(object):
             self.firing = False
         
         # update after we check the collision
-        self.allEnimysRectsAndTypes, self.enimysKilled, self.bossKilled = self.enimys.enimysAdd(tile_rects, self.player_rect,(self.fireEnimyColision, self.fireCollsionPos),(self.playerOnAttack,self.enimyCollision, self.inUse), self.scroll)
+        self.allEnimysRectsAndTypes, self.enimysKilled, self.bossKilled = self.enimys.enimysAdd(tile_rects, self.player_rect,(self.fireEnimyColision, self.fireCollsionPos),(self.playerOnAttack[0],self.enimyCollision, self.inUse, self.playerOnAttack[1]), self.scroll)
 
         # Drawing some visual animation
         self.animation.draw()
@@ -127,11 +127,14 @@ class GamePlay(object):
         self.lastPassPoint = (self.player_rect.x, self.player_rect.y)
 
         self.controllingTheImageOfGameOverAndLevelComplete(painelState)
-        self.sounds.envirementOne()
+        if(painelState == 7):
+            self.sounds.envirementOne()
+        else:
+            self.sounds.envirementOneStop()
         return painelState, self.player_rect, self.qtlife, self.enimysKilled, self.greenFire, self.blueFire
     
     def controllingThePlayerLife(self):
-        if (self.enimyCollision and self.playerOnAttack == False):
+        if (self.enimyCollision and self.playerOnAttack[0] == False):
             self.headUpDisplay.updatingPlayerLife(self.enimyType)
         elif(self.enimyCollision and self.enimyType == "cactus"):
             self.headUpDisplay.updatingPlayerLife(self.enimyType)

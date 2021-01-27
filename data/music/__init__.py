@@ -23,3 +23,5 @@ class Sounds(object):
     def envirementOne(self):
         self.ambiente.set_volume(0.1591)
         self.ambiente.play(-1)
+    def envirementOneStop(self):
+        self.ambiente.stop()

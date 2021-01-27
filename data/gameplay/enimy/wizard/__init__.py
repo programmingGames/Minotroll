@@ -7,8 +7,9 @@ from data.gameplay.collisionControl import Colision
 
 
 class Wizard:
-    def __init__(self, screen, pos, patrolRadius):
+    def __init__(self, screen, pos, patrolRadius, life):
         self.screen = screen
+        self.life = life
         self.name = 'blue wizard'
         self.patrolRadius = patrolRadius
         self.rect = pygame.Rect(40, 30, 20, 42)
@@ -58,7 +59,7 @@ class Wizard:
             self.collisionImpact()
 
     def collisionImpact(self):
-        if(self.impactDelay <= 5):
+        if(self.impactDelay <= 10):
             # self.player_rect, platformCollisions = self.collision.platformCollision(player_movement,self.player_rect,tile_rects)
             if(self.move_direction == 'right'):
                 self.move_direction = 'left'
@@ -69,7 +70,8 @@ class Wizard:
                 self.rect.x += 5
                 self.rect.y -= 10
             self.impactDelay += 1
-        
+    def sufferingDamage(self, damage):
+        self.life-=damage
     def add(self, platform_rects,player_rect,playerOnAttack, scroll):
         wizard_move = [0, 0]
         if self.move_right:

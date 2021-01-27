@@ -7,8 +7,9 @@ from data.gameplay.collisionControl import Colision
 
 
 class Golens:
-    def __init__(self, screen,pos, patrolRadius, golemType):
+    def __init__(self, screen,pos, patrolRadius, golemType, life):
         self.screen = screen
+        self.life = life
         self.golemType = golemType
         self.name = ''
         self.renameTheGolemType()
@@ -77,7 +78,8 @@ class Golens:
                 self.rect.x += 5
                 self.rect.y -= 10
             self.impactDelay += 1
-
+    def sufferingDamage(self, damage):
+        self.life-=damage
     def add(self, platform_rects,player_rect,playerOnAttack, scroll):
         golens_move = [0, 0]
         if self.move_right:

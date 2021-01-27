@@ -62,7 +62,7 @@ class Colision(object):
                 playerRect.left = tile.right
                 collision_types['left'] = True
         
-        hit_list= self.enimysTestCollision(playerRect,enimysRects)
+        hit_list = self.enimysTestCollision(playerRect,enimysRects)
         for tile in hit_list:
             if playerMove[1]>0:
                 playerRect.bottom = tile.top
