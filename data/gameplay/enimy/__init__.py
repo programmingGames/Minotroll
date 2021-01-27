@@ -3,6 +3,7 @@ from pygame import rect
 from data.gameplay.enimy.cactus import Cactus
 from data.gameplay.enimy.wizard import Wizard
 from data.gameplay.enimy.golens import Golens
+from data.gameplay.enimy.minotauro import Minotauro
 from data.gameplay.enimy.graveler import Graveller
 from data.gameplay.collisionControl import Colision
 
@@ -53,13 +54,13 @@ class ControlEnimys(object):
         return all_rects, self.enimyKilled, self.bossKilled
     def addingAllTheAnimys(self):
         if(self.nivel == 0):          
-            self.allCactusPosition = [(928, 184),(964, 184),(2370, 504),(2410, 504),(2450, 504),(2478, 504),(3778, 472),(3746, 472),
+            self.allCactusPosition = [(928, 184),(2478, 504),(3778, 472),(3746, 472),
             (3706, 472),(4458, 408),(4490, 408),(4514, 408),(5030, 520),(5070, 520),(5106, 520),(5138, 520),(5162, 520),(5194, 520)]
             self.allCactus = [(Cactus(self.screen, pos)) for pos in self.allCactusPosition] 
-
-            self.allEnimys.append(Wizard(self.screen,(1388,168), 100))
-            self.allEnimys.append(Wizard(self.screen,(1500,168), 100))
-            self.allEnimys.append(Wizard(self.screen,(1596,168), 100))
+            self.allEnimys.append(Minotauro(self.screen,(1388,168), 50,1))
+            #self.allEnimys.append(Wizard(self.screen,(1388,168), 100))
+            #self.allEnimys.append(Wizard(self.screen,(1500,168), 100))
+            #self.allEnimys.append(Wizard(self.screen,(1596,168), 100))
             self.allEnimys.append(Wizard(self.screen,(2086,328), 100))
             self.allEnimys.append(Golens(self.screen,(2630,408), 50,1))
             self.allEnimys.append(Golens(self.screen,(2794,408), 50, 1))
@@ -75,7 +76,7 @@ class ControlEnimys(object):
             self.allEnimys.append(Golens(self.screen,(4908,584), 50, 1))
 
 
-            self.allEnimysPosition = [(1388,168),(1500,168),(1596,168),(2086,328),(2630,408),(2794,408),(2674,296),(4836,584),
+            self.allEnimysPosition = [(1388,168),(1388,168),(1500,168),(1596,168),(2086,328),(2630,408),(2794,408),(2674,296),(4836,584),
                                     (2806,296),(3938,296),(4022,296),(4114,296),(4376,520),(4672,584),(4764,584),(4908,584)]
                                     
             # self.killAttempt = [None, None, 2, 2, None, ]
@@ -84,6 +85,8 @@ class ControlEnimys(object):
                     self.killAttempt.append(4)
                 elif(enimy.name == 'blue wizard'):
                     self.killAttempt.append(6)
+                elif(enimy.name == 'blue minotauro'):
+                    self.killAttempt.append (1)
 
         elif (self.nivel == 1):
             self.allCactusPosition = [(1578, 424), (1088, 648), (2240, 344), (2288, 360), (2340, 376), (2986, 408), (3650, 136)]
