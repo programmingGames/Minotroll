@@ -8,12 +8,10 @@ from data.gameplay.enimy import ControlEnimys
 from data.gameplay.animation import Animation
 from data.gameplay.player import Player
 from data.gameplay.platforms import Plataform
-from data.music import Sounds
 
 
 class GamePlay(object):
     def __init__(self, screen, nivel, lastPassPoint,qtlife, pygameEvent, enimysKilled, greenFire, blueFire):
-        self.sounds = Sounds()
         # self.allEnimys = ['blue wizard', 'fire golem', 'stone golem', 'ice golem', 'blue robots', 'dark robots', 'gold robots']
         self.screen = screen
         self.nivel = nivel
@@ -127,10 +125,6 @@ class GamePlay(object):
         self.lastPassPoint = (self.player_rect.x, self.player_rect.y)
 
         self.controllingTheImageOfGameOverAndLevelComplete(painelState)
-        if(painelState == 7):
-            self.sounds.envirementOne()
-        else:
-            self.sounds.envirementOneStop()
         return painelState, self.player_rect, self.qtlife, self.enimysKilled, self.greenFire, self.blueFire
     
     def controllingThePlayerLife(self):

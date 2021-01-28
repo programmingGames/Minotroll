@@ -2,14 +2,12 @@ import pygame
 import os
 from pygame.locals import *
 from data.backgrounds import Backgound as Back
-from data.music import Sounds
 
 
 class LoadUser(object):
     def __init__(self, screen):
         self.screen = screen
         self.background = Back(screen)
-        self.sounds = Sounds()
         self.painel = pygame.image.load("resources/image/menu/painel.png").convert_alpha()
         self.title = pygame.image.load("resources/image/title/MinoTrolls1.png").convert_alpha()
         self.createText = "Chose your user name"
@@ -94,20 +92,17 @@ class LoadUser(object):
         
         if(pressed_keys[K_DOWN]):
             pygame.time.delay(100)
-            self.sounds.upDownMenu()
             if(self.menuControl==self.maxScroll):
                 self.menuControl = 150
             else:
                 self.menuControl += 50
         elif(pressed_keys[K_UP]):
             pygame.time.delay(100)
-            self.sounds.upDownMenu()
             if(self.menuControl==150):
                 self.menuControl = 150
             else:
                 self.menuControl -= 50
         elif(pressed_keys[K_ESCAPE]):
-            self.sounds.upDownMenu()
             self.menuControl = 150
             return 1, ''
 
@@ -117,7 +112,6 @@ class LoadUser(object):
                 if((pressed_keys[K_RETURN])and(self.count >= 5)and(self.menuControl == ((i*50)+150))):
                     self.count = 0
                     self.menuControl = 150
-                    self.sounds.selected()
                     return 3, self.users[i]
 
         self.loadMenuEsc()

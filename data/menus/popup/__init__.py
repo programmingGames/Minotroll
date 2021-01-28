@@ -1,12 +1,10 @@
 import pygame 
 from pygame.locals import *
-from data.music import Sounds
 
 class Popup(object):
     def __init__(self, screen, text):
         self.screen = screen
         self.text = text
-        self.sounds = Sounds()
         self.font = pygame.font.Font("resources/font/montserrat-font/MontserratMedium-nRxlJ.ttf", 24)
         self.size = pygame.font.Font.size(self.font, str(self.text))
         self.surf = pygame.Surface((250, 110))
@@ -23,14 +21,12 @@ class Popup(object):
     def movingInPopUp(self, pressed_keys):
         if(pressed_keys[K_RIGHT]):
             pygame.time.delay(100)
-            self.sounds.upDownMenu()
             if(self.menuControl==150):
                 self.menuControl = 150
             else:
                 self.menuControl += 120
         elif(pressed_keys[K_LEFT]):
             pygame.time.delay(100)
-            self.sounds.upDownMenu()
             if(self.menuControl==30):
                 self.menuControl = 30
             else:
@@ -41,12 +37,10 @@ class Popup(object):
         self.close = False
         if((pressed_keys[K_RETURN])and(self.menuControl==30)and(self.count >= 5)):
             self.count = 0
-            self.sounds.selected()
             return True
         elif ((pressed_keys[K_RETURN])and(self.menuControl==150)and(self.count >= 5)):
             self.count = 0
             self.close = True
-            self.sounds.selected()
             return False
         
 

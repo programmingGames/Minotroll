@@ -2,12 +2,10 @@ import pygame
 from random import randint
 from pygame.locals import * 
 from data.backgrounds import Backgound as Back
-from data.music import Sounds
 
 class Controls:
     def __init__(self, screen):
         self.screen = screen
-        self.sounds = Sounds()
         self.background = Back(screen)
         self.painel = pygame.image.load("resources/image/menu/settings/painel.png").convert_alpha()
         self.title = pygame.image.load("resources/image/title/MinoTrolls1.png").convert_alpha()
@@ -40,7 +38,6 @@ class Controls:
         self.count += 1
         if((pressed_keys[K_RETURN])and(self.count >= 5)):
             self.count = 0
-            self.sounds.selected()
             return 20     
                 
         self.controlsEsc() 

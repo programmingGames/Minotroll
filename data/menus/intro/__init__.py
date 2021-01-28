@@ -1,6 +1,5 @@
 import pygame 
 from pygame.locals import *
-from data.menus import intro
 from data.backgrounds import Backgound as Back
 from data import Hysto 
 

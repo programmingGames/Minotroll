@@ -2,6 +2,7 @@ import pygame
 from pygame.locals import *
 from sys import exit
 import os
+from data.music import Sounds
 from data.backgrounds import Backgound as Back
 from data.menus.createUser import CreateUserMenu
 from data.menus.exitMenu import ExitMenu 
@@ -28,6 +29,7 @@ class Menus(object):
         self.screen = pygame.display.set_mode((700, 480), 0, 32)
         pygame.display.set_caption("Minotroll")
         self.painelState = 0
+        self.sounds = Sounds
         self.createUser = CreateUserMenu(self.screen)
         self.exitMenu = ExitMenu(self.screen)
         self.mainMenu = MainMenu(self.screen)
@@ -52,6 +54,7 @@ class Menus(object):
         self.qtlife = 0
         self.greenFire = 0
         self.blueFire = 0
+        self.currentenimysKilled = 0
         
 
         
@@ -87,9 +90,10 @@ class Menus(object):
             # self.player = Player(self.screen, self.nivel, self.skills,self.lastPassPoint)
         elif(self.painelState == 3):
             self.painelState, self.user, self.nivel, self.lastPassPoint, self.qtlife, self.enimysKilled, self.greenFire, self.blueFire = self.userMenu.movingInUserMenu(self.user)
-            self.gamplay = GamePlay(self.screen, self.nivel, self.lastPassPoint,self.qtlife, self.pygameEvent, self.enimysKilled, self.greenFire, self.blueFire)
-            self.skills = Skills(self.screen, self.nivel)
-            self.map = Map(self.screen, self.nivel)
+            self.getUpdateUserData()
+            # self.gamplay = GamePlay(self.screen, self.nivel, self.lastPassPoint,self.qtlife, self.pygameEvent, self.enimysKilled, self.greenFire, self.blueFire)
+            # self.skills = Skills(self.screen, self.nivel)
+            # self.map = Map(self.screen, self.nivel)
         elif(self.painelState == 6):
             self.painelState = self.intro.introDisplay()
         elif(self.painelState == 5):
@@ -135,6 +139,12 @@ class Menus(object):
         elif(self.painelState == 19):
             self.painelState, self.complet = self.congrats.drawingcongratsPainel()
             self.saveUserData()
+        print(self.painelState)
+        self.chekingSoundsToPlay()
+
+
+    def chekingSoundsToPlay(self):
+        pass
 
     def updatingUserData(self):
         if not self.complet:

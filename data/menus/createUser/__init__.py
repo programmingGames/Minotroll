@@ -3,7 +3,6 @@ from pygame.locals import *
 import os
 from data.backgrounds import Backgound as Back
 from data.textInput import Textinput as textInput
-from data.music import Sounds
 
 class CreateUserMenu:
     def __init__(self, screen):
@@ -15,7 +14,6 @@ class CreateUserMenu:
         self.createText = "Enter a user name"
         self.font = pygame.font.Font("resources/font/montserrat-font/MontserratMedium-nRxlJ.ttf", 16)
         self.size = pygame.font.Font.size(self.font, self.createText)
-        self.sounds = Sounds()
         self.text = textInput()
         self.menuControl = 250
         self.count = 0
@@ -76,14 +74,12 @@ class CreateUserMenu:
         pressed_keys = pygame.key.get_pressed()
         if(pressed_keys[K_DOWN]):
             pygame.time.delay(100)
-            self.sounds.upDownMenu()
             if(self.menuControl == 300):
                 self.menuControl = 250
             else:
                 self.menuControl += 50
         elif(pressed_keys[K_UP]):
             pygame.time.delay(100)
-            self.sounds.upDownMenu()
             if(self.menuControl == 250):
                 self.menuControl = 250
             else:
@@ -92,7 +88,6 @@ class CreateUserMenu:
         self.count += 1
         if((pressed_keys[K_RETURN])and(self.menuControl==250)and(self.count >= 5)and(len(self.user) != 0)):
             self.count = 0
-            self.sounds.selected()
             self.viewUserLimit()
             self.viewUserExist()
             if(self.limit and not self.exist):
@@ -106,7 +101,6 @@ class CreateUserMenu:
         elif((pressed_keys[K_RETURN])and(self.menuControl==300)and(self.count >= 5)):
             self.count = 0
             self.menuControl = 250
-            self.sounds.selected()
             return 1, ''
         self.settingUserName(event)
         return 2, self.user

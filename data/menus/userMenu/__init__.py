@@ -87,22 +87,18 @@ class UserMenu(object):
         nivel,  lastPassPoint_x, lastPassPoint_y, life, enimysKilled, greenFire, bluefire = self.loadUserData(user)
         pressed_keys = pygame.key.get_pressed()
         if not self.active:
-            if(pressed_keys[K_DOWN]and self.count>=5):
-                # pygame.time.delay(5)
-                # self.sounds.upDownMenu()
+            if(pressed_keys[K_DOWN]):
+                pygame.time.delay(10)
                 if(self.menuControl==350):
                     self.menuControl = 150
                 else:
                     self.menuControl += 50
-                self.count = 0
-            elif(pressed_keys[K_UP]and self.count>=5):
-                # pygame.time.delay(5)
-                # self.sounds.upDownMenu()
+            elif(pressed_keys[K_UP]):
+                pygame.time.delay(10)
                 if(self.menuControl==150):
                     self.menuControl = 150
                 else:
                     self.menuControl -= 50
-                self.count = 0
             
             choice = self.userChoise(pressed_keys)
         
@@ -128,7 +124,6 @@ class UserMenu(object):
                 choice = 3
 
         self.count += 1
-        print(self.count)
 
         return choice,self.user, int(nivel),  (int(lastPassPoint_x), int(lastPassPoint_y)),  int(life), int(enimysKilled), int(greenFire), int(bluefire)
 

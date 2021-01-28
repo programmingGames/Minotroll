@@ -2,14 +2,12 @@ import pygame
 from pygame.locals import *
 from sys import exit
 from data.backgrounds import Backgound as Back
-from data.music import Sounds
 
 #  Class for controling all the menu on the game
 class MainMenu(object):
     def __init__(self, screen):
         self.screen = screen
         self.background = Back(screen)
-        self.sounds = Sounds()
         self.painel = pygame.image.load("resources/image/menu/painel.png").convert_alpha()
         self.title = pygame.image.load("resources/image/title/MinoTrolls1.png").convert_alpha()
         self.font = pygame.font.Font("resources/font/montserrat-font/MontserratMedium-nRxlJ.ttf", 14)
@@ -79,34 +77,28 @@ class MainMenu(object):
                 self.menuControl = 150
             else:
                 self.menuControl += 50
-            self.sounds.upDownMenu()
         elif(pressed_keys[K_UP]):
             pygame.time.delay(100)
             if(self.menuControl==150):
                 self.menuControl = 150
             else:
                 self.menuControl -= 50
-            self.sounds.upDownMenu()
         
 
         self.count += 1
         if((pressed_keys[K_RETURN])and(self.menuControl==150)and(self.count >= 5)):
             self.count = 0
-            self.sounds.selected()
             return 2
         elif ((pressed_keys[K_RETURN])and(self.menuControl==200)and(self.count >= 5)):
             self.count = 0
             self.menuControl = 150
-            self.sounds.selected()
             return 4
         elif ((pressed_keys[K_RETURN])and(self.menuControl==250)and(self.count >= 5)):
             self.count = 0
-            self.sounds.selected()
             self.menuControl = 150
             return 20
         elif ((pressed_keys[K_RETURN])and(self.menuControl==300)and(self.count >= 5)):
             self.count = 0
-            self.sounds.selected()
             self.menuControl = 150
             return 5
         

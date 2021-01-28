@@ -1,6 +1,5 @@
 import pygame
 from pygame.locals import *
-from data.music import Sounds
 
 
 class GameOver(object):
@@ -8,7 +7,6 @@ class GameOver(object):
         self.screen = screen
         self.buttoms = ['Restart','Game Menu']
         self.currentButtom = self.buttoms[0]
-        self.sounds = Sounds()
         self.menuControl = 250
         self.allPosition = [(700/2-208/2, 250), (700/2-208/2, 300)]
         self.timeEfect = 0
@@ -53,14 +51,12 @@ class GameOver(object):
         pressed_keys = pygame.key.get_pressed()
         if(pressed_keys[K_DOWN]):
             pygame.time.delay(100)
-            self.sounds.upDownMenu()
             if(self.menuControl==300):
                 self.menuControl = 250
             else:
                 self.menuControl += 50
         elif(pressed_keys[K_UP]):
             pygame.time.delay(100)
-            self.sounds.upDownMenu()
             if(self.menuControl==250):
                 self.menuControl = 250
             else:
@@ -75,11 +71,9 @@ class GameOver(object):
         self.count += 1
         if((pressed_keys[K_RETURN])and(self.menuControl==250)and(self.count >= 5)):
             self.count = 0
-            self.sounds.selected()
             return 12
         elif ((pressed_keys[K_RETURN])and(self.menuControl==300)and(self.count >= 5)):
             self.count = 0
             self.menuControl = 250
-            self.sounds.selected()
             return 3
         return 11

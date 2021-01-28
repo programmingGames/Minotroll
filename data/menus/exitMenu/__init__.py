@@ -1,7 +1,6 @@
 import pygame
 from pygame.locals import *
 from data.backgrounds import Backgound as Back
-from data.music import Sounds
 from sys import exit
 
 
@@ -10,7 +9,6 @@ class ExitMenu:
         pygame.init()
         self.screen = screen
         self.background = Back(screen)
-        self.sounds = Sounds()
         self.painel = pygame.image.load("resources/image/menu/painel.png").convert_alpha()
         self.title = pygame.image.load("resources/image/title/MinoTrolls1.png").convert_alpha()
         self.createText = "Do you realy wanna exit game?"
@@ -52,14 +50,12 @@ class ExitMenu:
         pressed_keys = pygame.key.get_pressed()
         if(pressed_keys[K_DOWN]):
             pygame.time.delay(100)
-            self.sounds.upDownMenu()
             if(self.menuControl==250):
                 self.menuControl = 200
             else:
                 self.menuControl += 50
         elif(pressed_keys[K_UP]):
             pygame.time.delay(100)
-            self.sounds.upDownMenu()
             if(self.menuControl==200):
                 self.menuControl = 200
             else:
@@ -68,11 +64,9 @@ class ExitMenu:
         self.count += 1
         if((pressed_keys[K_RETURN])and(self.menuControl==200)and(self.count >= 5)):
             self.count = 0
-            self.sounds.selected()
             exit()
         elif ((pressed_keys[K_RETURN])and(self.menuControl==250)and(self.count >= 5)):
             self.count = 0
-            self.sounds.selected()
             return False        
                 
         self.exitMenuEsc()  

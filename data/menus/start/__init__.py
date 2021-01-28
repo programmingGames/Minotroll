@@ -1,10 +1,8 @@
 import pygame 
 from random import randint
 from pygame.locals import *
-from pygame.mixer import Sound 
 from data.backgrounds import Backgound as Back
 from data.gameplay.headUpDisplay.rects import Rects
-from data.music import Sounds
 
 class Initiation:
     def __init__(self, screen):
@@ -14,7 +12,6 @@ class Initiation:
         self.loadRect = Rects(self.screen,160,9,(700/2-150/2),315,(46,170,0))
         self.font = pygame.font.Font("resources/font/montserrat-font/MontserratMedium-nRxlJ.ttf", 12)
         self.font.set_bold(True)
-        self.sounds = Sounds()
         self.frame = 1
         self.dicas = [('Pressing buttom "M",', 'is possible to see your position in the map.'),
                     ('Pressing "TAB" buttom,','is possible to see the skills that you have, ','and pressing buttom 1, 2,3, ...,5', 'you can change the skills in use.'),
@@ -34,7 +31,6 @@ class Initiation:
 
     # Method to blit the start game font on the screen
     def settingStart(self):
-        self.sounds.startSounds()
         self.background.settingBackgroundMenu(1)
         self.screen.blit(self.loading, ((700/2-150/2)-5,310))
         if(self.frame == 20):
