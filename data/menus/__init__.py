@@ -121,7 +121,7 @@ class Menus(object):
             self.updatingUserData()
             self.painelState, self.complet = self.gameOver.showGameOverPainel()
         elif(self.painelState == 13):
-            self.painelState, self.complet = self.levelComplet.drawingLevelCompletPainel()
+            self.painelState, self.complet = self.levelComplet.drawingLevelCompletPainel(self.currentenimysKilled)
         elif(self.painelState == 12):
             self.updatingUserData()
             self.getUpdateUserData()
@@ -135,7 +135,7 @@ class Menus(object):
         elif(self.painelState == 21):
             self.painelState = self.controls.settingControls()
         elif(self.painelState == 18):
-            self.painelState, self.complet = self.levelincompleted.showPainel()
+            self.painelState, self.complet = self.levelincompleted.showPainel(self.currentenimysKilled)
         elif(self.painelState == 19):
             self.painelState, self.complet = self.congrats.drawingcongratsPainel()
             self.saveUserData()

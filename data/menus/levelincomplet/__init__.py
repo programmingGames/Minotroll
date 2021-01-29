@@ -7,6 +7,8 @@ class LevelIncompleted():
         self.screen = screen
         self.buttoms = ['Restart','Game Menu']
         self.currentButtom = self.buttoms[0]
+        self.font = pygame.font.Font("resources/font/montserrat-font/MontserratMedium-nRxlJ.ttf", 18)
+        self.font.set_bold(True)
         self.menuControl = 250
         self.allPosition = [(700/2-208/2, 250), (700/2-208/2, 300)]
         self.timeEfect = 0
@@ -35,7 +37,7 @@ class LevelIncompleted():
             y += 50
 
             
-    def menuEsc(self):
+    def menuEsc(self, enimysKilled):
         self.back = pygame.image.load("resources/image/menu/levelincomplet/back.png").convert_alpha()
         self.screen.blit(self.back, (0, 0))
         if (self.menuControl==250):
@@ -47,7 +49,11 @@ class LevelIncompleted():
         
         [self.screen.blit(img, pos) for img, pos in zip(self.allButtom, self.allPosition)]
 
-    def showPainel(self):
+        size = pygame.font.Font.size(self.font, 'Enimys killed: '+str(enimysKilled))
+        line = self.font.render('Enimys killed: '+str(enimysKilled), True, (255, 0, 0))
+        self.screen.blit(line, ((700/2-size[0]/2), 420))
+
+    def showPainel(self, enimysKilled):
         pressed_keys = pygame.key.get_pressed()
         if(pressed_keys[K_DOWN]):
             pygame.time.delay(100)
@@ -62,7 +68,7 @@ class LevelIncompleted():
             else:
                 self.menuControl -= 50
         
-        self.menuEsc()
+        self.menuEsc(enimysKilled)
         choice = self.gameOverChoise(pressed_keys)
         return choice, False
 
