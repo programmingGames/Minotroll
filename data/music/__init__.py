@@ -1,6 +1,7 @@
 import pygame
 
 class Sounds(object):
+    pygame.mixer.init()
     def __init__(self):
         self.start = pygame.mixer.Sound("resources/sounds/menu/login.oga")
         self.menuMove = pygame.mixer.Sound("resources/sounds/menu/updownmove.ogg")

@@ -38,9 +38,6 @@ class ControlEnimys(object):
                 if(pos[0] in range(scroll[0]-450, scroll[0]+650)):
                     allCactus_rects.append(cactus.add(tile_rects, scroll))
                     self.count += 1
-        # print(self.killAttempt)
-        # print(self.killAttempt)
-        # print(self.enimyKilled)
         self.calculatingEnimyDelete(fireCollision[0],playerAttack, scroll)
         self.allEnimys_rects += [cactus for cactus in allCactus_rects]
         return self.allEnimys_rects, self.enimyKilled, self.bossKilled
@@ -178,8 +175,6 @@ class ControlEnimys(object):
                     # self.allEnimys_rects.pop(i)
             i += 1
         self.count += 1
-        life = [lifes.life for lifes in self.allEnimys]
-        print(life, playerAttack[3])
         # print(self.allEnimys[playerAttack[3]].life)
         if((self.nivel == 3)and(len(self.allEnimysPosition)==0)):
             self.bossKilled = True

@@ -29,7 +29,7 @@ class Menus(object):
         self.screen = pygame.display.set_mode((700, 480), 0, 32)
         pygame.display.set_caption("Minotroll")
         self.painelState = 0
-        self.sounds = Sounds
+        self.sounds = Sounds()
         self.createUser = CreateUserMenu(self.screen)
         self.exitMenu = ExitMenu(self.screen)
         self.mainMenu = MainMenu(self.screen)
@@ -139,12 +139,25 @@ class Menus(object):
         elif(self.painelState == 19):
             self.painelState, self.complet = self.congrats.drawingcongratsPainel()
             self.saveUserData()
-        print(self.painelState)
         self.chekingSoundsToPlay()
+        print(self.painelState)
 
 
     def chekingSoundsToPlay(self):
-        pass
+        key = pygame.key.get_pressed()
+        if self.painelState == 0:
+            self.sounds.startSounds()
+        elif(((key[K_UP])or(key[K_DOWN]))and(self.painelState!=7 and self.painelState!=0)):
+            self.sounds.upDownMenu()
+        elif((key[K_RETURN])and(self.painelState!=7 and self.painelState!=0)):
+            self.sounds.selected()
+        elif(((key[K_RIGHT])or(key[K_LEFT]))and(self.painelState == 9)):
+            self.sounds.skillschange()
+        elif(self.painelState == 7):
+            self.sounds.envirementOne()
+        elif(self.painelState!=7):
+            self.sounds.envirementOneStop()
+        
 
     def updatingUserData(self):
         if not self.complet:
@@ -208,4 +221,3 @@ class Menus(object):
         self.gamplay = GamePlay(self.screen, self.nivel, self.lastPassPoint,self.qtlife, self.pygameEvent, self.enimysKilled, self.greenFire, self.blueFire)
         self.skills = Skills(self.screen, self.nivel)
         self.map = Map(self.screen, self.nivel)
-        
