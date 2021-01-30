@@ -395,9 +395,10 @@ class Fire(object):
     def __init__(self, screen, fireType, pos, direction):
         self.screen = screen
         self.collision = Colision()
-        self.img = pygame.image.load("resources/image/Golem/fire/"+direction+"/"+fireType+".png")
-        self.rect = self.img.get_rect()
+        self.img = [pygame.image.load("resources/image/Golem/fire/"+direction+"/"+fireType+""+str(i)+".png") for i in range(2)]
+        self.rect = self.img[0].get_rect()
         self.player_pos = pos
+        self.nrimg = 0
         if(direction == "right"):
             self.rect.x = pos[0]+40
         else:
@@ -405,7 +406,6 @@ class Fire(object):
         self.rect.y = pos[1] + 15
         self.direction = direction
 
-        
     def draw(self, tile_rect,enimysRects, scroll):
         fire_move = [0, 0]
         platfcollision = False
@@ -429,6 +429,11 @@ class Fire(object):
             platfcollision = False
         
         self.rect.x += fire_move[0]
+
+        if self.nrimg == 0:
+            self.nrimg = 1
+        else:
+            self.nrimg = 0
         
-        self.screen.blit(self.img,(self.rect.x-scroll[0], self.rect.y-scroll[1]))
+        self.screen.blit(self.img[self.nrimg],(self.rect.x-scroll[0], self.rect.y-scroll[1]))
         return platfcollision, enimyCollision, pos

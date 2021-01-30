@@ -5,7 +5,7 @@ from data.backgrounds import Backgound as Back
 
 #  Class for controling all the menu on the game
 class Settings(object):
-    def __init__(self, screen):
+    def __init__(self, screen, soundSate, musicState):
         self.screen = screen
         self.background = Back(screen)
         self.painel = pygame.image.load("resources/image/menu/painel.png").convert_alpha()
@@ -17,8 +17,8 @@ class Settings(object):
         self.font.set_bold(True)
         self.menuControl = 150
         self.timeEfect = 0
-        self.musicOn = True
-        self.soundOn = True
+        self.musicOn = soundSate
+        self.soundOn = musicState
         self.musicButton = ''
         self.soundButton = ''
         self.buttoms = []
@@ -65,6 +65,7 @@ class Settings(object):
             self.soundButton = 'SoundOff'
 
         self.buttoms = [self.musicButton,self.soundButton, 'Controls', 'Back']
+        self.saveSoundsState()
         
     def settingsEsc(self):
         self.background.settingBackgroundMenu(2)
@@ -112,11 +113,17 @@ class Settings(object):
         elif ((pressed_keys[K_RETURN])and(self.menuControl==250)and(self.count >= 5)):
             self.count = 0
             self.menuControl = 150
-            return 21
+            return 21, self.soundOn, self.musicOn
         elif ((pressed_keys[K_RETURN])and(self.menuControl==300)and(self.count >= 5)):
             self.count = 0
             self.menuControl = 150
-            return 1
+            return 1, self.soundOn, self.musicOn
         self.checkingSounds()
         self.settingsEsc()  
-        return 20
+        return 20, self.soundOn, self.musicOn
+
+    def saveSoundsState(self):
+        file = open("data/menus/mainMenu/soundState.txt", 'w')
+        #          nivel      Position   Initial Life
+        file.write(str(int(self.soundOn))+' '+str(int(self.musicOn)))
+        file.close()

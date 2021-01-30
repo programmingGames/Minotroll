@@ -38,7 +38,10 @@ class Menus(object):
         self.loadUser = LoadUser(self.screen)
         self.initiation = Initiation(self.screen)
         self.gameOver = GameOver(self.screen)
-        self.settings = Settings(self.screen)
+        self.soundControl = None
+        self.musicControl = None
+        self.readSoundsState()
+        self.settings = Settings(self.screen, self.soundControl, self.musicControl)
         self.levelComplet = LevelComplet(self.screen)
         self.levelincompleted = LevelIncompleted(self.screen)
         self.pause = PauseMenu(self.screen)
@@ -59,7 +62,15 @@ class Menus(object):
 
         
 
-        
+    def readSoundsState(self):
+        file = open("data/menus/mainMenu/soundState.txt", 'r')
+        data = file.read()
+        file.close()
+        states = data.split(' ')
+        self.soundControl = int(states[0])
+        self.musicControl = int(states[1])
+
+
     # Method to move in the main menu
     def interMenuMoving(self):
         for event in pygame.event.get():
@@ -107,10 +118,7 @@ class Menus(object):
         elif(self.painelState == 4):
             self.painelState, self.user = self.loadUser.movingInLoadMenu()
         elif(self.painelState == 7):
-            self.painelState, self.player_rect, self.qtlife, self.currentenimysKilled, self.greenFire, self.blueFire = self.gamplay.drawingTheGamePlayEnvirement()
-            # self.saveUserData()
-            # self.getUpdateUserData()
-            # updating the map progress
+            self.painelState, self.player_rect, self.qtlife, self.currentenimysKilled, self.greenFire, self.blueFire = self.gamplay.drawingTheGamePlayEnvirement(self.soundControl, self.musicControl)
             self.map.updateProgressInMap(self.player_rect.x)
         elif(self.painelState == 9):
             self.painelState, self.cardsActive = self.skills.movingInPainelSkills()
@@ -133,7 +141,7 @@ class Menus(object):
             self.getUpdateUserData()
             self.painelState = 7
         elif(self.painelState == 20):
-            self.painelState = self.settings.movingInSettingsMenu()
+            self.painelState, self.soundControl, self.musicControl = self.settings.movingInSettingsMenu()
         elif(self.painelState == 21):
             self.painelState = self.controls.settingControls()
         elif(self.painelState == 18):
@@ -142,19 +150,23 @@ class Menus(object):
             self.painelState, self.complet = self.congrats.drawingcongratsPainel()
             self.saveUserData()
         self.chekingSoundsToPlay()
-        # print(self.painelState)
 
 
     def chekingSoundsToPlay(self):
         key = pygame.key.get_pressed()
-        if self.painelState == 0:
-            self.sounds.startSounds()
-        elif(((key[K_UP])or(key[K_DOWN]))and(self.painelState!=7 and self.painelState!=0)):
-            self.sounds.upDownMenu()
-        elif((key[K_RETURN])and(self.painelState!=7 and self.painelState!=0)):
-            self.sounds.selected()
-        elif(((key[K_RIGHT])or(key[K_LEFT]))and(self.painelState == 9)and self.cardsActive):
-            self.sounds.skillschange()
+        if self.soundControl:
+            if self.painelState == 0:
+                self.sounds.startSounds()
+            elif(((key[K_UP])or(key[K_DOWN]))and(self.painelState!=7 and self.painelState!=0)):
+                self.sounds.upDownMenu()
+            elif((key[K_RETURN])and(self.painelState!=7 and self.painelState!=0)):
+                self.sounds.selected()
+            elif(((key[K_RIGHT])or(key[K_LEFT]))and(self.painelState == 9)and self.cardsActive):
+                self.sounds.skillschange()
+        if self.musicControl and self.painelState != 7:
+            self.sounds.menubackSong()
+        else:
+            self.sounds.menuBackSongStop()
         
 
     def updatingUserData(self):

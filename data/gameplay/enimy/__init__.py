@@ -149,7 +149,6 @@ class ControlEnimys(object):
             if(position[0] in range(scroll[0]-450, scroll[0]+650)):
                 # print(playerAttack[3])
                 if (fireColid or (playerAttack[0] and playerAttack[1] and playerAttack[3]==i)):
-                    print("ok")
                     if((enimy.life < 0)and(self.count >= 20)):
                         self.allEnimys.pop(i)
                         self.allEnimysPosition.pop(i)

@@ -123,7 +123,7 @@ class UserMenu(object):
             else:                
                 choice = 3
 
-        self.count += 1
+        
 
         return choice,self.user, int(nivel),  (int(lastPassPoint_x), int(lastPassPoint_y)),  int(life), int(enimysKilled), int(greenFire), int(bluefire)
 
@@ -152,7 +152,7 @@ class UserMenu(object):
             self.menuControl = 150
             # self.sounds.selected()
             self.active = True
-        
+        self.count += 1
         return 3
 
     def golemAnimation(self):
@@ -175,8 +175,8 @@ class UserMenu(object):
         lastPassPoint_y = allUserData[2]   # the last point in the game tha the user pass to in y
         life = allUserData[3]  # the last quantity of life save by the user
         enimysKilled = allUserData[4] ## the total of enimys killed by the user
-        greenFire = allUserData[5] ## the total of green fire availabe
-        blueFire = allUserData[6] ## the total of blue fire availabe
+        greenFire = allUserData[5] # the total of green fire availabe
+        blueFire = allUserData[6] # the total of blue fire availabe
         return nivel, lastPassPoint_x, lastPassPoint_y, life, enimysKilled, greenFire, blueFire
 
     def drawUserInfor(self, user, nivel, atualPosition, qtlife, enimysKilled):

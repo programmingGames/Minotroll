@@ -50,6 +50,8 @@ class GamePlay(object):
 
         self.count = 0
         self.soundTimer = 0
+        self.musicControl = True
+        self.soundControl = True
         self.pos = 0
 
     def knowingEnimysNr(self):
@@ -63,7 +65,9 @@ class GamePlay(object):
             self.nrInimys = 4
 
     # method to display all the components in the platform
-    def drawingTheGamePlayEnvirement(self):
+    def drawingTheGamePlayEnvirement(self, soundControl, musicControl):
+        self.soundControl = soundControl
+        self.musicControl = musicControl
         # key_press = pygame.key.get_pressed()
         tile_rects = self.platform.settingPlataform(self.scroll)
         self.scroll, self.player_rect,self.fireArray, self.enimyCollision, self.enimyType, self.fireEnimyColision, self.fireCollsionPos, self.playerOnAttack = self.player.settingPlayer(tile_rects, self.scroll, self.allEnimysRectsAndTypes, self.inUse)
@@ -131,23 +135,25 @@ class GamePlay(object):
         return painelState, self.player_rect, self.qtlife, self.enimysKilled, self.greenFire, self.blueFire
     
     def chekingSongs(self):
-        if self.playerOnAttack[0] and self.inUse == "slashing" and self.soundTimer >= 20:
-            self.soundTimer = 0
-            self.sounds.golemSliding()
-        elif self.playerOnAttack[0] and self.inUse == "battleax" and self.soundTimer >= 20:
-            self.soundTimer = 0
-            self.sounds.golemSlach()
-        elif self.playerOnAttack[0] and self.inUse == "kicking" and self.soundTimer >= 10:
-            self.soundTimer = 0
-            self.sounds.golemKicking()
-        elif self.firing:
-            self.sounds.golemstartFire()
-        elif self.enimyCollision:
-            self.sounds.golemHurt()
-        elif(self.qtlife <= 40):
-            self.sounds.golemTiredOut()
-        else:
-            self.sounds.envirementOne()
+        if self.soundControl:
+            if self.playerOnAttack[0] and self.inUse == "slashing" and self.soundTimer >= 20:
+                self.soundTimer = 0
+                self.sounds.golemSliding()
+            elif self.playerOnAttack[0] and self.inUse == "battleax" and self.soundTimer >= 20:
+                self.soundTimer = 0
+                self.sounds.golemSlach()
+            elif self.playerOnAttack[0] and self.inUse == "kicking" and self.soundTimer >= 10:
+                self.soundTimer = 0
+                self.sounds.golemKicking()
+            elif self.firing:
+                self.sounds.golemstartFire()
+            elif self.enimyCollision:
+                self.sounds.golemHurt()
+            elif(self.qtlife <= 40):
+                self.sounds.golemTiredOut()
+        if self.musicControl:
+                    self.sounds.envirementOne()
+            
         self.soundTimer += 1
 
     def controllingThePlayerLife(self):
