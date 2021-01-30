@@ -49,6 +49,7 @@ class GamePlay(object):
         self.firing = False
 
         self.count = 0
+        self.soundTimer = 0
         self.pos = 0
 
     def knowingEnimysNr(self):
@@ -130,11 +131,11 @@ class GamePlay(object):
         return painelState, self.player_rect, self.qtlife, self.enimysKilled, self.greenFire, self.blueFire
     
     def chekingSongs(self):
-        if self.playerOnAttack[0] and self.inUse == "slashing":
+        if self.playerOnAttack[0] and self.inUse == "slashing" and self.soundTimer >= 10:
             self.sounds.golemSliding()
-        elif self.playerOnAttack[0] and self.inUse == "battleax":
+        elif self.playerOnAttack[0] and self.inUse == "battleax" and self.soundTimer >= 10:
             self.sounds.golemSlach()
-        elif self.playerOnAttack[0] and self.inUse == "kicking":
+        elif self.playerOnAttack[0] and self.inUse == "kicking" and self.soundTimer >= 10:
             self.sounds.golemKicking()
         elif self.firing:
             self.sounds.golemstartFire()
@@ -143,11 +144,10 @@ class GamePlay(object):
             self.sounds.golemHurt()
         elif(self.qtlife <= 40):
             self.sounds.golemTiredOut()
-        
         else:
             self.sounds.envirementOne()
             # self.sounds.envirementOne()
-        pass
+        self.soundTimer += 1
     def controllingThePlayerLife(self):
         if (self.enimyCollision and self.playerOnAttack[0] == False):
             self.headUpDisplay.updatingPlayerLife(self.enimyType)
