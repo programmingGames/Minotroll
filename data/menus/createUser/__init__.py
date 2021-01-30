@@ -134,7 +134,7 @@ class CreateUserMenu:
         os.chdir('users/'+self.user)
         file = open('data.txt', 'w')
         #           nivel  | Position_x| Position_y |Initial Life|enimy Killed|green fire|Blue Fire
-        file.write(str(0)+' '+str(500)+' '+str(120)+' '+str(218)+' '+str(0)+' '+str(0)+' '+str(0)+' True True')
+        file.write(str(0)+' '+str(500)+' '+str(120)+' '+str(218)+' '+str(0)+' '+str(0)+' '+str(0))
         file.close()
         os.chdir('../..')
 

@@ -19,7 +19,7 @@ class Textinput:
     def settingInputText(self, screen):
         # Pega todos os eventos de escrita do teclado
         key = pygame.key.get_pressed()
-        if(key[K_RETURN]and(self.count>=3)):
+        if key[K_RETURN]:
             self.count = 0
             text = self.text
             self.text = ''

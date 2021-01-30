@@ -63,7 +63,6 @@ class Delete(object):
 
         
         if((pressed_keys[K_RETURN])and(self.menuControl==200)and(self.count >= 5)):
-            print("ok")
             self.count = 0
             os.chdir('users')
             shutil.rmtree(user)
