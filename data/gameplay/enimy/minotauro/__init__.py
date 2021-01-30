@@ -14,7 +14,7 @@ class Minotauro:
         self.patrolRadius = patrolRadius
         self.state = 'Idle'
         self.move_direction = 'right'           #resources\image\enimy\minotauro\Minotauro_1\Idle\right\Minotaur_Idle_0.png
-        self.imgMinotaur = pygame.image.load("resources/image/enimy/minotauro/Minotauro_"+str(self.minotauroType)+"/"+self.state+"/"+self.move_direction+"/Minotaur_"+self.state+"_0.png").convert_alpha()
+        self.imgMinotaur = pygame.image.load("resources/image/enimy/minotauro/"+self.state+"/"+self.move_direction+"/Minotaur_"+self.state+"_0.png").convert_alpha()
         self.rect = self.imgMinotaur.get_rect()
         self.rect.x = pos[0]
         self.rect.y = pos[1]
@@ -118,30 +118,30 @@ class Minotauro:
     def walk(self):
         self.state = 'Walking'
         if(((self.move_right)or(self.move_left))and(self.move_frame <= 17)):       
-            self.imgMinotaur = pygame.image.load("resources/image/enimy/minotauro/Minotauro_"+str(self.minotauroType)+"/"+self.state+"/"+self.move_direction+"/Minotaur_"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
+            self.imgMinotaur = pygame.image.load("resources/image/enimy/minotauro/"+self.state+"/"+self.move_direction+"/Minotaur_"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
             self.move_frame += 1
         elif(((self.move_right)or(self.move_left))and(self.move_frame > 17)):
             self.move_frame = 0
-            self.imgMinotaur = pygame.image.load("resources/image/enimy/minotauro/Minotauro_"+str(self.minotauroType)+"/"+self.state+"/"+self.move_direction+"/Minotaur_"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()   
+            self.imgMinotaur = pygame.image.load("resources/image/enimy/minotauro/"+self.state+"/"+self.move_direction+"/Minotaur_"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()   
         else:
-            self.imgMinotaur = pygame.image.load("resources/image/enimy/minotauro/Minotauro_"+str(self.minotauroType)+"/"+self.state+"/"+self.move_direction+"/Minotaur_"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
+            self.imgMinotaur = pygame.image.load("resources/image/enimy/minotauro/"+self.state+"/"+self.move_direction+"/Minotaur_"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
     def idle(self):
         self.state = 'Idle'
         if(((not self.move_right)or(not self.move_left ))and(self.move_frame <= 11)):
-            self.imgMinotaur = pygame.image.load("resources/image/enimy/minotauro/Minotauro_"+str(self.minotauroType)+"/"+self.state+"/"+self.move_direction+"/Minotaur_"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
+            self.imgMinotaur = pygame.image.load("resources/image/enimy/minotauro/"+self.state+"/"+self.move_direction+"/Minotaur_"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
             self.move_frame += 1
         elif(((not self.move_right)or(not self.move_left))and(self.move_frame > 11)):
             self.move_frame = 0
-            self.imgMinotaur = pygame.image.load("resources/image/enimy/minotauro/Minotauro_"+str(self.minotauroType)+"/"+self.state+"/"+self.move_direction+"/Minotaur_"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
+            self.imgMinotaur = pygame.image.load("resources/image/enimy/minotauro/"+self.state+"/"+self.move_direction+"/Minotaur_"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
         else:
-            self.imgMinotaur = pygame.image.load("resources/image/enimy/minotauro/Minotauro_"+str(self.minotauroType)+"/"+self.state+"/"+self.move_direction+"/Minotaur_"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
+            self.imgMinotaur = pygame.image.load("resources/image/enimy/minotauro/"+self.state+"/"+self.move_direction+"/Minotaur_"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
     def startAttack(self):
         self.state = 'Attacking'
         if((self.attacking)and(self.move_frame <= 11)):
-            self.imgMinotaur = pygame.image.load("resources/image/enimy/minotauro/Minotauro_"+str(self.minotauroType)+"/"+self.state+"/"+self.move_direction+"/Minotaur_"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
+            self.imgMinotaur = pygame.image.load("resources/image/enimy/minotauro/"+self.state+"/"+self.move_direction+"/Minotaur_"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
             self.move_frame += 1
         elif((self.attacking)and(self.move_frame > 11)):
             self.move_frame = 0
-            self.imgMinotaur = pygame.image.load("resources/image/enimy/minotauro/Minotauro_"+str(self.minotauroType)+"/"+self.state+"/"+self.move_direction+"/Minotaur_"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
+            self.imgMinotaur = pygame.image.load("resources/image/enimy/minotauro/"+self.state+"/"+self.move_direction+"/Minotaur_"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
         else:
-           self.imgMinotaur = pygame.image.load("resources/image/enimy/minotauro/Minotauro_"+str(self.minotauroType)+"/"+self.state+"/"+self.move_direction+"/Minotaur_"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
+           self.imgMinotaur = pygame.image.load("resources/image/enimy/minotauro/"+self.state+"/"+self.move_direction+"/Minotaur_"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()

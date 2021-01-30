@@ -154,7 +154,7 @@ class Menus(object):
         elif(self.painelState == 17):
             self.painelState = self.delete.movingInDeleteMenu(self.user)
         self.chekingSoundsToPlay()
-        print(self.painelState)
+        # print(self.painelState)
 
 
     def chekingSoundsToPlay(self):

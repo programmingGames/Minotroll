@@ -116,7 +116,7 @@ class ControlEnimys(object):
             self.allEnimys.append(Golens(self.screen,(3724,110), 50, 3,12))
             self.allEnimys.append(Golens(self.screen,(3824,110), 50, 3,12))
             self.allEnimys.append(Minotauro(self.screen,(3916,110), 50, 16))
-            self.allEnimys.append(Minotauro(self.screen,(5108,110), 50, 16))
+            self.allEnimys.append(Minotauro(self.screen,(5108,560), 50, 16))
             self.allEnimys.append(Minotauro(self.screen,(5304,560), 50, 16))
             self.allEnimys.append(Minotauro(self.screen,(5310,560), 50, 16))
 

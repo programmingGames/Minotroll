@@ -1,4 +1,3 @@
-from data.gameplay import enimy
 import pygame
 from pygame.locals import *
 from data.gameplay.collisionControl import Colision
@@ -29,6 +28,7 @@ class Player(object):
         self.hurtten = False
         self.attack = False
         self.bottomColision = False
+        self.topColision = False
         self.firing = False
         self.preCollisionAriaRight = [0,0]
         self.preCollisionAriaLeft = [0,0]
@@ -73,7 +73,8 @@ class Player(object):
         if self.jumping:
             self.jump()
             if self.air_timer < 8:
-                self.vertical_momentum = -10
+                self.vertical_momentum = -15
+                self.jumping = False
         
         if self.hurtten:
             self.hurt()
@@ -86,10 +87,11 @@ class Player(object):
 
         if((not self.moving_left)and(not self.moving_right)and not self.attack):
             self.idle()
+
         player_movement[1] += self.vertical_momentum
-        self.vertical_momentum += 0.6
-        if self.vertical_momentum > 6:
-            self.vertical_momentum = 6
+        self.vertical_momentum += 0.8
+        if self.vertical_momentum > 10:
+            self.vertical_momentum = 10
         self.player_rect, self.platformCollisions = self.collision.platformCollision(player_movement,self.player_rect,tile_rects)
         if (self.platformCollisions['bottom']):
             self.air_timer = 0
@@ -97,12 +99,14 @@ class Player(object):
             self.jumping = False
             self.bottomColision = True
         else:
-            self.bottomColisions = False
+            self.bottomColision = False
+
         if self.platformCollisions['top']:
             self.jumping = False
-            self.vertical_momentum += 5
+            self.vertical_momentum = 10
         else:
-            self.air_timer += 1
+            self.topColision = False
+            self.air_timer += 4
 
         if(self.platformCollisions['right']):
             self.moving_right = False
@@ -112,7 +116,6 @@ class Player(object):
         self.screen.blit(self.player_img,(self.player_rect.x-scroll[0],self.player_rect.y-scroll[1]))
 
     def fireControl(self, tile_rect, scroll):
-        colision = []
         platfcolision = []
         enimyCollision = False
         pos = 0
@@ -210,8 +213,7 @@ class Player(object):
             self.state = 'Walking'
 
             if(key_press[K_UP]and self.bottomColision==True):
-                if self.air_timer < 8:
-                    self.vertical_momentum = -10
+                self.jumping = True
 
         elif(key_press[K_LEFT]):
             self.move_direction = 'left'
@@ -219,9 +221,7 @@ class Player(object):
             self.state = 'Walking'
 
             if(key_press[K_UP] and self.bottomColision==True):
-                if self.air_timer < 8:
-                    self.vertical_momentum = -10
-
+                self.jumping = True
 
         elif(key_press[K_UP]and self.bottomColision==True):
             self.state = 'JumLoop'
