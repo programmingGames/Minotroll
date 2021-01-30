@@ -68,7 +68,7 @@ class GamePlay(object):
         tile_rects = self.platform.settingPlataform(self.scroll)
         self.scroll, self.player_rect,self.fireArray, self.enimyCollision, self.enimyType, self.fireEnimyColision, self.fireCollsionPos, self.playerOnAttack = self.player.settingPlayer(tile_rects, self.scroll, self.allEnimysRectsAndTypes, self.inUse)
         
-        if ((self.playerOnAttack[0])and(self.count >= 10)):
+        if ((self.playerOnAttack[0])and(self.count >= 10)and(self.inUse == "greenfire"  or self.inUse == "bluefire")):
             self.firing = True
             self.count = 0
         else:
@@ -131,23 +131,25 @@ class GamePlay(object):
         return painelState, self.player_rect, self.qtlife, self.enimysKilled, self.greenFire, self.blueFire
     
     def chekingSongs(self):
-        if self.playerOnAttack[0] and self.inUse == "slashing" and self.soundTimer >= 10:
+        if self.playerOnAttack[0] and self.inUse == "slashing" and self.soundTimer >= 20:
+            self.soundTimer = 0
             self.sounds.golemSliding()
-        elif self.playerOnAttack[0] and self.inUse == "battleax" and self.soundTimer >= 10:
+        elif self.playerOnAttack[0] and self.inUse == "battleax" and self.soundTimer >= 20:
+            self.soundTimer = 0
             self.sounds.golemSlach()
         elif self.playerOnAttack[0] and self.inUse == "kicking" and self.soundTimer >= 10:
+            self.soundTimer = 0
             self.sounds.golemKicking()
         elif self.firing:
             self.sounds.golemstartFire()
-            self.firing = False
         elif self.enimyCollision:
             self.sounds.golemHurt()
         elif(self.qtlife <= 40):
             self.sounds.golemTiredOut()
         else:
             self.sounds.envirementOne()
-            # self.sounds.envirementOne()
         self.soundTimer += 1
+
     def controllingThePlayerLife(self):
         if (self.enimyCollision and self.playerOnAttack[0] == False):
             self.headUpDisplay.updatingPlayerLife(self.enimyType)

@@ -16,7 +16,7 @@ class Wizard:
         self.rect.x = pos[0]
         self.rect.y = pos[1]
         self.initialPosition = pos[0]
-        self.ai = EnimysAI(self.screen, self.patrolRadius,200, self.rect.x)
+        self.ai = EnimysAI(self.patrolRadius,200, self.rect.x)
         self.collision = Colision()
         self.state = 'idle'
         self.move_direction = 'right'
