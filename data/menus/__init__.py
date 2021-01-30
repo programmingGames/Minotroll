@@ -20,6 +20,7 @@ from data.menus.levelincomplet import LevelIncompleted
 from data.menus.settings import Settings
 from data.menus.controls import Controls
 from data.menus.congrats import Congrats
+from data.menus.delete import Delete
 from data.gameplay import GamePlay
 
 
@@ -38,6 +39,7 @@ class Menus(object):
         self.loadUser = LoadUser(self.screen)
         self.initiation = Initiation(self.screen)
         self.gameOver = GameOver(self.screen)
+        self.delete = Delete(self.screen)
         self.soundControl = None
         self.musicControl = None
         self.readSoundsState()
@@ -149,7 +151,10 @@ class Menus(object):
         elif(self.painelState == 19):
             self.painelState, self.complet = self.congrats.drawingcongratsPainel()
             self.saveUserData()
+        elif(self.painelState == 17):
+            self.painelState = self.delete.movingInDeleteMenu(self.user)
         self.chekingSoundsToPlay()
+        print(self.painelState)
 
 
     def chekingSoundsToPlay(self):

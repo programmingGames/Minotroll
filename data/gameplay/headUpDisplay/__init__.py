@@ -197,3 +197,5 @@ class HeadUpDisplay(object):
             self.life.updateLife(60)
         elif(itemType == 'graveller'):
             self.life.updateLife(-10)
+        elif(itemType == 'minotauro'):
+            self.life.updateLife(-7)

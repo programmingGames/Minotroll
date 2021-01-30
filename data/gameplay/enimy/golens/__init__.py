@@ -21,7 +21,7 @@ class Golens:
         self.rect.x = pos[0]
         self.rect.y = pos[1]
         self.initialPosition = pos[0]
-        self.ai = EnimysAI( self.patrolRadius,100, self.rect.x)
+        self.ai = EnimysAI( self.patrolRadius,50, self.rect.x)
         self.collision = Colision()
         self.move_right = False
         self.move_left = False
@@ -30,6 +30,7 @@ class Golens:
         self.move_frame = 0
         self.attacking = False
         self.isMe = False
+
     def renameTheGolemType(self):
         if(self.golemType == 1):
             self.name = 'fire golem'
@@ -78,8 +79,11 @@ class Golens:
                 self.rect.x += 5
                 self.rect.y -= 10
             self.impactDelay += 1
+
+
     def sufferingDamage(self, damage):
         self.life-=damage
+        
     def add(self, platform_rects,player_rect,playerOnAttack, scroll):
         golens_move = [0, 0]
         if self.move_right:

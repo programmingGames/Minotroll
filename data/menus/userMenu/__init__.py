@@ -3,15 +3,12 @@ from pygame.locals import *
 import os
 import shutil
 from data.backgrounds import Backgound as Back
-from data.menus.popup import Popup
-
 
 class UserMenu(object):
     def __init__(self, screen):
         pygame.init()
         self.screen = screen
         self.background = Back(screen)
-        self.popup = Popup(screen, "Confirm delete!")
         self.painel = pygame.image.load("resources/image/menu/user_menu/painel.png").convert_alpha()
         self.title = pygame.image.load("resources/image/title/MinoTrolls1.png").convert_alpha()
         self.timeOut = 0
@@ -29,7 +26,6 @@ class UserMenu(object):
         self.displayButtoms()
         self.count = 0
         self.user = ''
-        self.active = False # control the popup
         
 
     # Method to choose option in main menu
@@ -83,24 +79,22 @@ class UserMenu(object):
     # Method to move in the main menu
     def movingInUserMenu(self, user):
         self.user = user
-        choice = 3
         nivel,  lastPassPoint_x, lastPassPoint_y, life, enimysKilled, greenFire, bluefire = self.loadUserData(user)
         pressed_keys = pygame.key.get_pressed()
-        if not self.active:
-            if(pressed_keys[K_DOWN]):
-                pygame.time.delay(10)
-                if(self.menuControl==350):
-                    self.menuControl = 150
-                else:
-                    self.menuControl += 50
-            elif(pressed_keys[K_UP]):
-                pygame.time.delay(10)
-                if(self.menuControl==150):
-                    self.menuControl = 150
-                else:
-                    self.menuControl -= 50
-            
-            choice = self.userChoise(pressed_keys)
+        if(pressed_keys[K_DOWN]):
+            pygame.time.delay(10)
+            if(self.menuControl==350):
+                self.menuControl = 150
+            else:
+                self.menuControl += 50
+        elif(pressed_keys[K_UP]):
+            pygame.time.delay(10)
+            if(self.menuControl==150):
+                self.menuControl = 150
+            else:
+                self.menuControl -= 50
+        
+        
         
         self.mainMenuEsc()  
         self.drawUserInfor(user, nivel, lastPassPoint_x, life, enimysKilled)
@@ -108,24 +102,9 @@ class UserMenu(object):
 
 
         ## controling th popUp display
-        # choice = 3
-        if(self.active):
-            ver, close = self.popup.draw(pressed_keys)
-            if close:
-                self.active = not self.active
-            if ver:
-                os.chdir('users')
-                shutil.rmtree(self.user)
-                os.chdir('..')
-                choice = 1
-                self.active = False
-                self.user = ''
-            else:                
-                choice = 3
+        # choice = 3        
 
-        
-
-        return choice,self.user, int(nivel),  (int(lastPassPoint_x), int(lastPassPoint_y)),  int(life), int(enimysKilled), int(greenFire), int(bluefire)
+        return self.userChoise(pressed_keys),self.user, int(nivel),  (int(lastPassPoint_x), int(lastPassPoint_y)),  int(life), int(enimysKilled), int(greenFire), int(bluefire)
 
     def userChoise(self, pressed_keys):
         if((pressed_keys[K_RETURN])and(self.menuControl==150)and(self.count >= 5)):
@@ -150,8 +129,7 @@ class UserMenu(object):
         elif ((pressed_keys[K_RETURN])and(self.menuControl==350)and(self.count >= 5)):
             self.count = 0
             self.menuControl = 150
-            # self.sounds.selected()
-            self.active = True
+            return 17
         self.count += 1
         return 3
 

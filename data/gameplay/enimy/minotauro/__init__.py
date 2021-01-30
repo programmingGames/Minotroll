@@ -6,20 +6,20 @@ from data.gameplay.collisionControl import Colision
 # import random
 
 
-class Graveller:
+class Minotauro:
     def __init__(self, screen,pos, patrolRadius, life):
         self.screen = screen
-        self.life=life
-        self.name = 'graveller'
+        self.life = life
+        self.name = 'minotauro'
         self.patrolRadius = patrolRadius
         self.state = 'Idle'
-        self.move_direction = 'right'
-        self.imgGolens = pygame.image.load("resources/image/enimy/Graveler/"+self.state+"/"+self.move_direction+"/"+self.state+"_0.png").convert_alpha()
-        self.rect = self.imgGolens.get_rect()
+        self.move_direction = 'right'           #resources\image\enimy\minotauro\Minotauro_1\Idle\right\Minotaur_Idle_0.png
+        self.imgMinotaur = pygame.image.load("resources/image/enimy/minotauro/Minotauro_"+str(self.minotauroType)+"/"+self.state+"/"+self.move_direction+"/Minotaur_"+self.state+"_0.png").convert_alpha()
+        self.rect = self.imgMinotaur.get_rect()
         self.rect.x = pos[0]
         self.rect.y = pos[1]
         self.initialPosition = pos[0]
-        self.ai = EnimysAI( self.patrolRadius,150, self.rect.x)
+        self.ai = EnimysAI(self.patrolRadius,100, self.rect.x)
         self.collision = Colision()
         self.move_right = False
         self.move_left = False
@@ -31,7 +31,7 @@ class Graveller:
 
     def controlingCollision(self, golens_move, platform_rects, player_rect, playerOnAttack):
         rect, plat_collisions = self.collision.platformCollision(golens_move,self.rect, platform_rects)
-        # right, left collision
+        del rect
         if(plat_collisions['right']):
             self.move_right = False
         elif(plat_collisions['left']):
@@ -57,6 +57,9 @@ class Graveller:
             self.impactDelay = 0
             self.collisionImpact()
 
+    def sufferingDamage(self, damage):
+        self.life-=damage
+
     def collisionImpact(self):
         if(self.impactDelay <= 5):
             # self.player_rect, platformCollisions = self.collision.platformCollision(player_movement,self.player_rect,tile_rects)
@@ -70,22 +73,19 @@ class Graveller:
                 self.rect.y -= 10
             self.impactDelay += 1
 
-    def sufferingDamage(self, damage):
-        self.life-=damage
-        
     def add(self, platform_rects,player_rect,playerOnAttack, scroll):
-        golens_move = [0, 0]
+        minotaur_move = [0, 0]
         if self.move_right:
             if self.attacking:
-                golens_move[0]+=3
+                minotaur_move[0]+=3
             else:
-                golens_move[0] += 1
+                minotaur_move[0] += 1
 
         if self.move_left:
             if self.attacking:
-                golens_move[0]-=3
+                minotaur_move[0]-=3
             else:
-                golens_move[0] -= 1
+                minotaur_move[0] -= 1
         
         if self.attacking:
             self.startAttack()
@@ -95,17 +95,17 @@ class Graveller:
         elif((self.move_right or self.move_left)and not self.attacking):
             self.walk()
 
-        golens_move[1] += self.vertical_momentum
+        minotaur_move[1] += self.vertical_momentum
         self.vertical_momentum += 0.2
         if self.vertical_momentum > 8:
             self.vertical_momentum = 8
 
-        self.rect.x += golens_move[0]
+        self.rect.x += minotaur_move[0]
 
         self.move_direction, self.move_right, self.move_left, self.attacking = self.ai.activation(self.rect, player_rect)
         self.determinateAttack()
-        self.controlingCollision(golens_move, platform_rects, player_rect, playerOnAttack)
-        self.screen.blit(self.imgGolens,(self.rect.x-scroll[0], self.rect.y-scroll[1]))
+        self.controlingCollision(minotaur_move, platform_rects, player_rect, playerOnAttack)
+        self.screen.blit(self.imgMinotaur,(self.rect.x-scroll[0], self.rect.y-scroll[1]))
         # print(self.attacking, self.move_direction)
         return self.rect, self.name
 
@@ -116,35 +116,32 @@ class Graveller:
             self.move_left = False
 
     def walk(self):
-        self.state = 'Walk'
-        if(((self.move_right)or(self.move_left))and(self.move_frame <= 9)):        #resources\image\enimy\golens\Golem_1\Idle\left\0_Golem_Idle_000.png
-            self.imgGolens = pygame.image.load("resources/image/enimy/Graveler/"+self.state+"/"+self.move_direction+"/"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
+        self.state = 'Walking'
+        if(((self.move_right)or(self.move_left))and(self.move_frame <= 17)):       
+            self.imgMinotaur = pygame.image.load("resources/image/enimy/minotauro/Minotauro_"+str(self.minotauroType)+"/"+self.state+"/"+self.move_direction+"/Minotaur_"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
             self.move_frame += 1
-        elif(((self.move_right)or(self.move_left))and(self.move_frame > 9)):
+        elif(((self.move_right)or(self.move_left))and(self.move_frame > 17)):
             self.move_frame = 0
-            self.imgGolens = pygame.image.load("resources/image/enimy/Graveler/"+self.state+"/"+self.move_direction+"/"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()   
+            self.imgMinotaur = pygame.image.load("resources/image/enimy/minotauro/Minotauro_"+str(self.minotauroType)+"/"+self.state+"/"+self.move_direction+"/Minotaur_"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()   
         else:
-            self.imgGolens = pygame.image.load("resources/image/enimy/Graveler/"+self.state+"/"+self.move_direction+"/"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()   
-
+            self.imgMinotaur = pygame.image.load("resources/image/enimy/minotauro/Minotauro_"+str(self.minotauroType)+"/"+self.state+"/"+self.move_direction+"/Minotaur_"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
     def idle(self):
         self.state = 'Idle'
-        if(((not self.move_right)or(not self.move_left ))and(self.move_frame <= 9)):
-            self.imgGolens = pygame.image.load("resources/image/enimy/Graveler/"+self.state+"/"+self.move_direction+"/"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()   
+        if(((not self.move_right)or(not self.move_left ))and(self.move_frame <= 11)):
+            self.imgMinotaur = pygame.image.load("resources/image/enimy/minotauro/Minotauro_"+str(self.minotauroType)+"/"+self.state+"/"+self.move_direction+"/Minotaur_"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
             self.move_frame += 1
-        elif(((not self.move_right)or(not self.move_left))and(self.move_frame > 9)):
+        elif(((not self.move_right)or(not self.move_left))and(self.move_frame > 11)):
             self.move_frame = 0
-            self.imgGolens = pygame.image.load("resources/image/enimy/Graveler/"+self.state+"/"+self.move_direction+"/"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
+            self.imgMinotaur = pygame.image.load("resources/image/enimy/minotauro/Minotauro_"+str(self.minotauroType)+"/"+self.state+"/"+self.move_direction+"/Minotaur_"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
         else:
-            self.imgGolens = pygame.image.load("resources/image/enimy/Graveler/"+self.state+"/"+self.move_direction+"/"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
-
+            self.imgMinotaur = pygame.image.load("resources/image/enimy/minotauro/Minotauro_"+str(self.minotauroType)+"/"+self.state+"/"+self.move_direction+"/Minotaur_"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
     def startAttack(self):
-        self.state = 'Attack'
-        if((self.attacking)and(self.move_frame <= 9)):
-            self.imgGolens = pygame.image.load("resources/image/enimy/Graveler/"+self.state+"/"+self.move_direction+"/"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
+        self.state = 'Attacking'
+        if((self.attacking)and(self.move_frame <= 11)):
+            self.imgMinotaur = pygame.image.load("resources/image/enimy/minotauro/Minotauro_"+str(self.minotauroType)+"/"+self.state+"/"+self.move_direction+"/Minotaur_"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
             self.move_frame += 1
-        elif((self.attacking)and(self.move_frame > 9)):
+        elif((self.attacking)and(self.move_frame > 11)):
             self.move_frame = 0
-            self.imgGolens = pygame.image.load("resources/image/enimy/Graveler/"+self.state+"/"+self.move_direction+"/"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
+            self.imgMinotaur = pygame.image.load("resources/image/enimy/minotauro/Minotauro_"+str(self.minotauroType)+"/"+self.state+"/"+self.move_direction+"/Minotaur_"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
         else:
-            self.imgGolens = pygame.image.load("resources/image/enimy/Graveler/"+self.state+"/"+self.move_direction+"/"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
-        
+           self.imgMinotaur = pygame.image.load("resources/image/enimy/minotauro/Minotauro_"+str(self.minotauroType)+"/"+self.state+"/"+self.move_direction+"/Minotaur_"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()

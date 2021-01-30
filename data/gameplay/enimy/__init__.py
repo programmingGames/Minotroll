@@ -4,6 +4,7 @@ from pygame import rect
 from data.gameplay.enimy.cactus import Cactus
 from data.gameplay.enimy.wizard import Wizard
 from data.gameplay.enimy.golens import Golens
+from data.gameplay.enimy.minotauro import Minotauro
 from data.gameplay.enimy.graveler import Graveller
 from data.gameplay.collisionControl import Colision
 
@@ -114,10 +115,10 @@ class ControlEnimys(object):
             self.allEnimys.append(Golens(self.screen,(3648,110), 50, 3,12))
             self.allEnimys.append(Golens(self.screen,(3724,110), 50, 3,12))
             self.allEnimys.append(Golens(self.screen,(3824,110), 50, 3,12))
-            self.allEnimys.append(Golens(self.screen,(3916,110), 50, 3,12))
-            self.allEnimys.append(Golens(self.screen,(5108,110), 50, 3,12))
-            self.allEnimys.append(Golens(self.screen,(5304,560), 50, 3,12))
-            self.allEnimys.append(Golens(self.screen,(5310,560), 50, 3,12))
+            self.allEnimys.append(Minotauro(self.screen,(3916,110), 50, 16))
+            self.allEnimys.append(Minotauro(self.screen,(5108,110), 50, 16))
+            self.allEnimys.append(Minotauro(self.screen,(5304,560), 50, 16))
+            self.allEnimys.append(Minotauro(self.screen,(5310,560), 50, 16))
 
             self.allEnimysPosition = [(852,530),(928,530),(988,530),(1036,530),(1096,530),(1136,530),(1184,530),(1264,530),(1862,350),
                         (3508,110),(3596,110),(3648,110),(3724,110),(3824,110),(3916,110),(5108,560),(5304,560),(5360,560)]            
