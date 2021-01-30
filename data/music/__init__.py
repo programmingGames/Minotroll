@@ -8,28 +8,61 @@ class Sounds(object):
         self.select = pygame.mixer.Sound("resources/sounds/menu/selected.ogg")
         self.switch = pygame.mixer.Sound("resources/sounds/menu/switch.oga")
         self.ambiente = pygame.mixer.Sound("resources/sounds/ambiente/anbiente.ogg")
-        pass
+        self.golemSongs = [pygame.mixer.Sound("resources/sounds/golem/"+str(i)+".ogg") for i in range(8)]
+
     def startSounds(self):
         self.start.set_volume(0.0081)
         self.start.play(0)
-        pass
+
     def upDownMenu(self):
         self.start.stop()
         self.menuMove.set_volume(0.1991)
         self.menuMove.play()
-        pass
+
     def selected(self):
         self.select.set_volume(0.1991)
         self.select.play()
-        pass
+
     def skillschange(self):
         self.switch.set_volume(0.1791)
         self.switch.play()
-        pass
+
     def envirementOne(self):
         self.ambiente.set_volume(0.1591)
-        self.ambiente.play(-1)
-        pass
+        self.ambiente.play(0)
+
     def envirementOneStop(self):
         self.ambiente.stop()
-        pass
+    
+    def golemTiredOut(self):
+        self.envirementOneStop()
+        self.golemSongs[0].set_volume(0.1592)
+        self.golemSongs[0].play()
+    def golemstartFire(self):
+        self.envirementOneStop()
+        self.golemSongs[2].set_volume(1.1591)
+        self.golemSongs[2].play()
+    def golemGoFire(self):
+        self.envirementOneStop()
+        self.golemSongs[3].set_volume(0.195)
+        self.golemSongs[3].play()
+    def golemEndFire(self):
+        self.envirementOneStop()
+        self.golemSongs[1].set_volume(0.1943)
+        self.golemSongs[1].play()
+    def golemHurt(self):
+        self.envirementOneStop()
+        self.golemSongs[4].set_volume(0.19883)    
+        self.golemSongs[4].play()    
+    def golemSliding(self):
+        self.envirementOneStop()
+        self.golemSongs[6].set_volume(10.1934)
+        self.golemSongs[6].play()
+    def golemSlach(self):
+        self.envirementOneStop()
+        self.golemSongs[7].set_volume(0.1953)
+        self.golemSongs[7].play()
+    def golemKicking(self):
+        self.envirementOneStop()
+        self.golemSongs[5].set_volume(0.19838)
+        self.golemSongs[5].play()

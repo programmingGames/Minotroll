@@ -1,7 +1,7 @@
 import pygame
 from pygame.locals import *
 import os
-from data.gameplay import enimy
+from data.music import Sounds
 from data.gameplay.headUpDisplay import HeadUpDisplay as H_u_d
 from data.gameplay.lifeItem import LifeItem
 from data.gameplay.enimy import ControlEnimys
@@ -22,6 +22,7 @@ class GamePlay(object):
         self.blueFire = blueFire
         self.currentEnimysKilled = enimysKilled
         self.enimys = ControlEnimys(self.screen, self.nivel, enimysKilled)
+        self.sounds = Sounds()
         self.animation = Animation(self.screen, self.nivel)
         self.headUpDisplay = H_u_d(self.screen, self.nivel, self.lastPassPoint, self.qtlife)
         self.player = Player(self.screen, self.nivel, self.lastPassPoint)
@@ -77,7 +78,7 @@ class GamePlay(object):
                 self.greenFire -= 1
             elif(self.inUse == 'bluefire'):
                 self.blueFire -= 1
-            self.firing = False
+            
         
         # update after we check the collision
         self.allEnimysRectsAndTypes, self.enimysKilled, self.bossKilled = self.enimys.enimysAdd(tile_rects, self.player_rect,(self.fireEnimyColision, self.fireCollsionPos),(self.playerOnAttack[0],self.enimyCollision, self.inUse, self.playerOnAttack[1]), self.scroll)
@@ -125,8 +126,28 @@ class GamePlay(object):
         self.lastPassPoint = (self.player_rect.x, self.player_rect.y)
 
         self.controllingTheImageOfGameOverAndLevelComplete(painelState)
+        self.chekingSongs()
         return painelState, self.player_rect, self.qtlife, self.enimysKilled, self.greenFire, self.blueFire
     
+    def chekingSongs(self):
+        if self.playerOnAttack[0] and self.inUse == "slashing":
+            self.sounds.golemSliding()
+        elif self.playerOnAttack[0] and self.inUse == "battleax":
+            self.sounds.golemSlach()
+        elif self.playerOnAttack[0] and self.inUse == "kicking":
+            self.sounds.golemKicking()
+        elif self.firing:
+            self.sounds.golemstartFire()
+            self.firing = False
+        elif self.enimyCollision:
+            self.sounds.golemHurt()
+        elif(self.qtlife <= 40):
+            self.sounds.golemTiredOut()
+        
+        else:
+            self.sounds.envirementOne()
+            # self.sounds.envirementOne()
+        pass
     def controllingThePlayerLife(self):
         if (self.enimyCollision and self.playerOnAttack[0] == False):
             self.headUpDisplay.updatingPlayerLife(self.enimyType)

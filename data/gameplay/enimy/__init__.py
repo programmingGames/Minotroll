@@ -171,10 +171,7 @@ class ControlEnimys(object):
             elif(position[0] < scroll[0]-450):
                 self.allEnimys.pop(i)
                 self.allEnimysPosition.pop(i)
-                # if(len(self.allEnimys_rects)):
-                    # self.allEnimys_rects.pop(i)
             i += 1
         self.count += 1
-        # print(self.allEnimys[playerAttack[3]].life)
         if((self.nivel == 3)and(len(self.allEnimysPosition)==0)):
             self.bossKilled = True

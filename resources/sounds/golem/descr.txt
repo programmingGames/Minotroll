@@ -1,0 +1,8 @@
+0 -- cansado
+1 -- end-fire
+2 -- fire
+3 -- fire-go
+4 -- hurt
+5 -- kicking
+6 -- sliding
+7 -- slach

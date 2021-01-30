@@ -206,9 +206,9 @@ class Skills(object):
 
         # control the painelState
         if(not self.cardsActive and key_pressed[K_RETURN]):
-            return 3
+            return 3,self.cardsActive
         else:
-            return 9
+            return 9,self.cardsActive
         
     # method of tuturial of the skills
     def skillsTuturial(self):

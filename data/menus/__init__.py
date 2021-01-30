@@ -45,6 +45,7 @@ class Menus(object):
         self.controls = Controls(self.screen)
         self.congrats = Congrats(self.screen)
         self.player_rect = pygame.Rect(0, 0, 0, 0)
+        self.cardsActive = None
         self.count = 0
         self.suport = 0
         self.painelState = 0  # this is to control where we are in the game
@@ -55,6 +56,7 @@ class Menus(object):
         self.greenFire = 0
         self.blueFire = 0
         self.currentenimysKilled = 0
+
         
 
         
@@ -111,7 +113,7 @@ class Menus(object):
             # updating the map progress
             self.map.updateProgressInMap(self.player_rect.x)
         elif(self.painelState == 9):
-            self.painelState = self.skills.movingInPainelSkills()
+            self.painelState, self.cardsActive = self.skills.movingInPainelSkills()
         elif (self.painelState == 8):
             self.painelState = self.pause.drawUserMenu()
             self.saveUserData()
@@ -140,7 +142,7 @@ class Menus(object):
             self.painelState, self.complet = self.congrats.drawingcongratsPainel()
             self.saveUserData()
         self.chekingSoundsToPlay()
-        print(self.painelState)
+        # print(self.painelState)
 
 
     def chekingSoundsToPlay(self):
@@ -151,12 +153,8 @@ class Menus(object):
             self.sounds.upDownMenu()
         elif((key[K_RETURN])and(self.painelState!=7 and self.painelState!=0)):
             self.sounds.selected()
-        elif(((key[K_RIGHT])or(key[K_LEFT]))and(self.painelState == 9)):
+        elif(((key[K_RIGHT])or(key[K_LEFT]))and(self.painelState == 9)and self.cardsActive):
             self.sounds.skillschange()
-        elif(self.painelState == 7):
-            self.sounds.envirementOne()
-        elif(self.painelState!=7):
-            self.sounds.envirementOneStop()
         
 
     def updatingUserData(self):
