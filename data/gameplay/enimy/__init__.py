@@ -1,4 +1,4 @@
-from os import POSIX_FADV_DONTNEED
+#from os import POSIX_FADV_DONTNEED
 import pygame
 from pygame import rect
 from data.gameplay.enimy.cactus import Cactus
