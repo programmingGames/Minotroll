@@ -9,3 +9,6 @@ while True:
     menu.interMenuMoving()
     pygame.display.update()
     clock.tick(30)
+
+
+    
