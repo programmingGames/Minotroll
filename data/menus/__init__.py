@@ -62,8 +62,7 @@ class Menus(object):
         self.blueFire = 0
         self.currentenimysKilled = 0
 
-        
-
+    # Method to control the sounds state
     def readSoundsState(self):
         file = open("data/menus/mainMenu/soundState.txt", 'r')
         data = file.read()
@@ -92,8 +91,6 @@ class Menus(object):
             self.painelState = 7
             self.count = 0
 
-        if(key[K_KP_ENTER]):
-            exit()
         self.count += 1
 
         if(self.painelState==0):
@@ -156,7 +153,7 @@ class Menus(object):
         self.chekingSoundsToPlay()
         # print(self.painelState)
 
-
+    # Methdo to control the sounds
     def chekingSoundsToPlay(self):
         key = pygame.key.get_pressed()
         if self.soundControl:
@@ -172,8 +169,8 @@ class Menus(object):
             self.sounds.menubackSong()
         else:
             self.sounds.menuBackSongStop()
-        
-
+    
+    # Method to control the user data update if the level is completed or not
     def updatingUserData(self):
         if not self.complet:
             # setting the user data in the defaul level start
@@ -209,7 +206,7 @@ class Menus(object):
             self.complet = not self.complet
             # restarting the game whit new data
         
-
+    # Method that save the user data
     def saveUserData(self):
         os.chdir('users/'+self.user)
         file = open('data.txt', 'w')
@@ -217,8 +214,8 @@ class Menus(object):
         file.write(str(self.nivel)+' '+str(self.player_rect.x)+' '+str(self.player_rect.y)+' '+str(self.qtlife)+' '+str(self.enimysKilled+self.currentenimysKilled)+' '+str(self.greenFire)+' '+str(self.blueFire))
         file.close()
         os.chdir('../..')
-        # self.getUpdateUserData()
 
+    # Method that get the update user data
     def getUpdateUserData(self):
         file = open('users/'+self.user+'/data.txt', 'r')
         data = file.read()
@@ -236,3 +233,4 @@ class Menus(object):
         self.gamplay = GamePlay(self.screen, self.nivel, self.lastPassPoint,self.qtlife, self.pygameEvent, self.enimysKilled, self.greenFire, self.blueFire)
         self.skills = Skills(self.screen, self.nivel)
         self.map = Map(self.screen, self.nivel)
+        

@@ -1,22 +1,21 @@
 import pygame
 from pygame.locals import *
 
+# Class to control all the colision on the game
 class Colision(object):
     def __init__(self):
         self.colisionPos = 0
-        
     
+    # Method to make a list of all the possible platform collision
     def TestCollision(self,rect, tiles):
-        # print(type(rect))
-        # print(type(tiles))
         hit_list = []
         for tile in tiles:
             if (rect.colliderect(tile)):
                 hit_list.append(tile)
         return hit_list
 
+    # Method to control the platforms colision
     def platformCollision(self,move,rect, tiles):
-        # print(type(rect))
         collision_types = {'top':False,'bottom':False,'right':False,'left':False}
         rect.x += move[0]
         hit_list = self.TestCollision(rect,tiles)
@@ -39,11 +38,10 @@ class Colision(object):
                 collision_types['top'] = True
         return rect,collision_types
 
+    # Method to make a list of all the possible platform collision
     def enimysTestCollision(self, playerRect, enimysRects):
         hit_list = []
         count = 0
-        # colisionPosition = 0
-        # print(len(enimysRects))
         for tile in enimysRects:
             if (playerRect.colliderect(tile)):
                 hit_list.append(tile)
@@ -51,6 +49,7 @@ class Colision(object):
             count += 1
         return hit_list
 
+    # Method to test the enimys colision an player collision
     def enimysCollision(self,playerMove, playerRect, enimysRects):
         collision_types = {'top':False,'bottom':False,'right':False,'left':False}
         hit_list = self.enimysTestCollision(playerRect,enimysRects)
@@ -70,5 +69,4 @@ class Colision(object):
             if playerMove[1]<0:
                 playerRect.top = tile.bottom
                 collision_types['top'] = True
-        # print(self.colisionPos)
         return collision_types, self.colisionPos

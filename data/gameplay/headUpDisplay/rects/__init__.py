@@ -1,5 +1,6 @@
 import pygame
 
+# Method to draw the life rect
 class Rects:
     def __init__(self, screen, width,height, x, y, color):
         self.screen = screen
@@ -10,10 +11,12 @@ class Rects:
         self.x = x
         self.y = y
 
+    # Method that control the gradient effect
     def drawGradientEffect(self, color, qtlife):
         self.width = qtlife
         pygame.draw.rect(self.screen, self.lifeGradientColor[color], pygame.Rect(self.x, self.y, self.width,self.height))
     
+    # Method the draw a recrt whithout gradient effect
     def drawSelectColor(self, progress):
         self.width = progress
         pygame.draw.rect(self.screen, self.color, pygame.Rect(self.x, self.y, self.width,self.height))

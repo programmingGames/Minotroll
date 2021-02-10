@@ -8,6 +8,7 @@ from data.gameplay.enimy.minotauro import Minotauro
 from data.gameplay.enimy.graveler import Graveller
 from data.gameplay.collisionControl import Colision
 
+# Class to control all the enimys collision and their life's
 class ControlEnimys(object):
     def __init__(self, screen, nivel, enimysKilled):
         self.screen = screen
@@ -23,6 +24,7 @@ class ControlEnimys(object):
         self.count = 0
         self.addingAllTheAnimys()
 
+    # Method that add all enimys on the screen
     def enimysAdd(self, tile_rects, player_rect,fireCollision,playerAttack,scroll):
         self.allEnimys_rects = []
         allCactus_rects = []        
@@ -42,12 +44,13 @@ class ControlEnimys(object):
         self.calculatingEnimyDelete(fireCollision[0],playerAttack, scroll)
         self.allEnimys_rects += [cactus for cactus in allCactus_rects]
         return self.allEnimys_rects, self.enimyKilled, self.bossKilled
+    
+    # Method that define the number, and what type of enimys can be found in the leve's
     def addingAllTheAnimys(self):
         if(self.nivel == 0):          
             self.allCactusPosition = [(928, 184),(964, 184),(2370, 504),(2410, 504),(2450, 504),(2478, 504),(3778, 472),(3746, 472),
             (3706, 472),(4458, 408),(4490, 408),(4514, 408),(5030, 520),(5070, 520),(5106, 520),(5138, 520),(5162, 520),(5194, 520)]
             self.allCactus = [(Cactus(self.screen, pos)) for pos in self.allCactusPosition] 
-
             self.allEnimys.append(Wizard(self.screen,(1388,168), 100, 6))
             self.allEnimys.append(Wizard(self.screen,(1500,168), 100, 6))
             self.allEnimys.append(Wizard(self.screen,(1596,168), 100, 6))
@@ -64,16 +67,12 @@ class ControlEnimys(object):
             self.allEnimys.append(Golens(self.screen,(4764,584), 50, 1, 6))
             self.allEnimys.append(Golens(self.screen,(4836,584), 50, 1, 6))
             self.allEnimys.append(Golens(self.screen,(4908,584), 50, 1, 5))
-
-
             self.allEnimysPosition = [(1388,168),(1500,168),(1596,168),(2086,328),(2630,408),(2794,408),(2674,296),(2806,296)
                     ,(3938,296),(4022,296),(4114,296),(4376,520),(4672,584),(4764,584),(4836,584),(4908,584)]
-                                    
-
+                                
         elif (self.nivel == 1):
             self.allCactusPosition = [(1578, 424), (1088, 648), (2240, 344), (2288, 360), (2340, 376), (2986, 408), (3650, 136)]
             self.allCactus = [(Cactus(self.screen, pos)) for pos in self.allCactusPosition] 
-
             self.allEnimys.append(Wizard(self.screen,(1220,184), 100, 6))
             self.allEnimys.append(Wizard(self.screen,(1296,184), 100, 6))
             self.allEnimys.append(Wizard(self.screen,(1408,184), 100, 6))
@@ -99,7 +98,6 @@ class ControlEnimys(object):
             self.allEnimysPosition = [(1220,184),(1296,184),(1408,184),(1244,360),(1364,360),(1746,616),(1994,616),(2106,616),(2669,616),
             (2757,616),(2869,616),(3270,184),(3354,184),(3422,184),(3502,184),(4113,184),(4229,184),(4701,104),(4801,104),(4861,104),(4893,104),]
 
-
         elif (self.nivel == 2):
             self.allEnimys.append(Golens(self.screen,(852,530), 50, 3,7))
             self.allEnimys.append(Golens(self.screen,(928,530), 50, 3,7))
@@ -123,9 +121,7 @@ class ControlEnimys(object):
             self.allEnimysPosition = [(852,530),(928,530),(988,530),(1036,530),(1096,530),(1136,530),(1184,530),(1264,530),(1862,350),
                         (3508,110),(3596,110),(3648,110),(3724,110),(3824,110),(3916,110),(5108,560),(5304,560),(5360,560)]            
 
-
         elif (self.nivel == 3):
-
             self.allCactusPosition = [(716, 232), (756, 232), (788, 232), (828, 232), (942, 232), (982, 232), (1010, 232), (1046, 232)
                         ,(1170, 232), (1194, 232), (1218, 232), (1238, 232), (1266, 232), (1394, 232), (1414, 232), (1438, 232), (1466, 232)
                         , (1494, 232), (1882, 232), (1906, 232), (1934, 232)]
@@ -136,14 +132,11 @@ class ControlEnimys(object):
             self.allEnimys.append(Wizard(self.screen,(2720,280), 100, 8))
             self.allEnimys.append(Wizard(self.screen,(2720,280), 100, 8))
             self.allEnimys.append(Graveller(self.screen, (3603, 120), 250, 20))
-
             self.allEnimysPosition = [(2008,536), (2720,280), (2720,280), (2720,280), (3603, 120)]
-
         [self.allEnimys.pop(0) for i in range(self.enimyskilled)]
         [self.allEnimysPosition.pop(0) for i in range(self.enimyskilled)]
 
-        
-
+    # Method that control what is the enimys that the player is attacking and control the damage cause
     def calculatingEnimyDelete(self,fireColid,playerAttack, scroll):
         i = 0
         for (position, enimy) in zip(self.allEnimysPosition, self.allEnimys):

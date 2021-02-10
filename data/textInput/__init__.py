@@ -19,7 +19,7 @@ class Textinput:
     def settingInputText(self, screen):
         # Pega todos os eventos de escrita do teclado
         key = pygame.key.get_pressed()
-        if key[K_RETURN]:
+        if key[K_RETURN] or key[K_KP_ENTER]:
             self.count = 0
             text = self.text
             self.text = ''
@@ -43,6 +43,8 @@ class Textinput:
         screen.blit(text_surface, (int(700/2-size[0]/2), int(self.input_rect.y+5)))
         self.input_rect.w = max(300, text_surface.get_width() + 10)
         return self.text
+    
+    # Method to control all the key pressed
     def keysControl(self, key):
         text = ''
         keysDict = {key[K_q]:'q', key[K_w]: 'w',key[K_e]: 'e',key[K_r]:'r',key[K_t]:'t',key[K_y]:'y',

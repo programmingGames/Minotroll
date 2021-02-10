@@ -109,7 +109,7 @@ class LoadUser(object):
         self.count += 1
         if (len(os.listdir('users')) != 0):
             for i in range(len(self.users)):
-                if((pressed_keys[K_RETURN])and(self.count >= 5)and(self.menuControl == ((i*50)+150))):
+                if((pressed_keys[K_RETURN] or pressed_keys[K_KP_ENTER])and(self.count >= 5)and(self.menuControl == ((i*50)+150))):
                     self.count = 0
                     self.menuControl = 150
                     return 3, self.users[i]

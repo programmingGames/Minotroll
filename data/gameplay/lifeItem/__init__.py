@@ -44,7 +44,6 @@ class LifeItemAndPlants(object):
         else:
             return False
 
-
     def determinatePositionOfLifItems(self):
         if(self.nivel == 0):
             self.position = [(1542, -20), (2890, 408),(3876,488), (4238, 408)]
@@ -59,12 +58,13 @@ class LifeItemAndPlants(object):
             self.position = [(2474,408), (2966,232), (4081,-24),(4027,-24)]
             self.plantPosition = []
 
-
+# Class that ilustrate the plant of life
 class PlantLife(object):
     def __init__(self, screen):
         self.screen = screen
         self.lifeItem = [pygame.image.load("resources/image/life/"+str(i)+".png") for i in range(28)]
         self.count=0
+
     def draw(self, pos, scroll):
         self.count +=1
         if(self.count<=27):

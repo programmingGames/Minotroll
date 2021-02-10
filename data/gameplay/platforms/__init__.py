@@ -14,7 +14,7 @@ class Plataform:
         self.load_map()
         self.background = Back(screen)
          
-
+    # Method that determinate the parts of the maps
     def determinateLevelParts(self):
         if(self.nivel >= 0 and self.nivel <= 1):
             self.positionForest_x =[0, 20, 40, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240, 260, 280, 300, 320, 340]
@@ -32,6 +32,7 @@ class Plataform:
         elif(self.nivel == 2):
             self.size = int(30)
 
+    # Method that load the map 
     def load_map(self):
         for i in range(self.parts):
             part_map = []
@@ -43,7 +44,7 @@ class Plataform:
                 part_map.append(list(row))
             self.game_map.append(part_map)
 
-
+    # Method that display the platform on the screen according to the memory managment
     def settingPlataform(self, scroll):
         tile_rects = []
         self.background.movingBackgourndGamePlay(self.nivel)
@@ -61,8 +62,7 @@ class Plataform:
         
         return tile_rects
         
-
-
+    # Method that control the tiles of the forest enviremente
     def platformForestEnvirement(self,game_map,pos_x,scroll):
     # components [0] = dark
     # components [1] = floor
@@ -102,7 +102,7 @@ class Plataform:
             y += 1
         return tile_rects
 
-
+    # Method that control the tiles of the swamp enviremente
     def platformSwampEnvirement(self,game_map, pos_x,scroll):
         components = [pygame.image.load('resources/image/platform/pantano/tiles/'+str(i)+'.png').convert_alpha() for i in range(6)]
         tile_rects = []

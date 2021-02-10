@@ -86,18 +86,18 @@ class MainMenu(object):
         
 
         self.count += 1
-        if((pressed_keys[K_RETURN])and(self.menuControl==150)and(self.count >= 5)):
+        if((pressed_keys[K_RETURN] or pressed_keys[K_KP_ENTER])and(self.menuControl==150)and(self.count >= 5)):
             self.count = 0
             return 2
-        elif ((pressed_keys[K_RETURN])and(self.menuControl==200)and(self.count >= 5)):
+        elif ((pressed_keys[K_RETURN] or pressed_keys[K_KP_ENTER])and(self.menuControl==200)and(self.count >= 5)):
             self.count = 0
             self.menuControl = 150
             return 4
-        elif ((pressed_keys[K_RETURN])and(self.menuControl==250)and(self.count >= 5)):
+        elif ((pressed_keys[K_RETURN] or pressed_keys[K_KP_ENTER])and(self.menuControl==250)and(self.count >= 5)):
             self.count = 0
             self.menuControl = 150
             return 20
-        elif ((pressed_keys[K_RETURN])and(self.menuControl==300)and(self.count >= 5)):
+        elif ((pressed_keys[K_RETURN] or pressed_keys[K_KP_ENTER])and(self.menuControl==300)and(self.count >= 5)):
             self.count = 0
             self.menuControl = 150
             return 5

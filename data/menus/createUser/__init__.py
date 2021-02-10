@@ -86,7 +86,7 @@ class CreateUserMenu:
                 self.menuControl -= 50
 
         self.count += 1
-        if((pressed_keys[K_RETURN])and(self.menuControl==250)and(self.count >= 5)and(len(self.user) != 0)):
+        if((pressed_keys[K_RETURN] or pressed_keys[K_KP_ENTER])and(self.menuControl==250)and(self.count >= 5)and(len(self.user) != 0)):
             self.count = 0
             self.viewUserLimit()
             self.viewUserExist()
@@ -98,7 +98,7 @@ class CreateUserMenu:
             else:
                 return 2, self.user
             
-        elif((pressed_keys[K_RETURN])and(self.menuControl==300)and(self.count >= 5)):
+        elif((pressed_keys[K_RETURN]  or pressed_keys[K_KP_ENTER])and(self.menuControl==300)and(self.count >= 5)):
             self.count = 0
             self.menuControl = 250
             return 1, ''

@@ -2,10 +2,8 @@ import pygame
 from pygame.locals import *
 from data.gameplay.enimy.simpleAI import SimpleEnimysAI as EnimysAI
 from data.gameplay.collisionControl import Colision
-# from sys import exit
-# import random
 
-
+# Class tha represente golens enimys
 class Golens:
     def __init__(self, screen,pos, patrolRadius, golemType, life):
         self.screen = screen
@@ -31,6 +29,7 @@ class Golens:
         self.attacking = False
         self.isMe = False
 
+    # Method that define what type of golem is in use
     def renameTheGolemType(self):
         if(self.golemType == 1):
             self.name = 'fire golem'
@@ -39,6 +38,7 @@ class Golens:
         elif(self.golemType == 3):
             self.name = 'ice golem'
 
+    # Method that control the platform collision
     def controlingCollision(self, golens_move, platform_rects, player_rect, playerOnAttack):
         rect, plat_collisions = self.collision.platformCollision(golens_move,self.rect, platform_rects)
         # right, left collision
@@ -60,13 +60,12 @@ class Golens:
                 self.isMe = False
         else:
             self.isMe = False
-        # print(player_rect.x - 20, self.rect.x, player_rect.x + 20)
-        # print(playerOnAttack[0], playerOnAttack[1], self.isMe)
         if playerOnAttack[0] and playerOnAttack[1] and self.isMe:
 
             self.impactDelay = 0
             self.collisionImpact()
 
+    # Method that control the player attack colision
     def collisionImpact(self):
         if(self.impactDelay <= 5):
             # self.player_rect, platformCollisions = self.collision.platformCollision(player_movement,self.player_rect,tile_rects)
@@ -80,10 +79,11 @@ class Golens:
                 self.rect.y -= 10
             self.impactDelay += 1
 
-
+    # Method that control the damage of the player attack
     def sufferingDamage(self, damage):
         self.life-=damage
         
+    # Method that add this animys on the screen
     def add(self, platform_rects,player_rect,playerOnAttack, scroll):
         golens_move = [0, 0]
         if self.move_right:
@@ -117,15 +117,16 @@ class Golens:
         self.determinateAttack()
         self.controlingCollision(golens_move, platform_rects, player_rect, playerOnAttack)
         self.screen.blit(self.imgGolens,(self.rect.x-scroll[0], self.rect.y-scroll[1]))
-        # print(self.attacking, self.move_direction)
         return self.rect, self.name
 
+    # Method that control the patrol radios Border 
     def determinateAttack(self):
         if((self.rect.x - self.initialPosition)>self.patrolRadius):
                 self.move_right = False
         elif((self.rect.x - self.initialPosition)<(-1*self.patrolRadius)):
             self.move_left = False
 
+    # All the sequence method from there are the sprites of this caracter
     def walk(self):
         self.state = 'Walking'
         if(((self.move_right)or(self.move_left))and(self.move_frame <= 23)):        #resources\image\enimy\golens\Golem_1\Idle\left\0_Golem_Idle_000.png

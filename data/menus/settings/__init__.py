@@ -104,17 +104,17 @@ class Settings(object):
                 self.menuControl -= 50
 
         self.count += 1
-        if((pressed_keys[K_RETURN])and(self.menuControl==150)and(self.count >= 5)):
+        if((pressed_keys[K_RETURN] or pressed_keys[K_KP_ENTER])and(self.menuControl==150)and(self.count >= 5)):
             self.count = 0
             self.musicOn = not self.musicOn
-        elif ((pressed_keys[K_RETURN])and(self.menuControl==200)and(self.count >= 5)):
+        elif ((pressed_keys[K_RETURN] or pressed_keys[K_KP_ENTER])and(self.menuControl==200)and(self.count >= 5)):
             self.count = 0
             self.soundOn = not self.soundOn
-        elif ((pressed_keys[K_RETURN])and(self.menuControl==250)and(self.count >= 5)):
+        elif ((pressed_keys[K_RETURN] or pressed_keys[K_KP_ENTER])and(self.menuControl==250)and(self.count >= 5)):
             self.count = 0
             self.menuControl = 150
             return 21, self.soundOn, self.musicOn
-        elif ((pressed_keys[K_RETURN])and(self.menuControl==300)and(self.count >= 5)):
+        elif ((pressed_keys[K_RETURN] or pressed_keys[K_KP_ENTER])and(self.menuControl==300)and(self.count >= 5)):
             self.count = 0
             self.menuControl = 150
             return 1, self.soundOn, self.musicOn

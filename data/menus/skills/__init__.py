@@ -3,6 +3,7 @@ from sys import exit
 from pygame.locals import *
 from data.backgrounds import Backgound as Back
 
+# Class that control the Skilss menu
 class Skills(object):
     def __init__(self, screen, nivel):
         self.screen = screen
@@ -13,7 +14,6 @@ class Skills(object):
         self.arrowsPosition = [(145, 160), (525, 160)]
         self.backgrounds = Back(screen)
         self.allCard = []
-        # self.timeEfect = 0
         self.cards = ['kickingCard', 'slashingCard', 'battleaxCard', 'fireCard', 'bluefireCard']
         self.description = [('5%', '5%', 'unlimited'), ('20%', '20%', 'unlimited'), ('30%', '25%', 'unlimited'), ('40%', '100%', 'limited'), ('45%', '100%', 'limited')]
         self.descrPos = 0
@@ -205,7 +205,7 @@ class Skills(object):
             self.count = 0
 
         # control the painelState
-        if(not self.cardsActive and key_pressed[K_RETURN]):
+        if(not self.cardsActive and (key_pressed[K_RETURN] or key_pressed[K_KP_ENTER])):
             return 3,self.cardsActive
         else:
             return 9,self.cardsActive

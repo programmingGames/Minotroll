@@ -69,10 +69,10 @@ class GameOver(object):
 
     def gameOverChoise(self, pressed_keys):
         self.count += 1
-        if((pressed_keys[K_RETURN])and(self.menuControl==250)and(self.count >= 5)):
+        if((pressed_keys[K_RETURN] or pressed_keys[K_KP_ENTER])and(self.menuControl==250)and(self.count >= 5)):
             self.count = 0
             return 12
-        elif ((pressed_keys[K_RETURN])and(self.menuControl==300)and(self.count >= 5)):
+        elif ((pressed_keys[K_RETURN] or pressed_keys[K_KP_ENTER])and(self.menuControl==300)and(self.count >= 5)):
             self.count = 0
             self.menuControl = 250
             return 3

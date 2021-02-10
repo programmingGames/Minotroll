@@ -1,7 +1,5 @@
 import pygame
 from pygame.locals import *
-import os
-import shutil
 from data.backgrounds import Backgound as Back
 
 class UserMenu(object):
@@ -17,6 +15,7 @@ class UserMenu(object):
         self.size = pygame.font.Font.size(self.font1, self.text)
         self.font1.set_bold(True)
         self.img = pygame.image.load("resources/image/menu/user_menu/animation/0_Goblin_Walking_"+str(self.timeOut)+".png")
+        self.avalableSkills = None
         self.menuControl = 150
         self.timeEfect = 0
         self.buttoms = ['Play','Skills','History', 'Main Menu','Delete']
@@ -82,13 +81,13 @@ class UserMenu(object):
         nivel,  lastPassPoint_x, lastPassPoint_y, life, enimysKilled, greenFire, bluefire = self.loadUserData(user)
         pressed_keys = pygame.key.get_pressed()
         if(pressed_keys[K_DOWN]):
-            pygame.time.delay(10)
+            pygame.time.delay(2)
             if(self.menuControl==350):
                 self.menuControl = 150
             else:
                 self.menuControl += 50
         elif(pressed_keys[K_UP]):
-            pygame.time.delay(10)
+            pygame.time.delay(2)
             if(self.menuControl==150):
                 self.menuControl = 150
             else:
@@ -107,26 +106,26 @@ class UserMenu(object):
         return self.userChoise(pressed_keys),self.user, int(nivel),  (int(lastPassPoint_x), int(lastPassPoint_y)),  int(life), int(enimysKilled), int(greenFire), int(bluefire)
 
     def userChoise(self, pressed_keys):
-        if((pressed_keys[K_RETURN])and(self.menuControl==150)and(self.count >= 5)):
+        if((pressed_keys[K_RETURN] or pressed_keys[K_KP_ENTER])and(self.menuControl==150)and(self.count >= 5)):
             self.count = 0
             # self.sounds.selected()
             return 7
-        elif ((pressed_keys[K_RETURN])and(self.menuControl==200)and(self.count >= 5)):
+        elif ((pressed_keys[K_RETURN] or pressed_keys[K_KP_ENTER])and(self.menuControl==200)and(self.count >= 5)):
             self.count = 0
             self.menuControl = 150
             # self.sounds.selected()
             return 9
-        elif ((pressed_keys[K_RETURN])and(self.menuControl==250)and(self.count >= 5)):
+        elif ((pressed_keys[K_RETURN] or pressed_keys[K_KP_ENTER])and(self.menuControl==250)and(self.count >= 5)):
             self.count = 0
             self.menuControl = 150
             # self.sounds.selected()
             return 6
-        elif ((pressed_keys[K_RETURN])and(self.menuControl==300)and(self.count >= 5)):
+        elif ((pressed_keys[K_RETURN] or pressed_keys[K_KP_ENTER])and(self.menuControl==300)and(self.count >= 5)):
             self.count = 0
             self.menuControl = 150
             # self.sounds.selected()
             return 1
-        elif ((pressed_keys[K_RETURN])and(self.menuControl==350)and(self.count >= 5)):
+        elif ((pressed_keys[K_RETURN] or pressed_keys[K_KP_ENTER])and(self.menuControl==350)and(self.count >= 5)):
             self.count = 0
             self.menuControl = 150
             return 17
@@ -158,6 +157,7 @@ class UserMenu(object):
         return nivel, lastPassPoint_x, lastPassPoint_y, life, enimysKilled, greenFire, blueFire
 
     def drawUserInfor(self, user, nivel, atualPosition, qtlife, enimysKilled):
+        self.skillsOfThePlayer(int(nivel))
         playerIcon = pygame.image.load("resources/image/menu/user_menu/faceIcon.png")
         currentNivel = "Level: "+str(int(nivel)+1)
 
@@ -196,7 +196,7 @@ class UserMenu(object):
         
         ## bliting the skills of the player
         x = 390
-        for card in self.skillsOfThePlayer(nivel):
+        for card in self.avalableSkills:
             self.screen.blit(card, (x, 302))
             x += 16
 
@@ -216,6 +216,5 @@ class UserMenu(object):
 
         elif(nivel >= 2):
             skills = 5
-
-        return [pygame.image.load("resources/image/menu/user_menu/skills/"+str(i)+"-True.png")for i in range(skills)]
+        self.avalableSkills = [pygame.image.load("resources/image/menu/user_menu/skills/"+str(i)+"-True.png")for i in range(skills)]
         

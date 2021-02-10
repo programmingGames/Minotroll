@@ -78,10 +78,10 @@ class LevelComplet(object):
 
     def nextLevelChoise(self, pressed_keys):
         self.count += 1
-        if((pressed_keys[K_RETURN])and(self.menuControl==300)and(self.count >= 5)):
+        if((pressed_keys[K_RETURN] or pressed_keys[K_KP_ENTER])and(self.menuControl==300)and(self.count >= 5)):
             self.count = 0
             return 14
-        elif ((pressed_keys[K_RETURN])and(self.menuControl==350)and(self.count >= 5)):
+        elif ((pressed_keys[K_RETURN] or pressed_keys[K_KP_ENTER])and(self.menuControl==350)and(self.count >= 5)):
             self.count = 0
             self.menuControl = 300
             return 3
