@@ -49,7 +49,7 @@ class CreateUserMenu:
             self.allPosition.append((x, y))
             y += 50
 
-    def settingUserName(self, event):
+    def settingUserName(self):
         self.background.settingBackgroundMenu(2)
         self.screen.blit(self.painel, (150, 70))
         self.screen.blit(self.title, (270, 90))
@@ -70,7 +70,7 @@ class CreateUserMenu:
             self.deniedUserCreate()
 
     # Method to move in this menu and return the choose
-    def drawUserMenu(self, event):
+    def drawUserMenu(self):
         pressed_keys = pygame.key.get_pressed()
         if(pressed_keys[K_DOWN]):
             pygame.time.delay(100)
@@ -96,13 +96,13 @@ class CreateUserMenu:
                 self.menuControl = 250
                 return 3, self.user
             else:
-                return 2, self.user
+                return 2, ""
             
         elif((pressed_keys[K_RETURN]  or pressed_keys[K_KP_ENTER])and(self.menuControl==300)and(self.count >= 5)):
             self.count = 0
             self.menuControl = 250
             return 1, ''
-        self.settingUserName(event)
+        self.settingUserName()
         return 2, self.user
 
     def createUserDirAndButtom(self):
@@ -146,19 +146,26 @@ class CreateUserMenu:
 
     def viewUserExist(self):
         userList = os.listdir('users')
+        verify = False
         for user in userList:
             if(self.user.upper() == user.upper()):
                 self.exist = True
+                verify = True
+        if not verify:
+            self.exist = False
 
     def deniedUserCreate(self):
         font = pygame.font.Font("resources/font/montserrat-font/MontserratMedium-nRxlJ.ttf", 14)
         font.set_bold(True)
         if(not self.limit):
+            size = pygame.font.Font.size(self.font,"Passed the number of allowed users!")
             line = font.render("Passed the number of allowed users!", True, (206, 0,0))
-            self.screen.blit(line, (225, 350))
+            self.screen.blit(line, (700/2-size[0]/2+20, 350))
         elif(self.exist):
+            size = pygame.font.Font.size(self.font,"User already exist!")
             line = font.render("User already exist!", True, (206, 0,0))
-            self.screen.blit(line, (285, 350))
+            self.screen.blit(line, (700/2-size[0]/2+15, 350))
         else:
+            size = pygame.font.Font.size(self.font,"Not possible to create a user!")
             line = font.render("Not possible to create a user!", True, (206, 0,0))
-            self.screen.blit(line, (225, 350))
+            self.screen.blit(line, (700/2-size[0]/2+20, 350))

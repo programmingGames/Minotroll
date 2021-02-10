@@ -52,7 +52,7 @@ class Sounds(object):
         self.golemSongs[0].play()
     def golemstartFire(self):
         self.envirementOneStop()
-        self.golemSongs[2].set_volume(1.3591)
+        self.golemSongs[2].set_volume(1.9591)
         self.golemSongs[2].play()
     def golemGoFire(self):
         self.envirementOneStop()

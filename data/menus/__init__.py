@@ -98,14 +98,12 @@ class Menus(object):
         if(self.painelState == 1):
             self.painelState = self.mainMenu.movingInMainMenu()
         elif(self.painelState == 2):
-            self.painelState, self.user = self.createUser.drawUserMenu(self.pygameEvent)
+            self.painelState, self.user = self.createUser.drawUserMenu()
             # self.player = Player(self.screen, self.nivel, self.skills,self.lastPassPoint)
         elif(self.painelState == 3):
-            self.painelState, self.user, self.nivel, self.lastPassPoint, self.qtlife, self.enimysKilled, self.greenFire, self.blueFire = self.userMenu.movingInUserMenu(self.user)
-            self.getUpdateUserData()
-            # self.gamplay = GamePlay(self.screen, self.nivel, self.lastPassPoint,self.qtlife, self.pygameEvent, self.enimysKilled, self.greenFire, self.blueFire)
-            # self.skills = Skills(self.screen, self.nivel)
-            # self.map = Map(self.screen, self.nivel)
+            self.painelState = self.userMenu.movingInUserMenu(self.user)
+            if self.painelState != 3:
+                self.getUpdateUserData()
         elif(self.painelState == 6):
             self.painelState = self.intro.introDisplay()
         elif(self.painelState == 5):
@@ -151,7 +149,6 @@ class Menus(object):
         elif(self.painelState == 17):
             self.painelState = self.delete.movingInDeleteMenu(self.user)
         self.chekingSoundsToPlay()
-        # print(self.painelState)
 
     # Methdo to control the sounds
     def chekingSoundsToPlay(self):
