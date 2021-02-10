@@ -32,10 +32,10 @@ class SimpleEnimysAI:
     # calculating the proximity
     def calculateProximity(self, player_rect):
         if(((self.enimy_rect.x-player_rect.x)<=self.attackRadius)and((self.enimy_rect.x-player_rect.x)>= -1*self.attackRadius)):
-            if player_rect.y in range(self.enimy_rect.y-40, self.enimy_rect.y+50):
-                self.attacking = True  
-            else:
-                self.attacking = False          
+                if player_rect.y in range(self.enimy_rect.y-80, self.enimy_rect.y+50):
+                    self.attacking = True  
+                else:
+                    self.attacking = False          
         else:
             self.attacking = False 
 

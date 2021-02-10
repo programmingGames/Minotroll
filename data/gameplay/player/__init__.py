@@ -74,7 +74,7 @@ class Player(object):
             self.jump()
             if self.air_timer < 8:
                 self.vertical_momentum = -15
-                self.jumping = False
+        
         
         if self.hurtten:
             self.hurt()
@@ -96,13 +96,11 @@ class Player(object):
         if (self.platformCollisions['bottom']):
             self.air_timer = 0
             self.vertical_momentum = 0
-            self.jumping = False
             self.bottomColision = True
         else:
             self.bottomColision = False
 
         if self.platformCollisions['top']:
-            self.jumping = False
             self.vertical_momentum = 10
         else:
             self.topColision = False
@@ -112,6 +110,9 @@ class Player(object):
             self.moving_right = False
         elif(self.platformCollisions['left']):
             self.moving_left = False
+        
+        if self.air_timer == 4:
+            self.jumping = False
 
         self.screen.blit(self.player_img,(self.player_rect.x-scroll[0],self.player_rect.y-scroll[1]))
 
@@ -193,14 +194,15 @@ class Player(object):
             self.preCollisionAriaLeft.append( self.player_rect.y)
 
         if self.enimyCollision and self.attack == False:
-            # print("ok", self.attack)
+            # self.moving_left = False
+            # self.moving_right = False
             if((self.impactDelay <= 5)and(self.player_rect.x not in range(self.preCollisionAriaRight[0]-20, self.preCollisionAriaRight[0]+20))and (self.player_rect.x not in range(self.preCollisionAriaLeft[0]-20, self.preCollisionAriaLeft[0]+20))):
                 if(self.move_direction == 'right'):
-                    self.player_rect.x -= 5
-                    self.player_rect.y -= 10
+                    self.player_rect.x -= 4
+                    self.player_rect.y -= 4
                 elif(self.move_direction == 'left'):
-                    self.player_rect.x += 5
-                    self.player_rect.y -= 10
+                    self.player_rect.x += 4
+                    self.player_rect.y -= 4
                 self.impactDelay += 1
             else:
                 self.enimyCollision = False

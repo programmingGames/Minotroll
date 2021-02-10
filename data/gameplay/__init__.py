@@ -3,11 +3,12 @@ from pygame.locals import *
 import os
 from data.music import Sounds
 from data.gameplay.headUpDisplay import HeadUpDisplay as H_u_d
-from data.gameplay.lifeItem import LifeItem
+from data.gameplay.lifeItem import LifeItemAndPlants as LifeAndPlants
 from data.gameplay.enimy import ControlEnimys
 from data.gameplay.animation import Animation
 from data.gameplay.player import Player
 from data.gameplay.platforms import Plataform
+
 
 
 class GamePlay(object):
@@ -27,7 +28,7 @@ class GamePlay(object):
         self.headUpDisplay = H_u_d(self.screen, self.nivel, self.lastPassPoint, self.qtlife)
         self.player = Player(self.screen, self.nivel, self.lastPassPoint)
         self.platform = Plataform(self.screen, self.nivel)
-        self.liveItem = LifeItem(self.screen, self.nivel)
+        self.liveItem = LifeAndPlants(self.screen, self.nivel)
         self.tutorialParts = 0
         self.showTutorial = False
         self.hiddeBackTutorial = False
@@ -66,10 +67,13 @@ class GamePlay(object):
 
     # method to display all the components in the platform
     def drawingTheGamePlayEnvirement(self, soundControl, musicControl):
+        tile_rects = []
         self.soundControl = soundControl
         self.musicControl = musicControl
         # key_press = pygame.key.get_pressed()
+        
         tile_rects = self.platform.settingPlataform(self.scroll)
+        
         self.scroll, self.player_rect,self.fireArray, self.enimyCollision, self.enimyType, self.fireEnimyColision, self.fireCollsionPos, self.playerOnAttack = self.player.settingPlayer(tile_rects, self.scroll, self.allEnimysRectsAndTypes, self.inUse)
         
         if ((self.playerOnAttack[0])and(self.count >= 10)and(self.inUse == "greenfire"  or self.inUse == "bluefire")):
@@ -132,6 +136,7 @@ class GamePlay(object):
 
         self.controllingTheImageOfGameOverAndLevelComplete(painelState)
         self.chekingSongs()
+
         return painelState, self.player_rect, self.qtlife, self.enimysKilled, self.greenFire, self.blueFire
     
     def chekingSongs(self):

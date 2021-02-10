@@ -6,8 +6,7 @@ class Animation(object):
     def __init__(self, screen, nivel):
         self.screen = screen
         self.nivel = nivel
-        self.itemName = None
-        self.chosingItemAccordingLevel()
+        self.itemName = 'sheets'
         self.count = 0
         self.items = []
         self.suport = []
@@ -28,13 +27,7 @@ class Animation(object):
                 [self.items.append(Item(self.itemName, self.screen)) for b in range(random.randint(10,30))]
             self.count = 0
         else:
-            self.count += 1    
-
-    def chosingItemAccordingLevel(self):
-        if (self.nivel < 2):
-            self.itemName = 'sheets'
-        elif(self.nivel >= 4):
-            self.itemName = 'ice'
+            self.count += 1            
 
 class Item:
     def __init__(self, nameItem, screen):

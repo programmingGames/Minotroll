@@ -51,7 +51,10 @@ class HeadUpDisplay(object):
         else:
             eX=15
         self.screen.blit(self.enimysBox, (5, 405))
-        line = self.font.render(str(self.enimysKilled), True, (255, 0,0))
+        if self.enimysKilled < 10:
+            line = self.font.render(str(self.enimysKilled), True, (255, 0,0))
+        else:
+            line = self.font.render(str(self.enimysKilled), True, (255, 255,255))
         self.screen.blit(line, (eX, 447))
 
         # draw green and blue fire info 
@@ -184,18 +187,18 @@ class HeadUpDisplay(object):
     def updatingPlayerLife(self,itemType):
         # print(enimyType)
         if(itemType == 'blue wizard'):
-            self.life.updateLife(-5)
+            self.life.updateLife(-3)
         elif(itemType == 'stone golem'):
-            self.life.updateLife(-3)
+            self.life.updateLife(-2)
         elif(itemType == 'fire golem'):
-            self.life.updateLife(-3)
+            self.life.updateLife(-2)
         elif(itemType == 'ice golem'):
-            self.life.updateLife(-6)
+            self.life.updateLife(-3)
         elif(itemType == "cactus"):
-            self.life.updateLife(-10)
+            self.life.updateLife(-6)
         elif(itemType == "life plant"):
-            self.life.updateLife(60)
+            self.life.updateLife(80)
         elif(itemType == 'graveller'):
-            self.life.updateLife(-10)
+            self.life.updateLife(-5)
         elif(itemType == 'minotauro'):
-            self.life.updateLife(-7)
+            self.life.updateLife(-3)

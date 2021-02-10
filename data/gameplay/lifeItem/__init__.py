@@ -2,26 +2,28 @@ import pygame
 from data.gameplay.collisionControl import Colision
 
 
-class LifeItem(object):
+class LifeItemAndPlants(object):
     def __init__(self, screen, nivel):
         self.screen = screen
         self.nivel = nivel
         self.position = []
-        self.nrItem = 0
         self.determinatePositionOfLifItems()
         self.collision = Colision()
-        self.item = [PlantLife(self.screen) for i in range(self.nrItem)]
+        self.item = [PlantLife(self.screen) for i in range(len(self.position))]
         self.item_rects = pygame.Rect(0, 0, 0, 0)
     
     def drawingTheLifeItem(self, player_rects, scroll):
         item_list=[]
         i = 0
+        # Drawing life items
         for pos in self.position:
             if(pos[0] in range(scroll[0]-450, scroll[0]+650)):
                 item_list.append(self.item[i].draw(pos, scroll))
             else:
                 item_list.append(pygame.image.load("resources/image/life/1.png").get_rect())
+            
             i+=1
+
         if(len(self.position)!=0):
             if(self.position[0][0] < scroll[0]-250):
                 del self.position[0]      
@@ -46,16 +48,16 @@ class LifeItem(object):
     def determinatePositionOfLifItems(self):
         if(self.nivel == 0):
             self.position = [(1542, -20), (2890, 408),(3876,488), (4238, 408)]
-            self.nrItem = 4
+            self.plantPosition = [(608,120), (780,120)]
         elif(self.nivel == 1):
             self.position = [(1198,648), (2282,216), (3045,200)]
-            self.nrItem = 3
+            self.plantPosition = []
         elif(self.nivel == 2):
             self.position = [(1178,410), (3811,-40),(5673,380)]
-            self.nrItem = 3
+            self.plantPosition = []
         elif(self.nivel == 3):
             self.position = [(2474,408), (2966,232), (4081,-24),(4027,-24)]
-            self.nrItem = 4
+            self.plantPosition = []
 
 
 class PlantLife(object):
@@ -74,4 +76,3 @@ class PlantLife(object):
         rect.x = pos[0]
         rect.y = pos[1]
         return rect
-        

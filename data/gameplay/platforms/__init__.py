@@ -1,5 +1,6 @@
 import pygame
 from data.backgrounds import Backgound as Back
+from data.gameplay.plants import Plants
 
 class Plataform:
     def __init__(self, screen, nivel):
@@ -8,6 +9,7 @@ class Plataform:
         self.game_map = []
         self.positionForest_x =[]
         self.positionSwamp_x = []
+        self.plants = Plants(screen, self.nivel)
         self.determinateLevelParts()
         self.load_map()
         self.background = Back(screen)
@@ -43,19 +45,22 @@ class Plataform:
 
 
     def settingPlataform(self, scroll):
+        tile_rects = []
         self.background.movingBackgourndGamePlay(self.nivel)
+        self.plants.add(scroll)
         if((self.nivel==1)or(self.nivel==0)or(self.nivel==3)):
-            tile_rects = []
             for pos in self.positionForest_x:
                 if(pos*self.size in range(scroll[0]-450, scroll[0]+750)):
                     tile_rects += self.platformForestEnvirement(self.game_map[self.positionForest_x.index(pos)],pos,scroll)
-            return tile_rects
+
         elif(self.nivel == 2):
-            tile_rects = []
             for pos in self.positionSwamp_x:
                 if(pos*self.size in range(scroll[0]-450, scroll[0]+650)):
                     tile_rects += self.platformSwampEnvirement(self.game_map[self.positionSwamp_x.index(pos)],pos,scroll)
-            return tile_rects
+            
+        
+        return tile_rects
+        
 
 
     def platformForestEnvirement(self,game_map,pos_x,scroll):
