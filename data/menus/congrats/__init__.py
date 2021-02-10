@@ -1,9 +1,8 @@
 import pygame
 from pygame.locals import *
 
-
+# class of the congrats menu
 class Congrats(object):
-    
     def __init__(self, screen):
         self.screen = screen
         self.font = pygame.font.Font("resources/font/montserrat-font/MontserratMedium-nRxlJ.ttf", 16)
@@ -15,8 +14,8 @@ class Congrats(object):
         self.allPosition = []
         self.timeEfect = 0
         self.count = 0 
-
-
+    
+    # Method to make the buttoms to be add screen
     def displayButtoms(self):
         self.allButtom = []
         self.allPosition = []
@@ -39,6 +38,7 @@ class Congrats(object):
             self.allPosition.append((x, y))
             y += 50
 
+    # Method to control the menus choice display
     def nextLevelMenuEsc(self):
         self.back = pygame.image.load("resources/image/menu/congrats/back.png").convert_alpha()
         self.screen.blit(self.back, (0, 0))
@@ -61,10 +61,8 @@ class Congrats(object):
             line = self.font.render(text, True, (255, 255,255))
             self.screen.blit(line, ((700/2-size[0]/2), ty))
             ty += 20
-        
-       
 
-
+    # Method to control the menus move
     def drawingcongratsPainel(self):
         pressed_keys = pygame.key.get_pressed()
         if(pressed_keys[K_DOWN]):
@@ -85,12 +83,13 @@ class Congrats(object):
         # print(choice)
         return choice, True
 
+    # Method to control the choice
     def nextLevelChoise(self, pressed_keys):
         self.count += 1
-        if((pressed_keys[K_RETURN])and(self.menuControl==300)and(self.count >= 5)):
+        if((pressed_keys[K_RETURN] or pressed_keys[K_KP_ENTER])and(self.menuControl==300)and(self.count >= 5)):
             self.count = 0
             return 3
-        elif ((pressed_keys[K_RETURN])and(self.menuControl==350)and(self.count >= 5)):
+        elif ((pressed_keys[K_RETURN] or pressed_keys[K_KP_ENTER])and(self.menuControl==350)and(self.count >= 5)):
             self.count = 0
             self.menuControl = 300
             return 1

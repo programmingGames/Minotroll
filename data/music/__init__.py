@@ -12,18 +12,18 @@ class Sounds(object):
         self.golemSongs = [pygame.mixer.Sound("resources/sounds/golem/"+str(i)+".ogg") for i in range(8)]
 
     def startSounds(self):
-        self.start.set_volume(0.0881)
+        self.start.set_volume(0.3881)
         self.start.play(0)
 
     def upDownMenu(self):
         self.start.stop()
         self.menuBackSongStop()
-        self.menuMove.set_volume(0.3991)
+        self.menuMove.set_volume(0.9991)
         self.menuMove.play()
 
     def selected(self):
         self.menuBackSongStop()
-        self.select.set_volume(0.3991)
+        self.select.set_volume(0.9991)
         self.select.play()
 
     def skillschange(self):

@@ -1,6 +1,7 @@
 import pygame 
 from data.gameplay.headUpDisplay.rects import Rects
 
+#  Class that control the life box of the player
 class Life:
     def __init__(self, screen, qtlife):
         self.screen = screen
@@ -11,6 +12,7 @@ class Life:
         self.start = True
         ## pixel of the life is equal 242
 
+    # Method to update tle life in real time 
     def updateLife(self, qtlife):
         if(self.qtlife <= 218):
             if(self.qtlife+qtlife > 218):
@@ -18,6 +20,7 @@ class Life:
             else:
                 self.qtlife = self.qtlife + qtlife
 
+    # Method to blit on the screen life information
     def draw(self):
         self.screen.blit(self.lifeBox, (82, 42))
         if (self.start):
@@ -27,6 +30,7 @@ class Life:
             self.lostLifeDrawEffect()
         return self.qtlife
         
+    # Method that make the life gradient effect
     def lostLifeDrawEffect(self):
         if(self.qtlife >= 200):
             self.lifeRect.drawGradientEffect(0, self.qtlife)

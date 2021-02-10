@@ -10,7 +10,7 @@ from data.gameplay.player import Player
 from data.gameplay.platforms import Plataform
 
 
-
+# Class that control the game envirement
 class GamePlay(object):
     def __init__(self, screen, nivel, lastPassPoint,qtlife, pygameEvent, enimysKilled, greenFire, blueFire):
         # self.allEnimys = ['blue wizard', 'fire golem', 'stone golem', 'ice golem', 'blue robots', 'dark robots', 'gold robots']
@@ -36,8 +36,6 @@ class GamePlay(object):
         self.tutorialTab = False
         self. nivel = nivel # default value of the level started usualy in 0
         self.inUse = ''
-        # self.skills = 1 # default value of skills the player have
-        # self.lastPassPoint = 500 # default Value for position of the player in the platform
         self.player_rect = pygame.Rect(0, 0, 0, 0) # To control the player rects
         self.scroll = [0, 0]  # Variable to control the scroll of the screen
         self.enimyCollision = False
@@ -70,7 +68,6 @@ class GamePlay(object):
         tile_rects = []
         self.soundControl = soundControl
         self.musicControl = musicControl
-        # key_press = pygame.key.get_pressed()
         
         tile_rects = self.platform.settingPlataform(self.scroll)
         
@@ -82,13 +79,12 @@ class GamePlay(object):
         else:
             self.firing = False
         self.count += 1
-        if((self.firing)and(self.greenFire > 0)):
-            if(self.inUse == 'greenfire'):
+        if self.firing:
+            if(self.inUse == 'greenfire' and (self.greenFire > 0)):
                 self.greenFire -= 1
-            elif(self.inUse == 'bluefire'):
+            elif(self.inUse == 'bluefire' and (self.blueFire > 0)):
                 self.blueFire -= 1
             
-        
         # update after we check the collision
         self.allEnimysRectsAndTypes, self.enimysKilled, self.bossKilled = self.enimys.enimysAdd(tile_rects, self.player_rect,(self.fireEnimyColision, self.fireCollsionPos),(self.playerOnAttack[0],self.enimyCollision, self.inUse, self.playerOnAttack[1]), self.scroll)
 
@@ -139,6 +135,7 @@ class GamePlay(object):
 
         return painelState, self.player_rect, self.qtlife, self.enimysKilled, self.greenFire, self.blueFire
     
+    # Method that control the sounds
     def chekingSongs(self):
         if self.soundControl:
             if self.playerOnAttack[0] and self.inUse == "slashing" and self.soundTimer >= 20:
@@ -161,6 +158,7 @@ class GamePlay(object):
             
         self.soundTimer += 1
 
+    # Method that control the life of the player
     def controllingThePlayerLife(self):
         if (self.enimyCollision and self.playerOnAttack[0] == False):
             self.headUpDisplay.updatingPlayerLife(self.enimyType)
@@ -170,6 +168,7 @@ class GamePlay(object):
         if self.itemLifeCollision:
             self.headUpDisplay.updatingPlayerLife('life plant')
 
+    # Method that make an backgournd image to be show in level complet, pause menu, game over, ...
     def controllingTheImageOfGameOverAndLevelComplete(self, painelState):
         if(painelState==11):
             os.chdir('resources/image/menu/gamOver')
@@ -240,8 +239,8 @@ class GamePlay(object):
             pygame.image.save(surf, "back.png")
             os.chdir('../../../..')
 
+    # Method that control a little display an the game tutorial
     def tutorial(self, key):
-        
         ## controlling the key pressed
         if(key[K_TAB] and (self.tutorialParts == 0)):
             self.hiddeBackTutorial = True
@@ -339,26 +338,3 @@ class GamePlay(object):
                 self.showTutorial = False
         else:
             self.tutorialCount += 1
-
-
-
-                # print(self.player_rect.x, self.player_rect.y)
-        # key = pygame.key.get_pressed()
-        # if key[K_y] and self.count >= 10:
-        #     file = open('pos1.txt', 'a')
-        #     file.write("("+str(self.player_rect.x)+','+str(self.player_rect.y)+'), ')
-        #     file.close()
-        #     self.pos = (self.player_rect.x, self.player_rect.y)
-        #     self.count = 0
-        # if key[K_w] and self.count >= 10:
-        #     file = open('pos.txt', 'a')
-        #     file.write('self.allEnimys.append(Wizard(self.screen,('+str(self.pos[0])+','+str(self.pos[1])+'), 100))\n')
-        #     file.close()
-        #     self.count = 0
-        # elif key[K_g] and self.count >= 10:
-        #     file = open('pos.txt', 'a')
-        #     file.write('self.allEnimys.append(Golens(self.screen,('+str(self.pos[0])+','+str(self.pos[1])+'), 50))\n')
-        #     file.close()
-        #     self.count = 0
-        # self.count += 1
-        # # print(self.playerOnAttack)

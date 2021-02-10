@@ -36,7 +36,7 @@ class Controls:
         pressed_keys = pygame.key.get_pressed()
         
         self.count += 1
-        if((pressed_keys[K_RETURN])and(self.count >= 5)):
+        if((pressed_keys[K_RETURN]  or pressed_keys[K_KP_ENTER])and(self.count >= 5)):
             self.count = 0
             return 20     
                 

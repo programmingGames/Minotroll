@@ -29,6 +29,7 @@ class Minotauro:
         self.attacking = False
         self.isMe = False
 
+    # Method that control the platform collision
     def controlingCollision(self, golens_move, platform_rects, player_rect, playerOnAttack):
         rect, plat_collisions = self.collision.platformCollision(golens_move,self.rect, platform_rects)
         del rect
@@ -60,6 +61,7 @@ class Minotauro:
     def sufferingDamage(self, damage):
         self.life-=damage
 
+    # Method that control the damage of the player attack
     def collisionImpact(self):
         if(self.impactDelay <= 5):
             # self.player_rect, platformCollisions = self.collision.platformCollision(player_movement,self.player_rect,tile_rects)
@@ -73,6 +75,7 @@ class Minotauro:
                 self.rect.y -= 10
             self.impactDelay += 1
 
+    # Method that add this animys on the screen
     def add(self, platform_rects,player_rect,playerOnAttack, scroll):
         minotaur_move = [0, 0]
         if self.move_right:
@@ -109,12 +112,14 @@ class Minotauro:
         # print(self.attacking, self.move_direction)
         return self.rect, self.name
 
+    # Method that control the patrol radios Border 
     def determinateAttack(self):
         if((self.rect.x - self.initialPosition)>self.patrolRadius):
                 self.move_right = False
         elif((self.rect.x - self.initialPosition)<(-1*self.patrolRadius)):
             self.move_left = False
 
+    # All the sequence method from there are the sprites of this caracter
     def walk(self):
         self.state = 'Walking'
         if(((self.move_right)or(self.move_left))and(self.move_frame <= 17)):       
@@ -125,6 +130,7 @@ class Minotauro:
             self.imgMinotaur = pygame.image.load("resources/image/enimy/minotauro/"+self.state+"/"+self.move_direction+"/Minotaur_"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()   
         else:
             self.imgMinotaur = pygame.image.load("resources/image/enimy/minotauro/"+self.state+"/"+self.move_direction+"/Minotaur_"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
+    
     def idle(self):
         self.state = 'Idle'
         if(((not self.move_right)or(not self.move_left ))and(self.move_frame <= 11)):
@@ -135,6 +141,7 @@ class Minotauro:
             self.imgMinotaur = pygame.image.load("resources/image/enimy/minotauro/"+self.state+"/"+self.move_direction+"/Minotaur_"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
         else:
             self.imgMinotaur = pygame.image.load("resources/image/enimy/minotauro/"+self.state+"/"+self.move_direction+"/Minotaur_"+self.state+"_"+str(self.move_frame)+".png").convert_alpha()
+    
     def startAttack(self):
         self.state = 'Attacking'
         if((self.attacking)and(self.move_frame <= 11)):

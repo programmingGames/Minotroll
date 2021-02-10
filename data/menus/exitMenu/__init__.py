@@ -62,10 +62,10 @@ class ExitMenu:
                 self.menuControl -= 50
 
         self.count += 1
-        if((pressed_keys[K_RETURN])and(self.menuControl==200)and(self.count >= 5)):
+        if((pressed_keys[K_RETURN]  or pressed_keys[K_KP_ENTER])and(self.menuControl==200)and(self.count >= 5)):
             self.count = 0
             exit()
-        elif ((pressed_keys[K_RETURN])and(self.menuControl==250)and(self.count >= 5)):
+        elif ((pressed_keys[K_RETURN]  or pressed_keys[K_KP_ENTER])and(self.menuControl==250)and(self.count >= 5)):
             self.count = 0
             return False        
                 

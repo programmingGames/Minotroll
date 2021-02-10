@@ -1,8 +1,9 @@
 import random
 
+# Class of the state machine
 class SimpleEnimysAI:
     def __init__(self, patrolingRadius,attackRadius, position):
-        # self.allEnimys = ['blue wizard', 'fire golem', 'stone golem', 'ice golem', 'blue robots', 'dark robots', 'gold robots']
+        # self.allEnimys = ['blue wizard', 'fire golem', 'stone golem', 'ice golem', 'blue minotaur', 'graveller']
         self.patrolRadius = patrolingRadius
         self.attackRadius = attackRadius
         self.attacking = False
@@ -13,6 +14,7 @@ class SimpleEnimysAI:
         self.direction = random.choice(('right', 'left'))
         self.timer = 0 
 
+    # Method that activate the caracter move acording ti the state
     def activation(self, enimy_rect, player_rect):
         self.enimy_rect = enimy_rect
         if(self.timer == 50):
@@ -29,7 +31,7 @@ class SimpleEnimysAI:
             self.move_left = False
         return self.direction, self.move_right, self.move_left, self.attacking
 
-    # calculating the proximity
+    # Method that calculate the player proximity
     def calculateProximity(self, player_rect):
         if(((self.enimy_rect.x-player_rect.x)<=self.attackRadius)and((self.enimy_rect.x-player_rect.x)>= -1*self.attackRadius)):
                 if player_rect.y in range(self.enimy_rect.y-80, self.enimy_rect.y+50):
@@ -49,6 +51,7 @@ class SimpleEnimysAI:
                 self.move_left = False
                 self.move_right = True
 
+    # Method thar choice the caracter state
     def choisingMove(self):
         rand = random.random()
         if (rand<0.4):

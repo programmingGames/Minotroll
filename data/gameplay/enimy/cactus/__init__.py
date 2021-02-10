@@ -2,6 +2,7 @@ import pygame
 # import random
 from data.gameplay.collisionControl import Colision
 
+# Class that represente the cactus in the game
 class Cactus:
     def __init__(self, screen, position):
         self.screen = screen
@@ -14,7 +15,7 @@ class Cactus:
         self.cactusRects.x = position[0]
         self.cactusRects.y = position[1]
 
-
+    # Method to check platform colission
     def controlingCollision(self, move, platform_rects):
         rct, plat_collisions = self.collision.platformCollision(move,self.cactusRects, platform_rects)
         del rct
@@ -25,17 +26,14 @@ class Cactus:
         else:
             self.air_timer += 1
 
+    # Method to add the cactus
     def add(self, platform_rects,scroll):
         move = [0, 0]
-
         move[1] += self.vertical_momentum
-
         self.vertical_momentum += 0.2
         if self.vertical_momentum > 8:
             self.vertical_momentum = 8
         
-        
         self.controlingCollision(move, platform_rects)
         self.screen.blit(self.img, (self.cactusRects.x-scroll[0], self.cactusRects.y-scroll[1]))
-
         return (self.cactusRects, self.name)

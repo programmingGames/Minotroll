@@ -30,7 +30,7 @@ class Wizard:
         self.attacking = False
         self.isMe = False
 
-
+    # Method that control the platform collision
     def controlingCollision(self, wizard_move, platform_rects, player_rect, playerOnAttack):
         rect, plat_collisions = self.collision.platformCollision(wizard_move,self.rect, platform_rects)
         # right, left collision
@@ -58,6 +58,7 @@ class Wizard:
             self.impactDelay = 0
             self.collisionImpact()
 
+    # Method that control the player attack colision
     def collisionImpact(self):
         if(self.impactDelay <= 10):
             # self.player_rect, platformCollisions = self.collision.platformCollision(player_movement,self.player_rect,tile_rects)
@@ -70,8 +71,12 @@ class Wizard:
                 self.rect.x += 5
                 self.rect.y -= 10
             self.impactDelay += 1
+
+    # Method that control the damage of the player attack
     def sufferingDamage(self, damage):
         self.life-=damage
+    
+    # Method that add this animys on the screen
     def add(self, platform_rects,player_rect,playerOnAttack, scroll):
         wizard_move = [0, 0]
         if self.move_right:
@@ -109,6 +114,7 @@ class Wizard:
         # print(self.attacking, self.move_direction)
         return self.rect, self.name
 
+    # Method that control the patrol radios Border 
     def determinateAttack(self):
 
         if((self.rect.x - self.initialPosition)>self.patrolRadius):
@@ -116,6 +122,7 @@ class Wizard:
         elif((self.rect.x - self.initialPosition)<(-1*self.patrolRadius)):
             self.move_left = False
 
+    # All the sequence method from there are the sprites of this caracter
     def walk(self):
         self.state = 'walk'
         if(((self.move_right)or(self.move_left))and(self.move_frame <= 19)):

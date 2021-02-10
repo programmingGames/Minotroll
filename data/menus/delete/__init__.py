@@ -62,13 +62,13 @@ class Delete(object):
                 self.menuControl -= 50
 
         
-        if((pressed_keys[K_RETURN])and(self.menuControl==200)and(self.count >= 5)):
+        if((pressed_keys[K_RETURN] or pressed_keys[K_KP_ENTER])and(self.menuControl==200)and(self.count >= 5)):
             self.count = 0
             os.chdir('users')
             shutil.rmtree(user)
             os.chdir('..')
             return 1
-        elif ((pressed_keys[K_RETURN])and(self.menuControl==250)and(self.count >= 5)):
+        elif ((pressed_keys[K_RETURN] or pressed_keys[K_KP_ENTER])and(self.menuControl==250)and(self.count >= 5)):
             self.count = 0
             return 3
         self.count += 1

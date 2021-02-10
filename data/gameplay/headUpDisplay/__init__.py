@@ -1,15 +1,14 @@
 import pygame
 from pygame.locals import *
 from data.gameplay.headUpDisplay.life import Life
-from data.gameplay.headUpDisplay.progress import LevelProgress
 
+# Class that ilustrate the H.U.D
 class HeadUpDisplay(object):
     def __init__(self, screen, nivel, lastPassPoint, qtlife):
         self.screen = screen
         self.life = Life(self.screen, qtlife)
         self.lastPassPoint = lastPassPoint[0]
         self.qtlife = qtlife
-        self.progress = LevelProgress(self.screen, self.lastPassPoint)
         self.player = pygame.image.load("resources/image/headUpDisplay/conteiner/faceIcon.png")
         self.enimysBox = pygame.image.load("resources/image/headUpDisplay/attackinfo/enimys.png")
         self.greenFireBox = pygame.image.load("resources/image/headUpDisplay/attackinfo/greenFire.png")
@@ -28,14 +27,13 @@ class HeadUpDisplay(object):
         self.y_Active = 455
         self.timeToHidde = 0
 
-    # method to draw the HUD um the game screen
+    # Method to draw the HUD um the game screen
     def headUpDisplayScreenDraw(self, lastPassPoint, greenFire, blueFire, enimysKilled):
         self.greenFire, self.blueFire, self.enimysKilled = greenFire, blueFire, enimysKilled
         self.changeSkillsToUse()
         self.lastPassPoint = lastPassPoint
         self.screen.blit(self.player, (10, 10))
         self.qtlife = self.life.draw()
-        self.progress.draw(lastPassPoint)
         self.displaySkillsCars()
         self.showHiddenSkilssOnGameEnvirement()
         self.showFireAndEnimysInfo()
@@ -43,7 +41,8 @@ class HeadUpDisplay(object):
             return 11, self.qtlife, self.avalableSkills[self.inUse]
         else:
             return 7, self.qtlife, self.avalableSkills[self.inUse]
-        # self.screen.blit(self.lifeBox, (50, 50))
+    
+    # Method to show the player items info
     def showFireAndEnimysInfo(self):
         # enimys info
         if(len(str(self.enimysKilled))==2):
@@ -75,8 +74,9 @@ class HeadUpDisplay(object):
                 self.screen.blit(self.blueFireBox, (79, 405))
                 line = self.font.render(str(self.blueFire), True, (0, 0, 255))
                 self.screen.blit(line, (fX, 448))
+    
+    # Method to show the skills of the player on the screen
     def showSkillsOnGameEnvirement(self):
-        
         x1 = 700/2 - ((60*self.skills)/2)
         count = 0
         for (cardActive, cardDisable) in zip(self.hiddenCardsActive, self.hiddenCardsDisable):
@@ -89,8 +89,8 @@ class HeadUpDisplay(object):
             x1 += 60
             count +=1
 
+    # Method to hidde the skills on the screen
     def hiddeSkillsOnGameEnvirement(self):
-
         x1 = 700/2 - ((60*self.skills)/2)
         count = 0
         for (cardActive, cardDisable) in zip(self.hiddenCardsActive, self.hiddenCardsDisable):
@@ -103,6 +103,7 @@ class HeadUpDisplay(object):
             x1 += 60
             count += 1
 
+    # Method to control the show and hidde effect of the skills on the screen
     def showHiddenSkilssOnGameEnvirement(self):
         self.allcards = []
         self.allpos = []
@@ -124,7 +125,7 @@ class HeadUpDisplay(object):
             self.show = not self.show
             self.timeToHidde = 0
             
-
+    # Method to display to skills cards and show the one that is active
     def displaySkillsCars(self):
         x, y = 10, 85
         count = 0
@@ -136,7 +137,7 @@ class HeadUpDisplay(object):
             count += 1
             x += 29
         
-
+    # Method that control the skills that are going to be display acording to the level
     def skillOfThePlayer(self):
         if (self.nivel == 0):
             self.skills = 2
@@ -152,6 +153,7 @@ class HeadUpDisplay(object):
         self.hiddenCardsActive = [pygame.image.load("resources/image/headUpDisplay/card/"+str(i)+"-True.png")for i in range(self.skills)]
         self.hiddenCardsDisable = [pygame.image.load("resources/image/headUpDisplay/card/"+str(i)+"-False.png")for i in range(self.skills)]
     
+    # Method to control the interetions in the H.U.D
     def changeSkillsToUse(self):
         key_press = pygame.key.get_pressed()
         # controls to hidde in show the skills cards
@@ -184,6 +186,7 @@ class HeadUpDisplay(object):
         if((self.inUse == 3)and(self.greenFire<=0)or((self.inUse == 4)and (self.blueFire == 0))):
             self.inUse = 0
 
+    # Method that update the player life
     def updatingPlayerLife(self,itemType):
         # print(enimyType)
         if(itemType == 'blue wizard'):

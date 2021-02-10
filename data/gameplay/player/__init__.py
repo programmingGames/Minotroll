@@ -2,7 +2,7 @@ import pygame
 from pygame.locals import *
 from data.gameplay.collisionControl import Colision
 
-
+# Class that ilustrate the player
 class Player(object):
     def __init__(self, screen, nivel, lastPassPoint):
         self.collision = Colision()
@@ -18,9 +18,6 @@ class Player(object):
         self.player_rect=self.player_img.get_rect()
         self.player_rect.x = lastPassPoint[0]
         self.player_rect.y = lastPassPoint[1]
-        # self.player_rect.x = 5400
-        # self.player_rect.y = 0
-
         ## atributes to control the player state
         self.moving_right = False
         self.moving_left = False
@@ -36,17 +33,16 @@ class Player(object):
 
         self.vertical_momentum = 0
         self.air_timer = 0
-        # self.scrollLimit_x = 245
         self.player_screen_limit = 380
         self.nivel = nivel
         self.impactDelay = 0
         self.slashingControl = 0
         self.count = 0
         self.fireArray = []
-        # self.fire = Fire(self.screen, 'greenfire', self.player_rect, self.move_direction)
         self.enimyCollision = False
         self.enimyType = ''         
 
+    # Method that limited the player to walk back
     def controlPlayerScreenMove(self):
         ## validando o limite que o jogador pode voltar atraz
         if(self.player_rect.x <= self.player_screen_limit):
@@ -57,6 +53,7 @@ class Player(object):
         if(self.player_rect.x > self.player_screen_limit + 800):
             self.player_screen_limit += 80
 
+    # Method that control all the player move
     def playerMove(self, tile_rects, player_movement, scroll, tile_rect):
         if self.moving_right:
             if self.jumping:
@@ -74,7 +71,6 @@ class Player(object):
             self.jump()
             if self.air_timer < 8:
                 self.vertical_momentum = -15
-        
         
         if self.hurtten:
             self.hurt()
@@ -116,6 +112,7 @@ class Player(object):
 
         self.screen.blit(self.player_img,(self.player_rect.x-scroll[0],self.player_rect.y-scroll[1]))
 
+    # Method that control the fire collision
     def fireControl(self, tile_rect, scroll):
         platfcolision = []
         enimyCollision = False
@@ -136,19 +133,17 @@ class Player(object):
         for fire in self.fireArray:
             if ((fire.rect.x > self.player_rect.x + 700)or(-1*fire.rect.x > (self.player_rect.x - 700)*-1)):
                 del self.fireArray[i]
-        # print(colision)
         return enimyCollision, pos
 
+    # Method that control and blit the player on the screen
     def settingPlayer(self, tile_rects, scroll, allEnimysRectsAndType, inUse):
         self.platformCollisions = {'top':False,'bottom':False,'right':False,'left':False}
         self.skillsInUse = inUse
-        # print(self.skillsInUse)
         player_movement = [0,0]
         self.determinateMove(scroll)
         self.controlPlayerScreenMove()
         self.playerMove(tile_rects, player_movement, scroll, tile_rects)
 
-        # if(self.player_rect.x > 500):
         scroll[0] += (self.player_rect.x-scroll[0]-300)/20
         scroll[1] += (self.player_rect.y-scroll[1]-300)/10
         # Transformando a scroll em um valor inteiro 
@@ -159,6 +154,7 @@ class Player(object):
         self.collisionInpact(tile_rects, player_movement)
         return correct_scroll, self.player_rect,self.fireArray, self.enimyCollision, self.enimyType,self.fireEnimyCollision, self.fireCollisionPos, (self.attack,position)
 
+    # Methodd that control the enimys collision
     def checkingEnimysCollision(self, player_move,enimysRectsAndType):
         self.enimyRectList = []
         enimyList = []
@@ -177,9 +173,8 @@ class Player(object):
             self.hurtten = False
         return position
 
+    # Method that control the platform collision
     def collisionInpact(self, tile_rect, playerMove):
-        # player_movement=[0 , 0]
-        # print(self.attack, self.enimyCollision)
         player_rect, prePlatformCollisionsRight = self.collision.platformCollision(playerMove,pygame.Rect(self.player_rect.x + 20, self.player_rect.y ,30, 40),tile_rect)
         player_rect, prePlatformCollisionsLeft = self.collision.platformCollision(playerMove,pygame.Rect(self.player_rect.x - 20, self.player_rect.y ,30, 40),tile_rect)
         del player_rect
@@ -194,8 +189,6 @@ class Player(object):
             self.preCollisionAriaLeft.append( self.player_rect.y)
 
         if self.enimyCollision and self.attack == False:
-            # self.moving_left = False
-            # self.moving_right = False
             if((self.impactDelay <= 5)and(self.player_rect.x not in range(self.preCollisionAriaRight[0]-20, self.preCollisionAriaRight[0]+20))and (self.player_rect.x not in range(self.preCollisionAriaLeft[0]-20, self.preCollisionAriaLeft[0]+20))):
                 if(self.move_direction == 'right'):
                     self.player_rect.x -= 4
@@ -207,6 +200,7 @@ class Player(object):
             else:
                 self.enimyCollision = False
 
+    # Method that determinate the player move according to the keyboard inputs
     def determinateMove(self, scroll):
         key_press = pygame.key.get_pressed()
         if(key_press[K_RIGHT]):
@@ -257,7 +251,7 @@ class Player(object):
             self.attack = False
         self.count += 1
         
-
+    # Methods above are all related to the player sprites
     def walk(self):
         self.state = 'Walking'
         if(((self.moving_right)or(self.moving_left))and(self.move_frame <= 23)):
