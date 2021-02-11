@@ -161,11 +161,11 @@ class ControlEnimys(object):
                             enimy.sufferingDamage(0.2)
                         elif(playerAttack[2] == "battleax"):
                             enimy.sufferingDamage(0.8)
-                
-            elif(position[0] < scroll[0]-450):
+
+            elif self.nivel == 3 and position[0] < scroll[0]-350:
                 self.allEnimys.pop(i)
                 self.allEnimysPosition.pop(i)
-            if self.nivel == 3 and position[0] < scroll[0]-350:
+            elif(position[0] < scroll[0]-450):
                 self.allEnimys.pop(i)
                 self.allEnimysPosition.pop(i)
             i += 1

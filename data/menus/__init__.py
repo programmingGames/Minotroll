@@ -193,17 +193,20 @@ class Menus(object):
             os.chdir('users/'+self.user)
                 # os.remove('data.txt')
             file = open('data.txt', 'w')
-            if self.nivel != 3:
+            if self.nivel < 3:
                 self.nivel += 1
                 #          nivel      Position   Initial Life
                 if(self.nivel == 1):
                     file.write(str(self.nivel)+' '+str(500)+' '+str(88)+' '+str(218)+' '+str(0)+' '+str(5)+' '+str(0))
                 elif(self.nivel == 2):
                     file.write(str(self.nivel)+' '+str(500)+' '+str(440)+' '+str(218)+' '+str(0)+' '+str(10)+' '+str(5))
-                os.chdir('../..')
+                else:
+                    file.write(str(self.nivel)+' '+str(500)+' '+str(120)+' '+str(218)+' '+str(0)+' '+str(10)+' '+str(5))
+                
                 self.complet = not self.complet
             else:
                 file.write(str(self.nivel)+' '+str(self.player_rect.x)+' '+str(self.player_rect.y)+' '+str(self.qtlife)+' '+str(self.enimysKilled+self.currentenimysKilled)+' '+str(self.greenFire)+' '+str(self.blueFire))
+            os.chdir('../..')
             file.close()
             self.getUpdateUserData()
             # restarting the game whit new data
