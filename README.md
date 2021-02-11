@@ -1,6 +1,5 @@
 # Minotroll
 
-
 ## Titles and internal titles
 ## Introduction - the project's aim
 The development of this project is to cover to process develop of a simple 2D game.
