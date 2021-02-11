@@ -133,8 +133,9 @@ class ControlEnimys(object):
             self.allEnimys.append(Wizard(self.screen,(2720,280), 100, 8))
             self.allEnimys.append(Graveller(self.screen, (3603, 120), 250, 20))
             self.allEnimysPosition = [(2008,536), (2720,280), (2720,280), (2720,280), (3603, 120)]
-        [self.allEnimys.pop(0) for i in range(self.enimyskilled)]
-        [self.allEnimysPosition.pop(0) for i in range(self.enimyskilled)]
+        if len(self.allEnimys) and len(self.allEnimysPosition):
+            [self.allEnimys.pop(0) for i in range(self.enimyskilled)]
+            [self.allEnimysPosition.pop(0) for i in range(self.enimyskilled)]
 
     # Method that control what is the enimys that the player is attacking and control the damage cause
     def calculatingEnimyDelete(self,fireColid,playerAttack, scroll):
@@ -162,6 +163,9 @@ class ControlEnimys(object):
                             enimy.sufferingDamage(0.8)
                 
             elif(position[0] < scroll[0]-450):
+                self.allEnimys.pop(i)
+                self.allEnimysPosition.pop(i)
+            if self.nivel == 3 and position[0] < scroll[0]-350:
                 self.allEnimys.pop(i)
                 self.allEnimysPosition.pop(i)
             i += 1

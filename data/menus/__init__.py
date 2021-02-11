@@ -117,6 +117,9 @@ class Menus(object):
         elif(self.painelState == 7):
             self.painelState, self.player_rect, self.qtlife, self.currentenimysKilled, self.greenFire, self.blueFire = self.gamplay.drawingTheGamePlayEnvirement(self.soundControl, self.musicControl)
             self.map.updateProgressInMap(self.player_rect.x)
+            self.saveUserData()
+            if self.painelState != 7:
+                self.userMenu = UserMenu(self.screen)
         elif(self.painelState == 9):
             self.painelState, self.cardsActive = self.skills.movingInPainelSkills()
         elif (self.painelState == 8):
@@ -145,7 +148,7 @@ class Menus(object):
             self.painelState, self.complet = self.levelincompleted.showPainel(self.currentenimysKilled)
         elif(self.painelState == 19):
             self.painelState, self.complet = self.congrats.drawingcongratsPainel()
-            self.saveUserData()
+
         elif(self.painelState == 17):
             self.painelState = self.delete.movingInDeleteMenu(self.user)
         self.chekingSoundsToPlay()
@@ -187,20 +190,22 @@ class Menus(object):
             os.chdir('../..')
             
         else:
-            self.nivel += 1
             os.chdir('users/'+self.user)
-            # os.remove('data.txt')
+                # os.remove('data.txt')
             file = open('data.txt', 'w')
-            #          nivel      Position   Initial Life
-            if(self.nivel == 1):
-                file.write(str(self.nivel)+' '+str(500)+' '+str(88)+' '+str(218)+' '+str(0)+' '+str(5)+' '+str(0))
-            elif(self.nivel == 2):
-                file.write(str(self.nivel)+' '+str(500)+' '+str(440)+' '+str(218)+' '+str(0)+' '+str(10)+' '+str(5))
-            elif(self.nivel == 3):
-                file.write(str(self.nivel)+' '+str(500)+' '+str(200)+' '+str(218)+' '+str(0)+' '+str(10)+' '+str(5))
+            if self.nivel != 3:
+                self.nivel += 1
+                #          nivel      Position   Initial Life
+                if(self.nivel == 1):
+                    file.write(str(self.nivel)+' '+str(500)+' '+str(88)+' '+str(218)+' '+str(0)+' '+str(5)+' '+str(0))
+                elif(self.nivel == 2):
+                    file.write(str(self.nivel)+' '+str(500)+' '+str(440)+' '+str(218)+' '+str(0)+' '+str(10)+' '+str(5))
+                os.chdir('../..')
+                self.complet = not self.complet
+            else:
+                file.write(str(self.nivel)+' '+str(self.player_rect.x)+' '+str(self.player_rect.y)+' '+str(self.qtlife)+' '+str(self.enimysKilled+self.currentenimysKilled)+' '+str(self.greenFire)+' '+str(self.blueFire))
             file.close()
-            os.chdir('../..')
-            self.complet = not self.complet
+            self.getUpdateUserData()
             # restarting the game whit new data
         
     # Method that save the user data

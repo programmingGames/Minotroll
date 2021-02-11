@@ -26,7 +26,7 @@ class Initiation:
                     ('The plant of life, ', 'not only give you life but it gives you more power.'),
                     ('The end of an level, ','comes when you pass the end mark whit life, ', 'and also had killed some enimys.'),
                     ('The most powerfull enimy is Graveler, ', 'so use or skills, and ability to defeat him.'),
-                    ('You can use the walls ability, ','to jump from side to side ')
+                    ('You can use the sliding ability, ','to jump from side to side ')
                 ]
         self.randomText = self.dicas[randint(0, len(self.dicas)-1)]
 

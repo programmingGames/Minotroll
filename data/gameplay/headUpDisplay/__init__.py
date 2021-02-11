@@ -63,7 +63,7 @@ class HeadUpDisplay(object):
             gX=14
 
         if(len(str(self.blueFire))==2):
-            fX = 11
+            fX = 86
         else:
             fX=91
         if((self.skills == 4) or(self.skills == 5)):

@@ -79,10 +79,10 @@ class UserMenu(object):
 
     # Method to move in the main menu
     def movingInUserMenu(self, user):
-        if self.user != user:
-            self.loadUserData(user)
-            self.skillsOfThePlayer()
-            self.user = user
+        self.user = user
+        self.loadUserData(user)
+        self.skillsOfThePlayer()
+        
         choice = 3
         pressed_keys = pygame.key.get_pressed()
         if(pressed_keys[K_DOWN] and self.count>=5):
