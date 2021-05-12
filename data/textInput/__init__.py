@@ -50,7 +50,7 @@ class Textinput:
         keysDict = {key[K_q]:'q', key[K_w]: 'w',key[K_e]: 'e',key[K_r]:'r',key[K_t]:'t',key[K_y]:'y',
         key[K_u]: 'u',key[K_i]:'i',key[K_o]:'o',key[K_p]:'p',key[K_a]:'a',key[K_s]:'s',key[K_d]:'d',
         key[K_f]:'f',key[K_g]:'g',key[K_j]:'j',key[K_k]:'k',key[K_l]:'l',key[K_z]:'z',key[K_x]: 'x',
-        key[K_c]:'c',key[K_v]:'v',key[K_b]:'b',key[K_n]:'n',key[K_m]:'m'}
+        key[K_c]:'c',key[K_v]:'v',key[K_b]:'b',key[K_n]:'n',key[K_m]:'m',key[K_h]:'h'}
 
         text = [value for keys, value in keysDict.items() if keys]
         if len(text):
